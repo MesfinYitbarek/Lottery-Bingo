@@ -77,6 +77,16 @@
           span {
             background-color:#c70600;
             margin: 4px;
+            @keyframes disply {
+             0%{
+
+
+             }               
+            }
+            disply{
+              animation:ease-in-out 2s;
+            }
+
             &.free-space {
               overflow: hidden;
               color: #c70600;

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // Styles
 import "./sass/main.scss";
 // Images
-import logo from "./images/logo.svg";
+import logoImage from "./images/logoImage.svg";
 // Custom Components
 import About from "./components/pages/About.js";
 import BingoGame from "./components/BingoGame.js";
@@ -22,7 +22,7 @@ const routing = (
 			<div className="container row align-center">
 				<div className="col shrink">
 					<Link to="/">
-						<img src={logo} alt="Let's Play Bingo!" className="logo" />
+						<img src={logoImage} alt="Let's Play Bingo!" className="logo" />
 					</Link>
 				</div>
 				<div className="col grow padding-md no-text-wrap text-right">
@@ -64,13 +64,14 @@ const routing = (
 
 		<footer>
 			<div className="container row three-cols align-center">
-				<div className="col">For entertainment purposes only.</div>
+				{/* <div className="col">For entertainment purposes only.</div> */}
 				<div className="col text-center">
-					&copy; 2017 - {new Date().getFullYear()} <a href="mailto:hello@letsplaybingo.io">Let's Play Bingo</a>
+					&copy; 2024 - {new Date().getFullYear()} <a >lottery-bingo</a>
 				</div>
 				<div className="col text-right">
-					<Link to="/releases">Release Notes</Link> | <Link to="/terms">Terms of Use</Link> |{" "}
-					<Link to="/privacy">Cookies &amp; Privacy Policy</Link>
+					{/* <Link to="/releases">Release Notes</Link> | <Link to="/terms">Terms of Use</Link> |{" "}
+					<Link to="/privacy">Cookies &amp; Privacy Policy</Link> */}
+					contact : +251 964983544
 				</div>
 			</div>
 		</footer>

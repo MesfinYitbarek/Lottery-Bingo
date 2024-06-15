@@ -188,11 +188,13 @@ class BingoGame extends Component {
       board: generateBingoBoard(),
       previousCallList: [],
       displayBoardOnly: false,
-      delay: 6000,
+      delay: 1000,
       running: false,
       enableCaller: false,
       skipUnused: true,
       wildBingo: false,
+      wolatya:false,
+      tigrigna:false,
       evensOdds: false,
       doubleCall: false,
       extraTalk: true,
@@ -333,23 +335,346 @@ class BingoGame extends Component {
    */
   voiceCall = (ball) => {
     // call the new ball, first call it all together, then call each character individually
-    let ballstring = ball.number.toString();
+    // let ballstring = ball.number.toString();
     if (this.state.doubleCall) {
-      this.say([
-        ball.letter,
-        ball.number,
-        " ",
-        " ",
-        ball.letter,
-        " ",
-        ballstring.length === 2
-          ? [ballstring.charAt(0), " ", ballstring.charAt(1)]
-          : ball.number,
-      ]);
-    } else {
+      const femaleamharic = [ chime1, one,
+        // two,
+        // three,
+        // four,
+        // five,
+        // six,
+        // seven,
+        // eight,
+        // nine,
+        // ten,
+        // eleven,
+        // twelve,
+        // thirteen,
+        // fourteen,
+        // fifteen,
+        // sixteen,
+        // seventeen,
+        // eighteen,
+        // nineteen,
+        // twenty,
+        // twentyone,
+        // twentytwo,
+        // twentythree,
+        // twentyfour,
+        // twentyfive,
+        // twentysix,
+        // twentyseven,
+        // twentyeight,
+        // twentynine,
+        // thirty,
+        // thirtyone,
+        // thirtytwo,
+        // thirtythree,
+        // thirtyfour,
+        // thirtyfive,
+        // thirtysix,
+        // thirtyseven,
+        // thirtyeight,
+        thirtynine,
+        fourty,
+        fourtyone,
+        fourtytwo,
+        fourtythree,
+        fourtyfour,
+        fourtyfive,
+        fourtysix,
+        fourtyseven,
+        fourtyeight,
+        fourtynine,
+        fifty,
+        fiftyone,
+        fiftytwo,
+        fiftythree,
+        fiftyfour,
+        fiftyfive,
+        fiftysix,
+        fiftyseven,
+        fiftyeight,
+        fiftynine,
+        sixty,
+        sixtyone,
+        sixtytwo,
+        sixtythree,
+        sixtyfour,
+        sixtyfive,
+        sixtysix,
+        sixtyseven,
+        sixtyeight,
+        sixtynine,
+        seventy,
+        seventyone,
+        seventytwo,
+        seventythree,
+        seventyfour,
+        seventyfive]
+      if (ball.number >= 0 && ball.number <= 75) {
+        
+        let sound = new Audio(femaleamharic[ball.number]);  
+        sound.play();
+        }
+    }
+    else if(this.state.extraTalk){
+      const femaleoromic = [ chime1, one,
+        // two,
+        three,
+        four,
+        five,
+        six,
+        seven,
+        eight,
+        nine,
+        ten,
+        eleven,
+        twelve,
+        thirteen,
+        fourteen,
+        fifteen,
+        sixteen,
+        seventeen,
+        eighteen,
+        nineteen,
+        twenty,
+        twentyone,
+        twentytwo,
+        twentythree,
+        twentyfour,
+        twentyfive,
+        twentysix,
+        twentyseven,
+        twentyeight,
+        twentynine,
+        thirty,
+        thirtyone,
+        thirtytwo,
+        thirtythree,
+        thirtyfour,
+        thirtyfive,
+        thirtysix,
+        thirtyseven,
+        thirtyeight,
+        thirtynine,
+        fourty,
+        fourtyone,
+        fourtytwo,
+        fourtythree,
+        fourtyfour,
+        fourtyfive,
+        fourtysix,
+        fourtyseven,
+        fourtyeight,
+        fourtynine,
+        fifty,
+        fiftyone,
+        fiftytwo,
+        fiftythree,
+        fiftyfour,
+        fiftyfive,
+        fiftysix,
+        fiftyseven,
+        fiftyeight,
+        fiftynine,
+        sixty,
+        sixtyone,
+        sixtytwo,
+        sixtythree,
+        sixtyfour,
+        sixtyfive,
+        sixtysix,
+        sixtyseven,
+        sixtyeight,
+        sixtynine,
+        seventy,
+        seventyone,
+        seventytwo,
+        seventythree,
+        seventyfour,
+        seventyfive]
+      if (ball.number >= 0 && ball.number <= 75) {
+        
+        let sound2 = new Audio(femaleoromic [ball.number]);  
+        sound2.play();
+        }
+
+
+    }
+    else if(this.state.wolayta){
+      const femalewolayta  = [ chime1, one,
+         two,
+        three,
+        four,
+        five,
+        six,
+        seven,
+        eight,
+        nine,
+        ten,
+        eleven,
+        twelve,
+        thirteen,
+        fourteen,
+        fifteen,
+        sixteen,
+        seventeen,
+        eighteen,
+        nineteen,
+        twenty,
+        twentyone,
+        twentytwo,
+        twentythree,
+        twentyfour,
+        twentyfive,
+        twentysix,
+        twentyseven,
+        twentyeight,
+        twentynine,
+        thirty,
+        thirtyone,
+        thirtytwo,
+        thirtythree,
+        thirtyfour,
+        thirtyfive,
+        thirtysix,
+        thirtyseven,
+        thirtyeight,
+        thirtynine,
+        fourty,
+        fourtyone,
+        fourtytwo,
+        fourtythree,
+        fourtyfour,
+        fourtyfive,
+        fourtysix,
+        fourtyseven,
+        fourtyeight,
+        fourtynine,
+        fifty,
+        fiftyone,
+        fiftytwo,
+        fiftythree,
+        fiftyfour,
+        fiftyfive,
+        fiftysix,
+        fiftyseven,
+        fiftyeight,
+        fiftynine,
+        sixty,
+        sixtyone,
+        sixtytwo,
+        sixtythree,
+        sixtyfour,
+        sixtyfive,
+        sixtysix,
+        sixtyseven,
+        sixtyeight,
+        sixtynine,
+        seventy,
+        seventyone,
+        seventytwo,
+        seventythree,
+        seventyfour,
+        seventyfive]
+      if (ball.number >= 0 && ball.number <= 75) {
+        
+        let sound3 = new Audio(femalewolayta [ball.number]);  
+        sound3.play();
+        }
+
+
+    }
+    else if(this.state.tigrigna){
+      const femaletigrigna = [ chime1, one,
+        //  two,
+        three,
+        four,
+        five,
+        six,
+        seven,
+        eight,
+        nine,
+        ten,
+        eleven,
+        twelve,
+        thirteen,
+        fourteen,
+        fifteen,
+        sixteen,
+        seventeen,
+        eighteen,
+        nineteen,
+        twenty,
+        twentyone,
+        twentytwo,
+        twentythree,
+        twentyfour,
+        twentyfive,
+        twentysix,
+        twentyseven,
+        twentyeight,
+        twentynine,
+        thirty,
+        thirtyone,
+        thirtytwo,
+        thirtythree,
+        thirtyfour,
+        thirtyfive,
+        thirtysix,
+        thirtyseven,
+        thirtyeight,
+        thirtynine,
+        fourty,
+        fourtyone,
+        fourtytwo,
+        fourtythree,
+        fourtyfour,
+        fourtyfive,
+        fourtysix,
+        fourtyseven,
+        fourtyeight,
+        fourtynine,
+        fifty,
+        fiftyone,
+        fiftytwo,
+        fiftythree,
+        fiftyfour,
+        fiftyfive,
+        fiftysix,
+        fiftyseven,
+        fiftyeight,
+        fiftynine,
+        sixty,
+        sixtyone,
+        sixtytwo,
+        sixtythree,
+        sixtyfour,
+        sixtyfive,
+        sixtysix,
+        sixtyseven,
+        sixtyeight,
+        sixtynine,
+        seventy,
+        seventyone,
+        seventytwo,
+        seventythree,
+        seventyfour,
+        seventyfive]
+      if (ball.number >= 0 && ball.number <= 75) {
+        
+        let sound4 = new Audio(femaletigrigna [ball.number]);  
+        sound4.play();
+        }
+
+
+    }
+    
+    else {
     //   let sound2 = new Audio(two);
     //   sound2.play();
-	const array = [ chime1, one,
+	const maleamharic = [ chime1, one,
 		two,
 		three,
 		four,
@@ -426,70 +751,72 @@ class BingoGame extends Component {
 		seventyfive]
 	if (ball.number >= 0 && ball.number <= 75) {
 		
-		let sound = new Audio(array[ball.number]);  
-		sound.play();
-	  } else {
-		console.warn("ball.number is outside the range of 1 to 75. ");
+		let sound1 = new Audio(maleamharic[ball.number]);  
+		sound1.play();
 	  }
+    //  else if(this.state.doubleCall&& ball.number<=75) {
+    //   let sound = new Audio(array[ball.number]);  
+    //   sound.play();
+	  // }
     }
   };
 
   /**
    * Handles a wild ball call when the wild bingo game mode is active
    *
-   * @param   {Object}  ball  Object representing a ball
+    * @param   {Object}  ball  Object representing a ball
    */
-  wildBallCall = (ball) => {
-    // call the wild ball,
-    let ballstring = ball.number.toString();
-    if (this.state.extraTalk) {
-      if (this.state.evensOdds) {
-        window.setTimeout(() => {
-          this.say([
-            "The wild number ",
-            " ",
-            ball.letter,
-            " ",
-            ball.number,
-            " ",
-            " ",
-            ` mark every ${
-              ball.number % 2 === 1 ? "odd number" : "even number"
-            }`,
-          ]);
-        }, 2000);
-      } else {
-        window.setTimeout(() => {
-          this.say([
-            "The wild number ",
-            " ",
-            ball.letter,
-            " ",
-            ball.number,
-            " ",
-            " ",
-            ` mark every number ending in ${ballstring.substr(-1)}`,
-          ]);
-        }, 2000);
-      }
-    } else {
-      if (this.state.doubleCall) {
-        this.say([
-          ball.letter,
-          ball.number,
-          " ",
-          " ",
-          ball.letter,
-          " ",
-          ballstring.length === 2
-            ? [ballstring.charAt(0), " ", ballstring.charAt(1)]
-            : ball.number,
-        ]);
-      } else {
-        this.say([ball.letter, " ", ball.number]);
-      }
-    }
-  };
+  // wildBallCall = (ball) => {
+  //   // call the wild ball,
+  //   let ballstring = ball.number.toString();
+  //   if (this.state.extraTalk) {
+  //     if (this.state.evensOdds) {
+  //       window.setTimeout(() => {
+  //         this.say([
+  //           "The wild number ",
+  //           " ",
+  //           ball.letter,
+  //           " ",
+  //           ball.number,
+  //           " ",
+  //           " ",
+  //           ` mark every ${
+  //             ball.number % 2 === 1 ? "odd number" : "even number"
+  //           }`,
+  //         ]);
+  //       }, 2000);
+  //     } else {
+  //       window.setTimeout(() => {
+  //         this.say([
+  //           "The wild number ",
+  //           " ",
+  //           ball.letter,
+  //           " ",
+  //           ball.number,
+  //           " ",
+  //           " ",
+  //           ` mark every number ending in ${ballstring.substr(-1)}`,
+  //         ]);
+  //       }, 2000);
+  //     }
+  //   } else {
+  //     if (this.state.doubleCall) {
+  //       this.say([
+  //         ball.letter,
+  //         ball.number,
+  //         " ",
+  //         " ",
+  //         ball.letter,
+  //         " ",
+  //         ballstring.length === 2
+  //           ? [ballstring.charAt(0), " ", ballstring.charAt(1)]
+  //           : ball.number,
+  //       ]);
+  //     } else {
+  //       this.say([ball.letter, " ", ball.number]);
+  //     }
+  //   }
+  // };
 
   /* ------------------- Gameplay Functions */
 
@@ -507,29 +834,29 @@ class BingoGame extends Component {
 
     // Start with the Let's Play Bingo call out
     // (the .say method will not run if caller is not enabled)
-    if (this.state.wildBingo) {
-      if (this.state.enableCaller && this.state.extraTalk) {
-        this.say("Let's Play Wild Bingo!");
-        window.setTimeout(() => {
-          this.startWildBingo();
-        }, 2000);
-      } else {
-        this.startWildBingo();
-      }
-    } else {
-      if (this.state.enableCaller) {
-        if (this.state.extraTalk) {
-          this.say("Let's Play Bingo!");
-          window.setTimeout(() => {
-            this.callBingoNumber();
-          }, 2000);
-        } else {
-          this.callBingoNumber();
-        }
-      } else {
-        this.callBingoNumber();
-      }
-    }
+    // if (this.state.wildBingo) {
+    //   if (this.state.enableCaller && this.state.extraTalk) {
+    //     this.say("Let's Play Wild Bingo!");
+    //     window.setTimeout(() => {
+    //       this.startWildBingo();
+    //     }, 2000);
+    //   } else {
+    //     this.startWildBingo();
+    //   }
+    // } else {
+    //   if (this.state.enableCaller) {
+    //     if (this.state.extraTalk) {
+    //       this.say("Let's Play Bingo!");
+    //       window.setTimeout(() => {
+    //         this.callBingoNumber();
+    //       }, 2000);
+    //     } else {
+    //       this.callBingoNumber();
+    //     }
+    //   } else {
+    //     this.callBingoNumber();
+    //   }
+    // }
   };
 
   startNewAutoplayGame = () => {
@@ -551,61 +878,61 @@ class BingoGame extends Component {
     }
   };
 
-  startWildBingo = () => {
-    // Variables used for wild bingo
-    let randomBingoNumber = getRandomBingoNumber();
-    let wildNumber = randomBingoNumber.toString().slice(-1);
-    let odd = wildNumber % 2 === 1;
-    let wildBall = null;
-    let lastBall = null;
-    let board = this.state.board;
-    let totalBallsCalled = this.totalBallsCalled;
-    let previousCallList =
-      this.state.previousCallList.length > 0
-        ? [...this.state.previousCallList]
-        : [];
+  // startWildBingo = () => {
+  //   // Variables used for wild bingo
+  //   let randomBingoNumber = getRandomBingoNumber();
+  //   let wildNumber = randomBingoNumber.toString().slice(-1);
+  //   let odd = wildNumber % 2 === 1;
+  //   let wildBall = null;
+  //   let lastBall = null;
+  //   let board = this.state.board;
+  //   let totalBallsCalled = this.totalBallsCalled;
+  //   let previousCallList =
+  //     this.state.previousCallList.length > 0
+  //       ? [...this.state.previousCallList]
+  //       : [];
 
-    Object.keys(board).forEach((letter) => {
-      board[letter].forEach((number) => {
-        if (!number.called) {
-          if (number.number === randomBingoNumber) {
-            this.setState({ wildBall: letter + " " + randomBingoNumber });
-            number.called = true;
-            number.active = true;
-            wildBall = number;
-            if (this.state.enableCaller) {
-              this.wildBallCall(number);
-            }
-            totalBallsCalled++;
-            previousCallList.push(number);
-          } else if (
-            !this.state.evensOdds &&
-            number.number.toString().slice(-1) === wildNumber
-          ) {
-            lastBall = number;
-            number.called = true;
-            totalBallsCalled++;
-            previousCallList.push(number);
-          } else if (
-            this.state.evensOdds &&
-            (number.number % 2 === 1) === odd
-          ) {
-            lastBall = number;
-            number.called = true;
-            totalBallsCalled++;
-            previousCallList.push(number);
-          }
-        }
-        return number;
-      });
-      return letter;
-    });
+  //   Object.keys(board).forEach((letter) => {
+  //     board[letter].forEach((number) => {
+  //       if (!number.called) {
+  //         if (number.number === randomBingoNumber) {
+  //           this.setState({ wildBall: letter + " " + randomBingoNumber });
+  //           number.called = true;
+  //           number.active = true;
+  //           wildBall = number;
+  //           if (this.state.enableCaller) {
+  //             this.wildBallCall(number);
+  //           }
+  //           totalBallsCalled++;
+  //           previousCallList.push(number);
+  //         } else if (
+  //           !this.state.evensOdds &&
+  //           number.number.toString().slice(-1) === wildNumber
+  //         ) {
+  //           lastBall = number;
+  //           number.called = true;
+  //           totalBallsCalled++;
+  //           previousCallList.push(number);
+  //         } else if (
+  //           this.state.evensOdds &&
+  //           (number.number % 2 === 1) === odd
+  //         ) {
+  //           lastBall = number;
+  //           number.called = true;
+  //           totalBallsCalled++;
+  //           previousCallList.push(number);
+  //         }
+  //       }
+  //       return number;
+  //     });
+  //     return letter;
+  //   });
 
-    this.totalBallsCalled = totalBallsCalled;
-    this.previousBall = lastBall;
-    this.currentBall = wildBall;
-    this.setState({ board: board, previousCallList: [...previousCallList] });
-  };
+  //   this.totalBallsCalled = totalBallsCalled;
+  //   this.previousBall = lastBall;
+  //   this.currentBall = wildBall;
+  //   this.setState({ board: board, previousCallList: [...previousCallList] });
+  // };
 
   toggleGame = () => {
     let running = this.state.running;
@@ -729,7 +1056,7 @@ class BingoGame extends Component {
       clearInterval(this.interval);
       this.totalBallsCalled = totalPossibleBalls;
       this.say(
-        "Someone better have a bingo because we have run out of balls to call!"
+        "ere jemru!"
       );
       this.previousBall = this.currentBall;
       this.currentBall = null;
@@ -741,7 +1068,7 @@ class BingoGame extends Component {
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
     let sound = new Audio(this.shuffleSound);
-    let duration = 1500;
+    let duration = 800;
     for (let i = 0; i <= duration; i++) {
       window.setTimeout(() => {
         if (i === 0) {
@@ -791,22 +1118,42 @@ class BingoGame extends Component {
         this.setState({ skipUnused: e.currentTarget.checked });
         break;
       case "enable-doublecall":
+        if (this.state.enableCaller) {
+          this.setState({ enableCaller: e.currentTarget.unchecked });
+        }
         this.setState({ doubleCall: e.currentTarget.checked });
+        
         break;
       case "enable-extratalk":
+        if (this.state.doubleCall) {
+        this.setState({ doubleCall: e.currentTarget.unchecked  });
+        }
         this.setState({ extraTalk: e.currentTarget.checked });
         break;
-      case "wild-bingo":
-        this.setState({ wildBingo: e.currentTarget.checked });
+      case "wolayta":
+        if(this.state.extraTalk){
+this.setState({ extraTalk: e.currentTarget.unchecked });
+        }
+        this.setState({ wolayta: e.currentTarget.checked });
         break;
+        case "tigrigna":
+          if(this.state.wolayta){
+  this.setState({ wolayta: e.currentTarget.unchecked });
+          }
+          this.setState({ tigrigna: e.currentTarget.checked });
+          break;
       case "evens-odds":
         this.setState({ evensOdds: e.currentTarget.checked });
         break;
       case "enable-caller":
-        if (this.synth.speaking) {
-          this.cancelSpeech();
+        if (this.state.doubleCall) {
+        this.setState({doublecall: e.currentTarget.unchecked})
+          
         }
         this.setState({ enableCaller: e.currentTarget.checked });
+        
+
+       
         break;
       case "display-board":
         if (e.currentTarget.checked && this.state.running) {
@@ -1158,13 +1505,13 @@ class BingoGame extends Component {
               <CallHistory
                 calledBalls={this.state.previousCallList}
               ></CallHistory>
-
+{/* 
               <div
                 data-visibility={this.state.wildBingo ? "show" : "hide"}
                 className="white-text text-center margin-top-lg"
               >
                 <strong>Wild Ball: </strong> {this.state.wildBall}
-              </div>
+              </div> */}
             </div>
 
             {/* ----------- Gameplay Controls ------------- */}
@@ -1375,7 +1722,7 @@ class BingoGame extends Component {
                             }
                           >
                             <span className="toggle-span"></span>
-                            <span>Enable</span>
+                            <span>amharic-male</span>
                             <input
                               type="checkbox"
                               data-gamemode="enable-caller"
@@ -1386,9 +1733,9 @@ class BingoGame extends Component {
                         </div>
                         <div
                           className="col shrink padding-right-xlg mobile-no-horizontal-padding"
-                          data-visibility={
-                            this.state.enableCaller ? "show" : "hide"
-                          }
+                          // data-visibility={
+                          //   this.state.enableCaller ? "show" : "hide"
+                          // }
                         >
                           <label
                             className={
@@ -1398,7 +1745,7 @@ class BingoGame extends Component {
                             }
                           >
                             <span className="toggle-span"></span>
-                            <span>Double Call</span>
+                            <span>amharic-female</span>
                             <input
                               type="checkbox"
                               data-gamemode="enable-doublecall"
@@ -1408,10 +1755,10 @@ class BingoGame extends Component {
                           </label>
                         </div>
                         <div
-                          className="col shrink padding-right-xlg mobile-no-horizontal-padding"
-                          data-visibility={
-                            this.state.enableCaller ? "show" : "hide"
-                          }
+                          // className="col shrink padding-right-xlg mobile-no-horizontal-padding"
+                          // data-visibility={
+                          //   this.state.enableCaller ? "show" : "hide"
+                          // }
                         >
                           <label
                             className={
@@ -1419,7 +1766,7 @@ class BingoGame extends Component {
                             }
                           >
                             <span className="toggle-span"></span>
-                            <span>Chatty</span>
+                            <span>oromigna-female</span>
                             <input
                               type="checkbox"
                               data-gamemode="enable-extratalk"
@@ -1427,6 +1774,37 @@ class BingoGame extends Component {
                               checked={this.state.extraTalk}
                             ></input>
                           </label>
+                          <label
+                            className={
+                              this.state.wolayta ? "toggle checked" : "toggle"
+                            }
+                          >
+
+                            <span className="toggle-span"></span>
+                            <span>wolaytigna-female</span>
+                            <input
+                              type="checkbox"
+                              data-gamemode="wolayta"
+                              onChange={this.handleCheckbox}
+                              checked={this.state.wolayta}
+                            ></input>
+                          </label>
+                          <label
+                            className={
+                              this.state.tigrigna ? "toggle checked" : "toggle"
+                            }
+                          >
+
+                            <span className="toggle-span"></span>
+                            <span>tigrigna-female</span>
+                            <input
+                              type="checkbox"
+                              data-gamemode="tigrigna"
+                              onChange={this.handleCheckbox}
+                              checked={this.state.tigrigna}
+                            ></input>
+                          </label>
+
                         </div>
                       </div>
 
@@ -1446,7 +1824,7 @@ class BingoGame extends Component {
                   </div>
 
                   {/* ----------- Caller Selection ----------- */}
-                  <div
+                  {/* <div
                     className="row align-start justify-start"
                     data-visibility={
                       this.speechEnabled === true &&
@@ -1468,7 +1846,7 @@ class BingoGame extends Component {
                         options={this.voiceOptions}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* ----------- Chime ----------- */}
                   <div className="row no-wrap align-start justify-start">
@@ -1483,7 +1861,7 @@ class BingoGame extends Component {
                         }
                       >
                         <span className="toggle-span"></span>
-                        <span>Enable</span>
+                        <span>enable</span>
                         <input
                           type="checkbox"
                           data-gamemode="enable-chime"
@@ -1519,7 +1897,7 @@ class BingoGame extends Component {
             </div>
 
             {/* ----------- Mini Updates ------------- */}
-            <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
+            {/* <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
               <h4 className="margin-vertical-md">Retired Edition</h4>
               <p className="wrap-text small-text">
                 This edition of Let's Play Bingo has been retired. Please try
@@ -1553,7 +1931,7 @@ class BingoGame extends Component {
                 </a>
                 <br />
               </p>
-            </div>
+            </div> */}
           </div>
         </section>
       </div>

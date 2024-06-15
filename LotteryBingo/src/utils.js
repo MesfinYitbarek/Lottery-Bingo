@@ -1,5 +1,7 @@
 import React from 'react';
-import logo from './images/logo.svg';
+import logoImage from './images/logoImage.svg';
+
+
 
 /**
  * Generates the needed bingo balls
@@ -1079,7 +1081,7 @@ export const getLogoBallDisplay = () => {
     <div className="ball-display white relative notranslate">
       <div className="content">
         <div className="ball-content">
-          <img src={logo} alt="Lets Play Bingo Logo"/>
+          <img src={logoImage} alt="Lets Play Bingo Logo"/>
         </div>
       </div>
     </div>
