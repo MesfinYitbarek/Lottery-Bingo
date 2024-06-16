@@ -27,6 +27,9 @@ import {
 
 // Chimes
 import {
+  onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
+  seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
+  seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,
   one,
   two,
   three,
@@ -187,7 +190,7 @@ class BingoGame extends Component {
     return {
       board: generateBingoBoard(),
       previousCallList: [],
-      displayBoardOnly: false,
+      displayBoardOnly: true,
       delay: 1000,
       running: false,
       enableCaller: false,
@@ -337,81 +340,9 @@ class BingoGame extends Component {
     // call the new ball, first call it all together, then call each character individually
     // let ballstring = ball.number.toString();
     if (this.state.doubleCall) {
-      const femaleamharic = [ chime1, one,
-        // two,
-        // three,
-        // four,
-        // five,
-        // six,
-        // seven,
-        // eight,
-        // nine,
-        // ten,
-        // eleven,
-        // twelve,
-        // thirteen,
-        // fourteen,
-        // fifteen,
-        // sixteen,
-        // seventeen,
-        // eighteen,
-        // nineteen,
-        // twenty,
-        // twentyone,
-        // twentytwo,
-        // twentythree,
-        // twentyfour,
-        // twentyfive,
-        // twentysix,
-        // twentyseven,
-        // twentyeight,
-        // twentynine,
-        // thirty,
-        // thirtyone,
-        // thirtytwo,
-        // thirtythree,
-        // thirtyfour,
-        // thirtyfive,
-        // thirtysix,
-        // thirtyseven,
-        // thirtyeight,
-        thirtynine,
-        fourty,
-        fourtyone,
-        fourtytwo,
-        fourtythree,
-        fourtyfour,
-        fourtyfive,
-        fourtysix,
-        fourtyseven,
-        fourtyeight,
-        fourtynine,
-        fifty,
-        fiftyone,
-        fiftytwo,
-        fiftythree,
-        fiftyfour,
-        fiftyfive,
-        fiftysix,
-        fiftyseven,
-        fiftyeight,
-        fiftynine,
-        sixty,
-        sixtyone,
-        sixtytwo,
-        sixtythree,
-        sixtyfour,
-        sixtyfive,
-        sixtysix,
-        sixtyseven,
-        sixtyeight,
-        sixtynine,
-        seventy,
-        seventyone,
-        seventytwo,
-        seventythree,
-        seventyfour,
-        seventyfive]
+      const femaleamharic = [ chime1,onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
+        seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
+        seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa]
       if (ball.number >= 0 && ball.number <= 75) {
         
         let sound = new Audio(femaleamharic[ball.number]);  
@@ -1569,7 +1500,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked });
             <div className="col grow no-wrap padding-vertical-xxlg padding-horizontal-md white-text">
               <section className="game-settings">
                 {/* ----------- Gameplay Settings ---------- */}
-                <div className="row align-top justify-start">
+                {/* <div className="row align-top justify-start">
                   <div className="col shrink min-size-150 padding-horizontal-lg padding-vertical-md">
                     <h6>Gameplay Settings:</h6>
                   </div>
@@ -1603,65 +1534,16 @@ this.setState({ extraTalk: e.currentTarget.unchecked });
                         this.state.displayBoardOnly === false ? "show" : "hide"
                       }
                     >
-                      <div
-                        className="col padding-right-xlg"
-                        data-disabled={this.totalBallsCalled > 0}
-                      >
-                        <label
-                          className={
-                            this.state.wildBingo ? "toggle checked" : "toggle"
-                          }
-                        >
-                          <span className="toggle-span"></span>
-                          <span>Wild Bingo</span>
-                          <input
-                            type="checkbox"
-                            data-gamemode="wild-bingo"
-                            onChange={this.handleCheckbox}
-                            checked={this.state.wildBingo}
-                          ></input>
-                        </label>
-                      </div>
-                      <div
-                        className="col padding-right-xlg"
-                        data-disabled={
-                          !this.state.wildBingo || this.totalBallsCalled > 0
-                        }
-                      >
-                        <label
-                          className={
-                            this.state.evensOdds ? "toggle checked" : "toggle"
-                          }
-                        >
-                          <span className="toggle-span"></span>
-                          <span>Evens/Odds</span>
-                          <input
-                            type="checkbox"
-                            data-gamemode="evens-odds"
-                            onChange={this.handleCheckbox}
-                            checked={this.state.evensOdds}
-                          ></input>
-                        </label>
-                      </div>
-                      <div className="col padding-right-xlg">
-                        <label
-                          className={
-                            this.state.skipUnused ? "toggle checked" : "toggle"
-                          }
-                        >
-                          <span className="toggle-span"></span>
-                          <span>Skip Unused Numbers</span>
-                          <input
-                            type="checkbox"
-                            data-gamemode="skip-unused"
-                            onChange={this.handleCheckbox}
-                            checked={this.state.skipUnused}
-                          ></input>
-                        </label>
-                      </div>
+                     
+                    
+                      
+                     
+                  
+                    
+                   
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* ----------- Settings when using generation ---------- */}
                 <div
