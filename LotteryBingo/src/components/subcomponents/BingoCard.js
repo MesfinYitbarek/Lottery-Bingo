@@ -12,7 +12,9 @@ class BingoCard extends React.Component {
   
   render(){
     let card = this.props.card;
+    
     return(
+      
       <div className="row">
         {Object.keys(card).map((letter) => (
             <div className="col" key={"let" + letter}>
@@ -20,16 +22,21 @@ class BingoCard extends React.Component {
               <div className="card-numbers">
                 {Object.values(card[letter]).map((number, index) => (
                   <div className="card-number" key={letter + number}>
-                      {letter === "N" && index === 2 ? this.freeSpace : number}
+                      {/* {letter === "N" && index === 2 ? this.freeSpace :null} */}
                   </div>
                 ))}
               </div>
             </div>
           )
         )}
+       
+        
       </div>
+    
     )
+   
   }
+
 
 }
 export default BingoCard;

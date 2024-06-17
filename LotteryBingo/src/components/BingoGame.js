@@ -200,7 +200,7 @@ class BingoGame extends Component {
       tigrigna:false,
       evensOdds: false,
       doubleCall: false,
-      extraTalk: true,
+      extraTalk: false,
       chime: false,
       selectedChime: this.chimes[0],
       selectedCaller: null,
@@ -1049,43 +1049,43 @@ class BingoGame extends Component {
         this.setState({ skipUnused: e.currentTarget.checked });
         break;
       case "enable-doublecall":
-        if (this.state.enableCaller) {
-          this.setState({ enableCaller: e.currentTarget.unchecked });
+        if ( true ) {
+          this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
         }
         this.setState({ doubleCall: e.currentTarget.checked });
         
         break;
       case "enable-extratalk":
-        if (this.state.doubleCall) {
-        this.setState({ doubleCall: e.currentTarget.unchecked  });
+        if (true) {
+        this.setState({ doubleCall: e.currentTarget.unchecked ,wolayta: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked });
         }
         this.setState({ extraTalk: e.currentTarget.checked });
         break;
       case "wolayta":
-        if(this.state.extraTalk){
-this.setState({ extraTalk: e.currentTarget.unchecked });
+        if(true){
+this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked});
         }
         this.setState({ wolayta: e.currentTarget.checked });
         break;
         case "tigrigna":
-          if(this.state.wolayta){
-  this.setState({ wolayta: e.currentTarget.unchecked });
+          if(true){
+  this.setState({ wolayta: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,extraTalk: e.currentTarget.unchecked});
           }
           this.setState({ tigrigna: e.currentTarget.checked });
           break;
       case "evens-odds":
         this.setState({ evensOdds: e.currentTarget.checked });
         break;
-      case "enable-caller":
-        if (this.state.doubleCall) {
-        this.setState({doublecall: e.currentTarget.unchecked})
+      // case "enable-caller":
+      //   if (true) {
+      //   this.setState({doublecall: e.currentTarget.unchecked,wolayta: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked ,extraTalk: e.currentTarget.unchecked })
           
-        }
-        this.setState({ enableCaller: e.currentTarget.checked });
+      //   }
+      //   this.setState({ enableCaller: e.currentTarget.checked });
         
 
        
-        break;
+        // break;
       case "display-board":
         if (e.currentTarget.checked && this.state.running) {
           clearInterval(this.interval);
@@ -1596,7 +1596,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked });
                       >
                         {/* Only shown if speech is enabled by the browser */}
                         <div className="col shrink padding-right-xlg">
-                          <label
+                          {/* <label
                             className={
                               this.state.enableCaller
                                 ? "toggle checked"
@@ -1611,7 +1611,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked });
                               onChange={this.handleCheckbox}
                               checked={this.state.enableCaller}
                             ></input>
-                          </label>
+                          </label> */}
                         </div>
                         <div
                           className="col shrink padding-right-xlg mobile-no-horizontal-padding"
