@@ -15,6 +15,7 @@ import Privacy from "./components/pages/Privacy.js";
 import ReleaseNotes from "./components/pages/ReleaseNotes.js";
 import Terms from "./components/pages/Terms.js";
 import Patterns from "./components/pages/Patterns.js";
+import AddUsers from "./components/admin/AddUsers.js";
 
 const routing = (
 	<Router>
@@ -61,6 +62,7 @@ const routing = (
 		<Route path="/privacy" component={Privacy} />
 		<Route path="/releases" component={ReleaseNotes} />
 		<Route path="/help" component={Help} />
+		<Route path="/add-users" component={AddUsers} />
 
 		<footer>
 			<div className="container row three-cols align-center">
