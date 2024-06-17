@@ -22,7 +22,7 @@ class BingoCard extends React.Component {
               <div className="card-numbers">
                 {Object.values(card[letter]).map((number, index) => (
                   <div className="card-number" key={letter + number}>
-                      {/* {letter === "N" && index === 2 ? this.freeSpace :null} */}
+                      {letter === "N" && index === 2 ? this.freeSpace :number}
                   </div>
                 ))}
               </div>

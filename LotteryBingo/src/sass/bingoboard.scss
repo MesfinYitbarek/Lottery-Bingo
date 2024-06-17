@@ -8,11 +8,11 @@
 	.pattern-side {
 		/* Called Numbers */
 		.callNumber {
-			font-family: var(--digital-font);
+			font-family: var(--condensed-font);
 			width: 100%;
-			font-size: 3rem;
+			font-size: 4rem;
 			text-align: right;
-			color: red;
+			color: blue;
 			margin-bottom: 0.5rem;
 
 			span {
@@ -106,7 +106,7 @@
 						margin: 2px;
 						text-align: center;
 						text-transform: uppercase;
-						color: #676767;
+						color: cyan;
 						@media screen and (max-width: 700px) {
 							font-size: 10px;
 							margin: 0.25em;
@@ -116,7 +116,9 @@
 				&.selected {
 					span {
 						background-color: #c70600;
+						
 						margin: 3px;
+
 						@media screen and (max-width: 1024px) {
 							margin: 3px;
 						}
@@ -197,11 +199,38 @@
 					}
 				}
 				&.called {
-					color: #ffffff;
+					
+					border: 4px solid #fff;
+					border-radius: 10%;
+					background-color: red;
+					color:#fff ;
+
 				}
 				&.active {
-					animation: blink 1s infinite;
-					color: #ffffff;
+					
+						animation: blink-and-grow 1s infinite;
+						// font-size: 20px; /* Adjust as needed */
+						/* Optional: Add some styling here if you want */
+						/* background-color: #f0f0f0;
+						   border: 2px solid black; */
+					  
+						   color: #ffffff;
+					  @keyframes blink-and-grow {
+						0% {
+						  opacity: 1;
+						  transform: scale(1); /* Start at normal size */
+						}
+						50% {
+						  opacity: 0.5;
+						  transform: scale(2.5); /* Grow slightly */
+						}
+						100% {
+						  opacity: 1;
+						  transform: scale(1)rotate(360deg); /* Return to normal size */
+						}
+					  }
+					
+				
 				}
 			}
 		}

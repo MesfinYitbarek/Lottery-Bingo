@@ -194,7 +194,7 @@ class BingoGame extends Component {
       delay: 1000,
       running: false,
       enableCaller: false,
-      skipUnused: true,
+      skipUnused: false,
       wildBingo: false,
       wolatya:false,
       tigrigna:false,
@@ -339,7 +339,10 @@ class BingoGame extends Component {
   voiceCall = (ball) => {
     // call the new ball, first call it all together, then call each character individually
     // let ballstring = ball.number.toString();
-    if (this.state.doubleCall) {
+    if(this.state.wildBall){
+console.log("hi");
+    }
+    else if (this.state.doubleCall) {
       const femaleamharic = [ chime1,onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
         seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
         seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa]
@@ -994,7 +997,13 @@ class BingoGame extends Component {
       this.setState({ running: false });
     }
   };
+winnerCheck=()=>{
+ <div className="modal">
+ <h1>enter cardId</h1>
+ <button>check</button>
+ </div>
 
+}
   shuffleBalls = () => {
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
@@ -1049,29 +1058,32 @@ class BingoGame extends Component {
         this.setState({ skipUnused: e.currentTarget.checked });
         break;
       case "enable-doublecall":
-        if ( true ) {
-          this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
-        }
         this.setState({ doubleCall: e.currentTarget.checked });
+      
+          this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
         
+
         break;
       case "enable-extratalk":
+        this.setState({ extraTalk: e.currentTarget.checked });
         if (true) {
         this.setState({ doubleCall: e.currentTarget.unchecked ,wolayta: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked });
         }
-        this.setState({ extraTalk: e.currentTarget.checked });
+       
         break;
       case "wolayta":
+        this.setState({ wolayta: e.currentTarget.checked });
         if(true){
 this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked});
         }
-        this.setState({ wolayta: e.currentTarget.checked });
+      
         break;
         case "tigrigna":
-          if(true){
-  this.setState({ wolayta: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,extraTalk: e.currentTarget.unchecked});
-          }
           this.setState({ tigrigna: e.currentTarget.checked });
+          
+  this.setState({ wolayta: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,extraTalk: e.currentTarget.unchecked});
+          
+        
           break;
       case "evens-odds":
         this.setState({ evensOdds: e.currentTarget.checked });
@@ -1260,7 +1272,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
             <p>
               <button onClick={this.toggleResetModal}>Cancel</button>
               <button className="primaryBtn" onClick={this.confirmResetGame}>
-                Confirm
+                yes
               </button>
             </p>
           </div>
@@ -1491,6 +1503,12 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   disabled={this.state.running || this.totalBallsCalled > 0}
                 >
                   Shuffle Board
+                </button>
+                <button
+                  onClick={this.winnerCheck}
+                  disabled={this.state.running || this.totalBallsCalled === 0}
+                >
+                 winner check
                 </button>
               </section>
               {this.resetConfirmationModalDisplay}
