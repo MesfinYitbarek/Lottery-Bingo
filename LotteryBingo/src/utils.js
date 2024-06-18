@@ -174,9 +174,9 @@ export const getPresetPatterns = () => {
       label: "6 Pack As Shown",
       unusedLetters: ["G", "O"],
       pattern: {
-        B: [true, true, false, false, false],
-        I: [true, true, false, false, false],
-        N: [true, true, false, false, false],
+          B: [true, true, false, false, false],
+          I: [true, true, false, false, false],
+          N: [true, true, false, false, false],
         G: [false, false, false, false, false],
         O: [false, false, false, false, false],
       },
