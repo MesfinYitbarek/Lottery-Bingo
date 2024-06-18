@@ -19,7 +19,7 @@ import AddUsers from "./components/admin/AddUsers.js";
 
 const routing = (
 	<Router>
-		<header>
+		{/* <header>
 			<div className="container row align-center">
 				<div className="col shrink">
 					<Link to="/">
@@ -51,7 +51,7 @@ const routing = (
 					<div id="google_translate_element"></div>
 				</div>
 			</div>
-		</header>
+		</header> */}
 
 		<Route exact path="/" component={BingoGame} />
 		<Route path="/about" component={About} />

@@ -1,5 +1,7 @@
 .board-block {
-	border-bottom: 5px solid var(--primary-color);
+	// border-bottom: 5px solid var(red);
+	border:5px solid red;
+	border-radius: 1%;
 	@media screen and (max-width: 1024px) {
 		> .row {
 			align-items: center;
@@ -10,7 +12,7 @@
 		.callNumber {
 			font-family: var(--condensed-font);
 			width: 100%;
-			font-size: 4rem;
+			font-size: 2rem;
 			text-align: right;
 			color: blue;
 			margin-bottom: 0.5rem;
@@ -91,14 +93,18 @@
 					background: #efefef;
 					border: 1px solid #ffffff;
 				}
-				span {
-					position: absolute;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					border-radius: 100%;
-					margin: 0 auto;
+				nav {
+					align-items: center;
+					// top: 0;
+					// left: 0;
+					// right: 0;
+					// bottom: 0;
+					height:20px;
+					width:20px;
+					border-radius: 50%;
+					margin: .5rem;
+					animation : scaling 5s ease-in-out infinite;
+					background-color: red;
 
 					&.free-space {
 						font-size: 0.5rem;
@@ -112,22 +118,105 @@
 							margin: 0.25em;
 						}
 					}
-				}
-				&.selected {
-					span {
-						background-color: darkolivegreen;
+					&.n0{
+						color: red;
+						animation-delay: 0.2s;
 						
-						margin: 3px;
-
-						@media screen and (max-width: 1024px) {
-							margin: 3px;
-						}
-						&.free-space {
-							overflow: hidden;
-							color: #c70600;
-						}
+						animation-fill-mode: forwards;
 					}
+					&.n1{
+						color: red;
+						animation-delay: 0.4s;
+						
+						animation-fill-mode: forwards;
+					}&.n2{
+						color: red;
+						animation-delay: 0.6s;
+						
+						animation-fill-mode: forwards;
+					}&.n3{
+						color: red;
+						animation-delay: 0.8s;
+						
+						animation-fill-mode: forwards;
+					}&.n4{
+						color: red;
+						animation-delay: 1s;
+						
+						animation-fill-mode: forwards;
+					}
+			
+			
+					&.i0{
+						color: red;
+						animation-delay: 5.2s;
+						
+						animation-fill-mode: forwards;
+					}
+					&.i1{
+						color: red;
+						animation-delay: 5.4s;
+						
+						animation-fill-mode: forwards;
+					}&.i2{
+						color: red;
+						animation-delay: 5.6s;
+						
+						animation-fill-mode: forwards;
+					}&.i3{
+						color: red;
+						animation-delay: 5.8s;
+						
+						animation-fill-mode: forwards;
+					}&.i4{
+						color: red;
+						animation-delay: 6s;
+						
+						animation-fill-mode: forwards;
+					}
+
 				}
+				.loading-dot.hidden {
+					opacity: 0;
+					transition: opacity 0.5s; /* Adjust the transition duration as needed */
+				  }
+				@keyframes scaling {
+					0%{
+						transform: scale(0.2);
+						background-color: green;
+					}
+					 100%{
+						transform: scale(0.2);
+						background-color: green;
+						visibility: hidden;
+					}
+					40%{
+						transform:scale(1) ;
+						background-color: lightblue;
+					}
+					50%{
+					transform:scale(1);
+					background-color: blue;
+					}
+
+					
+				}
+				
+				// &.selected {
+				// 	span {
+				// 		background-color: darkolivegreen;
+						
+				// 		margin: 3px;
+
+				// 		@media screen and (max-width: 1024px) {
+				// 			margin: 3px;
+				// 		}
+				// 		&.free-space {
+				// 			overflow: hidden;
+				// 			color: #c70600;
+				// 		}
+				// 	}
+				// }
 				&:hover {
 					cursor: pointer;
 				}
@@ -177,7 +266,7 @@
 				font-weight: bold;
 			}
 			.ball {
-				color: #3c3c3c;
+				color: white;
 
 				button {
 					font-family: inherit;

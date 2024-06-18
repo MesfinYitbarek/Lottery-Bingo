@@ -1416,7 +1416,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                 pattern={this.state.selectedPattern}
                 update={this.handleUpdatePattern}
               />
-              <div className="padding-vertical-lg">
+              {/* <div className="padding-vertical-lg">
                 <Select
                   className="pattern-select"
                   placeholder="Choose Pattern"
@@ -1426,7 +1426,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   }}
                   options={this.presets}
                 />
-              </div>
+              </div> */}
             </div>
             <div className="col board-side">
               <BingoBoard
@@ -1439,7 +1439,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
         </section>
 
         {/* ----------- BOTTOM SECTION ------------- */}
-        <section className="game-controls dark-bg">
+        <section className="game-controls new-bg">
           <div className="container row justify-start align-start">
             {/* ----------- Current Ball Display ------------- */}
             <div className="col min-size-250 padding-vertical-xxlg padding-horizontal-md notranslate">

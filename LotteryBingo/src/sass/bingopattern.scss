@@ -72,22 +72,24 @@
             white-space: normal;
             color: #676767;
           }
+
+          &.l1{
+            background-color: #c70600;
+           }
         }
+      
         &.selected {
           span {
             background-color:#c70600;
             margin: 4px;
-           
-            disply{
-              animation:ease-in-out 2s;
-            }
-
             &.free-space {
               overflow: hidden;
               color: #c70600;
             }
           }
         }
+      
+      
         &:hover {
           cursor: pointer;
         }
