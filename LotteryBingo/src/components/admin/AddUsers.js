@@ -18,7 +18,7 @@ const AddUsers = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("/api/user/signup", {
+      const res = await fetch('http://localhost:4000/api/user/signup', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,8 +84,7 @@ const AddUsers = () => {
               onChange={handleChange}
               className=" dark:bg-slate-100  sm:w-[390px] rounded-lg border border-slate-300 p-2.5 "
             >
-              <option value={"student"}>Student</option>
-              <option value={"instructor"}>Instructor</option>
+              <option value={"customer"}>Customer</option>
               <option value={"admin"}>Admin</option>
             </select>
           </div>
