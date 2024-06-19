@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import userRouter from "./routes/users.js";
 import mongoose from "mongoose";
+import cardRouter from "./routes/cards.js";
 // Connect to MongoDB database
 mongoose
   .connect("mongodb+srv://mesfinyitbarek55:12348109@lotterybingo.knjysl9.mongodb.net/?retryWrites=true&w=majority&appName=LotteryBingo")
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/user", userRouter);
+app.use("/api/card", cardRouter);
 
 
 app.use((err, req, res, next) => {

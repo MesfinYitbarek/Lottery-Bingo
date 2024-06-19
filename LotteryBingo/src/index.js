@@ -16,6 +16,7 @@ import ReleaseNotes from "./components/pages/ReleaseNotes.js";
 import Terms from "./components/pages/Terms.js";
 import Patterns from "./components/pages/Patterns.js";
 import AddUsers from "./components/admin/AddUsers.js";
+import CardFetcher from "./components/subcomponents/CardFetcher.js";
 
 const routing = (
 	<Router>
@@ -63,6 +64,7 @@ const routing = (
 		<Route path="/releases" component={ReleaseNotes} />
 		<Route path="/help" component={Help} />
 		<Route path="/add-users" component={AddUsers} />
+		<Route path="/card" component={CardFetcher} />
 
 		<footer>
 			<div className="container row three-cols align-center">
