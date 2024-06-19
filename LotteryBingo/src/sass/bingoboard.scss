@@ -105,6 +105,8 @@
 					margin: .5rem;
 					animation : scaling 5s ease-in-out infinite;
 					background-color: red;
+					animation-duration: 30s;
+					
 
 					&.free-space {
 						font-size: 0.5rem;
@@ -176,13 +178,10 @@
 					}
 
 				}
-				.loading-dot.hidden {
-					opacity: 0;
-					transition: opacity 0.5s; /* Adjust the transition duration as needed */
-				  }
+				
 				@keyframes scaling {
-					0%{
-						transform: scale(0.2);
+					5%{
+						transform: scale(1.5);
 						background-color: green;
 					}
 					 100%{
@@ -190,14 +189,7 @@
 						background-color: green;
 						visibility: hidden;
 					}
-					40%{
-						transform:scale(1) ;
-						background-color: lightblue;
-					}
-					50%{
-					transform:scale(1);
-					background-color: blue;
-					}
+					
 
 					
 				}
