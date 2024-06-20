@@ -5,6 +5,7 @@
  *  This class is used to display the full history of the called balls
  */
 import React from 'react';
+import { FaHistory } from "react-icons/fa";
 
 class CallHistory extends React.Component {
 
@@ -68,7 +69,7 @@ class CallHistory extends React.Component {
                 )
               })}
             </div>
-            <button className="textOnly x-small-text" onClick={() => {this.setState({showFullCallHistory:true})}}>show full history</button>
+            <button className="textOnly x-small-text" onClick={() => {this.setState({showFullCallHistory:true})}}>show full history <FaHistory /></button>
             {this.fullHistoryDisplay}
           </div>
         );

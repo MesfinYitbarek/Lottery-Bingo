@@ -92,6 +92,8 @@ import seventytwo from './72.wav';
 import seventythree from './73.wav';
 import seventyfour from './74.wav';
 import seventyfive from './75.wav';
+
+
 import onefa from './B1.mp3';
 import twofa from './B2.mp3';
 import threefa from './B3.mp3';
@@ -168,10 +170,91 @@ import seventythreefa from './O73.mp3';
 import seventyfourfa from './O74.mp3';
 import seventyfivefa from './O75.mp3';
 
+import wolplaystart from './wolPlayStart.mp3';
+import onefw from './B1w.mp3'; 
+import twofw from './B2w.mp3';
+import threefw from './B3w.mp3';
+import fourfw from './B4w.mp3';
+import fivefw from './B5w.mp3';
+import sixfw from './B6w.mp3';
+import sevenfw from './B7w.mp3';
+import eightfw from './B8w.mp3';
+import ninefw from './B9w.mp3';
+import tenfw from './B10w.mp3';
+import elevenfw from './B11w.mp3';
+import twelvefw from './B12w.mp3';
+import thirteenfw from './B13w.mp3';
+import fourteenfw from './B14w.mp3';
+import fifteenfw from './B15w.mp3';
+import sixteenfw from './I16w.mp3';
+import seventeenfw from './I17w.mp3';
+import eighteenfw from './I18w.mp3';
+import nineteenfw from './I19w.mp3';
+import twentyfw from './I20w.mp3';
+import twentyonefw from './I21w.mp3';
+import twentytwofw from './I22w.mp3';
+import twentythreefw from './I23w.mp3';
+import twentyfourfw from './I24w.mp3';
+import twentyfivefw from './I25w.mp3';
+import twentysixfw from './I26w.mp3';
+import twentysevenfw from './I27w.mp3';
+import twentyeightfw from './I28w.mp3';
+import twentyninefw from './I29w.mp3';
+import thirtyfw from './I30w.mp3';
+import thirtyonefw from './N31w.mp3';
+import thirtytwofw from './N32w.mp3';
+import thirtythreefw from './N33w.mp3';
+import thirtyfourfw from './N34w.mp3';
+import thirtyfivefw from './N35w.mp3';
+import thirtysixfw from './N36w.mp3';
+import thirtysevenfw from './N37w.mp3';
+import thirtyeightfw from './N38w.mp3';
+import thirtyninefw from './N39w.mp3';
+import fortyfw from './N40w.mp3';
+import fortyonefw from './N41w.mp3';
+import fortytwofw from './N42w.mp3';
+import fortythreefw from './N43w.mp3';
+import fortyfourfw from './N44w.mp3';
+import fortyfivefw from './N45w.mp3';
+import fortysixfw from './G46w.mp3';
+import fortysevenfw from './G47w.mp3';
+import fortyeightfw from './G48w.mp3';
+import fortyninefw from './G49w.mp3';
+import fiftyfw from './G50w.mp3';
+import fiftyonefw from './G51w.mp3';
+import fiftytwofw from './G52w.mp3';
+import fiftythreefw from './G53w.mp3';
+import fiftyfourfw from './G54w.mp3';
+import fiftyfivefw from './G55w.mp3';
+import fiftysixfw from './G56w.mp3';
+import fiftysevenfw from './G57w.mp3';
+import fiftyeightfw from './G58w.mp3';
+import fiftyninefw from './G59w.mp3';
+import sixtyfw from './G60w.mp3';
+import sixtyonefw from './O61w.mp3';
+import sixtytwofw from './O62w.mp3';
+import sixtythreefw from './O63w.mp3';
+import sixtyfourfw from './O64w.mp3';
+import sixtyfivefw from './O65w.mp3';
+import sixtysixfw from './O66w.mp3';
+import sixtysevenfw from './O67w.mp3';
+import sixtyeightfw from './O68w.mp3';
+import sixtyninefw from './O69w.mp3';
+import seventyfw from './O70w.mp3';
+import seventyonefw from './O71w.mp3';
+import seventytwofw from './O72w.mp3';
+import seventythreefw from './O73w.mp3';
+import seventyfourfw from './O74w.mp3';
+import seventyfivefw from './O75w.mp3';
+
+
+
+
 //export{one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive};
 
 
-export {one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
+export {  wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
     onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
   seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
-  seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,};
+  seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,onefw,twofw,threefw,fourfw,fivefw,sixfw,sevenfw,eightfw,ninefw,tenfw,elevenfw,twelvefw,thirteenfw,fourteenfw,fifteenfw,sixteenfw,seventeenfw,eighteenfw,nineteenfw,twentyfw,twentyonefw,twentytwofw,twentythreefw,twentyfourfw,twentyfivefw,twentysixfw,twentysevenfw,twentyeightfw,twentyninefw,thirtyfw,thirtyonefw,thirtytwofw,thirtythreefw,thirtyfourfw,thirtyfivefw,thirtysixfw,thirtysevenfw,thirtyeightfw,thirtyninefw,fortyfw,fortyonefw,fortytwofw,fortythreefw,fortyfourfw,fortyfivefw,fortysixfw,fortysevenfw,fortyeightfw,fortyninefw,fiftyfw,fiftyonefw,fiftytwofw,fiftythreefw,fiftyfourfw,fiftyfivefw,fiftysixfw,fiftysevenfw,fiftyeightfw,fiftyninefw,sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,sixtyfivefw,sixtysixfw,sixtysevenfw,sixtyeightfw,sixtyninefw,seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw
+};

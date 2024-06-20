@@ -51,7 +51,7 @@ class Pattern extends React.Component {
         {Object.keys(pattern).map((letter, index) => {
           return(
             <div key={letter + index} className="row vertical-row text-center">
-              <div className="col dark-bg white-text"><span>{letter}</span></div>
+              <div className="col dark-bg white-text2"><span>{letter}</span></div>
               {Object.keys(pattern[letter]).map((number, index) => {
                 return(
                   <div key={letter + number} className={pattern[letter][number] ? 'selected col' : 'col'}>

@@ -20,7 +20,7 @@ import CardFetcher from "./components/subcomponents/CardFetcher.js";
 
 const routing = (
 	<Router>
-		{/* <header>
+		<header>
 			<div className="container row align-center">
 				<div className="col shrink">
 					<Link to="/">
@@ -29,30 +29,30 @@ const routing = (
 				</div>
 				<div className="col grow padding-md no-text-wrap text-right">
 					<ul className="menu">
-						<li>
+						{/* <li>
 							<Link to="/">Play</Link>
-						</li>
-						<li>
+						</li> */}
+						{/* <li>
 							<Link to="/generator">Cards</Link>
-						</li>
-						<li>
+						</li> */}
+						{/* <li>
 							<Link to="/help">Help</Link>
-						</li>
-						<li>
+						</li> */}
+						{/* <li>
 							<Link to="/about">About / Donate</Link>
-						</li>
-						<li>
+						</li> */}
+						{/* <li>
 							<a href="https://letsplaybingo.io" target="_blank" rel="noreferrer">
 								Latest Edition
 							</a>
-						</li>
+						</li> */}
 					</ul>
 				</div>
 				<div className="col shrink text-right margin-left-lg">
 					<div id="google_translate_element"></div>
 				</div>
 			</div>
-		</header> */}
+		</header>
 
 		<Route exact path="/" component={BingoGame} />
 		<Route path="/about" component={About} />

@@ -9,11 +9,19 @@
 import React, { Component } from "react";
 import Slider from "rc-slider";
 import Select from "react-select";
+import { FaVolumeUp,FaBell,FaRunning ,FaSearch,FaPause ,FaStepForward} from 'react-icons/fa';
+import { SiFastapi } from "react-icons/si";
+import { SlGameController } from "react-icons/sl";
+import { BiReset } from "react-icons/bi";
+import { PiShuffleDuotone } from "react-icons/pi";
+import { VscDebugStart } from "react-icons/vsc";
+
 
 // Custom Components
 import BingoBoard from "./subcomponents/BingoBoard.js";
 import Pattern from "./subcomponents/Pattern.js";
 import CallHistory from "./subcomponents/CallHistory.js";
+import { MdOutlineAssistWalker } from "react-icons/md";
 
 // Utilities
 import {
@@ -30,6 +38,14 @@ import {
   onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
   seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
   seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,
+  onefw,twofw,threefw,fourfw,fivefw,sixfw,sevenfw,eightfw,ninefw,tenfw,
+  elevenfw,twelvefw,thirteenfw,fourteenfw,fifteenfw,sixteenfw,seventeenfw,eighteenfw,nineteenfw,twentyfw,
+  twentyonefw,twentytwofw,twentythreefw,twentyfourfw,twentyfivefw,twentysixfw,twentysevenfw,twentyeightfw,twentyninefw,thirtyfw,
+  thirtyonefw,thirtytwofw,thirtythreefw,thirtyfourfw,thirtyfivefw,thirtysixfw,thirtysevenfw,thirtyeightfw,thirtyninefw,fortyfw,
+  fortyonefw,fortytwofw,fortythreefw,fortyfourfw,fortyfivefw,fortysixfw,fortysevenfw,fortyeightfw,fortyninefw,fiftyfw,fiftyonefw,
+  fiftytwofw,fiftythreefw,fiftyfourfw,fiftyfivefw,fiftysixfw,fiftysevenfw,fiftyeightfw,fiftyninefw,sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,sixtyfivefw,sixtysixfw,
+  sixtysevenfw,sixtyeightfw,sixtyninefw,seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw,  wolplaystart,
+
   one,
   two,
   three,
@@ -190,7 +206,7 @@ class BingoGame extends Component {
     return {
       board: generateBingoBoard(),
       previousCallList: [],
-      displayBoardOnly: true,
+      // displayBoardOnly: false,
       delay: 1000,
       running: false,
       enableCaller: false,
@@ -437,81 +453,16 @@ console.log("hi");
 
     }
     else if(this.state.wolayta){
-      const femalewolayta  = [ chime1, one,
-         two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        eleven,
-        twelve,
-        thirteen,
-        fourteen,
-        fifteen,
-        sixteen,
-        seventeen,
-        eighteen,
-        nineteen,
-        twenty,
-        twentyone,
-        twentytwo,
-        twentythree,
-        twentyfour,
-        twentyfive,
-        twentysix,
-        twentyseven,
-        twentyeight,
-        twentynine,
-        thirty,
-        thirtyone,
-        thirtytwo,
-        thirtythree,
-        thirtyfour,
-        thirtyfive,
-        thirtysix,
-        thirtyseven,
-        thirtyeight,
-        thirtynine,
-        fourty,
-        fourtyone,
-        fourtytwo,
-        fourtythree,
-        fourtyfour,
-        fourtyfive,
-        fourtysix,
-        fourtyseven,
-        fourtyeight,
-        fourtynine,
-        fifty,
-        fiftyone,
-        fiftytwo,
-        fiftythree,
-        fiftyfour,
-        fiftyfive,
-        fiftysix,
-        fiftyseven,
-        fiftyeight,
-        fiftynine,
-        sixty,
-        sixtyone,
-        sixtytwo,
-        sixtythree,
-        sixtyfour,
-        sixtyfive,
-        sixtysix,
-        sixtyseven,
-        sixtyeight,
-        sixtynine,
-        seventy,
-        seventyone,
-        seventytwo,
-        seventythree,
-        seventyfour,
-        seventyfive]
+      const femalewolayta  = [ chime1,onefw,twofw,threefw,fourfw,fivefw,
+        sixfw,sevenfw,eightfw,ninefw,tenfw,elevenfw,twelvefw,thirteenfw,fourteenfw,
+        fifteenfw,sixteenfw,seventeenfw,eighteenfw,nineteenfw,twentyfw,twentyonefw,twentytwofw,
+        twentythreefw,twentyfourfw,twentyfivefw,twentysixfw,twentysevenfw,twentyeightfw,twentyninefw,thirtyfw,
+        thirtyonefw,thirtytwofw,thirtythreefw,thirtyfourfw,thirtyfivefw,thirtysixfw,thirtysevenfw,thirtyeightfw,thirtyninefw,
+        fortyfw,fortyonefw,fortytwofw,fortythreefw,fortyfourfw,fortyfivefw,fortysixfw,fortysevenfw,fortyeightfw,fortyninefw,
+        fiftyfw,fiftyonefw,fiftytwofw,fiftythreefw,fiftyfourfw,fiftyfivefw,fiftysixfw,fiftysevenfw,fiftyeightfw,fiftyninefw,
+        sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,sixtyfivefw,sixtysixfw,sixtysevenfw,sixtyeightfw,sixtyninefw,
+        seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw
+      ]
       if (ball.number >= 0 && ball.number <= 75) {
         
         let sound3 = new Audio(femalewolayta [ball.number]);  
@@ -794,22 +745,41 @@ console.log("hi");
   };
 
   startNewAutoplayGame = () => {
-    if (this.state.wildBingo) {
-      this.startNewGame();
-    } else {
-      if (this.state.enableCaller) {
-        if (this.state.extraTalk) {
-          this.say("Let's Play Bingo!");
+    // if (this.state.wildBingo) {
+    //   this.startNewGame();
+    // } if {
+      if (this.state.doubleCall) {
+       
+          // this.say("Let's Play Bingo!");
+          let soundstart = new Audio(seventeenfa);  
+          soundstart.play();
           window.setTimeout(() => {
             this.toggleGame();
           }, 2000);
-        } else {
-          this.toggleGame();
+        } else if(this.state.extraTalk){
+          let soundstart1 = new Audio(seventyfa);  
+          soundstart1.play();
+          window.setTimeout(() => {
+            this.toggleGame();
+          }, 2000);
         }
-      } else {
+        else if(this.state.wolayta){
+          let soundstart1 = new Audio( wolplaystart);  
+          soundstart1.play();
+          window.setTimeout(() => {
+            this.toggleGame();
+          }, 3000);
+        }
+
+       else{
+        let soundstart2 = new Audio(seventyfa);  
+        soundstart2.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
         this.toggleGame();
       }
-    }
+    // }
   };
 
   // startWildBingo = () => {
@@ -1470,9 +1440,15 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                     }
                     disabled={this.state.running}
                   >
-                    {this.totalBallsCalled === 0
-                      ? "Start New Game"
-                      : "Call Next Number"}
+                   {this.totalBallsCalled === 0 ? (
+    <>
+      Start New Game <SlGameController />
+    </>
+  ) : (
+    <>
+      Call Next Number <FaStepForward />
+    </>
+  )}
                   </button>
 
                   <button
@@ -1487,7 +1463,15 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                         : this.toggleGame
                     }
                   >
-                    {this.state.running ? "Pause Autoplay" : "Start Autoplay"}
+                     {this.state.running ? (
+    <>
+      Pause Autoplay <FaPause />
+    </>
+  ) : (
+    <>
+      Start Autoplay  <VscDebugStart />
+    </>
+  )}
                   </button>
                 </div>
 
@@ -1495,14 +1479,14 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   onClick={this.toggleResetModal}
                   disabled={this.state.running || this.totalBallsCalled === 0}
                 >
-                  Reset Board
+                  Reset Board    <BiReset/>
                 </button>
 
                 <button
                   onClick={this.shuffleBalls}
                   disabled={this.state.running || this.totalBallsCalled > 0}
                 >
-                  Shuffle Board
+                  Shuffle Board     <PiShuffleDuotone />
                 </button>
                 <button
                   onClick={this.winnerCheck}
@@ -1572,7 +1556,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   {/* ----------- Autoplay Settings ---------- */}
                   <div className="row no-wrap align-center justify-start">
                     <div className="col shrink min-size-150 padding-horizontal-lg">
-                      <h6>Autoplay Speed:</h6>
+                      <h6>Autoplay Speed: <SiFastapi /> </h6>
                     </div>
                     <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
                       <div
@@ -1580,7 +1564,10 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                         data-disabled={this.state.displayBoardOnly}
                       >
                         <div className="col shrink padding-right-lg white-text">
+                        
                           Slower
+                          <span>&nbsp;</span>
+                          <MdOutlineAssistWalker />
                         </div>
                         <div className="col">
                           <Slider
@@ -1593,7 +1580,8 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                           />
                         </div>
                         <div className="col shrink padding-left-lg white-text">
-                          Faster
+                          Faster <span>&nbsp;</span>
+                          <FaRunning />
                         </div>
                       </div>
                     </div>
@@ -1602,7 +1590,8 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   {/* ----------- Caller ---------- */}
                   <div className="row align-start justify-start">
                     <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
-                      <h6>Audible Caller:</h6>
+                      <h6> Audible Caller: <FaVolumeUp/>  </h6>
+                     
                     </div>
                     <div className="col grow min-size-150 padding-horizontal-lg">
                       {/* Disabled if manual calling mode is on */}
@@ -1751,7 +1740,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   {/* ----------- Chime ----------- */}
                   <div className="row no-wrap align-start justify-start">
                     <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
-                      <h6>Audible Chime:</h6>
+                      <h6>Audible Chime:  <FaBell /></h6>
                     </div>
 
                     <div className="col grow padding-horizontal-lg">
@@ -1778,7 +1767,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                     data-visibility={this.state.chime ? "show" : "hide"}
                   >
                     <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
-                      <h6>Chime Selection:</h6>
+                      <h6>Chime Selection:  <FaSearch /></h6>
                     </div>
 
                     <div className="col grow padding-horizontal-lg">
