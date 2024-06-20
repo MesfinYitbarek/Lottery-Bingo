@@ -166,6 +166,16 @@ class BingoGame extends Component {
       { label: "Pop 3", value: pop3 },
       { label: "Pop 4", value: pop4 },
     ];
+    this.callers = [
+      { label: "amharic-male", value:"amh-male" },
+      { label: "amharic-female",  value:"amh-fem"  },
+      { label: "oromigna-female", value:"oro-fem"   },
+      { label: "wolatgna-female", value:"wol-fem"  },
+      { label: "tigrigna", value:"tig-fem"  },
+   
+    ];
+   
+    
     this.shuffleSound = shuffle;
 
     // Patterns
@@ -219,7 +229,7 @@ class BingoGame extends Component {
       extraTalk: false,
       chime: false,
       selectedChime: this.chimes[0],
-      selectedCaller: null,
+      selectedCaller: this.callers[0],
       selectedPattern: {
         value: this.patternPlaceholder,
         label: this.patternPlaceholder,
@@ -556,7 +566,7 @@ console.log("hi");
 
     }
     
-    else {
+    else if(this.state.enableCaller) {
     //   let sound2 = new Audio(two);
     //   sound2.play();
 	const maleamharic = [ chime1, one,
@@ -751,32 +761,42 @@ console.log("hi");
       if (this.state.doubleCall) {
        
           // this.say("Let's Play Bingo!");
-          let soundstart = new Audio(seventeenfa);  
-          soundstart.play();
+          let soundstartfa = new Audio(seventeenfa);  
+          soundstartfa.play();
           window.setTimeout(() => {
             this.toggleGame();
-          }, 2000);
+          }, 3000);
         } else if(this.state.extraTalk){
-          let soundstart1 = new Audio(seventyfa);  
-          soundstart1.play();
+          let soundstartfo = new Audio(seventyfa);  
+          soundstartfo.play();
           window.setTimeout(() => {
             this.toggleGame();
-          }, 2000);
+          }, 3000);
+        }
+        else if(this.state.enableCaller){
+          let soundstartma = new Audio(seventyfa);  
+          soundstartma.play();
+          window.setTimeout(() => {
+            this.toggleGame();
+          }, 3000);
         }
         else if(this.state.wolayta){
-          let soundstart1 = new Audio( wolplaystart);  
-          soundstart1.play();
+          let soundstartfw = new Audio( wolplaystart);  
+          soundstartfw.play();
           window.setTimeout(() => {
             this.toggleGame();
           }, 3000);
         }
 
-       else{
+       else if(this.state.tigrigna){
         let soundstart2 = new Audio(seventyfa);  
         soundstart2.play();
         window.setTimeout(() => {
           this.toggleGame();
         }, 3000);
+        this.toggleGame();
+      }
+      else{
         this.toggleGame();
       }
     // }
@@ -1025,20 +1045,20 @@ winnerCheck=()=>{
     let gamemode = e.currentTarget.dataset.gamemode;
     switch (gamemode) {
       case "skip-unused":
-        this.setState({ skipUnused: e.currentTarget.checked });
+        this.setState({ skipUnused: e.currentTarget.selected });
         break;
       case "enable-doublecall":
-        this.setState({ doubleCall: e.currentTarget.checked });
+        this.setState({ doubleCall: e.currentTarget.selected });
       
-          this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
+          // this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
         
 
         break;
       case "enable-extratalk":
-        this.setState({ extraTalk: e.currentTarget.checked });
-        if (true) {
-        this.setState({ doubleCall: e.currentTarget.unchecked ,wolayta: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked });
-        }
+        this.setState({ extraTalk: e.currentTarget.selected });
+        // if (true) {
+        // this.setState({ doubleCall: e.currentTarget.unchecked ,wolayta: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked });
+        // }
        
         break;
       case "wolayta":
@@ -1285,6 +1305,53 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
    */
   handleChooseCaller = (e) => {
     this.setState({ selectedCaller: e });
+    
+    switch(e.value){
+    case "amh-male":
+      this.setState({ enableCaller: true });
+      this.setState({ doubleCall: false });
+      this.setState({ tigrigna: false });
+      this.setState({ wolayta: false });
+      this.setState({ extraTalk: false });
+
+      break;
+      case "amh-fem":
+        this.setState({ doubleCall: true });
+        this.setState({ enableCaller: false});
+        this.setState({ tigrigna: false });
+        this.setState({ wolayta: false });
+        this.setState({ extraTalk: false });
+
+
+        break;
+        case "oro-fem":
+          this.setState({ extraTalk: true });
+          this.setState({ enableCaller: false});
+          this.setState({ doubleCall: false });
+          this.setState({ tigrigna: false });
+
+          this.setState({ wolayta: false });
+
+          break;
+        case "wol-fem":
+          this.setState({ wolayta: true });
+          this.setState({ enableCaller: false});
+          this.setState({ doubleCall: false });
+          this.setState({ extraTalk: false });
+          this.setState({ tigrigna: false });
+
+
+          break;
+          case "tig-fem":
+            this.setState({ tigrigna: true });
+            this.setState({ enableCaller: false});
+            this.setState({ doubleCall: false });
+            this.setState({ extraTalk: false });
+            this.setState({ wolatya: false });
+            break;
+        default:
+          break;
+    }
   };
 
   /**
@@ -1602,7 +1669,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                         }
                       >
                         {/* Only shown if speech is enabled by the browser */}
-                        <div className="col shrink padding-right-xlg">
+                        {/* <div className="col shrink padding-right-xlg"> */}
                           {/* <label
                             className={
                               this.state.enableCaller
@@ -1619,14 +1686,14 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                               checked={this.state.enableCaller}
                             ></input>
                           </label> */}
-                        </div>
+                        {/* </div>
                         <div
                           className="col shrink padding-right-xlg mobile-no-horizontal-padding"
                           // data-visibility={
                           //   this.state.enableCaller ? "show" : "hide"
                           // }
-                        >
-                          <label
+                        > */}
+                          {/* <label
                             className={
                               this.state.doubleCall
                                 ? "toggle checked"
@@ -1694,8 +1761,18 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                             ></input>
                           </label>
 
-                        </div>
-                      </div>
+                        </div>*/}
+                         <div className="col grow padding-horizontal-lg">
+                      <Select
+                        className="select-input"
+                        placeholder="Choose callers"
+                        menuPlacement="auto"
+                        value={this.state.selectedCaller}
+                        onChange={this.handleChooseCaller}
+                        options={this.callers}
+                      />
+                    </div>
+                      </div> 
 
                       {/* Only shown if speech is DISABLED by the browser */}
                       <div
