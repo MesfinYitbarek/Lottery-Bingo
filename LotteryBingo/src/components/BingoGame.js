@@ -157,7 +157,7 @@ class BingoGame extends Component {
     // Balls display pieces
   //  this. winAmountBox = document.querySelector('.win-amount-box');
 
-    
+ 
 this.totalBalance=1000;
   this.amount=0;
   this.startButton=0;
@@ -194,6 +194,7 @@ this.totalBalance=1000;
    
     
     this.shuffleSound = shuffle;
+    
 
     // Patterns
     this.patternPlaceholder = "Choose a pattern";
@@ -246,6 +247,7 @@ this.totalBalance=1000;
       doubleCall: false,
       extraTalk: false,
       chime: false,
+     
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
       selectedPattern: {
@@ -261,6 +263,39 @@ this.totalBalance=1000;
       },
       showResetModal: false,
       showstartModal:false,
+      isRed:false,
+      isRed3:false,
+      isRed4:false,
+      isRed5:false,
+      isRed6:false,
+      isRed7:false,
+      isRed8:false,
+      isRed9:false,
+      isRed10:false,
+      isRed11:false,
+      isRed12:false,
+      isRed13:false,
+      isRed14:false,
+      isRed15:false,
+      isRed16:false,
+      isRed17:false,
+      isRed18:false,
+      isRed19:false,
+      isRed20:false,
+      isRed21:false,
+      isRed22:false,
+      isRed23:false,
+      isRed24:false,
+      isRed25:false,
+      isRed26:false,
+      isRed27:false,
+      isRed28:false,
+      isRed29:false,
+      isRed30:false,
+      isRed31:false,
+      isRed32:false,
+      isRed33:false,
+
     };
   }
 
@@ -274,6 +309,14 @@ this.totalBalance=1000;
     this.loadVoices();
     // ensure the reset modal doesn't show at initial load
     this.setState({ showResetModal: false });
+    // let running = this.state.running;
+    if (this.totalBallsCalled > 0) {
+      this.startButton=1;
+    }
+    else{
+    this.startButton=0;
+    }
+   this.amount=this.state.amount;
   }
 
   /**
@@ -665,7 +708,7 @@ console.log("hi");
 
   /* ------------------- Gameplay Functions */
 
-  startNewGame = () => {
+  // startNewGame = () => {
 
   //  this.setState(this.startButton:startButton+1);
   
@@ -707,7 +750,7 @@ console.log("hi");
     //     this.callBingoNumber();
     //   }
     // }
-  };
+  // };
 
   startNewAutoplayGame = () => {
     // if (this.state.wildBingo) {
@@ -1270,15 +1313,67 @@ console.log("hi");
 
 
 
+
+
+
+  // getstartConfirmationModalDisplay = () => {
+  //   if (showStartModal) {
+  //     return (
+  //       <div>
+  //         <div className="modal">
+  //           <h4>Enter bet amount</h4>
+  //           <input
+  //             type="number"
+  //             placeholder="Bet Amount"
+  //             required
+  //             value={betAmount}
+  //             onChange={handleBetAmountChange}
+  //           />
+  //           <div className="ball-grid">
+  //             {/* Generate 100 balls with numbers 1-100 */}
+  //             {Array.from({ length: 100 }, (_, i) => i + 1).map((number) => (
+  //               <div
+  //                 key={number}
+  //                 className={ball ${selectedBalls.includes(number) ? 'selected' : ''}}
+  //                 onClick={() => handleBallClick(number)}
+  //               >
+  //                 {number}
+  //               </div>
+  //             ))}
+  //           </div>
+  //           <p>Total Amount: {betAmount * selectedBalls.length}</p>
+  //           <p>Are you sure you want to reset the game?</p>
+  //           <p>
+  //             <button onClick={togglestartModal}>Cancel</button>
+  //             <button className="primaryBtn" onClick={confirmstartGame}>
+  //               Done
+  //             </button>
+  //           </p>
+  //         </div>
+  //         <div
+  //           className="modal-backdrop"
+  //           onClick={(e) => {
+  //             e.preventDefault();
+  //           }}
+  //         ></div>
+  //       </div>
+  //     );
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
   get startConfirmationModalDisplay() {
+    
     if (this.state.showstartModal === true) {
       let balance =this.totalBalance;
         return (
             <div>
                 <div className="modal">
-                    <h4>Enter bet amount</h4>
-                    <input type="number" placeholder="Bet Amount" required onChange={this.handleBetAmountChange} />
-                    <label>Number of Cards:</label>
+                 
+                  <div>
+                <h5>Enter bet amount</h5>  <input type="number" placeholder="Bet Amount" required onChange={this.handleBetAmountChange} />
+                </div> <label>Number of Cards:</label>
                     <div className="number-input">
                         <button onClick={this.decrementCards}>-</button>
                         <input type="number" value={this.state.cardCount} onChange={this.handleCardCountChange} />
@@ -1290,11 +1385,93 @@ console.log("hi");
                         This action <strong>cannot</strong> be undone.
                     </p> */}
                     <p>
-                     
+              
                         <button onClick={this.togglestartModal}>Cancel</button>
-                        <button color="primary" onClick={this.confirmstartGame} disabled={this.state.amount  === 0 || balance===0}>Done</button>
+                        <button className="primaryBtn" onClick={this.confirmstartGame} disabled={this.state.amount  === 0 || balance===0}>Done</button>
                     </p>
+                    <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'}>
+      1
+    </button>
+                <button onClick={this.state.isRed2 ? this.decrementCards2 :this.incrementCards2}  className={ this.state.isRed2 ? 'red' : 'bt'}>2</button>
+                <button onClick={this.state.isRed3 ? this.decrementCards3 :this.incrementCards3} className={ this.state.isRed3 ? 'red' : 'bt'} >3</button>
+                <button onClick={this.state.isRed4 ? this.decrementCards4 :this.incrementCards4} className={ this.state.isRed4 ? 'red' : 'bt'} >4</button>
+                <button onClick={this.state.isRed5 ? this.decrementCards5 :this.incrementCards5} className={ this.state.isRed5 ? 'red' : 'bt'} >5</button>
+                <button onClick={this.state.isRed6 ? this.decrementCards6 :this.incrementCards6} className={ this.state.isRed6 ? 'red' : 'bt'} >6</button>
+                <button onClick={this.state.isRed7 ? this.decrementCards7 :this.incrementCards7} className={ this.state.isRed7 ? 'red' : 'bt'} >7</button>
+                <button onClick={this.state.isRed8 ? this.decrementCards8 :this.incrementCards8} className={ this.state.isRed8? 'red' : 'bt'} >8</button>
+                <button onClick={this.state.isRed9 ? this.decrementCards9 :this.incrementCards9} className={ this.state.isRed9 ? 'red' : 'bt'} >9</button>
+                <button onClick={this.state.isRed10 ? this.decrementCards10 :this.incrementCards10} className={ this.state.isRed10? 'red' : 'bt'} >10</button>
+                <button onClick={this.state.isRed11 ? this.decrementCards11 :this.incrementCards11} className={ this.state.isRed11 ? 'red' : 'bt'} >11</button>
+                <button onClick={this.state.isRed12 ? this.decrementCards12 :this.incrementCards12} className={ this.state.isRed12 ? 'red' : 'bt'} >12</button>
+                <button onClick={this.state.isRed13 ? this.decrementCards13 :this.incrementCards13} className={ this.state.isRed13 ? 'red' : 'bt'} >13</button>
+                <button onClick={this.state.isRed14 ? this.decrementCards14 :this.incrementCards14} className={ this.state.isRed14 ? 'red' : 'bt'} >14</button>
+                <button onClick={this.state.isRed15 ? this.decrementCards15 :this.incrementCards15} className={ this.state.isRed15 ? 'red' : 'bt'} >15</button>
+                <button onClick={this.state.isRed16 ? this.decrementCards16 :this.incrementCards16} className={ this.state.isRed16 ? 'red' : 'bt'} >16</button>
+                <button onClick={this.state.isRed17 ? this.decrementCards17 :this.incrementCards17} className={ this.state.isRed17 ? 'red' : 'bt'} >17</button>
+                <button onClick={this.state.isRed18 ? this.decrementCards18 :this.incrementCards18} className={ this.state.isRed18 ? 'red' : 'bt'} >18</button>
+                <button onClick={this.state.isRed19 ? this.decrementCards19 :this.incrementCards19} className={ this.state.isRed19 ? 'red' : 'bt'} >19</button>
+                <button onClick={this.state.isRed20 ? this.decrementCards20 :this.incrementCards20} className={ this.state.isRed20 ? 'red' : 'bt'} >20</button>
+                <button onClick={this.state.isRed21 ? this.decrementCards21 :this.incrementCards21} className={ this.state.isRed21 ? 'red' : 'bt'} >21</button>
+                <button onClick={this.state.isRed22 ? this.decrementCards22 :this.incrementCards22} className={ this.state.isRed22 ? 'red' : 'bt'} >22</button>
+                <button onClick={this.state.isRed23 ? this.decrementCards23 :this.incrementCards23} className={ this.state.isRed23 ? 'red' : 'bt'} >23</button>
+                <button onClick={this.state.isRed24 ? this.decrementCards24 :this.incrementCards24} className={ this.state.isRed24 ? 'red' : 'bt'} >24</button>
+                <button onClick={this.state.isRed25 ? this.decrementCards25 :this.incrementCards25} className={ this.state.isRed25 ? 'red' : 'bt'} >25</button>
+                <button onClick={this.state.isRed26 ? this.decrementCards26 :this.incrementCards26} className={ this.state.isRed26 ? 'red' : 'bt'} >26</button>
+                <button onClick={this.state.isRed27 ? this.decrementCards27 :this.incrementCards27} className={ this.state.isRed27 ? 'red' : 'bt'} >27</button>
+                <button onClick={this.state.isRed28 ? this.decrementCards28 :this.incrementCards28} className={ this.state.isRed28 ? 'red' : 'bt'} >28</button>
+                <button onClick={this.state.isRed29 ? this.decrementCards29 :this.incrementCards29} className={ this.state.isRed29 ? 'red' : 'bt'} >29</button>
+                <button onClick={this.state.isRed30 ? this.decrementCards30 :this.incrementCards30} className={ this.state.isRed30 ? 'red' : 'bt'} >30</button>
+                <button onClick={this.state.isRed31 ? this.decrementCards31 :this.incrementCards31} className={ this.state.isRed31 ? 'red' : 'bt'} >31</button>
+                <button onClick={this.state.isRed32 ? this.decrementCards32 :this.incrementCards32} className={ this.state.isRed32 ? 'red' : 'bt'} >32</button>
+                <button onClick={this.state.isRed33 ? this.decrementCards33 :this.incrementCards33} className={ this.state.isRed33 ? 'red' : 'bt'} >33</button>
+                {/* <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >34</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >35</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >36</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >37</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >38</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >39</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >40</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >41</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >42</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >43</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >44</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >45</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >46</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >47</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >48</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >49</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >50</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >51</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >52</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >53</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >54</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >55</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >56</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >57</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >58</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >59</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >60</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >61</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >62</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >63</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >64</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >65</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >66</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >67</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >68</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >69</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >70</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >71</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >72</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >73</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >74</button>
+                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >75</button>
+                */}
                 </div>
+              
+                
+                
+
                 <div
                     className="modal-backdrop"
                     onClick={(e) => {
@@ -1325,6 +1502,16 @@ handleCardCountChange = (e) => {
 };
 
 incrementCards = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards2 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed2: true });
     this.setState((prevState) => ({
         cardCount: prevState.cardCount + 1,
         amount: prevState.betAmount * (prevState.cardCount + 1),
@@ -1332,6 +1519,9 @@ incrementCards = () => {
 };
 
 decrementCards = () => {
+  const currentState01 = this.state.isRed;
+  this.setState({ isRed: !currentState01 });
+
     if (this.state.cardCount > 0) {
         this.setState((prevState) => ({
             cardCount: prevState.cardCount - 1,
@@ -1339,6 +1529,625 @@ decrementCards = () => {
         }));
     }
 };
+decrementCards2 = () => {
+  const currentState2 = this.state.isRed2;
+  this.setState({ isRed2: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards3 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed3: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards3 = () => {
+  const currentState01 = this.state.isRed3;
+  this.setState({ isRed3: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards4 = () => {
+  const currentState2 = this.state.isRed4;
+  this.setState({ isRed4: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards4 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed4: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards5 = () => {
+  const currentState01 = this.state.isRed5;
+  this.setState({ isRed5: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards6= () => {
+  const currentState2 = this.state.isRed6;
+  this.setState({ isRed6: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards5 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed5: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards7 = () => {
+  const currentState01 = this.state.isRed7;
+  this.setState({ isRed7: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards8 = () => {
+  const currentState2 = this.state.isRed8;
+  this.setState({ isRed8: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards6 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed6: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards9 = () => {
+  const currentState01 = this.state.isRed9;
+  this.setState({ isRed: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards10 = () => {
+  const currentState2 = this.state.isRed10;
+  this.setState({ isRed10: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards7 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed7: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards11 = () => {
+  const currentState01 = this.state.isRed11;
+  this.setState({ isRed11: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards12 = () => {
+  const currentState2 = this.state.isRed12;
+  this.setState({ isRed12: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards8= () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed8: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards13 = () => {
+  const currentState01 = this.state.isRed13;
+  this.setState({ isRed13: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards14 = () => {
+  const currentState2 = this.state.isRed14;
+  this.setState({ isRed14: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards9 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed9: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards15 = () => {
+  const currentState01 = this.state.isRed15;
+  this.setState({ isRed15: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards16 = () => {
+  const currentState2 = this.state.isRed16;
+  this.setState({ isRed16: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards10 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed10: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards17 = () => {
+  const currentState01 = this.state.isRed17;
+  this.setState({ isRed17: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards18 = () => {
+  const currentState2 = this.state.isRed18;
+  this.setState({ isRed18: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards11 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed11: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards19 = () => {
+  const currentState01 = this.state.isRed19;
+  this.setState({ isRed19: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards20 = () => {
+  const currentState2 = this.state.isRed20;
+  this.setState({ isRed20: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards12 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed12: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards21 = () => {
+  const currentState01 = this.state.isRed21;
+  this.setState({ isRed21: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards22 = () => {
+  const currentState2 = this.state.isRed22;
+  this.setState({ isRed22: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+
+incrementCards13 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed13: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards23 = () => {
+  const currentState01 = this.state.isRed23;
+  this.setState({ isRed23: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards24 = () => {
+  const currentState2 = this.state.isRed24;
+  this.setState({ isRed24: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards14 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed14: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards25 = () => {
+  const currentState01 = this.state.isRed25;
+  this.setState({ isRed25: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards26 = () => {
+  const currentState2 = this.state.isRed26;
+  this.setState({ isRed26: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards15 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed15: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards27 = () => {
+  const currentState01 = this.state.isRed27;
+  this.setState({ isRed27: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards28 = () => {
+  const currentState2 = this.state.isRed28;
+  this.setState({ isRed28: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards16 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed16: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards29 = () => {
+  const currentState01 = this.state.isRed29;
+  this.setState({ isRed29: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards30 = () => {
+  const currentState2 = this.state.isRed30;
+  this.setState({ isRed30: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards17 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed17: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards31 = () => {
+  const currentState01 = this.state.isRed31;
+  this.setState({ isRed31: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+decrementCards32 = () => {
+  const currentState2 = this.state.isRed32;
+  this.setState({ isRed32: !currentState2 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+incrementCards18 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed18: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards33 = () => {
+  const currentState01 = this.state.isRed33;
+  this.setState({ isRed33: !currentState01 });
+
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+
+incrementCards19 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed19: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+
+incrementCards20 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed20: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards21 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed21: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards22 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed22: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards23 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed23: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards24 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed24: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards25 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed25: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards26 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed26: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards27 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed27: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards28 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed28: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards29 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed29: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards30 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed30: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+incrementCards31 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed31: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};incrementCards32 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed32: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};incrementCards33 = () => {
+  // const currentState2 = this.state.isRed;
+    this.setState({ isRed33: true });
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
 
 
 
@@ -1370,49 +2179,53 @@ decrementCards = () => {
     this.setState({ selectedCaller: e });
     
     switch(e.value){
-    case "amh-male":
-      this.setState({ enableCaller: true });
-      this.setState({ doubleCall: false });
-      this.setState({ tigrigna: false });
-      this.setState({ wolayta: false });
-      this.setState({ extraTalk: false });
-
-      break;
-      case "amh-fem":
-        this.setState({ doubleCall: true });
-        this.setState({ enableCaller: false});
-        this.setState({ tigrigna: false });
-        this.setState({ wolayta: false });
-        this.setState({ extraTalk: false });
-
-
+      case "amh-male":
+        this.setState({ 
+          enableCaller: true,
+          doubleCall: false,
+          tigrigna: false,
+          wolayta: false,
+          extraTalk: false
+        });
         break;
-        case "oro-fem":
-          this.setState({ extraTalk: true });
-          this.setState({ enableCaller: false});
-          this.setState({ doubleCall: false });
-          this.setState({ tigrigna: false });
-
-          this.setState({ wolayta: false });
-
-          break;
-        case "wol-fem":
-          this.setState({ wolayta: true });
-          this.setState({ enableCaller: false});
-          this.setState({ doubleCall: false });
-          this.setState({ extraTalk: false });
-          this.setState({ tigrigna: false });
-
-
-          break;
-          case "tig-fem":
-            this.setState({ tigrigna: true });
-            this.setState({ enableCaller: false});
-            this.setState({ doubleCall: false });
-            this.setState({ extraTalk: false });
-            this.setState({ wolatya: false });
-            break;
-        default:
+      case "amh-fem":
+        this.setState({ 
+          doubleCall: true,
+          enableCaller: false,
+          tigrigna: false,
+          wolayta: false,
+          extraTalk: false
+        });
+        break;
+      case "oro-fem":
+        this.setState({ 
+          extraTalk: true,
+          enableCaller: false,
+          doubleCall: false,
+          tigrigna: false,
+          wolayta: false
+        });
+        break;
+      case "wol-fem":
+        this.setState({ 
+          wolayta: true,
+          enableCaller: false,
+          doubleCall: false,
+          extraTalk: false,
+          tigrigna: false
+        });
+        break;
+      case "tig-fem":
+        this.setState({ 
+          tigrigna: true,
+          wolayta: false,
+          enableCaller: false,
+          doubleCall: false,
+          extraTalk: false
+        });
+        break;
+    
+    default:
           break;
     }
   };
@@ -1621,12 +2434,7 @@ decrementCards = () => {
                 >
                   Shuffle Board     <PiShuffleDuotone />
                 </button>
-                <button
-                  onClick={this.winnerCheck}
-                  disabled={this.state.running || this.totalBallsCalled === 0}
-                >
-                 winner check
-                </button>
+               
               </section>
               {this.resetConfirmationModalDisplay}
               {this.startConfirmationModalDisplay}

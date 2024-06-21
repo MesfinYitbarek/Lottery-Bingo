@@ -94,6 +94,12 @@ button {
 			border-color: var(--primary-color);
 		}
 	}
+	&.bt{
+		border-radius: 50%;
+	}
+	&.red {
+		background-color: red;
+	  }
 	&.play-button {
 		background-color: green;
 		border-color: green;
