@@ -6,7 +6,10 @@
  * http://github.com/karolbrennan
  */
 // Dependencies
-import React, { Component } from "react";
+import React, { Component} from "react";
+
+
+
 import Slider from "rc-slider";
 import Select from "react-select";
 import { FaVolumeUp,FaBell,FaRunning ,FaSearch,FaPause ,FaStepForward} from 'react-icons/fa';
@@ -15,6 +18,8 @@ import { SlGameController } from "react-icons/sl";
 import { BiReset } from "react-icons/bi";
 import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
+import { FcMoneyTransfer } from "react-icons/fc";
+import { GiPodiumWinner } from "react-icons/gi";
 
 
 // Custom Components
@@ -144,6 +149,12 @@ class BingoGame extends Component {
     super(props);
     // -------------------------- Set properties ----- //
     // Balls display pieces
+  //  this. winAmountBox = document.querySelector('.win-amount-box');
+
+    
+
+  this.amount=100;
+  this.startButton=0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
     this.currentBall = null;
@@ -219,6 +230,7 @@ class BingoGame extends Component {
       // displayBoardOnly: false,
       delay: 1000,
       running: false,
+      startButton:false,
       enableCaller: false,
       skipUnused: false,
       wildBingo: false,
@@ -716,16 +728,21 @@ console.log("hi");
   /* ------------------- Gameplay Functions */
 
   startNewGame = () => {
-    // Obtain all randomized balls
-    let byteArray = new Uint8Array(1);
-    let randomVals = [];
 
-    while (randomVals.length < 75) {
-      let randomVal = window.crypto.getRandomValues(byteArray)[0];
-      if (randomVal > 0 && randomVal <= 75 && !randomVals.includes(randomVal)) {
-        randomVals.push(randomVal);
-      }
-    }
+   this.setState(this.startButton:startButton+1);
+  
+
+
+    // Obtain all randomized balls
+    // let byteArray = new Uint8Array(1);
+    // let randomVals = [];
+
+    // while (randomVals.length < 75) {
+    //   let randomVal = window.crypto.getRandomValues(byteArray)[0];
+    //   if (randomVal > 0 && randomVal <= 75 && !randomVals.includes(randomVal)) {
+    //     randomVals.push(randomVal);
+    //   }
+    // }
 
     // Start with the Let's Play Bingo call out
     // (the .say method will not run if caller is not enabled)
@@ -987,13 +1004,13 @@ console.log("hi");
       this.setState({ running: false });
     }
   };
-winnerCheck=()=>{
- <div className="modal">
- <h1>enter cardId</h1>
- <button>check</button>
- </div>
+// winnerCheck=()=>{
+//  <div className="modal">
+//  <h1>enter cardId</h1>
+//  <button>check</button>
+//  </div>
 
-}
+// }
   shuffleBalls = () => {
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
@@ -1031,6 +1048,7 @@ winnerCheck=()=>{
       });
     }
   };
+
 
   /* ------------------ Handlers */
   handleDelayChange = (e) => {
@@ -1256,9 +1274,9 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
           <div className="modal">
             <h4>Reset Game</h4>
             <p>Are you sure you want to reset the game?</p>
-            <p className="red-text">
+            {/* <p className="red-text">
               This action <strong>cannot</strong> be undone.
-            </p>
+            </p> */}
             <p>
               <button onClick={this.toggleResetModal}>Cancel</button>
               <button className="primaryBtn" onClick={this.confirmResetGame}>
@@ -1524,9 +1542,10 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                     className={
                       this.state.running ? "pause-button" : "play-button"
                     }
+                    disabled={this.startButton===0}
                     onClick={
                       this.totalBallsCalled === 0
-                        ? this.startNewAutoplayGame
+                        ? this.startNewAutoplayGame      
                         : this.toggleGame
                     }
                   >
@@ -1537,6 +1556,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
   ) : (
     <>
       Start Autoplay  <VscDebugStart />
+   
     </>
   )}
                   </button>
@@ -1668,6 +1688,8 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                           this.speechEnabled === true ? "show" : "hide"
                         }
                       >
+
+
                         {/* Only shown if speech is enabled by the browser */}
                         {/* <div className="col shrink padding-right-xlg"> */}
                           {/* <label
@@ -1876,7 +1898,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                   Let's Play Bingo
                 </a>
                 !
-              </p>
+              </p>  
               <p className="wrap-text small-text">
                 You can also check out these other editions:
                 <br />
@@ -1897,12 +1919,26 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                 </a>
                 <br />
               </p>
-            </div> */}
+             */}
+             
+        
+             <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
+<h2> win amount   <FcMoneyTransfer /> : </h2>  <div className="win-amount-box"><h1>{this.amount}Br.</h1> </div>
+
+
+
+<h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2>
+
+
+             </div>
           </div>
         </section>
       </div>
     );
+  
+             
   }
+ 
 }
 
 export default BingoGame;

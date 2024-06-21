@@ -7,30 +7,10 @@
 import React from 'react';
 
 
-const nDots = document.querySelectorAll('.n0, .n1, .n2, .n3, .n4');
-const iDots = document.querySelectorAll('.i0, .i1, .i2, .i3, .i4');
+// ... your JavaScript code ...
 
-// Function to hide the n dots after the i dots finish
-function hideNDots() {
-  nDots.forEach(dot => dot.classList.add('hidden'));
-}
 
-// Function to show the n dots after a 5-second delay
-function showNDots() {
-  setTimeout(() => {
-    nDots.forEach(dot => dot.classList.remove('hidden'));
-  }, 5000); 
-}
 
-// Event listener to trigger hiding the n dots after i dots finish
-iDots.forEach(dot => {
-  dot.addEventListener('animationend', hideNDots);
-});
-
-// Event listener to trigger showing the n dots after 5 seconds
-iDots.forEach(dot => {
-  dot.addEventListener('animationend', showNDots); 
-});
 
 
 
