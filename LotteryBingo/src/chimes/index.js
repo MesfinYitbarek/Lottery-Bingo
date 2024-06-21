@@ -247,14 +247,103 @@ import seventythreefw from './O73w.mp3';
 import seventyfourfw from './O74w.mp3';
 import seventyfivefw from './O75w.mp3';
 
+import oneft from './B01T.mp3'; 
+import twoft from './B02T.mp3';
+import threeft from './B03T.mp3';
+import fourft from './B04T.mp3';
+import fiveft from './B05T.mp3';
+import sixft from './B06T.mp3';
+import sevenft from './B07T.mp3';
+import eightft from './B08T.mp3';
+import nineft from './B09T.mp3';
+import tenft from './B10T.mp3';
+import elevenft from './B11T.mp3';
+import twelveft from './B12T.mp3';
+import thirteenft from './B13T.mp3';
+import fourteenft from './B14T.mp3';
+import fifteenft from './B15T.mp3';
+import sixteenft from './I16T.mp3';
+import seventeenft from './I17T.mp3';
+import eighteenft from './I18T.mp3';
+import nineteenft from './I19T.mp3';
+import twentyft from './I20T.mp3';
+import twentyoneft from './I21T.mp3';
+import twentytwoft from './I22T.mp3';
+import twentythreeft from './I23T.mp3';
+import twentyfourft from './I24T.mp3';
+import twentyfiveft from './I25T.mp3';
+import twentysixtft from './I26T.mp3';
+import twentysevenft from './I27T.mp3';
+import twentyeightft from './I28T.mp3';
+import twentynineft from './I29T.mp3';
+import thirtyft from './I30T.mp3';
+import thirtyoneft from './N31T.mp3';
+import thirtytwoft from './N32T.mp3';
+import thirtythreeft from './N33T.mp3';
+import thirtyfourft from './N34T.mp3';
+import thirtyfiveft from './N35T.mp3';
+import thirtysixtft from './N36T.mp3';
+import thirtysevenft from './N37T.mp3';
+import thirtyeightft from './N38T.mp3';
+import thirtynineft from './N39T.mp3';
+import fortyft from './N40T.mp3';
+import fortyoneft from './N41T.mp3';
+import fortytwoft from './N42T.mp3';
+import fortythreeft from './N43T.mp3';
+import fortyfourft from './N44T.mp3';
+import fortyfiveft from './N45T.mp3';
+import fortysixtft from './G46T.mp3';
+import fortysevenft from './G47T.mp3';
+import fortyeightft from './G48T.mp3';
+import fortynineft from './G49T.mp3';
+import fiftyft from './G50T.mp3';
+import fiftyoneft from './G51T.mp3';
+import fiftytwoft from './G52T.mp3';
+import fiftythreeft from './G53T.mp3';
+import fiftyfourft from './G54T.mp3';
+import fiftyfiveft from './G55T.mp3';
+import fiftysixtft from './G56T.mp3';
+import fiftysevenft from './G57T.mp3';
+import fiftyeightft from './G58T.mp3';
+import fiftynineft from './G59T.mp3';
+import sixtyft from './G60T.mp3';
+import sixtyoneft from './O61T.mp3';
+import sixtytwoft from './O62T.mp3';
+import sixtythreeft from './O63T.mp3';
+import sixtyfourft from './O64T.mp3';
+import sixtyfiveft from './O65T.mp3';
+import sixtysixtft from './O66T.mp3';
+import sixtysevenft from './O67T.mp3';
+import sixtyeightft from './O68T.mp3';
+import sixtynineft from './O69T.mp3';
+import seventyft from './O70T.mp3'; 
+import seventyoneft from './O71T.mp3'; 
+import seventytwoft from './O72T.mp3';
+import seventythreeft from './O73T.mp3';
+import seventyfourft from './O74T.mp3';
+import seventyfiveft from './O75T.mp3'; 
+
+
 
 
 
 //export{one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive};
 
 
-export {  wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
+export {  wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
+  thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven,
+   sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, 
+  chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
     onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
-  seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
-  seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,onefw,twofw,threefw,fourfw,fivefw,sixfw,sevenfw,eightfw,ninefw,tenfw,elevenfw,twelvefw,thirteenfw,fourteenfw,fifteenfw,sixteenfw,seventeenfw,eighteenfw,nineteenfw,twentyfw,twentyonefw,twentytwofw,twentythreefw,twentyfourfw,twentyfivefw,twentysixfw,twentysevenfw,twentyeightfw,twentyninefw,thirtyfw,thirtyonefw,thirtytwofw,thirtythreefw,thirtyfourfw,thirtyfivefw,thirtysixfw,thirtysevenfw,thirtyeightfw,thirtyninefw,fortyfw,fortyonefw,fortytwofw,fortythreefw,fortyfourfw,fortyfivefw,fortysixfw,fortysevenfw,fortyeightfw,fortyninefw,fiftyfw,fiftyonefw,fiftytwofw,fiftythreefw,fiftyfourfw,fiftyfivefw,fiftysixfw,fiftysevenfw,fiftyeightfw,fiftyninefw,sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,sixtyfivefw,sixtysixfw,sixtysevenfw,sixtyeightfw,sixtyninefw,seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw
+  seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,
+  thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,
+  fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
+  seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,onefw,twofw,threefw,fourfw,fivefw,sixfw,sevenfw,eightfw,ninefw,tenfw,elevenfw,twelvefw,thirteenfw,fourteenfw,fifteenfw,sixteenfw,seventeenfw,eighteenfw,nineteenfw,twentyfw,twentyonefw,twentytwofw,twentythreefw,twentyfourfw,twentyfivefw,twentysixfw,twentysevenfw,
+  twentyeightfw,twentyninefw,thirtyfw,thirtyonefw,
+  thirtytwofw,thirtythreefw,thirtyfourfw,thirtyfivefw,thirtysixfw,thirtysevenfw,thirtyeightfw,thirtyninefw,fortyfw,fortyonefw,fortytwofw,fortythreefw,fortyfourfw,fortyfivefw,fortysixfw,fortysevenfw,fortyeightfw,fortyninefw,fiftyfw,fiftyonefw,fiftytwofw,fiftythreefw,fiftyfourfw,fiftyfivefw,fiftysixfw,fiftysevenfw,fiftyeightfw,fiftyninefw,
+  sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,
+  sixtyfivefw,sixtysixfw,sixtysevenfw,sixtyeightfw,sixtyninefw,seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw,
+  oneft,twoft,threeft,fourft,fiveft,sixft,sevenft,eightft,nineft,tenft,elevenft,twelveft,thirteenft,fourteenft,fifteenft,sixteenft,seventeenft,eighteenft,nineteenft,twentyft,twentyoneft,twentytwoft,twentythreeft,twentyfourft,twentyfiveft,twentysixtft,twentysevenft,twentyeightft,twentynineft,thirtyft,thirtyoneft,thirtytwoft,thirtythreeft,thirtyfourft,thirtyfiveft,thirtysixtft,thirtysevenft,thirtyeightft,thirtynineft,fortyft,
+  fortyoneft,fortytwoft,fortythreeft,fortyfourft,fortyfiveft,fortysixtft,fortysevenft,fortyeightft,fortynineft,fiftyft,fiftyoneft,fiftytwoft,fiftythreeft,fiftyfourft,fiftyfiveft,fiftysixtft,fiftysevenft,fiftyeightft,fiftynineft,sixtyft,sixtyoneft,sixtytwoft,sixtythreeft,sixtyfourft,sixtyfiveft,sixtysixtft,sixtysevenft,sixtyeightft,sixtynineft,seventyft,seventyoneft,seventytwoft,seventythreeft,seventyfourft,seventyfiveft
+
 };

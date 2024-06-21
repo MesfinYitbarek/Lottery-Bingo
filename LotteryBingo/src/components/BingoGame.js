@@ -41,7 +41,8 @@ import {
 // Chimes
 import {
   onefa,twofa,threefa,fourfa,fivefa,sixfa,sevenfa,eightfa,ninefa,tenfa,elevenfa,twelvefa,thirteenfa,fourteenfa,fifteenfa,sixteenfa,
-  seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
+  seventeenfa,eighteenfa,nineteenfa,twentyfa,twentyonefa,twenttwofa,twentythreefa,twentyfourfa,twentyfivefa,twentysixfa,twentysevenfa,twentyeightfa,twentyninefa,thirtyfa,thirtyonefa,thirtytwofa,thirtythreefa,thirtyfourfa,thirtyfivefa,thirtysixfa,thirtysevenfa,thirtyeightfa,thirtyninefa,fortyfa,fortyonefa,fortytwoa,fortythreefa,fortyfourfa,
+  fortyfivefa,fortysixfa,fortysevenfa,fortyeightfa,fortyninefa,fiftyfa,fiftyonefa,fiftytwofa,fiftythreefa,fiftyfourfa,fiftyfivefa,fiftysixfa,fiftysevenfa,fiftyeightfa,fiftyninefa,sixtyfa,sixtyonefa,sixtytwofa,sixtythreefa,sixtyfourfa,sixtyfivefa,sixtysixfa,sixtysevenfa,sixtyeightfa,sixtyninefa,seventyfa,
   seventyonefa,seventytwofa,seventythreefa,seventyfourfa,seventyfivefa,
   onefw,twofw,threefw,fourfw,fivefw,sixfw,sevenfw,eightfw,ninefw,tenfw,
   elevenfw,twelvefw,thirteenfw,fourteenfw,fifteenfw,sixteenfw,seventeenfw,eighteenfw,nineteenfw,twentyfw,
@@ -50,6 +51,11 @@ import {
   fortyonefw,fortytwofw,fortythreefw,fortyfourfw,fortyfivefw,fortysixfw,fortysevenfw,fortyeightfw,fortyninefw,fiftyfw,fiftyonefw,
   fiftytwofw,fiftythreefw,fiftyfourfw,fiftyfivefw,fiftysixfw,fiftysevenfw,fiftyeightfw,fiftyninefw,sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,sixtyfivefw,sixtysixfw,
   sixtysevenfw,sixtyeightfw,sixtyninefw,seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw,  wolplaystart,
+  oneft,twoft,threeft,fourft,fiveft,sixft,sevenft,eightft,nineft,tenft,elevenft,twelveft,thirteenft,fourteenft,fifteenft,sixteenft,seventeenft,eighteenft,nineteenft,twentyft,twentyoneft,twentytwoft,twentythreeft,twentyfourft,twentyfiveft,twentysixtft,twentysevenft,twentyeightft,twentynineft,thirtyft,thirtyoneft,thirtytwoft,thirtythreeft,thirtyfourft,thirtyfiveft,thirtysixtft,
+  thirtysevenft,thirtyeightft,thirtynineft,fortyft,fortyoneft,fortytwoft,
+  fortythreeft,fortyfourft,fortyfiveft,fortysixtft,fortysevenft,fortyeightft,fortynineft,fiftyft,fiftyoneft,fiftytwoft,fiftythreeft,fiftyfourft,fiftyfiveft,fiftysixtft,fiftysevenft,fiftyeightft,fiftynineft,sixtyft,sixtyoneft,sixtytwoft,sixtythreeft,sixtyfourft,sixtyfiveft,sixtysixtft,
+  sixtysevenft,sixtyeightft,sixtynineft,seventyft,seventyoneft,seventytwoft,seventythreeft,seventyfourft,seventyfiveft,
+
 
   one,
   two,
@@ -152,8 +158,8 @@ class BingoGame extends Component {
   //  this. winAmountBox = document.querySelector('.win-amount-box');
 
     
-
-  this.amount=100;
+this.totalBalance=1000;
+  this.amount=0;
   this.startButton=0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
@@ -181,8 +187,8 @@ class BingoGame extends Component {
       { label: "amharic-male", value:"amh-male" },
       { label: "amharic-female",  value:"amh-fem"  },
       { label: "oromigna-female", value:"oro-fem"   },
-      { label: "wolatgna-female", value:"wol-fem"  },
-      { label: "tigrigna", value:"tig-fem"  },
+      { label: "wolaytgna-female", value:"wol-fem"  },
+      { label: "tigrigna-female", value:"tig-fem"  },
    
     ];
    
@@ -254,6 +260,7 @@ class BingoGame extends Component {
         },
       },
       showResetModal: false,
+      showstartModal:false,
     };
   }
 
@@ -494,81 +501,12 @@ console.log("hi");
 
     }
     else if(this.state.tigrigna){
-      const femaletigrigna = [ chime1, one,
-        //  two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        eleven,
-        twelve,
-        thirteen,
-        fourteen,
-        fifteen,
-        sixteen,
-        seventeen,
-        eighteen,
-        nineteen,
-        twenty,
-        twentyone,
-        twentytwo,
-        twentythree,
-        twentyfour,
-        twentyfive,
-        twentysix,
-        twentyseven,
-        twentyeight,
-        twentynine,
-        thirty,
-        thirtyone,
-        thirtytwo,
-        thirtythree,
-        thirtyfour,
-        thirtyfive,
-        thirtysix,
-        thirtyseven,
-        thirtyeight,
-        thirtynine,
-        fourty,
-        fourtyone,
-        fourtytwo,
-        fourtythree,
-        fourtyfour,
-        fourtyfive,
-        fourtysix,
-        fourtyseven,
-        fourtyeight,
-        fourtynine,
-        fifty,
-        fiftyone,
-        fiftytwo,
-        fiftythree,
-        fiftyfour,
-        fiftyfive,
-        fiftysix,
-        fiftyseven,
-        fiftyeight,
-        fiftynine,
-        sixty,
-        sixtyone,
-        sixtytwo,
-        sixtythree,
-        sixtyfour,
-        sixtyfive,
-        sixtysix,
-        sixtyseven,
-        sixtyeight,
-        sixtynine,
-        seventy,
-        seventyone,
-        seventytwo,
-        seventythree,
-        seventyfour,
-        seventyfive]
+      const femaletigrigna = [ chime1,oneft,twoft,threeft,fourft,fiveft,sixft,sevenft,eightft,nineft,tenft,elevenft,twelveft,thirteenft,fourteenft,fifteenft,sixteenft,seventeenft,
+        eighteenft,nineteenft,twentyft,twentyoneft,twentytwoft,twentythreeft,twentyfourft,twentyfiveft,twentysixtft,twentysevenft,twentyeightft,twentynineft,thirtyft,thirtyoneft,
+        thirtytwoft,thirtythreeft,thirtyfourft,thirtyfiveft,thirtysixtft,thirtysevenft,thirtyeightft,thirtynineft,fortyft,fortyoneft,fortytwoft,fortythreeft,fortyfourft,fortyfiveft,
+        fortysixtft,fortysevenft,fortyeightft,fortynineft,fiftyft,fiftyoneft,fiftytwoft,fiftythreeft,fiftyfourft,fiftyfiveft,fiftysixtft,fiftysevenft,fiftyeightft,fiftynineft,sixtyft,sixtyoneft,
+        sixtytwoft,sixtythreeft,sixtyfourft,sixtyfiveft,sixtysixtft,sixtysevenft,sixtyeightft,sixtynineft,seventyft,seventyoneft,seventytwoft,seventythreeft,seventyfourft,seventyfiveft
+      ]
       if (ball.number >= 0 && ball.number <= 75) {
         
         let sound4 = new Audio(femaletigrigna [ball.number]);  
@@ -729,7 +667,7 @@ console.log("hi");
 
   startNewGame = () => {
 
-   this.setState(this.startButton:startButton+1);
+  //  this.setState(this.startButton:startButton+1);
   
 
 
@@ -806,12 +744,12 @@ console.log("hi");
         }
 
        else if(this.state.tigrigna){
-        let soundstart2 = new Audio(seventyfa);  
-        soundstart2.play();
+        let soundstartft = new Audio(seventyfa);  
+        soundstartft.play();
         window.setTimeout(() => {
           this.toggleGame();
         }, 3000);
-        this.toggleGame();
+        // this.toggleGame();
       }
       else{
         this.toggleGame();
@@ -890,6 +828,11 @@ console.log("hi");
     const currentState = this.state.showResetModal;
     this.setState({ showResetModal: !currentState });
   };
+  togglestartModal = () => {
+    const currentState1 = this.state.showstartModal;
+    this.setState({ showstartModal: !currentState1 });
+  };
+
 
   confirmResetGame = () => {
     // Clear out local storage
@@ -899,14 +842,42 @@ console.log("hi");
     clearInterval(this.interval);
     this.cancelSpeech();
     this.totalBallsCalled = 0;
+    this.amount=0;
     this.previousBall = null;
     this.currentBall = null;
+    this.startButton=0;
     this.setState({
       board: generateBingoBoard(),
       wildBall: null,
       running: false,
       showResetModal: false,
       previousCallList: [],
+     
+    });
+  };
+
+  confirmstartGame = () => {
+    // Clear out local storage
+    // localStorage.removeItem("lpb-gameData");
+    // localStorage.removeItem("lpb-gameState");
+    // reset everything with the board
+    // clearInterval(this.interval);
+    // this.cancelSpeech();
+    // this.totalBallsCalled = 0;
+    // this.amount=0;
+    // this.previousBall = null;
+    // this.currentBall = null;
+    this.startButton=1;
+    this.amount=this.state.amount;
+    this.totalBalance=this.totalBalance-this.amount;
+    console.log(this.totalBalance);
+    this.setState({
+      board: generateBingoBoard(),
+      // wildBall: null,
+      // running: false,
+      showstartModal: false,
+      // previousCallList: [],
+     
     });
   };
 
@@ -1062,59 +1033,59 @@ console.log("hi");
   handleCheckbox = (e) => {
     let gamemode = e.currentTarget.dataset.gamemode;
     switch (gamemode) {
-      case "skip-unused":
-        this.setState({ skipUnused: e.currentTarget.selected });
-        break;
-      case "enable-doublecall":
-        this.setState({ doubleCall: e.currentTarget.selected });
+//       case "skip-unused":
+//         this.setState({ skipUnused: e.currentTarget.selected });
+//         break;
+//       case "enable-doublecall":
+//         this.setState({ doubleCall: e.currentTarget.selected });
       
-          // this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
+//           // this.setState({ extraTalk: e.currentTarget.unchecked,wolatya: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked});
         
 
-        break;
-      case "enable-extratalk":
-        this.setState({ extraTalk: e.currentTarget.selected });
-        // if (true) {
-        // this.setState({ doubleCall: e.currentTarget.unchecked ,wolayta: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked });
-        // }
+//         break;
+//       case "enable-extratalk":
+//         this.setState({ extraTalk: e.currentTarget.selected });
+//         // if (true) {
+//         // this.setState({ doubleCall: e.currentTarget.unchecked ,wolayta: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked });
+//         // }
        
-        break;
-      case "wolayta":
-        this.setState({ wolayta: e.currentTarget.checked });
-        if(true){
-this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked});
-        }
+//         break;
+//       case "wolayta":
+//         this.setState({ wolayta: e.currentTarget.checked });
+//         if(true){
+// this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,tigrigna: e.currentTarget.unchecked});
+//         }
       
-        break;
-        case "tigrigna":
-          this.setState({ tigrigna: e.currentTarget.checked });
+//         break;
+//         case "tigrigna":
+//           this.setState({ tigrigna: e.currentTarget.checked });
           
-  this.setState({ wolayta: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,extraTalk: e.currentTarget.unchecked});
+//   this.setState({ wolayta: e.currentTarget.unchecked ,doubleCall: e.currentTarget.unchecked,extraTalk: e.currentTarget.unchecked});
           
         
-          break;
-      case "evens-odds":
-        this.setState({ evensOdds: e.currentTarget.checked });
-        break;
-      // case "enable-caller":
-      //   if (true) {
-      //   this.setState({doublecall: e.currentTarget.unchecked,wolayta: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked ,extraTalk: e.currentTarget.unchecked })
+//           break;
+//       case "evens-odds":
+//         this.setState({ evensOdds: e.currentTarget.checked });
+//         break;
+//       // case "enable-caller":
+//       //   if (true) {
+//       //   this.setState({doublecall: e.currentTarget.unchecked,wolayta: e.currentTarget.unchecked ,tigrigna: e.currentTarget.unchecked ,extraTalk: e.currentTarget.unchecked })
           
-      //   }
-      //   this.setState({ enableCaller: e.currentTarget.checked });
+//       //   }
+//       //   this.setState({ enableCaller: e.currentTarget.checked });
         
 
        
-        // break;
-      case "display-board":
-        if (e.currentTarget.checked && this.state.running) {
-          clearInterval(this.interval);
-        }
-        this.setState({
-          displayBoardOnly: e.currentTarget.checked,
-          running: false,
-        });
-        break;
+//         // break;
+//       case "display-board":
+//         if (e.currentTarget.checked && this.state.running) {
+//           clearInterval(this.interval);
+//         }
+//         this.setState({
+//           displayBoardOnly: e.currentTarget.checked,
+//           running: false,
+//         });
+//         break;
       case "enable-chime":
         this.setState({ chime: e.currentTarget.checked });
         break;
@@ -1296,6 +1267,80 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
       return null;
     }
   }
+
+
+
+  get startConfirmationModalDisplay() {
+    if (this.state.showstartModal === true) {
+      let balance =this.totalBalance;
+        return (
+            <div>
+                <div className="modal">
+                    <h4>Enter bet amount</h4>
+                    <input type="number" placeholder="Bet Amount" required onChange={this.handleBetAmountChange} />
+                    <label>Number of Cards:</label>
+                    <div className="number-input">
+                        <button onClick={this.decrementCards}>-</button>
+                        <input type="number" value={this.state.cardCount} onChange={this.handleCardCountChange} />
+                        <button onClick={this.incrementCards}>+</button>
+                    </div>
+                    <p>Total Amount: {this.state.amount}</p>
+                    
+                    {/* <p className="red-text">
+                        This action <strong>cannot</strong> be undone.
+                    </p> */}
+                    <p>
+                     
+                        <button onClick={this.togglestartModal}>Cancel</button>
+                        <button color="primary" onClick={this.confirmstartGame} disabled={this.state.amount  === 0 || balance===0}>Done</button>
+                    </p>
+                </div>
+                <div
+                    className="modal-backdrop"
+                    onClick={(e) => {
+                        e.preventDefault();
+                    }}
+                ></div>
+            </div>
+        );
+    } else {
+        return null;
+    }
+}
+
+handleBetAmountChange = (e) => {
+    const betAmount = e.target.value;
+    this.setState({
+        betAmount,
+        amount: betAmount * this.state.cardCount,
+    });
+};
+
+handleCardCountChange = (e) => {
+    const cardCount = parseInt(e.target.value) || 0;
+    this.setState({
+        cardCount,
+        amount: this.state.betAmount * cardCount,
+    });
+};
+
+incrementCards = () => {
+    this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+    }));
+};
+
+decrementCards = () => {
+    if (this.state.cardCount > 0) {
+        this.setState((prevState) => ({
+            cardCount: prevState.cardCount - 1,
+            amount: prevState.betAmount * (prevState.cardCount - 1),
+        }));
+    }
+};
+
+
 
   /* ------------------- Speech Synthesis */
 
@@ -1520,7 +1565,8 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                     data-disabled={this.state.displayBoardOnly}
                     onClick={
                       this.totalBallsCalled === 0
-                        ? this.startNewGame
+                        // ? this.startNewGame
+                        ?this.togglestartModal
                         : this.callBingoNumber
                     }
                     disabled={this.state.running}
@@ -1542,7 +1588,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                     className={
                       this.state.running ? "pause-button" : "play-button"
                     }
-                    disabled={this.startButton===0}
+                     disabled={this.startButton===0 }
                     onClick={
                       this.totalBallsCalled === 0
                         ? this.startNewAutoplayGame      
@@ -1583,6 +1629,7 @@ this.setState({ extraTalk: e.currentTarget.unchecked ,doubleCall: e.currentTarge
                 </button>
               </section>
               {this.resetConfirmationModalDisplay}
+              {this.startConfirmationModalDisplay}
             </div>
 
             {/* ----------- Game Settings ------------- */}

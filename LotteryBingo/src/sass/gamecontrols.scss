@@ -78,7 +78,7 @@
 		}
 
 		&.white {
-			background: radial-gradient(circle at 20% 20%, #ffffff, #b6b6b6);
+			background: radial-gradient(circle at 20% 20%, yellow, #b6b6b6);
 			.content {
 				border: 0.15rem solid #ff0000;
 			}
@@ -130,7 +130,7 @@
 			}
 
 			&.white {
-				background-color: #ffffff;
+				background-color: yellow;
 				span {
 					color: #222222;
 				}
