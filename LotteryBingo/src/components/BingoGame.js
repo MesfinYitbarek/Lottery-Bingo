@@ -1644,7 +1644,7 @@ incrementCards6 = () => {
 
 decrementCards9 = () => {
   const currentState01 = this.state.isRed9;
-  this.setState({ isRed: !currentState01 });
+  this.setState({ isRed9: !currentState01 });
 
     if (this.state.cardCount > 0) {
         this.setState((prevState) => ({
