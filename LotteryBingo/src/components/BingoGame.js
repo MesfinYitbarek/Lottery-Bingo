@@ -1372,12 +1372,12 @@ console.log("hi");
                 <div className="modal">
                  
                   <div>
-                <h5>Enter bet amount</h5>  <input type="number" placeholder="Bet Amount" required onChange={this.handleBetAmountChange} />
+                <h4>Enter bet amount</h4><input type="number" className="input" placeholder="Bet Amount" required onChange={this.handleBetAmountChange} />
                 </div> <label>Number of Cards:</label>
                     <div className="number-input">
-                        <button onClick={this.decrementCards}>-</button>
-                        <input type="number" value={this.state.cardCount} onChange={this.handleCardCountChange} />
-                        <button onClick={this.incrementCards}>+</button>
+                        {/* <button onClick={this.decrementCards}>-</button> */}
+                        <input type="number" className="input" value={this.state.cardCount} onChange={this.handleCardCountChange} />
+                        {/* <button onClick={this.incrementCards}>+</button> */}
                     </div>
                     <p>Total Amount: {this.state.amount}</p>
                     
@@ -2782,7 +2782,7 @@ incrementCards31 = () => {
 
 
 
-<h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2>
+<h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text"  className="select-input" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2>
 
 
              </div>

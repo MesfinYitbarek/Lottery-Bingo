@@ -96,7 +96,24 @@ button {
 	}
 	&.bt{
 		border-radius: 50%;
+		border:1px solid #fff;
+		animation: blink-and-grow1 3s infinite;
+
 	}
+	@keyframes blink-and-grow1 {
+		0% {
+		  opacity: 0.5;
+		  transform: scale(0.6); /* Start at normal size */
+		}
+		50% {
+		  opacity: 1;
+		  transform: scale(1); /* Grow slightly */
+		}
+		// 100% {
+		//   opacity: 1;
+		//   transform: scale(1); /* Return to normal size */
+		// }
+	  }
 	&.red {
 		background-color: red;
 	  }
