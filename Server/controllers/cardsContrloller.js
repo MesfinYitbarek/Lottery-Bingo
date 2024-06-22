@@ -31,3 +31,13 @@ export const getCards = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch cards' });
   }
 };
+
+export const getCardById = async (req, res) => {
+
+  try {
+    const cards = await Card.find({id : req.params.id});
+    res.json(cards);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch cards' });
+  }
+};
