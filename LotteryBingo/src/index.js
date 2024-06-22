@@ -17,6 +17,10 @@ import Terms from "./components/pages/Terms.js";
 import Patterns from "./components/pages/Patterns.js";
 import AddUsers from "./components/admin/AddUsers.js";
 import CardFetcher from "./components/subcomponents/CardFetcher.js";
+import AdminContainer from "./components/admin/Admin.js";
+import Users from "./components/admin/Users.js";
+import EditUser from "./components/admin/UpdateUser.js";
+
 
 const routing = (
 	<Router>
@@ -55,6 +59,8 @@ const routing = (
 		</header>
 
 		<Route exact path="/" component={BingoGame} />
+		<Route exact path="/admin" component={AdminContainer} />
+		<Route path="/users" component={Users} />
 		<Route path="/about" component={About} />
 		<Route path="/donate" component={Donate} />
 		<Route path="/generator" component={CardGenerator} />
@@ -65,6 +71,7 @@ const routing = (
 		<Route path="/help" component={Help} />
 		<Route path="/add-users" component={AddUsers} />
 		<Route path="/card" component={CardFetcher} />
+		<Route path="/update-user/:id" component={EditUser} />
 
 		<footer>
 			<div className="container row three-cols align-center">
