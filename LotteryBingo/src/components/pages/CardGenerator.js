@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-// import axios from "axios";
+import axios from "axios";
 import BingoCard from "../subcomponents/BingoCard";
 
 class CardGenerator extends React.Component {

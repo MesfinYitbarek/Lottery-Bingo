@@ -362,6 +362,17 @@ import {
   pop3,
   pop4,
   shuffle,
+  onefo, twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo,
+   tenfo, elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo,
+    seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo, 
+    twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, 
+    twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo,
+     thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo, thirtyninefo,
+      fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo, fortysevenfo, 
+      fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo, fiftyfourfo, fiftyfivefo, fiftysixfo, 
+      fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo, sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo,
+       sixtysixfo, sixtysevenfo, sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, 
+       seventyfourfo, seventyfivefo,amharicmaleplaystart,tigplaystart,oroplaystart,amharicfemaleplaystart,
 } from "../chimes";
 class BingoGame extends Component {
   constructor(props) {
@@ -370,8 +381,9 @@ class BingoGame extends Component {
     // Balls display pieces
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
-    this.totalBalance = 1000;
+    this.totalBalance =1000;
     this.amount = 0;
+    this.sales=0;
     this.startButton = 0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
@@ -523,7 +535,10 @@ class BingoGame extends Component {
     } else {
       this.startButton = 0;
     }
-    this.amount = this.state.amount;
+    // this.amount = this.state.amount;
+    // this.setState({sales:this.state.sales});
+    
+    
   }
 
   /**
@@ -540,6 +555,8 @@ class BingoGame extends Component {
       previousBall: this.previousBall,
       currentBall: this.currentBall,
       interval: this.interval,
+       sales:this.sales,
+    //  totalBalance:this.totalBalance,
     };
     localStorage.setItem("lpb-gameData", JSON.stringify(gameData));
     localStorage.setItem("lpb-gameState", JSON.stringify(this.state));
@@ -721,82 +738,17 @@ class BingoGame extends Component {
       }
     } else if (this.state.extraTalk) {
       const femaleoromic = [
-        chime1,
-        one,
-        // two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine,
-        ten,
-        eleven,
-        twelve,
-        thirteen,
-        fourteen,
-        fifteen,
-        sixteen,
-        seventeen,
-        eighteen,
-        nineteen,
-        twenty,
-        twentyone,
-        twentytwo,
-        twentythree,
-        twentyfour,
-        twentyfive,
-        twentysix,
-        twentyseven,
-        twentyeight,
-        twentynine,
-        thirty,
-        thirtyone,
-        thirtytwo,
-        thirtythree,
-        thirtyfour,
-        thirtyfive,
-        thirtysix,
-        thirtyseven,
-        thirtyeight,
-        thirtynine,
-        fourty,
-        fourtyone,
-        fourtytwo,
-        fourtythree,
-        fourtyfour,
-        fourtyfive,
-        fourtysix,
-        fourtyseven,
-        fourtyeight,
-        fourtynine,
-        fifty,
-        fiftyone,
-        fiftytwo,
-        fiftythree,
-        fiftyfour,
-        fiftyfive,
-        fiftysix,
-        fiftyseven,
-        fiftyeight,
-        fiftynine,
-        sixty,
-        sixtyone,
-        sixtytwo,
-        sixtythree,
-        sixtyfour,
-        sixtyfive,
-        sixtysix,
-        sixtyseven,
-        sixtyeight,
-        sixtynine,
-        seventy,
-        seventyone,
-        seventytwo,
-        seventythree,
-        seventyfour,
-        seventyfive,
+       chime1, onefo, twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo, tenfo,
+         elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo, 
+         seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo,
+          twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, 
+          twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo,
+           thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo, thirtyninefo,
+            fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo,
+             fortysevenfo, fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo,
+              fiftyfourfo, fiftyfivefo, fiftysixfo, fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo,
+               sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo, sixtysixfo, sixtysevenfo,
+                sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, seventyfourfo, seventyfivefo
       ];
       if (ball.number >= 0 && ball.number <= 75) {
         let sound2 = new Audio(femaleoromic[ball.number]);
@@ -1165,25 +1117,29 @@ class BingoGame extends Component {
     // if (this.state.wildBingo) {
     //   this.startNewGame();
     // } if {
+      this.sales+=(this.state.amount-this.amount);
+      console.log("sales is"+this.sales);
+  this.totalBalance = this.totalBalance - this.amount;
+      console.log(this.totalBalance);
     if (this.state.doubleCall) {
       // this.say("Let's Play Bingo!");
-      let soundstartfa = new Audio(seventeenfa);
+      let soundstartfa = new Audio(amharicfemaleplaystart);
       soundstartfa.play();
       window.setTimeout(() => {
         this.toggleGame();
-      }, 3000);
+      }, 2000);
     } else if (this.state.extraTalk) {
-      let soundstartfo = new Audio(seventyfa);
+      let soundstartfo = new Audio(oroplaystart,);
       soundstartfo.play();
       window.setTimeout(() => {
         this.toggleGame();
       }, 3000);
     } else if (this.state.enableCaller) {
-      let soundstartma = new Audio(seventyfa);
+      let soundstartma = new Audio(amharicmaleplaystart);
       soundstartma.play();
       window.setTimeout(() => {
         this.toggleGame();
-      }, 3000);
+      }, 2000);
     } else if (this.state.wolayta) {
       let soundstartfw = new Audio(wolplaystart);
       soundstartfw.play();
@@ -1191,11 +1147,11 @@ class BingoGame extends Component {
         this.toggleGame();
       }, 3000);
     } else if (this.state.tigrigna) {
-      let soundstartft = new Audio(seventyfa);
+      let soundstartft = new Audio(tigplaystart);
       soundstartft.play();
       window.setTimeout(() => {
         this.toggleGame();
-      }, 3000);
+      }, 2000);
       // this.toggleGame();
     } else {
       this.toggleGame();
@@ -1277,6 +1233,7 @@ class BingoGame extends Component {
   togglestartModal = () => {
     const currentState1 = this.state.showstartModal;
     this.setState({ showstartModal: !currentState1 });
+   
   };
 
   confirmResetGame = () => {
@@ -1312,9 +1269,9 @@ class BingoGame extends Component {
     // this.previousBall = null;
     // this.currentBall = null;
     this.startButton = 1;
-    this.amount = this.state.amount;
-    this.totalBalance = this.totalBalance - this.amount;
-    console.log(this.totalBalance);
+    let x = this.state.amount/1.3333333333333;
+    this.amount=parseFloat((x).toFixed(3))
+   
     this.setState({
       board: generateBingoBoard(),
       // wildBall: null,
@@ -1785,7 +1742,7 @@ class BingoGame extends Component {
               <button
                 className="primaryBtn"
                 onClick={this.confirmstartGame}
-                disabled={this.state.amount === 0 || balance === 0}
+                disabled={this.state.amount === 0 || balance <= 0}
               >
                 Done
               </button>
@@ -3162,9 +3119,9 @@ class BingoGame extends Component {
 
                 {/* ----------- Settings when using generation ---------- */}
                 <div
-                  data-visibility={
-                    this.state.displayBoardOnly === false ? "show" : "hide"
-                  }
+                  // data-visibility={
+                  //   this.state.displayBoardOnly === false ? "show" : "hide"
+                  // }
                 >
                   {/* ----------- Autoplay Settings ---------- */}
                   <div className="row no-wrap align-center justify-start">

@@ -323,6 +323,88 @@ import seventythreeft from './O73T.mp3';
 import seventyfourft from './O74T.mp3';
 import seventyfiveft from './O75T.mp3'; 
 
+import amharicmaleplaystart from './amharicmaleplaystart.mp3';
+import amharicfemaleplaystart from './readyPlay.mp3';
+import tigplaystart from './tigPlay.mp3';
+import oroplaystart from './oroPlayStart.mp3';
+
+
+import onefo from './B1O.mp3'; 
+import twofo from './B2O.mp3';
+import threefo from './B3O.mp3';
+import fourfo from './B4O.mp3';
+import fivefo from './B5O.mp3';
+import sixfo from './B6O.mp3';
+import sevenfo from './B7O.mp3';
+import eightfo from './B8O.mp3';
+import ninefo from './B9O.mp3';
+import tenfo from './B10O.mp3';
+import elevenfo from './B11O.mp3';
+import twelvefo from './B12O.mp3';
+import thirteenfo from './B13O.mp3';
+import fourteenfo from './B14O.mp3';
+import fifteenfo from './B15O.mp3';
+import sixteenfo from './I16O.mp3';
+import seventeenfo from './I17O.mp3';
+import eighteenfo from './I18O.mp3';
+import nineteenfo from './I19O.mp3';
+import twentyfo from './I20O.mp3';
+import twentyonefo from './I21O.mp3';
+import twentytwofo from './I22O.mp3';
+import twentythreefo from './I23O.mp3';
+import twentyfourfo from './I24O.mp3';
+import twentyfivefo from './I25O.mp3';
+import twentysixfo from './I26O.mp3';
+import twentysevenfo from './I27O.mp3';
+import twentyeightfo from './I28O.mp3';
+import twentyninefo from './I29O.mp3';
+import thirtyfo from './I30O.mp3';
+import thirtyonefo from './N31O.mp3';
+import thirtytwofo from './N32O.mp3';
+import thirtythreefo from './N33O.mp3';
+import thirtyfourfo from './N34O.mp3';
+import thirtyfivefo from './N35O.mp3';
+import thirtysixfo from './N36O.mp3';
+import thirtysevenfo from './N37O.mp3';
+import thirtyeightfo from './N38O.mp3';
+import thirtyninefo from './N39O.mp3';
+import fortyfo from './N40O.mp3';
+import fortyonefo from './N41O.mp3';
+import fortytwofo from './N42O.mp3';
+import fortythreefo from './N43O.mp3';
+import fortyfourfo from './N44O.mp3';
+import fortyfivefo from './N45O.mp3';
+import fortysixfo from './G46O.mp3';
+import fortysevenfo from './G47O.mp3';
+import fortyeightfo from './G48O.mp3';
+import fortyninefo from './G49O.mp3';
+import fiftyfo from './G50O.mp3';
+import fiftyonefo from './G51O.mp3';
+import fiftytwofo from './G52O.mp3';
+import fiftythreefo from './G53O.mp3';
+import fiftyfourfo from './G54O.mp3';
+import fiftyfivefo from './G55O.mp3';
+import fiftysixfo from './G56O.mp3';
+import fiftysevenfo from './G57O.mp3';
+import fiftyeightfo from './G58O.mp3';
+import fiftyninefo from './G59O.mp3';
+import sixtyfo from './G60O.mp3';
+import sixtyonefo from './O61O.mp3';
+import sixtytwofo from './O62O.mp3';
+import sixtythreefo from './O63O.mp3';
+import sixtyfourfo from './O64O.mp3';
+import sixtyfivefo from './O65O.mp3';
+import sixtysixfo from './O66O.mp3';
+import sixtysevenfo from './O67O.mp3';
+import sixtyeightfo from './O68O.mp3';
+import sixtyninefo from './O69O.mp3';
+import seventyfo from './O70O.mp3';
+import seventyonefo from './O71O.mp3';
+import seventytwofo from './O72O.mp3';
+import seventythreefo from './O73O.mp3';
+import seventyfourfo from './O74O.mp3';
+import seventyfivefo from './O75O.mp3';
+
 
 
 
@@ -330,7 +412,7 @@ import seventyfiveft from './O75T.mp3';
 //export{one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive};
 
 
-export {  wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
+export {  tigplaystart,oroplaystart,amharicfemaleplaystart,amharicmaleplaystart, wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
   thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven,
    sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, 
   chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
@@ -344,6 +426,8 @@ export {  wolplaystart,one, two,  three, four, five, six, seven, eight, nine, te
   sixtyfw,sixtyonefw,sixtytwofw,sixtythreefw,sixtyfourfw,
   sixtyfivefw,sixtysixfw,sixtysevenfw,sixtyeightfw,sixtyninefw,seventyfw,seventyonefw,seventytwofw,seventythreefw,seventyfourfw,seventyfivefw,
   oneft,twoft,threeft,fourft,fiveft,sixft,sevenft,eightft,nineft,tenft,elevenft,twelveft,thirteenft,fourteenft,fifteenft,sixteenft,seventeenft,eighteenft,nineteenft,twentyft,twentyoneft,twentytwoft,twentythreeft,twentyfourft,twentyfiveft,twentysixtft,twentysevenft,twentyeightft,twentynineft,thirtyft,thirtyoneft,thirtytwoft,thirtythreeft,thirtyfourft,thirtyfiveft,thirtysixtft,thirtysevenft,thirtyeightft,thirtynineft,fortyft,
-  fortyoneft,fortytwoft,fortythreeft,fortyfourft,fortyfiveft,fortysixtft,fortysevenft,fortyeightft,fortynineft,fiftyft,fiftyoneft,fiftytwoft,fiftythreeft,fiftyfourft,fiftyfiveft,fiftysixtft,fiftysevenft,fiftyeightft,fiftynineft,sixtyft,sixtyoneft,sixtytwoft,sixtythreeft,sixtyfourft,sixtyfiveft,sixtysixtft,sixtysevenft,sixtyeightft,sixtynineft,seventyft,seventyoneft,seventytwoft,seventythreeft,seventyfourft,seventyfiveft
+  fortyoneft,fortytwoft,fortythreeft,fortyfourft,fortyfiveft,fortysixtft,fortysevenft,fortyeightft,fortynineft,fiftyft,fiftyoneft,fiftytwoft,fiftythreeft,fiftyfourft,fiftyfiveft,fiftysixtft,fiftysevenft,fiftyeightft,fiftynineft,sixtyft,sixtyoneft,sixtytwoft,sixtythreeft,sixtyfourft,sixtyfiveft,sixtysixtft,sixtysevenft,sixtyeightft,sixtynineft,seventyft,seventyoneft,seventytwoft,seventythreeft,seventyfourft,seventyfiveft,onefo, 
+  twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo, tenfo, elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo, seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo, twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo, thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo,
+   thirtyninefo, fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo, fortysevenfo, fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo, fiftyfourfo, fiftyfivefo, fiftysixfo, fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo, sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo, sixtysixfo, sixtysevenfo, sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, seventyfourfo, seventyfivefo
 
 };
