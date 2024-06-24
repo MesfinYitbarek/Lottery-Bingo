@@ -247,6 +247,16 @@ class CardGenerator extends React.Component {
                 />
               </div>
             </div>
+            <div className="col shrink padding-horizontal-md">
+                <label className={this.state.blackWhite ? 'toggle checked' : 'toggle'}>
+                  <span className="toggle-span"></span>
+                  <span>Print in Black/White</span>
+                  <input type="checkbox" onChange={this.handleBWCheckbox} checked={this.state.blackWhite}></input>
+                </label>
+              </div>
+              <div className="col padding-horizontal-md text-right">
+                <button data-visibility={this.state.generatedCards.length > 0 ? 'show' : 'hide'} className="altBtn" onClick={() => {window.print();return false;}}>Print Cards</button>
+              </div>
           </div>
         </div>
 

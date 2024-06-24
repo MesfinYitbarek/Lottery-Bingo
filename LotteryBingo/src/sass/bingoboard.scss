@@ -10,11 +10,11 @@
 	.pattern-side {
 		/* Called Numbers */
 		.callNumber {
-			font-family: var(--condensed-font);
+			font-family: var(--digital-font);
 			width: 100%;
-			font-size: 2rem;
+			font-size: 3.5rem;
 			text-align: right;
-			color: blue;
+			color: red;
 			margin-bottom: 0.5rem;
 
 			span {
@@ -26,9 +26,10 @@
 			}
 		}
 		.callNumber-text {
-			font-family: var(--digital-font);
-			font-size: 0.8rem;
-			color: #fff;
+			font-family: var(--condensed-font);
+			font-size: 1.2rem;
+			color:white;
+			font-weight: bold;
 
 			@media screen and (max-width: 700px) {
 				font-size: 1rem;
