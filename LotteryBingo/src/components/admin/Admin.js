@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import {Link} from 'react-router-dom'
 
-
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const navigationItems = [
   { name: "Dashboard", isActive: true }, 

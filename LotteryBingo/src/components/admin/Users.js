@@ -48,7 +48,7 @@ const Users = () => {
               </Link>
             </td>
           </tr>
-          <tr className=" bg-blue-400    font-semibold text-white ">
+          <tr className=" bg-blue-400 font-semibold text-white ">
             <td className="p-2 ">Name </td>
             <td>Email</td>
             <td>Role</td>
