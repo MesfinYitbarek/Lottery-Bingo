@@ -36,7 +36,10 @@ const CardFetcher = () => {
             <h3>Card ID: {cardData.id}</h3>
             <BingoCard card={cardData.card} color="blue" />
           </div>
+
         ))}
+                <button  className="altBtn" onClick={() => {window.print();return false;}}>Print Cards</button>
+
       </div>
     </div>
   );
