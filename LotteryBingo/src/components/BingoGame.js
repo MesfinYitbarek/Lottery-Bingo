@@ -24,12 +24,14 @@ import { BiReset } from "react-icons/bi";
 import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
 import { FcMoneyTransfer } from "react-icons/fc";
-import { GiPodiumWinner } from "react-icons/gi";
+
 
 // Custom Components
 import BingoBoard from "./subcomponents/BingoBoard.js";
 import Pattern from "./subcomponents/Pattern.js";
 import CallHistory from "./subcomponents/CallHistory.js";
+
+
 import { MdOutlineAssistWalker } from "react-icons/md";
 
 // Utilities
@@ -377,6 +379,10 @@ import {
 class BingoGame extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showFullCallHistory: false,
+      showModal: false,
+    };
     // -------------------------- Set properties ----- //
     // Balls display pieces
     //  this. winAmountBox = document.querySelector('.win-amount-box');
@@ -453,10 +459,11 @@ class BingoGame extends Component {
 
   getInitialStateData() {
     return {
+     
       board: generateBingoBoard(),
       previousCallList: [],
       // displayBoardOnly: false,
-      delay: 1000,
+      delay: 6000,
       running: false,
       startButton: false,
       enableCaller: false,
@@ -1010,6 +1017,9 @@ class BingoGame extends Component {
       //   sound.play();
       // }
     }
+    else {
+      this.say([ball.letter, " ", ball.number]);
+    }
   };
 
   /**
@@ -1373,18 +1383,18 @@ class BingoGame extends Component {
       this.setState({ running: false });
     }
   };
-  // winnerCheck=()=>{
-  //  <div className="modal">
-  //  <h1>enter cardId</h1>
-  //  <button>check</button>
-  //  </div>
+  winnerCheck=()=>{
+   <div className="modal">
+   <h1>enter cardId</h1>
+   <button>check</button>
+   </div>
 
-  // }
+   }
   shuffleBalls = () => {
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
     let sound = new Audio(this.shuffleSound);
-    let duration = 800;
+    let duration = 2000;
     for (let i = 0; i <= duration; i++) {
       window.setTimeout(() => {
         if (i === 0) {
@@ -1396,7 +1406,7 @@ class BingoGame extends Component {
         }
         if (i === duration) {
           sound.pause();
-          this.confirmResetGame();
+           this.confirmResetGame();
         }
       }, duration);
     }
@@ -3415,7 +3425,7 @@ class BingoGame extends Component {
 
 
 
-<h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2>
+{/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}
 
 
              </div>
@@ -3424,6 +3434,8 @@ class BingoGame extends Component {
       </div>
     );
   }
+  
 }
+
 
 export default BingoGame;

@@ -56,6 +56,12 @@ const App = () => (
                   </a>
                 </li> */}
               </ul>
+            
+
+
+
+
+  
             </div>
             <div className="col shrink text-right margin-left-lg">
               <div id="google_translate_element"></div>
