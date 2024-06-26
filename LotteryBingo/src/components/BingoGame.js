@@ -381,7 +381,7 @@ class BingoGame extends Component {
     super(props);
     this.state = {
       showFullCallHistory: false,
-      showModal: false,
+      
     };
     // -------------------------- Set properties ----- //
     // Balls display pieces
@@ -1252,9 +1252,11 @@ class BingoGame extends Component {
     localStorage.removeItem("lpb-gameState");
     // reset everything with the board
     clearInterval(this.interval);
+   
     this.cancelSpeech();
     this.totalBallsCalled = 0;
     this.amount = 0;
+  
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
@@ -1264,6 +1266,8 @@ class BingoGame extends Component {
       running: false,
       showResetModal: false,
       previousCallList: [],
+     
+
     });
   };
 
@@ -1719,11 +1723,14 @@ class BingoGame extends Component {
   // };
 
   get startConfirmationModalDisplay() {
+console.log('card count is'+this.state.amount/this.state.betAmount);
     if (this.state.showstartModal === true) {
+
       let balance = this.totalBalance;
       return (
-        <div>
+        <div className="notranslate">
           <div className="modal">
+          
             <div>
               <h5>Enter bet amount</h5>{" "}
               <input
@@ -1735,15 +1742,22 @@ class BingoGame extends Component {
             </div>{" "}
             <label>Number of Cards:</label>
             <div className="number-input">
-              <button onClick={this.decrementCards}>-</button>
+              
               <input
                 type="number"
                 value={this.state.cardCount}
+                
+                readOnly
                 onChange={this.handleCardCountChange}
+              
               />
-              <button onClick={this.incrementCards}>+</button>
+                <button onClick={this.decrementCards}>-</button>
+             
             </div>
+            <span className="notranslate">
             <p>Total Amount: {this.state.amount}</p>
+           
+            </span>
             {/* <p className="red-text">
                         This action <strong>cannot</strong> be undone.
                     </p> */}
@@ -1757,6 +1771,7 @@ class BingoGame extends Component {
                 Done
               </button>
             </p>
+            <span className="notranslate">
             <button
               onClick={
                 this.state.isRed ? this.decrementCards : this.incrementCards
@@ -2069,6 +2084,8 @@ class BingoGame extends Component {
             >
               33
             </button>
+            </span>
+            
             {/* <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >34</button>
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >35</button>
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >36</button>
@@ -2112,6 +2129,7 @@ class BingoGame extends Component {
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >74</button>
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >75</button>
                 */}
+               
           </div>
 
           <div
@@ -2120,11 +2138,14 @@ class BingoGame extends Component {
               e.preventDefault();
             }}
           ></div>
+         
         </div>
+      
       );
     } else {
       return null;
     }
+    
   }
 
   handleBetAmountChange = (e) => {
@@ -2282,6 +2303,7 @@ class BingoGame extends Component {
       cardCount: prevState.cardCount + 1,
       amount: prevState.betAmount * (prevState.cardCount + 1),
     }));
+ 
   };
 
   decrementCards9 = () => {
@@ -3421,8 +3443,9 @@ class BingoGame extends Component {
              
         
              <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
-<h2> win amount   <FcMoneyTransfer /> : </h2>  <div className="win-amount-box"><h1>{this.amount}Br.</h1> </div>
-
+              <span className="notranslate">
+<h2> win amount   <FcMoneyTransfer /> : </h2>  <div data-original-id="win-amount-box"><h1>{this.amount}Birr</h1> </div>
+</span>
 
 
 {/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}

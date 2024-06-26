@@ -28,6 +28,8 @@
 .wrap-text {
   white-space: normal !important;
 }
+
+
 .win-amount-box {
   background-color: #f0f0f0; /* Light gray background */
   border: 1px solid black; /* Light gray border */
@@ -156,7 +158,7 @@ div[class$="-indicatorContainer"] svg {
     border: 1px solid #000000;
   }
   .rc-slider-rail {
-    background: #ffca28;
+    background: var(--secondary-color);
   }
   .rc-slider-handle {
     cursor: grab;
