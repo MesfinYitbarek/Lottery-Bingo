@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 const CreditSchema = new mongoose.Schema({
-  sender: { type: String, required: true },
-  receiver: { type: String, required: true },
-  credit: { type: Number, required: true },
-  birr: { type: Number, required: true },
+  sender: { type: String},
+  receiver: { type: String },
+  amount: { type: Number },
+  birr: { type: Number },
   createdAt: {
     type: Date,
     default: Date.now,

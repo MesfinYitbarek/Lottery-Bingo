@@ -11,14 +11,10 @@ export const test = (req, res) => {
 
 
 export const signup = async (req, res, next) => {
-  const { username, email, password,role } = req.body;
-
-  // Check for existing user
-  const existingUser = await User.findOne({ email });
-  if (existingUser) return res.status(400).json("Email already exists");
+  const { name,username,email, phone, password,balance,cut,branch,role } = req.body;
 
   // Create new User
-  const newUser = new User({ username, email, password, role });
+  const newUser = new User({ name,username,email, phone, password,balance,cut,branch,role  });
 
   try {
     await newUser.save();
@@ -93,10 +89,14 @@ export const updateAdmin = async (req, res, next) => {
       {
         $set: {
           username: req.body.username,
-          email: req.body.email,
+          phone: req.body.email,
           password: req.body.password,
           avatar: req.body.avatar,
           role: req.body.role,
+          name: req.body.name,
+          balance: req.body.balance,
+          cut: req.body.cut,
+          branch: req.body.branch,
         },
       },
       { new: true }

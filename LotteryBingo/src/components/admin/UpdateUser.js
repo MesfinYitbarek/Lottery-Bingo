@@ -7,14 +7,14 @@ const EditUser = () => {
   
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
-  console.log(user)
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(`http://localhost:4000/api/user/userEdit/${id}`);
         setUser(response.data);
       } catch (err) {
-        console.error(err);
+      
         setError("Error fetching user details");
       }
     };
@@ -31,12 +31,12 @@ const EditUser = () => {
     try {
         const response = await axios.post(`http://localhost:4000/api/user/update/${id}`, user);
         if (response.data) {
-         
+          setError(response.data.message || "Update successfully.");
         } else {
           setError(response.data.message || "Update failed. Please try again.");
         }
       } catch (err) {
-        console.error("Error updating user:", err);
+       
         setError("Error updating user. Please try again."); 
       }
   };
@@ -47,6 +47,19 @@ const EditUser = () => {
         <h2 className="text-lg font-semibold mb-4">Edit User</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+            <label className="block text-gray-700 mb-2" htmlFor="username">
+              Name
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              type="text"
+              name="name"
+              value={user.name || ""} 
+              onChange={handleChange}
+              required
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2" htmlFor="username">
               Username
@@ -69,6 +82,45 @@ const EditUser = () => {
               type="email"
               name="email"
               value={user.email || ""} 
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2" htmlFor="username">
+            Phone
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              type="text"
+              name="phone"
+              value={user.phone || ""} 
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2" htmlFor="username">
+            Branch
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              type="text"
+              name="branch"
+              value={user.branch || ""} 
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2" htmlFor="username">
+            Cut
+            </label>
+            <input
+              className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              type="text"
+              name="cut"
+              value={user.cut || ""} 
               onChange={handleChange}
               required
             />

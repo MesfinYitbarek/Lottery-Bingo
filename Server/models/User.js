@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
 const userSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     username: {
       type: String,
       required: true,
@@ -9,12 +14,28 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      
+    },
+    phone: {
+      type: Number,
       required: true,
-      unique: true,
     },
     password: {
       type: String,
       required: true,
+    },
+    balance: {
+      type: Number,
+      default: 0,
+      
+    },
+    cut: {
+      type: String,
+      
+    },
+    branch: {
+      type: String,
+      
     },
     avatar: {
       type: String,
@@ -22,7 +43,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default:"customer",
+      default:"employee",
     },
   },
   { timestamps: true }

@@ -1,21 +1,25 @@
 import React from "react";
 import { useState } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
+import Users from "./Users";
+import Cartela from "./Cartela";
+import CreateCredit from "./CreateCredit";
+import { useSelector } from "react-redux";
 
+import TransferCredit from "./TransferCredit";
+import DashboardHeader from "./DashboardHeader";
 
 const navigationItems = [
-  { name: "Dashboard", isActive: true }, 
-  { name: "Courses " },
-  { name: "Categories" },
-  { name: "Messages"},
+  { name: "Dashboard", isActive: true },
+  { name: "Cartela" },
+  { name: "Credit" },
+  { name: "Sales" },
   { name: "Users" },
-  { name: "Enrolled Students" },
-  
 ];
 
-
 const AdminContainer = () => {
-  const [activeItem, setActiveItem] = useState(0); 
+  const [activeItem, setActiveItem] = useState(0);
+  const { currentUser } = useSelector((state) => state.user);
 
   const handleClick = (index) => {
     setActiveItem(index);
@@ -24,14 +28,15 @@ const AdminContainer = () => {
   var condtion = "";
 
   return (
-    <div className="  bg-gray-100 pb-12 min-h-screen ">
-      <div>
+    <div className="   bg-gray-100 pb-12 min-h-screen ">
+      <div >
         <div>
-          
-          <div className=" bg-white h-screen fixed w-[230px] top-0 p-5 text-center flex flex-col gap-4">
-            <div className="font-bold  text-blue-500 leading-10  text-lg">
-              <Link to={'/'}>
-                
+          <DashboardHeader/>
+        </div>
+        <div>
+          <div className=" bg-blue-800 h-screen fixed w-[280px] top-0 p-5 text-center flex flex-col gap-4">
+            <div className="font-bold mt-10  text-white leading-10  text-lg mb-10">
+              <Link to={"/"} className=" text-3xl font-bold ">
                 Lottery<span>Bingo</span>
               </Link>
             </div>
@@ -41,40 +46,47 @@ const AdminContainer = () => {
                   key={item.name}
                   onClick={() => handleClick(index)}
                   className={`
-            bg-blue-500 flex gap-3 text-sm  cursor-pointer   py-2 px-3 rounded-md
+            bg-blue-500 flex gap-3 text-sm border-blue-800  cursor-pointer   py-4 px-3 rounded-md
             ${
               index === activeItem
-                ? `text-white ${(condtion = item.name)} `
+                ? `text-white ${(condtion = item.name)} bg-blue-700 hover:bg-blue-950 hover:text-white  `
                 : `bg-white  text-gray-500 hover:bg-gray-200`
             } 
           `}
                 >
-                  
                   {item.name}
                 </button>
               ))}
-              <Link to={'/profile'} className=" opacity-60 pl-3 py-1 rounded-md hover:bg-slate-300"> My account</Link>
+             {/* <Link
+                
+                className=" opacity-60 pl-3 py-1 rounded-md text-white hover:bg-slate-300"
+              >
+                {" "}
+                My account
+              </Link>
+            */}
             </div>
           </div>
         </div>
       </div>
+      <div className=" flex justify-center items-center">
       {condtion == "Dashboard" ? (
-<p>home</p>
-      ) : condtion == "Courses" ? (
-        <p>c</p>
-      ) : condtion == "Categories" ? (
-        <p>about</p>
-      ) : condtion == "Messages" ? (
-        <p>menuPlacement</p>
+        <p className=" pl-72">home</p>
+      ) : condtion == "Cartela" ? (
+        <p className=" pl-72"><Cartela/></p>
+      ): condtion == "Credit" ? (
+        <p className=" pl-72">{currentUser.role == 'superadmin' ? <CreateCredit/> : <TransferCredit/>}</p>
+      ) : condtion == "Sales" ? (
+        <p className=" pl-72">Sales</p>
       ) : condtion == "Users" ? (
-        <p>u</p>
-      )  : condtion == "Enrolled Students" ? (
-        <p>e</p>
-      )  : condtion == "Log Out" ? (
+        <p className=" pl-72"><Users/></p>
+      ) : condtion == "Log Out" ? (
         <p>lo</p>
       ) : (
         ""
       )}
+      </div>
+      
     </div>
   );
 };

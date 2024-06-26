@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 // Styles
 import "./sass/main.scss";
+import "./index.css";
 // Images
 import logoImage from "./images/logoImage.svg";
 // Custom Components

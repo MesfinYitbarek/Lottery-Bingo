@@ -41,7 +41,7 @@ const AddUsers = () => {
   };
 
   return (
-    <div className="  h-screen flex justify-center bg-slate-100 items-center">
+    <div className="  flex justify-center bg-slate-100 items-center">
       <div className=" border-t-8 border-t-blue-500    dark:bg-gray-400 bg-white p-[5%] rounded-2xl sm:w-[650px]    border border-slate-300  m-[5%]">
        
 
@@ -50,6 +50,14 @@ const AddUsers = () => {
           action=""
           className="  flex flex-col justify-between items-center gap-6 "
         >
+           <input
+            type="text"
+            placeholder="Full Name"
+            id="name"
+            required
+            onChange={handleChange}
+            className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
+          />
           <input
             type="text"
             placeholder="Username"
@@ -58,10 +66,18 @@ const AddUsers = () => {
             onChange={handleChange}
             className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
           />
-          <input
+           <input
             type="email"
             placeholder="Email"
             id="email"
+            required
+            onChange={handleChange}
+            className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
+          />
+          <input
+            type="text"
+            placeholder="Phone number"
+            id="phone"
             required
             onChange={handleChange}
             className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
@@ -74,6 +90,22 @@ const AddUsers = () => {
             onChange={handleChange}
             className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
           />
+            <input
+            type="text"
+            placeholder="Cut"
+            id="cut"
+            required
+            onChange={handleChange}
+            className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
+          />
+           <input
+            type="text"
+            placeholder="Branch"
+            id="branch"
+            required
+            onChange={handleChange}
+            className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
+          />
           <div className=" flex  gap-5">
             <label htmlFor="role" className=" text-lg font-bold">
               {" "}
@@ -84,7 +116,7 @@ const AddUsers = () => {
               onChange={handleChange}
               className=" dark:bg-slate-100  sm:w-[390px] rounded-lg border border-slate-300 p-2.5 "
             >
-              <option value={"customer"}>Customer</option>
+              <option value={"employee"}>Employee</option>
               <option value={"admin"}>Admin</option>
             </select>
           </div>
