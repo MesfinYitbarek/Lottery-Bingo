@@ -82,13 +82,8 @@ const SignIn = () => {
             </button>
            
           </form>
-          <div className=" flex gap-2 sm:text-[17px] justify-center mt-2">
-            <p>Dont have an account?</p>
-            <Link to={"/sign-up"}>
-              <span className=" text-blue-600 underline">Sign Up</span>
-            </Link>
-          </div>
-          <div className=" bg-rose-50 pl-10 py-1 w-[75%] mt-4  border rounded-md border-red-500">{error && <p className=" text-red-500 ">{error}</p>}</div>
+          
+          <div className="">{error && <p className=" text-red-500 ">{error}</p>}</div>
         </div>
       </div>
       
