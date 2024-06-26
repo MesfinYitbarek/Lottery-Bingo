@@ -44,24 +44,23 @@
 		<meta name="theme-color" content="#ffffff" />
 		<link rel="shortcut icon" href="/favicon.svg" />
 		<title>Lottery-Bingo </title>
-		<button id="fullbtn" classname="but"><i class="fa fa-arrows-alt" aria-hidden="true"></i></i></button>
-		<button id="closefullbtn" classname="but"><i class="fa fa-window-minimize" aria-hidden="true"></i></button>
+		<button id="fullbtn" class="but"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+
 		<script type="text/javascript">
-		var btn1= document.getElementById("fullbtn")
-		var btn2= document.getElementById("closefullbtn")
-		var el= document.documentElement;
-		btn1.addEventListener("click",()=>{
-		  if (el.requestFullscreen){
-			el.requestFullscreen()
-			
-		  }
-		})
-		btn2.addEventListener("click",()=>{
-		  if (document.exitFullscreen){
-			document.exitFullscreen()
-			
-		  }
-		})
+		  const btn = document.getElementById("fullbtn");
+		  const el = document.documentElement;
+		
+		  btn.addEventListener("click", () => {
+			if (document.fullscreenElement) {
+			  // If already in fullscreen, exit
+			  document.exitFullscreen();
+			} else {
+			  // Otherwise, enter fullscreen
+			  if (el.requestFullscreen) {
+				el.requestFullscreen();
+			  }
+			}
+		  });
 		</script>
 	</head>
 	<body>

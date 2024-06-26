@@ -10,6 +10,7 @@ class BingoCard extends React.Component {
     )
   }
   
+  
   render(){
     let card = this.props.card;
     

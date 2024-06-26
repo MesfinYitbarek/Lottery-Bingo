@@ -2309,6 +2309,7 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
   decrementCards9 = () => {
     const currentState01 = this.state.isRed9;
     this.setState({ isRed9: !currentState01 });
+    
 
     if (this.state.cardCount > 0) {
       this.setState((prevState) => ({
@@ -3006,7 +3007,7 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
             <div className="col board-side">
               <BingoBoard
                 board={this.state.board}
-                manualMode={this.state.displayBoardOnly}
+                // manualMode={this.state.displayBoardOnly}
                 manualCall={this.manualCall}
               />
             </div>
