@@ -44,17 +44,17 @@ const SignIn = () => {
   };
 
   return (
-    <div className=" dark:bg-gray-800 bg-slate-50">
+    <div className="tw-dark:bg-gray-800 tw-bg-slate-50">
       
-      <div className=" flex justify-center items-center">
-        <div className="  shadow-sm flex flex-col justify-center items-center dark:bg-gray-400  p-[2%] rounded-2xl sm:w-[650px] bg-slate-50  border border-slate-300  m-[3%]">
-          <h1 className=" m-3  font-serif sm:text-[22px] text-sky-900">
+      <div className="tw-flex tw-justify-center tw-items-center">
+        <div className="tw-shadow-sm tw-flex tw-flex-col tw-justify-center tw-items-center tw-dark:bg-gray-400 tw-p-[2%] tw-rounded-2xl tw-sm:w-[650px] tw-bg-slate-50 tw-border tw-border-slate-300 tw-m-[3%]">
+          <h1 className="tw-m-3 tw-font-serif tw-sm:text-[22px] tw-text-sky-900">
             Hi, Welcome back!
           </h1>
           <form
             onSubmit={handleSubmit}
             action=""
-            className="  flex flex-col justify-between items-center gap-6 "
+            className="tw-flex tw-flex-col tw-justify-between tw-items-center tw-gap-6 "
           >
             <input
               type="text"
@@ -62,7 +62,7 @@ const SignIn = () => {
               id="username"
               required
               onChange={handleChange}
-              className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
+              className="tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
             />
 
             <input
@@ -71,19 +71,19 @@ const SignIn = () => {
               id="password"
               required
               onChange={handleChange}
-              className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
+              className="tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3"
             />
             <button
               disabled={loading}
               type="submit"
-              className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600"
+              className="tw-sm:w-[450px]  tw-font-semibold tw-hover:bg-white tw-hover:text-blue-600 tw-hover:border tw-hover:border-blue-400  tw-p-2 tw-px-6 tw-rounded-lg tw-text-white tw-bg-blue-600"
             >
               {loading ? "Loading..." : "Sign In"}
             </button>
            
           </form>
           
-          <div className="">{error && <p className=" text-red-500 ">{error}</p>}</div>
+          <div className="">{error && <p className="tw-text-red-500 ">{error}</p>}</div>
         </div>
       </div>
       

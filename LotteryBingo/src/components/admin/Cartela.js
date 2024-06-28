@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 
 const Cartela = () => {
   return (
-    <div  className=' flex justify-center items-center'>
-      <div className=' mt-20 rounded-md bg-white shadow-lg p-4 px-10 '>
+    <div  className='tw-flex tw-justify-center tw-items-center'>
+      <div className='tw-mt-20 tw-rounded-md tw-bg-white tw-shadow-lg tw-p-4 tw-px-10 '>
         <div>
-         <h1 className=' text-start text-blue-800 font-semibold text-3xl'>Cartela Board Generator</h1>
+         <h1 className='tw-text-start tw-text-blue-800 tw-font-semibold tw-text-3xl'>Cartela Board Generator</h1>
         </div>
-        <div className=' flex gap-7 mt-10'>
-            <Link to={'/card'} className=' border-2 p-1 px-4 border-blue-800 text-blue-800'>Show Cards</Link>
-            <Link to={'/generator'} className=' border-2 p-1 px-4 border-blue-800 text-blue-800'>Create New Board</Link>
+        <div className='tw-flex tw-gap-7 tw-mt-10'>
+            <Link to={'/card'} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'>Show Cards</Link>
+            <Link to={'/generator'} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'>Create New Board</Link>
             
         </div>
         

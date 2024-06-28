@@ -12,7 +12,7 @@ const DashboardHeader = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/credit/${currentUser._id}/balance`);
+               const res = await axios.get(`http://localhost:4000/api/credit/${currentUser._id}/balance`);
         setBalance(res.data.balance);
       } catch (err) {
         alert('Error fetching balance');
@@ -26,38 +26,38 @@ const DashboardHeader = () => {
   return (
     <div >
       <div>
-      <div className=' pt-3 flex justify-end'>
+      <div className='tw-pt-3 tw-flex tw-justify-end'>
       {currentUser ? (
-        <div className=' flex gap-1'>
-              <div className="group mr-10 relative">
+        <div className='tw-flex tw-gap-1'>
+              <div className="tw-group tw-mr-10 tw-relative">
                 <img
-                  className=" rounded-full h-9 w-9 object-cover"
+                  className="tw-rounded-full tw-h-9 tw-w-9 tw-object-cover"
                   src={currentUser.avatar}
                   alt="profile"
                 />
                 <div
-                  className="absolute z-[9999] 
-                         right-3  hidden
-                        group-hover:block w-[160px] 
-                        bg-white p-2 text-black shadow-sm  "
+                  className="tw-absolute tw-z-[9999] 
+                         tw-right-3  tw-hidden
+                        group-hover:tw-block tw-w-[160px] 
+                        tw-bg-white tw-p-2 tw-text-black tw-shadow-sm  "
                 >
-                  <ul className=" flex flex-col gap-3 py-2 text-sm text-blue-800 ">
-                    <h1 className=' text-center text-blue-800 font-bold'>{currentUser.username}</h1>
-                    <Link to={""} className=" hover:bg-slate-200 py-1 px-3" ><h3>Change Password</h3></Link>  <hr />
+                  <ul className=" tw-flex tw-flex-col tw-gap-3 tw-py-2 tw-text-sm tw-text-blue-800 ">
+                    <h1 className='tw-text-center tw-text-blue-800 tw-font-bold'>{currentUser.username}</h1>
+                    <Link to={""} className="tw-hover:bg-slate-200 tw-py-1 tw-px-3" ><h3>Change Password</h3></Link>  <hr />
 
-                    <h2 className="text-blue-800 hover:bg-slate-200 py-1 px-3"><SignOut/></h2>
+                    <h2 className="tw-text-blue-800 tw-hover:bg-slate-200 tw-py-1 tw-px-3"><SignOut/></h2>
                     
                   </ul>
                 </div>
               </div>
-              <div className=' group'>
-              <div className=' text-3xl text-blue-800 mr-12'> <BiShoppingBag/>  </div>
-              <div className=' text-blue-800 font-semibold hidden mr-6 absolute top-14 right-4 group-hover:block'>Your balance is {balance}</div>
+              <div className='tw-group'>
+              <div className='tw-text-3xl tw-text-blue-800 tw-mr-12'> <BiShoppingBag/>  </div>
+              <div className='tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-14 tw-right-4 group-hover:tw-block'>Your balance is {balance}</div>
               </div>
               </div>
             ) : (
-              <div className=" mr-10">
-                <Link to={'/sign-in'} className=' bg-blue-800 p-1.5 hover:text-white px-4 text-white rounded-md '>
+              <div className="tw-mr-10">
+                <Link to={'/sign-in'} className='tw-bg-blue-800 tw-p-1.5 hover:tw-text-white tw-px-4 tw-text-white tw-rounded-md '>
                   SignIn
                 </Link>
               </div>

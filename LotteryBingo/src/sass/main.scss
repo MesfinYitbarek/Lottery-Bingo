@@ -15,7 +15,7 @@
 // Media Queries
 @import "./mediaqueries.scss";
 .modal {
-    position: fixed;
+    position:fixed;
     color: black;
     top: 50%;
     left: 50%;
@@ -26,6 +26,7 @@
     z-index: 1001;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+  
   
   .modal-backdrop {
     position: fixed;

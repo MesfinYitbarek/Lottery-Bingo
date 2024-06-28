@@ -4,14 +4,14 @@ const Header = () => {
   return (
     <div>
        <header>
-          <div className="container row align-center">
-            <div className="col shrink">
+          <div className="tw-container tw-row tw-align-center">
+            <div className="tw-col tw-shrink">
               <Link to="/">
                 <img src={logoImage} alt="Let's Play Bingo!" className="logo" />
               </Link>
             </div>
-            <div className="col grow padding-md no-text-wrap text-right">
-              <ul className="menu">
+            <div className="tw-col tw-grow tw-padding-md tw-no-text-wrap tw-text-right">
+              <ul className="tw-menu">
                 {/* <li>
                   <Link to="/">Play</Link>
                 </li> */}
@@ -31,7 +31,7 @@ const Header = () => {
                 </li> */}
               </ul>
             </div>
-            <div className="col shrink text-right margin-left-lg">
+            <div className="tw-col tw-shrink tw-text-right tw-margin-left-lg">
               <div id="google_translate_element"></div>
             </div>
           </div>

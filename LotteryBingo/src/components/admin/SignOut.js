@@ -26,7 +26,7 @@ const SignOut = () => {
   };
   return (
     <div>
-      <span onClick={handleSignout} className=" cursor-pointer  ">
+      <span onClick={handleSignout} className=" tw-cursor-pointer  ">
         Log Out 
       </span>
     </div>

@@ -1,7 +1,7 @@
 .board-block {
 	// border-bottom: 5px solid var(red);
 	border:5px solid var(--secondary-color);
-	border-radius: 1%;
+	border-radius: 5px;
 	@media screen and (max-width: 1024px) {
 		> .row {
 			align-items: center;

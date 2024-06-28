@@ -34,10 +34,10 @@ const CreateCredit = () => {
   }
 
   return (
-    <div className="form-container">
-      <h1>Create <span className="text-primary">Credit</span></h1>
+    <div className="tw-form-container">
+      <h1>Create <span className="tw-text-primary">Credit</span></h1>
       <form onSubmit={onSubmit}>
-        <div className="form-group">
+        <div className="tw-form-group">
           <label htmlFor="amount">Amount</label>
           <input
             type="number"
@@ -47,7 +47,7 @@ const CreateCredit = () => {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="tw-form-group">
           <label htmlFor="toPhoneNumber">Recipient Phone Number</label>
           <input
             type="number"

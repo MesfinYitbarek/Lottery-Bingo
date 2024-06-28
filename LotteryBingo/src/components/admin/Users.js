@@ -36,8 +36,8 @@ const Users = () => {
       };
 
   return (
-    <div className=" mt-10 ">
-      <table className=" text-[16px]   text-sky-900 bg-white   px-10 py-4  border-separate border-spacing-y-2 min-w-[800px] ">
+    <div className="tw-mt-10 ">
+      <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
           <tr className=" ">
             <td></td>
             <td></td>
@@ -47,52 +47,52 @@ const Users = () => {
             <td></td>
             <td></td>
 
-            <td className=" text-center">
-              <Link to={"/add-users"} className=" flex items-center gap-2 rounded-md border  text-white bg-blue-800  hover:text-white px-4 py-1 mr-1 font-semibold">
+            <td className="tw-text-center">
+              <Link to={"/add-users"} className="tw-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-text-white tw-bg-blue-800  tw-hover:text-white tw-px-4 tw-py-1 tw-mr-1 tw-font-semibold">
                <BiPlus/> Add 
               </Link>
             </td>
           </tr>
-          <tr className=" bg-blue-800 font-semibold text-white ">
-            <td className="p-2 px-4 ">Name </td>
-            <td className="p-2 px-4 ">Username</td>
-            <td className="p-2 px-4 ">Phone</td>
-            <td className="p-2 px-4 ">Balance</td>
-            <td className="p-2 px-4 ">Cut</td>
-            <td className="p-2 px-4 ">Role</td>
-            <td className="p-2 px-4 ">Branch</td>
+          <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white ">
+            <td className="tw-p-2 tw-px-4 ">Name </td>
+            <td className="tw-p-2 tw-px-4 ">Username</td>
+            <td className="tw-p-2 tw-px-4 ">Phone</td>
+            <td className="tw-p-2 tw-px-4 ">Balance</td>
+            <td className="tw-p-2 tw-px-4 ">Cut</td>
+            <td className="tw-p-2 tw-px-4 ">Role</td>
+            <td className="tw-p-2 tw-px-4 ">Branch</td>
           </tr>
 
           {users.map((data) => (
-            <tr className=" hover:bg-slate-100">
-              <td className=" flex gap-3 items-center">
+            <tr className="tw-hover:bg-slate-100">
+              <td className="tw-flex tw-gap-3 tw-items-center">
                 <img
                   src={data.avatar}
                   alt="profile"
                   style={{width:'23px' }}
-                  className=" rounded-md  w-8 h-8"
+                  className="tw-rounded-md  tw-w-8 tw-h-8"
                 />{" "}
                 {data.name}
               </td>
-              <td className="p-2 px-4 ">{data.username}</td>
-              <td className="p-2 px-4 ">{data.phone}</td>
-              <td className="p-2 px-4 ">{data.balance}</td>
-              <td className="p-2 px-4 ">{data.cut}</td>
-              <td className="p-2 px-4 ">{data.role}</td>
-              <td className="p-2 px-4 ">{data.branch}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.username}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.phone}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.balance}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.cut}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.role}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.branch}</td>
 
-              <td className=" p-2 px-4    text-red-600     text-center">
-                <button onClick={() => handleDeleteUser(data._id)} className='border-red-600  px-1 rounded-none ' >
+              <td className=" tw-p-2 tw-px-4    tw-text-red-600     tw-text-center">
+                <button onClick={() => handleDeleteUser(data._id)} className='tw-border-red-600  tw-px-1 tw-rounded-none ' >
                   Delete
                 </button>
               </td>
-              <td className=" text-center p-2 px-4  text-purple-600 ">
+              <td className="tw-text-center tw-p-2 tw-px-4  tw-text-purple-600 ">
               <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
         </table>
-        {error && <p className=" text-red-500 ">{error}</p>}
+        {error && <p className="tw-text-red-500 ">{error}</p>}
     </div>
   )
 }

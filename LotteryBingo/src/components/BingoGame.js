@@ -8,6 +8,7 @@
 // Dependencies
 import React, { Component } from "react";
 
+
 import Slider from "rc-slider";
 import Select from "react-select";
 import {
@@ -387,9 +388,10 @@ class BingoGame extends Component {
     // Balls display pieces
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
-    this.totalBalance =1000;
+    // this.totalBalance =1000;
     this.amount = 0;
-    this.sales=0;
+    this.cutBalance = 0;
+    // this.sales=0;
     this.startButton = 0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
@@ -542,7 +544,7 @@ class BingoGame extends Component {
     } else {
       this.startButton = 0;
     }
-    // this.amount = this.state.amount;
+   this.amount= this.state.cutBalance;
     // this.setState({sales:this.state.sales});
     
     
@@ -562,7 +564,7 @@ class BingoGame extends Component {
       previousBall: this.previousBall,
       currentBall: this.currentBall,
       interval: this.interval,
-       sales:this.sales,
+      //  sales:this.sales,
     //  totalBalance:this.totalBalance,
     };
     localStorage.setItem("lpb-gameData", JSON.stringify(gameData));
@@ -1127,10 +1129,10 @@ class BingoGame extends Component {
     // if (this.state.wildBingo) {
     //   this.startNewGame();
     // } if {
-      this.sales+=(this.state.amount-this.amount);
-      console.log("sales is"+this.sales);
-  this.totalBalance = this.totalBalance - this.amount;
-      console.log(this.totalBalance);
+      // this.sales+=(this.state.amount-this.amount);
+      // console.log("sales is"+this.sales);
+  // this.totalBalance = this.totalBalance - this.amount;
+      // console.log(this.totalBalance);
     if (this.state.doubleCall) {
       // this.say("Let's Play Bingo!");
       let soundstartfa = new Audio(amharicfemaleplaystart);
@@ -1161,7 +1163,7 @@ class BingoGame extends Component {
       soundstartft.play();
       window.setTimeout(() => {
         this.toggleGame();
-      }, 2000);
+      }, 3000);
       // this.toggleGame();
     } else {
       this.toggleGame();
@@ -1284,7 +1286,11 @@ class BingoGame extends Component {
     // this.currentBall = null;
     this.startButton = 1;
     let x = this.state.amount/1.3333333333333;
-    this.amount=parseFloat((x).toFixed(3))
+    this.amount=parseFloat((x).toFixed(3));
+    this.setState({ 
+      cutBalance: this.amount 
+    });
+
    
     this.setState({
       board: generateBingoBoard(),
@@ -2133,7 +2139,7 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
           </div>
 
           <div
-            className="modal-backdrop"
+            className="modal-backdrop2"
             onClick={(e) => {
               e.preventDefault();
             }}
@@ -3445,7 +3451,7 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
         
              <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
               <span className="notranslate">
-<h2> win amount   <FcMoneyTransfer /> : </h2>  <div data-original-id="win-amount-box"><h1>{this.amount}Birr</h1> </div>
+<h2> win amount   <FcMoneyTransfer /> : </h2>  <div className="win-amount-box"><h1>{this.amount}Birr</h1> </div>
 </span>
 
 
