@@ -44,11 +44,11 @@ const SignIn = () => {
   };
 
   return (
-    <div className="tw-dark:bg-gray-800 tw-bg-slate-50">
+    <div className="tw-dark:bg-gray-800 tw-h-screen tw-pt-28 tw-bg-slate-50">
       
       <div className="tw-flex tw-justify-center tw-items-center">
         <div className="tw-shadow-sm tw-flex tw-flex-col tw-justify-center tw-items-center tw-dark:bg-gray-400 tw-p-[2%] tw-rounded-2xl tw-sm:w-[650px] tw-bg-slate-50 tw-border tw-border-slate-300 tw-m-[3%]">
-          <h1 className="tw-m-3 tw-font-serif tw-sm:text-[22px] tw-text-sky-900">
+          <h1 className="tw-m-3 tw-font-serif tw-text-4xl tw-text-sky-900">
             Hi, Welcome back!
           </h1>
           <form

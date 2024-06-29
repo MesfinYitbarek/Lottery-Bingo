@@ -100,11 +100,11 @@ const Sales = () => {
 
   return (
     <div className="tw-mt-10">
-      <div className="tw-text-green-700 tw-font-bold tw-text-3xl">
-        Sales (${currentUser.balance})
+      <div className="tw-text-green-700 tw-pl-10  tw-font-bold tw-text-3xl">
+        Sales <span className=" tw-text-pink-600">(${currentUser.balance})</span> 
       </div>
 
-      <div className="tw-mb-5 tw-font-bold tw-text-xl">
+      <div className="tw-mb-5 tw-text-end tw-font-bold tw-text-xl tw-text-purple-600 tw-pr-12">
         <div>Total Winning: ${totalWinning}</div>
         <div>Total Cut: ${totalCut}</div>
         <div>Total Transactions: {totalTransactions}</div>

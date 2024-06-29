@@ -41,7 +41,7 @@ const AdminContainer = () => {
                 Lottery<span>Bingo</span>
               </Link>
             </div>
-            <div className=" tw-text-start tw-flex p-2 tw-flex-col tw-gap-2">
+            <div className=" tw-text-start tw-flex tw-p-2 tw-flex-col tw-gap-2">
               {navigationItems.map((item, index) => (
                 <button
                   key={item.name}
@@ -58,14 +58,6 @@ const AdminContainer = () => {
                   {item.name}
                 </button>
               ))}
-             {/* <Link
-                
-                className=" opacity-60 pl-3 py-1 rounded-md text-white hover:bg-slate-300"
-              >
-                {" "}
-                My account
-              </Link>
-            */}
             </div>
           </div>
         </div>
@@ -76,7 +68,7 @@ const AdminContainer = () => {
       ) : condtion == "Cartela" ? (
         <p className=" tw-pl-72"><Cartela/></p>
       ): condtion == "Credit" ? (
-        <p className=" pl-72">{currentUser.role == 'superadmin' ? <CreateCredit/> : <TransferCredit/>}</p>
+        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <CreateCredit/> : <TransferCredit/>}</p>
       ) : condtion == "Sales" ? (
         <p className=" tw-pl-72"><Sales/></p>
       ) : condtion == "Users" ? (

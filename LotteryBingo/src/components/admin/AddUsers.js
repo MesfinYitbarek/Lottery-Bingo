@@ -42,7 +42,7 @@ const AddUsers = () => {
 
   return (
     <div className="  tw-flex tw-justify-center tw-bg-slate-100 tw-items-center">
-      <div className=" tw-border-t-8 tw-border-t-blue-500    tw-dark:bg-gray-400 tw-bg-white tw-p-[5%] tw-rounded-2xl tw-sm:w-[650px]    tw-border tw-border-slate-300  tw-m-[5%]">
+      <div className=" tw-border-t-8 tw-border-t-blue-500     tw-bg-white tw-p-[5%] tw-rounded-2xl sm:tw-w-[650px]   tw-border tw-border-slate-300  tw-m-[5%]">
        
 
         <form
@@ -56,7 +56,7 @@ const AddUsers = () => {
             id="name"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  tw-focus:outline-none"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3 focus: tw-outline-none"
           />
           <input
             type="text"
@@ -64,7 +64,7 @@ const AddUsers = () => {
             id="username"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  tw-focus:outline-none"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
           />
            <input
             type="email"
@@ -72,7 +72,7 @@ const AddUsers = () => {
             id="email"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  tw-focus:outline-none"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
           />
           <input
             type="text"
@@ -80,7 +80,7 @@ const AddUsers = () => {
             id="phone"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3"
           />
           <input
             type="password"
@@ -88,7 +88,7 @@ const AddUsers = () => {
             id="password"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 rounded-lg tw-border tw-border-slate-300 tw-p-3"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 rounded-lg tw-border tw-border-slate-300 tw-p-3"
           />
             <input
             type="text"
@@ -96,7 +96,7 @@ const AddUsers = () => {
             id="cut"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
           />
            <input
             type="text"
@@ -104,7 +104,7 @@ const AddUsers = () => {
             id="branch"
             required
             onChange={handleChange}
-            className=" tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
+            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
           />
           <div className=" tw-flex  tw-gap-5">
             <label htmlFor="role" className=" tw-text-lg tw-font-bold">
@@ -114,7 +114,7 @@ const AddUsers = () => {
             <select
               id="role"
               onChange={handleChange}
-              className=" tw-dark:bg-slate-100  tw-sm:w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+              className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
             >
               <option value={"employee"}>Employee</option>
               <option value={"admin"}>Admin</option>
@@ -124,7 +124,7 @@ const AddUsers = () => {
           <button
             disabled={loading}
             type="submit"
-            className="tw-sm:w-[450px]  tw-font-semibold tw-hover:bg-white tw-hover:text-blue-600 tw-hover:border tw-hover:border-blue-400  tw-p-2 tw-px-6 tw-rounded-lg tw-text-white tw-bg-blue-600"
+            className="sm:tw-w-[450px]  tw-font-semibold tw-hover:bg-white tw-hover:text-blue-600 tw-hover:border tw-hover:border-blue-400  tw-p-2 tw-px-6 tw-rounded-lg tw-text-white tw-bg-blue-600"
           >
             {loading ? "Loading..." : "Create User"}
           </button>

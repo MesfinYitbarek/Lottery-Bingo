@@ -74,14 +74,14 @@ const TransferCredit = () => {
   return (
     <div className="">
         <div className='tw-text-blue-800 tw-px-10 tw-rounded-md tw-font-semibold tw-mt-10 tw-p-4 tw-mb-10 tw-bg-white tw-shadow-lg'>
-            <h1 className='tw-text-blue-800 '>Current Balance</h1>
-            <h1 className='tw-text-green-800 tw-font-bold'>&#36; {balance} <span>Birr</span></h1>
+            <h1 className='tw-text-blue-800 tw-text-2xl '>Current Balance</h1>
+            <h1 className='tw-text-green-800 tw-text-2xl tw-font-bold'>&#36; {balance} <span>Birr</span></h1>
             
         </div>
      <div className=' tw-rounded-md tw-bg-white tw-p-4 tw-px-10 tw-shadow-lg'>
 
      
-      <h1 className='tw-font-semibold tw-mb-5 tw-text-blue-800 '>Transfer <span className="text-primary">Credit</span></h1>
+      <h1 className='tw-font-semibold tw-mb-5 tw-text-2xl tw-text-blue-800 '>Transfer <span className="text-primary">Credit</span></h1>
       <form onSubmit={onSubmit} className=' tw-flex tw-flex-col tw-gap-3'>
         <div className="">
           
@@ -91,7 +91,7 @@ const TransferCredit = () => {
             placeholder='Amount in Credit'
             value={amount}
             onChange={onChange}
-            className=' tw-rounded-md tw-border-2 tw-p-2.5 tw-border-gray-400 tw-focus:border-blue-800 tw-px-3 tw-text-md'
+            className=' tw-rounded-md tw-border-2 tw-p-2.5 tw-border-gray-400 focus:border-blue-800 tw-px-3 tw-text-md'
             required
           />
         </div>
@@ -101,13 +101,13 @@ const TransferCredit = () => {
             type="number"
             name="receiver"
             placeholder='Receiver Phone'
-            className=' tw-rounded-md tw-border-2 tw-p-2.5 tw-border-gray-400 tw-active:border-blue-800 tw-px-3 tw-text-md'
+            className=' tw-rounded-md tw-border-2 tw-p-2.5 tw-border-gray-400 active:border-blue-800 tw-px-3 tw-text-md'
             value={receiver}
             onChange={onChange}
             required
           />
         </div>
-        <div > <input  type="submit" value="Transfer" className="btn btn-primary btn-block text-white bg-blue-800 p-0.5 px-4 rounded-md" /></div>
+        <div > <input  type="submit" value="Transfer" className="btn btn-primary btn-block tw-text-white tw-bg-blue-800 tw-p-0.5 tw-px-4 tw-rounded-md" /></div>
        
       </form>
       </div>

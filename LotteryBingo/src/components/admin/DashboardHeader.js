@@ -37,15 +37,15 @@ const DashboardHeader = () => {
                 />
                 <div
                   className="tw-absolute tw-z-[9999] 
-                         tw-right-3  tw-hidden
-                        group-hover:tw-block tw-w-[160px] 
-                        tw-bg-white tw-p-2 tw-text-black tw-shadow-sm  "
+                         tw-right-3   tw-hidden
+                         group-hover:tw-block tw-w-[200px] 
+                        tw-bg-white  tw-text-black tw-shadow-sm  "
                 >
-                  <ul className=" tw-flex tw-flex-col tw-gap-3 tw-py-2 tw-text-sm tw-text-blue-800 ">
-                    <h1 className='tw-text-center tw-text-blue-800 tw-font-bold'>{currentUser.username}</h1>
-                    <Link to={""} className="tw-hover:bg-slate-200 tw-py-1 tw-px-3" ><h3>Change Password</h3></Link>  <hr />
+                  <ul className=" tw-flex-col tw-justify-center tw-items-center  tw-text-blue-800 ">
+                    <h1 className=' tw-text-lg tw-text-blue-800 tw-font-bold'>{currentUser.username}</h1>
+                    <Link to={""} className="  " ><h3 className='tw-text-lg tw-hover:bg-slate-200 tw-py-1'>Change Password</h3></Link>  <hr />
 
-                    <h2 className="tw-text-blue-800 tw-hover:bg-slate-200 tw-py-1 tw-px-3"><SignOut/></h2>
+                    <h2 className="tw-text-blue-800 tw-hover:bg-slate-200 tw-text-lg tw-py-1 "><SignOut/></h2>
                     
                   </ul>
                 </div>
