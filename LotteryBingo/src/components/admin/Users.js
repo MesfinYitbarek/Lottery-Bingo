@@ -77,7 +77,7 @@ const Users = () => {
               <td className="tw-p-2 tw-px-4 ">{data.username}</td>
               <td className="tw-p-2 tw-px-4 ">{data.phone}</td>
               <td className="tw-p-2 tw-px-4 ">{data.balance}</td>
-              <td className="tw-p-2 tw-px-4 ">{data.cut}</td>
+              <td className="tw-p-2 tw-px-4 ">{data.cut}%</td>
               <td className="tw-p-2 tw-px-4 ">{data.role}</td>
               <td className="tw-p-2 tw-px-4 ">{data.branch}</td>
 

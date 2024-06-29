@@ -37,7 +37,7 @@ const AdminContainer = () => {
         <div>
           <div className=" tw-bg-blue-800 tw-h-screen tw-fixed tw-w-[280px] tw-top-0 tw-p-5 tw-text-center tw-flex tw-flex-col tw-gap-4">
             <div className="tw-font-bold tw-mt-10  tw-text-white tw-leading-10  tw-text-lg tw-mb-10">
-              <Link to={"/"} className=" tw-text-3xl tw-font-bold ">
+              <Link to={"/"} className=" tw-text-3xl tw-font-bold tw-text-white ">
                 Lottery<span>Bingo</span>
               </Link>
             </div>
