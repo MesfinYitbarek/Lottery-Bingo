@@ -465,7 +465,7 @@ class BingoGame extends Component {
       board: generateBingoBoard(),
       previousCallList: [],
       // displayBoardOnly: false,
-      delay: 6000,
+      delay: 3500,
       running: false,
       startButton: false,
       enableCaller: false,
@@ -3181,8 +3181,8 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
                         </div>
                         <div className="col">
                           <Slider
-                            min={3500}
-                            max={30000}
+                            min={2500}
+                            max={6500}
                             step={500}
                             value={this.state.delay}
                             onChange={this.handleDelayChange}
