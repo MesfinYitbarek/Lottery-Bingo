@@ -9,7 +9,7 @@ const TransferCredit = () => {
 
   const [credit, setCredit] = useState({
     amount: '',
-    toPhoneNumber: '',
+    receiver: '',
   });
 
   const [balance, setBalance] = useState(0);
@@ -47,7 +47,7 @@ const TransferCredit = () => {
     }
   }, [currentUser,getcredit]);
 
-  const { amount, toPhoneNumber } = credit;
+  const { amount, receiver } = credit;
 
   const onChange = (e) => setCredit({ ...credit, [e.target.name]: e.target.value });
 
@@ -59,11 +59,11 @@ const TransferCredit = () => {
       try {
         await axios.post('http://localhost:4000/api/credit/transfer', {
           amount,
-          receiver: toPhoneNumber,
+          receiver: receiver,
           sender: currentUser.phone,
         });
         alert('Credit transferred successfully');
-        setCredit({ amount: '', toPhoneNumber: '' });
+        setCredit({ amount: '', receiver: '' });
        // To refresh the user's credit balance
       } catch (err) {
         alert('Error transferring credit');
@@ -72,18 +72,18 @@ const TransferCredit = () => {
   };
 
   return (
-    <div className="tw-form-container">
+    <div className="">
         <div className='tw-text-blue-800 tw-px-10 tw-rounded-md tw-font-semibold tw-mt-10 tw-p-4 tw-mb-10 tw-bg-white tw-shadow-lg'>
             <h1 className='tw-text-blue-800 '>Current Balance</h1>
             <h1 className='tw-text-green-800 tw-font-bold'>&#36; {balance} <span>Birr</span></h1>
             
         </div>
-     <div className=' rounded-md bg-white p-4 px-10 shadow-lg'>
+     <div className=' tw-rounded-md tw-bg-white tw-p-4 tw-px-10 tw-shadow-lg'>
 
      
-      <h1 className='font-semibold mb-5 text-blue-800 '>Transfer <span className="text-primary">Credit</span></h1>
-      <form onSubmit={onSubmit} className=' flex flex-col gap-3'>
-        <div className="form-group">
+      <h1 className='tw-font-semibold tw-mb-5 tw-text-blue-800 '>Transfer <span className="text-primary">Credit</span></h1>
+      <form onSubmit={onSubmit} className=' tw-flex tw-flex-col tw-gap-3'>
+        <div className="">
           
           <input
             type="number"
@@ -91,7 +91,7 @@ const TransferCredit = () => {
             placeholder='Amount in Credit'
             value={amount}
             onChange={onChange}
-            className=' rounded-md border-2 p-2.5 border-gray-400 focus:border-blue-800 px-3 text-md'
+            className=' tw-rounded-md tw-border-2 tw-p-2.5 tw-border-gray-400 tw-focus:border-blue-800 tw-px-3 tw-text-md'
             required
           />
         </div>
@@ -101,7 +101,7 @@ const TransferCredit = () => {
             type="number"
             name="receiver"
             placeholder='Receiver Phone'
-            className=' rounded-md border-2 p-2.5 border-gray-400 active:border-blue-800 px-3 text-md'
+            className=' tw-rounded-md tw-border-2 tw-p-2.5 tw-border-gray-400 tw-active:border-blue-800 tw-px-3 tw-text-md'
             value={receiver}
             onChange={onChange}
             required
@@ -112,27 +112,27 @@ const TransferCredit = () => {
       </form>
       </div>
       <div className=' mt-8'>
-      <table className=" rounded-md text-[16px]  text-sky-800 bg-white   px-10 py-4 shadow-lg  border-separate border-spacing-y-2 min-w-[800px] ">
+      <table className=" tw-rounded-md tw-text-[16px]  tw-text-sky-800 tw-bg-white   tw-px-10 tw-py-4 tw-shadow-lg  tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
           
-          <tr className=" bg-blue-800 font-semibold text-white ">
-            <td className="p-2 px-4 ">Sender </td>
-            <td className="p-2 px-4 ">Receiver</td>
-            <td className="p-2 px-4 ">Amount in Credit</td>
-            <td className="p-2 px-4 ">Date</td>
+          <tr className=" tw-bg-blue-800 tw-font-semibold tw-text-white ">
+            <td className="tw-p-2 tw-px-4 ">Sender </td>
+            <td className="tw-p-2 tw-px-4 ">Receiver</td>
+            <td className="tw-p-2 tw-px-4 ">Amount in Credit</td>
+            <td className="tw-p-2 tw-px-4 ">Date</td>
            
           </tr>
                       
           {getcredit ? getcredit.map((getcredit) =>  (
-            <tr className=" hover:bg-slate-100"> 
-              <td className="p-2 px-4 ">
+            <tr className=" tw-hover:bg-slate-100"> 
+              <td className="tw-p-2 tw-px-4 ">
                 {getcredit.sender}
               </td>
-              <td className="p-2 px-4 ">{getcredit.receiver}</td>
-              <td className="p-2 px-4 ">{getcredit.amount}</td>
-              <td className="p-2 px-4 ">{getcredit.createdAt}</td>
+              <td className="tw-p-2 tw-px-4  ">{getcredit.receiver}</td>
+              <td className="tw-p-2 tw-px-4  ">{getcredit.amount}</td>
+              <td className="tw-p-2 tw-px-4  ">{getcredit.createdAt}</td>
               
 
-              <td className=" p-2 px-4    text-red-600    text-center">
+              <td className=" tw-p-2 tw-px-4     tw-text-red-600    tw-text-center">
                 <button  >
                   Delete
                 </button>

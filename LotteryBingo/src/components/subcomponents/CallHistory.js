@@ -39,7 +39,8 @@ class CallHistory extends React.Component {
   }
 
   renderPreviousCalls() {
-    if (this.props.calledBalls.length > 0) {
+    {console.log("call history" ,this.props.betAmount,this.props.calledBalls)}
+    if (this.props.calledBalls && this.props.calledBalls.length > 0) {
       const previousCallList = [...this.props.calledBalls];
       const last5Calls = previousCallList.reverse().slice(1, 6);
       if (last5Calls.length > 0) {
@@ -68,7 +69,6 @@ class CallHistory extends React.Component {
   }
 
   render() {
-
     return (
       <div className="text-center">
         {this.renderPreviousCalls()}
@@ -78,12 +78,14 @@ class CallHistory extends React.Component {
           <CartelaModal
             calledBalls={this.props.calledBalls}
             onClose={() => this.setState({ showModal: false })}
+            betAmount={this.props.betAmount}
+            cardCount={this.props.cardCount}
+            totalAmount={this.props.totalAmount}
           />
         )}
       </div>
     );
   }
-
 }
 
 export default CallHistory;

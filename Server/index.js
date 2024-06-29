@@ -6,6 +6,7 @@ import userRouter from "./routes/users.js";
 import mongoose from "mongoose";
 import cardRouter from "./routes/cards.js";
 import creditRouter from "./routes/credit.js";
+import salesRouter from "./routes/sales.js";
 // Connect to MongoDB database
 mongoose
   .connect("mongodb+srv://mesfinyitbarek55:12348109@lotterybingo.knjysl9.mongodb.net/?retryWrites=true&w=majority&appName=LotteryBingo")
@@ -29,7 +30,7 @@ app.use(cookieParser());
 app.use("/api/user", userRouter);
 app.use("/api/card", cardRouter);
 app.use("/api/credit", creditRouter);
-
+app.use("/api/sales", salesRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

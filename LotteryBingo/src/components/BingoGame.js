@@ -8,7 +8,6 @@
 // Dependencies
 import React, { Component } from "react";
 
-
 import Slider from "rc-slider";
 import Select from "react-select";
 import {
@@ -26,12 +25,10 @@ import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
 import { FcMoneyTransfer } from "react-icons/fc";
 
-
 // Custom Components
 import BingoBoard from "./subcomponents/BingoBoard.js";
 import Pattern from "./subcomponents/Pattern.js";
 import CallHistory from "./subcomponents/CallHistory.js";
-
 
 import { MdOutlineAssistWalker } from "react-icons/md";
 
@@ -365,24 +362,92 @@ import {
   pop3,
   pop4,
   shuffle,
-  onefo, twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo,
-   tenfo, elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo,
-    seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo, 
-    twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, 
-    twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo,
-     thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo, thirtyninefo,
-      fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo, fortysevenfo, 
-      fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo, fiftyfourfo, fiftyfivefo, fiftysixfo, 
-      fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo, sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo,
-       sixtysixfo, sixtysevenfo, sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, 
-       seventyfourfo, seventyfivefo,amharicmaleplaystart,tigplaystart,oroplaystart,amharicfemaleplaystart,
+  onefo,
+  twofo,
+  threefo,
+  fourfo,
+  fivefo,
+  sixfo,
+  sevenfo,
+  eightfo,
+  ninefo,
+  tenfo,
+  elevenfo,
+  twelvefo,
+  thirteenfo,
+  fourteenfo,
+  fifteenfo,
+  sixteenfo,
+  seventeenfo,
+  eighteenfo,
+  nineteenfo,
+  twentyfo,
+  twentyonefo,
+  twentytwofo,
+  twentythreefo,
+  twentyfourfo,
+  twentyfivefo,
+  twentysixfo,
+  twentysevenfo,
+  twentyeightfo,
+  twentyninefo,
+  thirtyfo,
+  thirtyonefo,
+  thirtytwofo,
+  thirtythreefo,
+  thirtyfourfo,
+  thirtyfivefo,
+  thirtysixfo,
+  thirtysevenfo,
+  thirtyeightfo,
+  thirtyninefo,
+  fortyfo,
+  fortyonefo,
+  fortytwofo,
+  fortythreefo,
+  fortyfourfo,
+  fortyfivefo,
+  fortysixfo,
+  fortysevenfo,
+  fortyeightfo,
+  fortyninefo,
+  fiftyfo,
+  fiftyonefo,
+  fiftytwofo,
+  fiftythreefo,
+  fiftyfourfo,
+  fiftyfivefo,
+  fiftysixfo,
+  fiftysevenfo,
+  fiftyeightfo,
+  fiftyninefo,
+  sixtyfo,
+  sixtyonefo,
+  sixtytwofo,
+  sixtythreefo,
+  sixtyfourfo,
+  sixtyfivefo,
+  sixtysixfo,
+  sixtysevenfo,
+  sixtyeightfo,
+  sixtyninefo,
+  seventyfo,
+  seventyonefo,
+  seventytwofo,
+  seventythreefo,
+  seventyfourfo,
+  seventyfivefo,
+  amharicmaleplaystart,
+  tigplaystart,
+  oroplaystart,
+  amharicfemaleplaystart,
 } from "../chimes";
+import CartelaModal from "./subcomponents/CartelaModal.js";
 class BingoGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showFullCallHistory: false,
-      
     };
     // -------------------------- Set properties ----- //
     // Balls display pieces
@@ -461,7 +526,6 @@ class BingoGame extends Component {
 
   getInitialStateData() {
     return {
-     
       board: generateBingoBoard(),
       previousCallList: [],
       // displayBoardOnly: false,
@@ -544,10 +608,8 @@ class BingoGame extends Component {
     } else {
       this.startButton = 0;
     }
-   this.amount= this.state.cutBalance;
+    this.amount = this.state.cutBalance;
     // this.setState({sales:this.state.sales});
-    
-    
   }
 
   /**
@@ -565,7 +627,7 @@ class BingoGame extends Component {
       currentBall: this.currentBall,
       interval: this.interval,
       //  sales:this.sales,
-    //  totalBalance:this.totalBalance,
+      //  totalBalance:this.totalBalance,
     };
     localStorage.setItem("lpb-gameData", JSON.stringify(gameData));
     localStorage.setItem("lpb-gameState", JSON.stringify(this.state));
@@ -747,17 +809,82 @@ class BingoGame extends Component {
       }
     } else if (this.state.extraTalk) {
       const femaleoromic = [
-       chime1, onefo, twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo, tenfo,
-         elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo, 
-         seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo,
-          twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, 
-          twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo,
-           thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo, thirtyninefo,
-            fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo,
-             fortysevenfo, fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo,
-              fiftyfourfo, fiftyfivefo, fiftysixfo, fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo,
-               sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo, sixtysixfo, sixtysevenfo,
-                sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, seventyfourfo, seventyfivefo
+        chime1,
+        onefo,
+        twofo,
+        threefo,
+        fourfo,
+        fivefo,
+        sixfo,
+        sevenfo,
+        eightfo,
+        ninefo,
+        tenfo,
+        elevenfo,
+        twelvefo,
+        thirteenfo,
+        fourteenfo,
+        fifteenfo,
+        sixteenfo,
+        seventeenfo,
+        eighteenfo,
+        nineteenfo,
+        twentyfo,
+        twentyonefo,
+        twentytwofo,
+        twentythreefo,
+        twentyfourfo,
+        twentyfivefo,
+        twentysixfo,
+        twentysevenfo,
+        twentyeightfo,
+        twentyninefo,
+        thirtyfo,
+        thirtyonefo,
+        thirtytwofo,
+        thirtythreefo,
+        thirtyfourfo,
+        thirtyfivefo,
+        thirtysixfo,
+        thirtysevenfo,
+        thirtyeightfo,
+        thirtyninefo,
+        fortyfo,
+        fortyonefo,
+        fortytwofo,
+        fortythreefo,
+        fortyfourfo,
+        fortyfivefo,
+        fortysixfo,
+        fortysevenfo,
+        fortyeightfo,
+        fortyninefo,
+        fiftyfo,
+        fiftyonefo,
+        fiftytwofo,
+        fiftythreefo,
+        fiftyfourfo,
+        fiftyfivefo,
+        fiftysixfo,
+        fiftysevenfo,
+        fiftyeightfo,
+        fiftyninefo,
+        sixtyfo,
+        sixtyonefo,
+        sixtytwofo,
+        sixtythreefo,
+        sixtyfourfo,
+        sixtyfivefo,
+        sixtysixfo,
+        sixtysevenfo,
+        sixtyeightfo,
+        sixtyninefo,
+        seventyfo,
+        seventyonefo,
+        seventytwofo,
+        seventythreefo,
+        seventyfourfo,
+        seventyfivefo,
       ];
       if (ball.number >= 0 && ball.number <= 75) {
         let sound2 = new Audio(femaleoromic[ball.number]);
@@ -1018,8 +1145,7 @@ class BingoGame extends Component {
       //   let sound = new Audio(array[ball.number]);
       //   sound.play();
       // }
-    }
-    else {
+    } else {
       this.say([ball.letter, " ", ball.number]);
     }
   };
@@ -1129,10 +1255,10 @@ class BingoGame extends Component {
     // if (this.state.wildBingo) {
     //   this.startNewGame();
     // } if {
-      // this.sales+=(this.state.amount-this.amount);
-      // console.log("sales is"+this.sales);
-  // this.totalBalance = this.totalBalance - this.amount;
-      // console.log(this.totalBalance);
+    // this.sales+=(this.state.amount-this.amount);
+    // console.log("sales is"+this.sales);
+    // this.totalBalance = this.totalBalance - this.amount;
+    // console.log(this.totalBalance);
     if (this.state.doubleCall) {
       // this.say("Let's Play Bingo!");
       let soundstartfa = new Audio(amharicfemaleplaystart);
@@ -1141,7 +1267,7 @@ class BingoGame extends Component {
         this.toggleGame();
       }, 2000);
     } else if (this.state.extraTalk) {
-      let soundstartfo = new Audio(oroplaystart,);
+      let soundstartfo = new Audio(oroplaystart);
       soundstartfo.play();
       window.setTimeout(() => {
         this.toggleGame();
@@ -1245,7 +1371,6 @@ class BingoGame extends Component {
   togglestartModal = () => {
     const currentState1 = this.state.showstartModal;
     this.setState({ showstartModal: !currentState1 });
-   
   };
 
   confirmResetGame = () => {
@@ -1254,11 +1379,11 @@ class BingoGame extends Component {
     localStorage.removeItem("lpb-gameState");
     // reset everything with the board
     clearInterval(this.interval);
-   
+
     this.cancelSpeech();
     this.totalBallsCalled = 0;
     this.amount = 0;
-  
+
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
@@ -1268,8 +1393,6 @@ class BingoGame extends Component {
       running: false,
       showResetModal: false,
       previousCallList: [],
-     
-
     });
   };
 
@@ -1285,13 +1408,12 @@ class BingoGame extends Component {
     // this.previousBall = null;
     // this.currentBall = null;
     this.startButton = 1;
-    let x = this.state.amount/1.3333333333333;
-    this.amount=parseFloat((x).toFixed(3));
-    this.setState({ 
-      cutBalance: this.amount 
+    let x = this.state.amount / 1.3333333333333;
+    this.amount = parseFloat(x.toFixed(3));
+    this.setState({
+      cutBalance: this.amount,
     });
 
-   
     this.setState({
       board: generateBingoBoard(),
       // wildBall: null,
@@ -1393,13 +1515,12 @@ class BingoGame extends Component {
       this.setState({ running: false });
     }
   };
-  winnerCheck=()=>{
-   <div className="modal">
-   <h1>enter cardId</h1>
-   <button>check</button>
-   </div>
-
-   }
+  winnerCheck = () => {
+    <div className="modal">
+      <h1>enter cardId</h1>
+      <button>check</button>
+    </div>;
+  };
   shuffleBalls = () => {
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
@@ -1416,7 +1537,7 @@ class BingoGame extends Component {
         }
         if (i === duration) {
           sound.pause();
-           this.confirmResetGame();
+          this.confirmResetGame();
         }
       }, duration);
     }
@@ -1729,14 +1850,13 @@ class BingoGame extends Component {
   // };
 
   get startConfirmationModalDisplay() {
-console.log('card count is'+this.state.amount/this.state.betAmount);
+    console.log("card count is" + this.state.amount / this.state.betAmount);
     if (this.state.showstartModal === true) {
-
       let balance = this.totalBalance;
+
       return (
         <div className="notranslate">
           <div className="modal">
-          
             <div>
               <h5>Enter bet amount</h5>{" "}
               <input
@@ -1748,21 +1868,16 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
             </div>{" "}
             <label>Number of Cards:</label>
             <div className="number-input">
-              
               <input
                 type="number"
                 value={this.state.cardCount}
-                
                 readOnly
                 onChange={this.handleCardCountChange}
-              
               />
-                <button onClick={this.decrementCards}>-</button>
-             
+              <button onClick={this.decrementCards}>-</button>
             </div>
             <span className="notranslate">
-            <p>Total Amount: {this.state.amount}</p>
-           
+              <p>Total Amount: {this.state.amount}</p>
             </span>
             {/* <p className="red-text">
                         This action <strong>cannot</strong> be undone.
@@ -1778,320 +1893,335 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
               </button>
             </p>
             <span className="notranslate">
-            <button
-              onClick={
-                this.state.isRed ? this.decrementCards : this.incrementCards
-              }
-              className={this.state.isRed ? "red" : "bt"}
-            >
-              1
-            </button>
-            <button
-              onClick={
-                this.state.isRed2 ? this.decrementCards2 : this.incrementCards2
-              }
-              className={this.state.isRed2 ? "red" : "bt"}
-            >
-              2
-            </button>
-            <button
-              onClick={
-                this.state.isRed3 ? this.decrementCards3 : this.incrementCards3
-              }
-              className={this.state.isRed3 ? "red" : "bt"}
-            >
-              3
-            </button>
-            <button
-              onClick={
-                this.state.isRed4 ? this.decrementCards4 : this.incrementCards4
-              }
-              className={this.state.isRed4 ? "red" : "bt"}
-            >
-              4
-            </button>
-            <button
-              onClick={
-                this.state.isRed5 ? this.decrementCards5 : this.incrementCards5
-              }
-              className={this.state.isRed5 ? "red" : "bt"}
-            >
-              5
-            </button>
-            <button
-              onClick={
-                this.state.isRed6 ? this.decrementCards6 : this.incrementCards6
-              }
-              className={this.state.isRed6 ? "red" : "bt"}
-            >
-              6
-            </button>
-            <button
-              onClick={
-                this.state.isRed7 ? this.decrementCards7 : this.incrementCards7
-              }
-              className={this.state.isRed7 ? "red" : "bt"}
-            >
-              7
-            </button>
-            <button
-              onClick={
-                this.state.isRed8 ? this.decrementCards8 : this.incrementCards8
-              }
-              className={this.state.isRed8 ? "red" : "bt"}
-            >
-              8
-            </button>
-            <button
-              onClick={
-                this.state.isRed9 ? this.decrementCards9 : this.incrementCards9
-              }
-              className={this.state.isRed9 ? "red" : "bt"}
-            >
-              9
-            </button>
-            <button
-              onClick={
-                this.state.isRed10
-                  ? this.decrementCards10
-                  : this.incrementCards10
-              }
-              className={this.state.isRed10 ? "red" : "bt"}
-            >
-              10
-            </button>
-            <button
-              onClick={
-                this.state.isRed11
-                  ? this.decrementCards11
-                  : this.incrementCards11
-              }
-              className={this.state.isRed11 ? "red" : "bt"}
-            >
-              11
-            </button>
-            <button
-              onClick={
-                this.state.isRed12
-                  ? this.decrementCards12
-                  : this.incrementCards12
-              }
-              className={this.state.isRed12 ? "red" : "bt"}
-            >
-              12
-            </button>
-            <button
-              onClick={
-                this.state.isRed13
-                  ? this.decrementCards13
-                  : this.incrementCards13
-              }
-              className={this.state.isRed13 ? "red" : "bt"}
-            >
-              13
-            </button>
-            <button
-              onClick={
-                this.state.isRed14
-                  ? this.decrementCards14
-                  : this.incrementCards14
-              }
-              className={this.state.isRed14 ? "red" : "bt"}
-            >
-              14
-            </button>
-            <button
-              onClick={
-                this.state.isRed15
-                  ? this.decrementCards15
-                  : this.incrementCards15
-              }
-              className={this.state.isRed15 ? "red" : "bt"}
-            >
-              15
-            </button>
-            <button
-              onClick={
-                this.state.isRed16
-                  ? this.decrementCards16
-                  : this.incrementCards16
-              }
-              className={this.state.isRed16 ? "red" : "bt"}
-            >
-              16
-            </button>
-            <button
-              onClick={
-                this.state.isRed17
-                  ? this.decrementCards17
-                  : this.incrementCards17
-              }
-              className={this.state.isRed17 ? "red" : "bt"}
-            >
-              17
-            </button>
-            <button
-              onClick={
-                this.state.isRed18
-                  ? this.decrementCards18
-                  : this.incrementCards18
-              }
-              className={this.state.isRed18 ? "red" : "bt"}
-            >
-              18
-            </button>
-            <button
-              onClick={
-                this.state.isRed19
-                  ? this.decrementCards19
-                  : this.incrementCards19
-              }
-              className={this.state.isRed19 ? "red" : "bt"}
-            >
-              19
-            </button>
-            <button
-              onClick={
-                this.state.isRed20
-                  ? this.decrementCards20
-                  : this.incrementCards20
-              }
-              className={this.state.isRed20 ? "red" : "bt"}
-            >
-              20
-            </button>
-            <button
-              onClick={
-                this.state.isRed21
-                  ? this.decrementCards21
-                  : this.incrementCards21
-              }
-              className={this.state.isRed21 ? "red" : "bt"}
-            >
-              21
-            </button>
-            <button
-              onClick={
-                this.state.isRed22
-                  ? this.decrementCards22
-                  : this.incrementCards22
-              }
-              className={this.state.isRed22 ? "red" : "bt"}
-            >
-              22
-            </button>
-            <button
-              onClick={
-                this.state.isRed23
-                  ? this.decrementCards23
-                  : this.incrementCards23
-              }
-              className={this.state.isRed23 ? "red" : "bt"}
-            >
-              23
-            </button>
-            <button
-              onClick={
-                this.state.isRed24
-                  ? this.decrementCards24
-                  : this.incrementCards24
-              }
-              className={this.state.isRed24 ? "red" : "bt"}
-            >
-              24
-            </button>
-            <button
-              onClick={
-                this.state.isRed25
-                  ? this.decrementCards25
-                  : this.incrementCards25
-              }
-              className={this.state.isRed25 ? "red" : "bt"}
-            >
-              25
-            </button>
-            <button
-              onClick={
-                this.state.isRed26
-                  ? this.decrementCards26
-                  : this.incrementCards26
-              }
-              className={this.state.isRed26 ? "red" : "bt"}
-            >
-              26
-            </button>
-            <button
-              onClick={
-                this.state.isRed27
-                  ? this.decrementCards27
-                  : this.incrementCards27
-              }
-              className={this.state.isRed27 ? "red" : "bt"}
-            >
-              27
-            </button>
-            <button
-              onClick={
-                this.state.isRed28
-                  ? this.decrementCards28
-                  : this.incrementCards28
-              }
-              className={this.state.isRed28 ? "red" : "bt"}
-            >
-              28
-            </button>
-            <button
-              onClick={
-                this.state.isRed29
-                  ? this.decrementCards29
-                  : this.incrementCards29
-              }
-              className={this.state.isRed29 ? "red" : "bt"}
-            >
-              29
-            </button>
-            <button
-              onClick={
-                this.state.isRed30
-                  ? this.decrementCards30
-                  : this.incrementCards30
-              }
-              className={this.state.isRed30 ? "red" : "bt"}
-            >
-              30
-            </button>
-            <button
-              onClick={
-                this.state.isRed31
-                  ? this.decrementCards31
-                  : this.incrementCards31
-              }
-              className={this.state.isRed31 ? "red" : "bt"}
-            >
-              31
-            </button>
-            <button
-              onClick={
-                this.state.isRed32
-                  ? this.decrementCards32
-                  : this.incrementCards32
-              }
-              className={this.state.isRed32 ? "red" : "bt"}
-            >
-              32
-            </button>
-            <button
-              onClick={
-                this.state.isRed33
-                  ? this.decrementCards33
-                  : this.incrementCards33
-              }
-              className={this.state.isRed33 ? "red" : "bt"}
-            >
-              33
-            </button>
+              <button
+                onClick={
+                  this.state.isRed ? this.decrementCards : this.incrementCards
+                }
+                className={this.state.isRed ? "red" : "bt"}
+              >
+                1
+              </button>
+              <button
+                onClick={
+                  this.state.isRed2
+                    ? this.decrementCards2
+                    : this.incrementCards2
+                }
+                className={this.state.isRed2 ? "red" : "bt"}
+              >
+                2
+              </button>
+              <button
+                onClick={
+                  this.state.isRed3
+                    ? this.decrementCards3
+                    : this.incrementCards3
+                }
+                className={this.state.isRed3 ? "red" : "bt"}
+              >
+                3
+              </button>
+              <button
+                onClick={
+                  this.state.isRed4
+                    ? this.decrementCards4
+                    : this.incrementCards4
+                }
+                className={this.state.isRed4 ? "red" : "bt"}
+              >
+                4
+              </button>
+              <button
+                onClick={
+                  this.state.isRed5
+                    ? this.decrementCards5
+                    : this.incrementCards5
+                }
+                className={this.state.isRed5 ? "red" : "bt"}
+              >
+                5
+              </button>
+              <button
+                onClick={
+                  this.state.isRed6
+                    ? this.decrementCards6
+                    : this.incrementCards6
+                }
+                className={this.state.isRed6 ? "red" : "bt"}
+              >
+                6
+              </button>
+              <button
+                onClick={
+                  this.state.isRed7
+                    ? this.decrementCards7
+                    : this.incrementCards7
+                }
+                className={this.state.isRed7 ? "red" : "bt"}
+              >
+                7
+              </button>
+              <button
+                onClick={
+                  this.state.isRed8
+                    ? this.decrementCards8
+                    : this.incrementCards8
+                }
+                className={this.state.isRed8 ? "red" : "bt"}
+              >
+                8
+              </button>
+              <button
+                onClick={
+                  this.state.isRed9
+                    ? this.decrementCards9
+                    : this.incrementCards9
+                }
+                className={this.state.isRed9 ? "red" : "bt"}
+              >
+                9
+              </button>
+              <button
+                onClick={
+                  this.state.isRed10
+                    ? this.decrementCards10
+                    : this.incrementCards10
+                }
+                className={this.state.isRed10 ? "red" : "bt"}
+              >
+                10
+              </button>
+              <button
+                onClick={
+                  this.state.isRed11
+                    ? this.decrementCards11
+                    : this.incrementCards11
+                }
+                className={this.state.isRed11 ? "red" : "bt"}
+              >
+                11
+              </button>
+              <button
+                onClick={
+                  this.state.isRed12
+                    ? this.decrementCards12
+                    : this.incrementCards12
+                }
+                className={this.state.isRed12 ? "red" : "bt"}
+              >
+                12
+              </button>
+              <button
+                onClick={
+                  this.state.isRed13
+                    ? this.decrementCards13
+                    : this.incrementCards13
+                }
+                className={this.state.isRed13 ? "red" : "bt"}
+              >
+                13
+              </button>
+              <button
+                onClick={
+                  this.state.isRed14
+                    ? this.decrementCards14
+                    : this.incrementCards14
+                }
+                className={this.state.isRed14 ? "red" : "bt"}
+              >
+                14
+              </button>
+              <button
+                onClick={
+                  this.state.isRed15
+                    ? this.decrementCards15
+                    : this.incrementCards15
+                }
+                className={this.state.isRed15 ? "red" : "bt"}
+              >
+                15
+              </button>
+              <button
+                onClick={
+                  this.state.isRed16
+                    ? this.decrementCards16
+                    : this.incrementCards16
+                }
+                className={this.state.isRed16 ? "red" : "bt"}
+              >
+                16
+              </button>
+              <button
+                onClick={
+                  this.state.isRed17
+                    ? this.decrementCards17
+                    : this.incrementCards17
+                }
+                className={this.state.isRed17 ? "red" : "bt"}
+              >
+                17
+              </button>
+              <button
+                onClick={
+                  this.state.isRed18
+                    ? this.decrementCards18
+                    : this.incrementCards18
+                }
+                className={this.state.isRed18 ? "red" : "bt"}
+              >
+                18
+              </button>
+              <button
+                onClick={
+                  this.state.isRed19
+                    ? this.decrementCards19
+                    : this.incrementCards19
+                }
+                className={this.state.isRed19 ? "red" : "bt"}
+              >
+                19
+              </button>
+              <button
+                onClick={
+                  this.state.isRed20
+                    ? this.decrementCards20
+                    : this.incrementCards20
+                }
+                className={this.state.isRed20 ? "red" : "bt"}
+              >
+                20
+              </button>
+              <button
+                onClick={
+                  this.state.isRed21
+                    ? this.decrementCards21
+                    : this.incrementCards21
+                }
+                className={this.state.isRed21 ? "red" : "bt"}
+              >
+                21
+              </button>
+              <button
+                onClick={
+                  this.state.isRed22
+                    ? this.decrementCards22
+                    : this.incrementCards22
+                }
+                className={this.state.isRed22 ? "red" : "bt"}
+              >
+                22
+              </button>
+              <button
+                onClick={
+                  this.state.isRed23
+                    ? this.decrementCards23
+                    : this.incrementCards23
+                }
+                className={this.state.isRed23 ? "red" : "bt"}
+              >
+                23
+              </button>
+              <button
+                onClick={
+                  this.state.isRed24
+                    ? this.decrementCards24
+                    : this.incrementCards24
+                }
+                className={this.state.isRed24 ? "red" : "bt"}
+              >
+                24
+              </button>
+              <button
+                onClick={
+                  this.state.isRed25
+                    ? this.decrementCards25
+                    : this.incrementCards25
+                }
+                className={this.state.isRed25 ? "red" : "bt"}
+              >
+                25
+              </button>
+              <button
+                onClick={
+                  this.state.isRed26
+                    ? this.decrementCards26
+                    : this.incrementCards26
+                }
+                className={this.state.isRed26 ? "red" : "bt"}
+              >
+                26
+              </button>
+              <button
+                onClick={
+                  this.state.isRed27
+                    ? this.decrementCards27
+                    : this.incrementCards27
+                }
+                className={this.state.isRed27 ? "red" : "bt"}
+              >
+                27
+              </button>
+              <button
+                onClick={
+                  this.state.isRed28
+                    ? this.decrementCards28
+                    : this.incrementCards28
+                }
+                className={this.state.isRed28 ? "red" : "bt"}
+              >
+                28
+              </button>
+              <button
+                onClick={
+                  this.state.isRed29
+                    ? this.decrementCards29
+                    : this.incrementCards29
+                }
+                className={this.state.isRed29 ? "red" : "bt"}
+              >
+                29
+              </button>
+              <button
+                onClick={
+                  this.state.isRed30
+                    ? this.decrementCards30
+                    : this.incrementCards30
+                }
+                className={this.state.isRed30 ? "red" : "bt"}
+              >
+                30
+              </button>
+              <button
+                onClick={
+                  this.state.isRed31
+                    ? this.decrementCards31
+                    : this.incrementCards31
+                }
+                className={this.state.isRed31 ? "red" : "bt"}
+              >
+                31
+              </button>
+              <button
+                onClick={
+                  this.state.isRed32
+                    ? this.decrementCards32
+                    : this.incrementCards32
+                }
+                className={this.state.isRed32 ? "red" : "bt"}
+              >
+                32
+              </button>
+              <button
+                onClick={
+                  this.state.isRed33
+                    ? this.decrementCards33
+                    : this.incrementCards33
+                }
+                className={this.state.isRed33 ? "red" : "bt"}
+              >
+                33
+              </button>
             </span>
-            
             {/* <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >34</button>
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >35</button>
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >36</button>
@@ -2135,7 +2265,6 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >74</button>
                 <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >75</button>
                 */}
-               
           </div>
 
           <div
@@ -2143,15 +2272,26 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
             onClick={(e) => {
               e.preventDefault();
             }}
-          ></div>
-         
+          >
+            {console.log(
+              this.state.betAmount,
+              this.state.amount,
+              this.state.cardCount
+            )}
+          </div>
+          {console.log(this.state.betAmount)}
+          <div className="tw-hidden">
+            <CallHistory
+              betAmount={this.state.betAmount}
+              cardCount={this.state.cardCount}
+              totalAmount={this.state.amount}
+            />
+          </div>
         </div>
-      
       );
     } else {
       return null;
     }
-    
   }
 
   handleBetAmountChange = (e) => {
@@ -2309,13 +2449,11 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
       cardCount: prevState.cardCount + 1,
       amount: prevState.betAmount * (prevState.cardCount + 1),
     }));
- 
   };
 
   decrementCards9 = () => {
     const currentState01 = this.state.isRed9;
     this.setState({ isRed9: !currentState01 });
-    
 
     if (this.state.cardCount > 0) {
       this.setState((prevState) => ({
@@ -3029,6 +3167,9 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
 
               <CallHistory
                 calledBalls={this.state.previousCallList}
+                betAmount={this.state.betAmount}
+                cardCount={this.state.cardCount}
+                totalAmount={this.state.amount}
               ></CallHistory>
               {/* 
               <div
@@ -3158,9 +3299,9 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
 
                 {/* ----------- Settings when using generation ---------- */}
                 <div
-                  // data-visibility={
-                  //   this.state.displayBoardOnly === false ? "show" : "hide"
-                  // }
+                // data-visibility={
+                //   this.state.displayBoardOnly === false ? "show" : "hide"
+                // }
                 >
                   {/* ----------- Autoplay Settings ---------- */}
                   <div className="row no-wrap align-center justify-start">
@@ -3447,25 +3588,25 @@ console.log('card count is'+this.state.amount/this.state.betAmount);
                 <br />
               </p>
              */}
-             
-        
-             <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
+
+            <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
               <span className="notranslate">
-<h2> win amount   <FcMoneyTransfer /> : </h2>  <div className="win-amount-box"><h1>{this.amount}Birr</h1> </div>
-</span>
+                <h2>
+                  {" "}
+                  win amount <FcMoneyTransfer /> :{" "}
+                </h2>{" "}
+                <div className="win-amount-box">
+                  <h1>{this.amount}Birr</h1>{" "}
+                </div>
+              </span>
 
-
-{/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}
-
-
-             </div>
+              {/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}
+            </div>
           </div>
         </section>
       </div>
     );
   }
-  
 }
-
 
 export default BingoGame;

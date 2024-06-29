@@ -25,6 +25,7 @@ import SignIn from "./components/Authentication/SignIn.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store.js";
+import Sales from "./components/admin/Sales.js";
 
 const App = () => (
   <Provider store={store}>

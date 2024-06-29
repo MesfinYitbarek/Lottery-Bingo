@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 import TransferCredit from "./TransferCredit";
 import DashboardHeader from "./DashboardHeader";
+import Sales from "./Sales";
 
 const navigationItems = [
   { name: "Dashboard", isActive: true },
@@ -77,7 +78,7 @@ const AdminContainer = () => {
       ): condtion == "Credit" ? (
         <p className=" pl-72">{currentUser.role == 'superadmin' ? <CreateCredit/> : <TransferCredit/>}</p>
       ) : condtion == "Sales" ? (
-        <p className=" tw-pl-72">Sales</p>
+        <p className=" tw-pl-72"><Sales/></p>
       ) : condtion == "Users" ? (
         <p className=" tw-pl-72"><Users/></p>
       ) : condtion == "Log Out" ? (

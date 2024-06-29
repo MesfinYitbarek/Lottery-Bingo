@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-const CartelaModal = ({ calledBalls, onClose }) => {
+const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount }) => {
   const [cartelaId, setCartelaId] = useState('');
   const [cartela, setCartela] = useState(null);
   const [matchedNumbers, setMatchedNumbers] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [isBingo, setIsBingo] = useState(false);
+  const [bingoNumbers, setBingoNumbers] = useState([]);
+  const { currentUser } = useSelector((state) => state.user);
 
   const fetchCartela = async () => {
     setIsFetching(true);
     setFetchError(null);
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/card/cartela/${cartelaId}`,
-        {
-          method: 'GET',
-        }
-      );
+      const response = await fetch(`http://localhost:4000/api/card/cartela/${cartelaId}`, {
+        method: 'GET',
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch cartela');
       }
@@ -40,7 +41,6 @@ const CartelaModal = ({ calledBalls, onClose }) => {
 
   const checkCartelaNumbers = (cartela) => {
     if (cartela && cartela.card) {
-      // Flatten the card numbers into a single array
       const allNumbers = Object.values(cartela.card).flat();
       const matched = calledBalls.filter((call) =>
         allNumbers.includes(call.number)
@@ -57,11 +57,50 @@ const CartelaModal = ({ calledBalls, onClose }) => {
       [card.B[0], card.I[1], card.N[2], card.G[3], card.O[4]],
       [card.O[0], card.G[1], card.N[2], card.I[3], card.B[4]]
     ];
-    
+
     const lines = [...rows, ...columns, ...diagonals];
-    
-    const isBingo = lines.some(line => line.every(num => matched.some(call => call.number === num)));
-    setIsBingo(isBingo);
+
+    let bingoLine = null;
+    for (const line of lines) {
+      if (line.every(num => matched.some(call => call.number === num))) {
+        bingoLine = line;
+        break;
+      }
+    }
+
+    if (bingoLine) {
+      saveBingoData(bingoLine);
+    }
+
+    setIsBingo(!!bingoLine);
+    setBingoNumbers(bingoLine || []);
+  };
+console.log('cartelamodel', betAmount, cardCount, totalAmount)
+  const saveBingoData = async (bingoLine) => {
+    const total = totalAmount;
+    const bingoData = {
+      bet: betAmount,
+      player: cardCount,
+      total: totalAmount,
+      call: calledBalls.length,
+      winner: cartelaId,
+      branch: currentUser.branch,
+      cashier: currentUser.username,
+      date: new Date().toISOString(),
+      cut: total * (currentUser.cut / 100),
+      won: total - (total * (currentUser.cut / 100)),
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/sales/sales', bingoData);
+      if (response.status === 200) {
+        console.log('Bingo data saved successfully');
+      } else {
+        console.error('Failed to save bingo data');
+      }
+    } catch (error) {
+      console.error('Error saving bingo data:', error);
+    }
   };
 
   useEffect(() => {
@@ -93,8 +132,14 @@ const CartelaModal = ({ calledBalls, onClose }) => {
                     const isMatched = matchedNumbers.some(
                       (call) => call.number === number
                     );
+                    const isBingoNumber = bingoNumbers.includes(number);
                     return (
-                      <div key={number} className={isMatched ? 'matched' : ''}>
+                      <div
+                        key={number}
+                        className={`${isMatched ? 'matched' : ''} ${
+                          isBingoNumber ? 'bingo-number' : ''
+                        }`}
+                      >
                         {number}
                       </div>
                     );
@@ -102,7 +147,11 @@ const CartelaModal = ({ calledBalls, onClose }) => {
                 </div>
               ))}
             </div>
-            {isBingo && <div className="bingo-message text-4xl font-bold text-red-600">Bingo!</div>}
+            {isBingo && (
+              <div className="bingo-message tw-text-4xl tw-font-bold tw-text-red-600">
+                Bingo!
+              </div>
+            )}
           </div>
         )}
         <p>
