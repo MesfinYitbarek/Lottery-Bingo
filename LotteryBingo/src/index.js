@@ -26,30 +26,35 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store.js";
 import Sales from "./components/admin/Sales.js";
+import PrivateRoute from "./PrivateRoute/PrivateRoute.js";
 
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        
         <Routes>
-          <Route exact path="/" element={<BingoGame />} />
-          <Route exact path="/admin" element={<AdminContainer />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/generator" element={<CardGenerator />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/patterns" element={<Patterns />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/releases" element={<ReleaseNotes />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/add-users" element={<AddUsers />} />
-          <Route path="/card" element={<CardFetcher />} />
+          <Route element={<PrivateRoute allowedRoles={["employee" ]} />}>
+            <Route exact path="/" element={<BingoGame />} />
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["superadmin", "admin"]} />}>
+            <Route exact path="/admin" element={<AdminContainer />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/donate" element={<Donate />} />
+            <Route path="/generator" element={<CardGenerator />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/patterns" element={<Patterns />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/releases" element={<ReleaseNotes />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/add-users" element={<AddUsers />} />
+            <Route path="/card" element={<CardFetcher />} />
+            <Route path="/update-user/:id" element={<EditUser />} />
+          </Route>
+          
+
           <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/update-user/:id" element={<EditUser />} />
         </Routes>
-       
       </BrowserRouter>
     </PersistGate>
   </Provider>

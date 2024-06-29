@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Sales = () => {
   const [sales, setSales] = useState([]);
   const [filteredSales, setFilteredSales] = useState([]);
-
+  const { currentUser } = useSelector((state) => state.user);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("");
@@ -47,9 +48,9 @@ const Sales = () => {
 
   const handleFilter = () => {
     console.log("Filtering with:", { startDate, endDate, selectedBranch, selectedCashier });
-  
+
     let filtered = sales;
-  
+
     if (startDate) {
       filtered = filtered.filter(sale => {
         const saleDate = new Date(sale.createdAt);
@@ -58,7 +59,7 @@ const Sales = () => {
         return saleDate >= filterStartDate;
       });
     }
-  
+
     if (endDate) {
       filtered = filtered.filter(sale => {
         const saleDate = new Date(sale.createdAt);
@@ -68,19 +69,20 @@ const Sales = () => {
         return saleDate <= filterEndDate;
       });
     }
-  
+
     if (selectedBranch) {
       filtered = filtered.filter(sale => sale.branch === selectedBranch);
     }
-  
+
     if (selectedCashier) {
       filtered = filtered.filter(sale => sale.cashier === selectedCashier);
     }
-  
+
     console.log("Filtered results:", filtered);
     setFilteredSales(filtered);
     setCurrentPage(1); // Reset to the first page after filtering
   };
+
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredSales.slice(indexOfFirstRow, indexOfLastRow);
@@ -91,10 +93,25 @@ const Sales = () => {
     setCurrentPage(number);
   };
 
+  // Calculate totals
+  const totalWinning = filteredSales.reduce((sum, sale) => sum + sale.won, 0);
+  const totalCut = filteredSales.reduce((sum, sale) => sum + sale.cut, 0);
+  const totalTransactions = filteredSales.length;
+
   return (
     <div className="tw-mt-10">
+      <div className="tw-text-green-700 tw-font-bold tw-text-3xl">
+        Sales (${currentUser.balance})
+      </div>
+
+      <div className="tw-mb-5 tw-font-bold tw-text-xl">
+        <div>Total Winning: ${totalWinning}</div>
+        <div>Total Cut: ${totalCut}</div>
+        <div>Total Transactions: {totalTransactions}</div>
+      </div>
+
       <div className="tw-mb-5">
-        <input
+      <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}

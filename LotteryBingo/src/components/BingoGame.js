@@ -443,6 +443,7 @@ import {
   amharicfemaleplaystart,
 } from "../chimes";
 import CartelaModal from "./subcomponents/CartelaModal.js";
+import Profile from "./subcomponents/Profile.js";
 class BingoGame extends Component {
   constructor(props) {
     super(props);
@@ -3588,20 +3589,24 @@ class BingoGame extends Component {
                 <br />
               </p>
              */}
+            
+              <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
+                <span className="notranslate">
+                  <h2>
+                    {" "}
+                    win amount <FcMoneyTransfer /> :{" "}
+                  </h2>{" "}
+                  <div className="win-amount-box">
+                    <h1>{this.amount}Birr</h1>{" "}
+                  </div>
+                </span>
 
-            <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
-              <span className="notranslate">
-                <h2>
-                  {" "}
-                  win amount <FcMoneyTransfer /> :{" "}
-                </h2>{" "}
-                <div className="win-amount-box">
-                  <h1>{this.amount}Birr</h1>{" "}
-                </div>
-              </span>
-
-              {/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}
-            </div>
+                {/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}
+              </div>
+              <div>
+                <Profile />
+              </div>
+            
           </div>
         </section>
       </div>
