@@ -6,6 +6,7 @@ const CartelaModal = ({ calledBalls, onClose }) => {
   const [matchedNumbers, setMatchedNumbers] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState(null);
+  const [isBingo, setIsBingo] = useState(false);
 
   const fetchCartela = async () => {
     setIsFetching(true);
@@ -45,7 +46,22 @@ const CartelaModal = ({ calledBalls, onClose }) => {
         allNumbers.includes(call.number)
       );
       setMatchedNumbers(matched);
+      checkBingo(cartela.card, matched);
     }
+  };
+
+  const checkBingo = (card, matched) => {
+    const rows = [...Array(5)].map((_, i) => Object.keys(card).map(col => card[col][i]));
+    const columns = Object.values(card);
+    const diagonals = [
+      [card.B[0], card.I[1], card.N[2], card.G[3], card.O[4]],
+      [card.O[0], card.G[1], card.N[2], card.I[3], card.B[4]]
+    ];
+    
+    const lines = [...rows, ...columns, ...diagonals];
+    
+    const isBingo = lines.some(line => line.every(num => matched.some(call => call.number === num)));
+    setIsBingo(isBingo);
   };
 
   useEffect(() => {
@@ -86,6 +102,7 @@ const CartelaModal = ({ calledBalls, onClose }) => {
                 </div>
               ))}
             </div>
+            {isBingo && <div className="bingo-message text-4xl font-bold text-red-600">Bingo!</div>}
           </div>
         )}
         <p>

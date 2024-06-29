@@ -75,7 +75,7 @@ const AdminContainer = () => {
       ) : condtion == "Cartela" ? (
         <p className=" tw-pl-72"><Cartela/></p>
       ): condtion == "Credit" ? (
-        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <CreateCredit/> : <TransferCredit/>}</p>
+        <p className=" pl-72">{currentUser.role == 'superadmin' ? <CreateCredit/> : <TransferCredit/>}</p>
       ) : condtion == "Sales" ? (
         <p className=" tw-pl-72">Sales</p>
       ) : condtion == "Users" ? (

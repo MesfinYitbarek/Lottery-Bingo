@@ -30,45 +30,7 @@ const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <header>
-          <div className="container row align-center">
-            <div className="col shrink">
-              <Link to="/">
-                <img src={logoImage} alt="Let's Play Bingo!" className="logo" />
-              </Link>
-            </div>
-            <div className="col grow padding-md no-text-wrap text-right">
-              <ul className="menu">
-                {/* <li>
-                  <Link to="/">Play</Link>
-                </li> */}
-                {/* <li>
-                  <Link to="/generator">Cards</Link>
-                </li> */}
-                {/* <li>
-                  <Link to="/help">Help</Link>
-                </li> */}
-                {/* <li>
-                  <Link to="/about">About / Donate</Link>
-                </li> */}
-                {/* <li>
-                  <a href="https://letsplaybingo.io" target="_blank" rel="noreferrer">
-                    Latest Edition
-                  </a>
-                </li> */}
-              </ul>
-            
-
-
-
-
-  
-            </div>
-            <div className="col shrink text-right margin-left-lg">
-              <div id="google_translate_element"></div>
-            </div>
-          </div>
-        </header>
+        
         <Routes>
           <Route exact path="/" element={<BingoGame />} />
           <Route exact path="/admin" element={<AdminContainer />} />
@@ -86,19 +48,7 @@ const App = () => (
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/update-user/:id" element={<EditUser />} />
         </Routes>
-        <footer>
-          <div className="container row three-cols align-center">
-            {/* <div className="col">For entertainment purposes only.</div> */}
-            <div className="col text-center">
-              &copy; 2024 - {new Date().getFullYear()} <a>lottery-bingo</a>
-            </div>
-            <div className="col text-right">
-              {/* <Link to="/releases">Release Notes</Link> | <Link to="/terms">Terms of Use</Link> |{" "}
-              <Link to="/privacy">Cookies &amp; Privacy Policy</Link> */}
-              contact : +251 964983544
-            </div>
-          </div>
-		  </footer>
+       
       </BrowserRouter>
     </PersistGate>
   </Provider>

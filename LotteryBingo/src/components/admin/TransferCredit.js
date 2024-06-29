@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const TransferCredit = () => {
 
-  const { currentUser } = useSelector((state) => state.user);
+  const { loading,currentUser } = useSelector((state) => state.user);
 
   const [credit, setCredit] = useState({
     amount: '',
@@ -78,35 +78,70 @@ const TransferCredit = () => {
             <h1 className='tw-text-green-800 tw-font-bold'>&#36; {balance} <span>Birr</span></h1>
             
         </div>
-     <div className='tw-rounded-md tw-bg-white tw-p-4 tw-px-10 tw-shadow-lg'>
-       <form className='tw-flex tw-flex-col tw-gap-4' onSubmit={onSubmit}>
-          <div className='tw-flex tw-flex-col'>
-              <label htmlFor='amount' className='tw-text-blue-800 tw-font-bold'>Amount</label>
-              <input 
-                type='number' 
-                id='amount'
-                name='amount'
-                className='tw-border tw-border-slate-300 tw-rounded-lg tw-py-2 tw-px-3'
-                value={amount}
-                onChange={onChange} 
-                required 
-              />
-          </div>
-          <div className='tw-flex tw-flex-col'>
-              <label htmlFor='toPhoneNumber' className='tw-text-blue-800 tw-font-bold'>To Phone Number</label>
-              <input 
-                type='text' 
-                id='toPhoneNumber'
-                name='toPhoneNumber'
-                className='tw-border tw-border-slate-300 tw-rounded-lg tw-py-2 tw-px-3'
-                value={toPhoneNumber}
-                onChange={onChange} 
-                required 
-              />
-          </div>
-          <button type='submit' className='tw-bg-blue-800 tw-text-white tw-rounded-lg tw-p-2 tw-hover:bg-blue-700 tw-cursor-pointer'>Transfer Credit</button>
-       </form>
-     </div>
+     <div className=' rounded-md bg-white p-4 px-10 shadow-lg'>
+
+     
+      <h1 className='font-semibold mb-5 text-blue-800 '>Transfer <span className="text-primary">Credit</span></h1>
+      <form onSubmit={onSubmit} className=' flex flex-col gap-3'>
+        <div className="form-group">
+          
+          <input
+            type="number"
+            name="amount"
+            placeholder='Amount in Credit'
+            value={amount}
+            onChange={onChange}
+            className=' rounded-md border-2 p-2.5 border-gray-400 focus:border-blue-800 px-3 text-md'
+            required
+          />
+        </div>
+        <div className="form-group">
+          
+          <input
+            type="number"
+            name="receiver"
+            placeholder='Receiver Phone'
+            className=' rounded-md border-2 p-2.5 border-gray-400 active:border-blue-800 px-3 text-md'
+            value={receiver}
+            onChange={onChange}
+            required
+          />
+        </div>
+        <div > <input  type="submit" value="Transfer" className="btn btn-primary btn-block text-white bg-blue-800 p-0.5 px-4 rounded-md" /></div>
+       
+      </form>
+      </div>
+      <div className=' mt-8'>
+      <table className=" rounded-md text-[16px]  text-sky-800 bg-white   px-10 py-4 shadow-lg  border-separate border-spacing-y-2 min-w-[800px] ">
+          
+          <tr className=" bg-blue-800 font-semibold text-white ">
+            <td className="p-2 px-4 ">Sender </td>
+            <td className="p-2 px-4 ">Receiver</td>
+            <td className="p-2 px-4 ">Amount in Credit</td>
+            <td className="p-2 px-4 ">Date</td>
+           
+          </tr>
+                      
+          {getcredit ? getcredit.map((getcredit) =>  (
+            <tr className=" hover:bg-slate-100"> 
+              <td className="p-2 px-4 ">
+                {getcredit.sender}
+              </td>
+              <td className="p-2 px-4 ">{getcredit.receiver}</td>
+              <td className="p-2 px-4 ">{getcredit.amount}</td>
+              <td className="p-2 px-4 ">{getcredit.createdAt}</td>
+              
+
+              <td className=" p-2 px-4    text-red-600    text-center">
+                <button  >
+                  Delete
+                </button>
+              </td>
+              
+            </tr>
+          )):(<div>not found</div>)}
+        </table>
+      </div>
     </div>
   )
 }
