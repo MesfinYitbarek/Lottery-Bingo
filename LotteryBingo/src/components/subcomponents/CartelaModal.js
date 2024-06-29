@@ -65,6 +65,7 @@ const CartelaModal = ({ calledBalls, onClose }) => {
         <button onClick={fetchCartela} disabled={isFetching}>
           {isFetching ? 'Checking...' : 'Check'}
         </button>
+
         {fetchError && <div className="error">{fetchError}</div>}
         {cartela && cartela.length > 0 && cartela[0].card && (
           <div>

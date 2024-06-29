@@ -1,6 +1,6 @@
 import React from 'react';
 import PatternDisplay from '../subcomponents/PatternDisplay';
-import { getPresetPatterns } from '../../utils.js';
+// import { getPresetPatterns } from '../../utils.js';
 import '../../sass/bingopattern.scss';
 
 class Patterns extends React.Component {
