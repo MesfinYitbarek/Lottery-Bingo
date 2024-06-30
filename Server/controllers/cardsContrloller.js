@@ -7,15 +7,24 @@ import Card from "../models/Card.js";
 // Route to save generated cards
 export const cards = async (req, res) => {
   try {
-    const cards = req.body.cards;
+    const { branch, cards } = req.body;
 
-    // Add unique IDs to each card
-    for (let card of cards) {
-      card.id = await getNextId();
+    // Validate input
+    if (!branch || !cards || !Array.isArray(cards)) {
+      return res.status(400).json({ error: 'Invalid input' });
     }
 
+    // Add unique IDs and branch name to each card
+    const cardsWithIds = await Promise.all(
+      cards.map(async (card) => ({
+        ...card,
+        id: await getNextId(),
+        branch,
+      }))
+    );
+
     // Save cards to the database
-    const savedCards = await Card.insertMany(cards);
+    const savedCards = await Card.insertMany(cardsWithIds);
     res.status(201).json(savedCards);
   } catch (error) {
     res.status(500).json({ error: 'Failed to save cards' });

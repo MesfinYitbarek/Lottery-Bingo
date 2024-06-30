@@ -34,6 +34,7 @@ const CardFetcher = () => {
         {cards.map((cardData, index) => (
           <div  key={index} className="card blue">
             <h3>Card ID: {cardData.id}</h3>
+            <h3>Branch: {cardData.branch}</h3>
             <BingoCard card={cardData.card} color="blue" />
           </div>
 

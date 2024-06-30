@@ -3,20 +3,31 @@ import Select from "react-select";
 import axios from "axios";
 import BingoCard from "../subcomponents/BingoCard";
 
-class CardGenerator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      generatedCards: [],
-      numberOfCards: null,
-      blackWhite: false,
-      color: null,
-      perPage: null,
-    };
-    window.addEventListener("beforeprint", this.printCards);
-  }
+const CardGenerator = () => {
+  const [generatedCards, setGeneratedCards] = React.useState([]);
+  const [numberOfCards, setNumberOfCards] = React.useState(null);
+  const [blackWhite, setBlackWhite] = React.useState(false);
+  const [color, setColor] = React.useState(null);
+  const [perPage, setPerPage] = React.useState(null);
+  const [branch, setBranch] = React.useState(null);
+  const [users, setUsers] = React.useState([]);
+  const [error, setError] = React.useState(null);
 
-  generateBingoNumbers = () => {
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/api/user/branch");
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        setError("Error fetching branches");
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const generateBingoNumbers = () => {
     let letters = ["B", "I", "N", "G", "O"];
     let numbers = {};
     let count = 1;
@@ -30,34 +41,39 @@ class CardGenerator extends React.Component {
     return numbers;
   };
 
-  handleNumberSelect = (event) => {
-    this.setState({ numberOfCards: parseInt(event.value) });
+  const handleNumberSelect = (event) => {
+    setNumberOfCards(parseInt(event.value));
   };
 
-  handleColorSelect = (event) => {
-    this.setState({ color: event.value });
+  const handleColorSelect = (event) => {
+    setColor(event.value);
   };
 
-  handlePerPageSelect = (event) => {
-    this.setState({ perPage: event });
+  const handlePerPageSelect = (event) => {
+    setPerPage(event);
   };
 
-  handleBWCheckbox = (e) => {
-    this.setState({ blackWhite: e.currentTarget.checked });
+  const handleBWCheckbox = (e) => {
+    setBlackWhite(e.currentTarget.checked);
   };
 
-  handleButton = async (event) => {
+  const handleBranchSelect = (event) => {
+    setBranch(event.value);
+  };
+
+  const handleButton = async () => {
     let cards = [];
-    for (let i = 1; i <= this.state.numberOfCards; i++) {
-      cards.push(this.generateCard());
+    for (let i = 1; i <= numberOfCards; i++) {
+      cards.push(generateCard());
     }
-    this.setState({ generatedCards: cards });
+    setGeneratedCards(cards);
 
     // Save generated cards to backend
     try {
       const response = await axios.post(
         "http://localhost:4000/api/card/cards",
         {
+          branch: branch,
           cards: cards.map((card) => ({ card })),
         }
       );
@@ -67,11 +83,11 @@ class CardGenerator extends React.Component {
     }
   };
 
-  generateCard = () => {
-    let numbers = this.generateBingoNumbers();
+  const generateCard = () => {
+    let numbers = generateBingoNumbers();
     let card = {};
 
-    Object.keys(numbers).map((letter) => {
+    Object.keys(numbers).forEach((letter) => {
       let chosenNumbers = [];
       for (let i = 0; i < 5; i++) {
         chosenNumbers.push(
@@ -82,14 +98,13 @@ class CardGenerator extends React.Component {
         );
       }
       card[letter] = chosenNumbers;
-      return letter;
     });
     return card;
   };
 
-  printCards = () => {
+  const printCards = () => {
     let style = document.createElement("style");
-    switch (this.state.perPage?.value) {
+    switch (perPage?.value) {
       case "2":
         style.appendChild(
           document.createTextNode(
@@ -122,43 +137,35 @@ class CardGenerator extends React.Component {
     document.head.appendChild(style);
   };
 
-  get perPageOptions() {
-    return [
-      { value: "2", label: "2" },
-      { value: "4", label: "4" },
+  const perPageOptions = [
+    { value: "2", label: "2" },
+    { value: "4", label: "4" },
       { value: "6", label: "6" },
     ];
+  
+
+  const numberOfCardsOptions = [];
+  for (let i = 0; i <= 100; i++) {
+    numberOfCardsOptions.push({ value: i.toString(), label: i.toString() });
   }
 
-  get numberOfCardsOptions() {
-    let options = [];
-    for (let i = 0; i <= 100; i++) {
-      options.push({ value: i.toString(), label: i.toString() });
-    }
-    return options;
-  }
+  const colorOptions = [
+    { value: "red", label: "red" },
+    { value: "orange", label: "orange" },
+    { value: "yellow", label: "yellow" },
+    { value: "green", label: "green" },
+    { value: "blue", label: "blue" },
+    { value: "purple", label: "purple" },
+    { value: "pink", label: "pink" },
+    { value: "aqua", label: "aqua" },
+    { value: "gray", label: "gray" },
+    { value: "brown", label: "brown" },
+  ];
 
-  get colorOptions() {
-    return [
-      { value: "red", label: "red" },
-      { value: "orange", label: "orange" },
-      { value: "yellow", label: "yellow" },
-      { value: "green", label: "green" },
-      { value: "blue", label: "blue" },
-      { value: "purple", label: "purple" },
-      { value: "pink", label: "pink" },
-      { value: "aqua", label: "aqua" },
-      { value: "gray", label: "gray" },
-      { value: "brown", label: "brown" },
-    ];
-  }
-
-  get sectionClasses() {
-    let classes =
-      "padding-vertical-xxlg pale-gray-bg " +
-      (this.state.blackWhite ? "print-bw " : "print-color ");
-    if (this.state.perPage !== null) {
-      switch (this.state.perPage.value) {
+  const sectionClasses = () => {
+    let classes = "padding-vertical-xxlg pale-gray-bg " + (blackWhite ? "print-bw " : "print-color ");
+    if (perPage !== null) {
+      switch (perPage.value) {
         case "2":
           classes += "print-two ";
           break;
@@ -174,15 +181,14 @@ class CardGenerator extends React.Component {
       }
     }
     return classes;
-  }
+  };
 
-  get generateButtonDisabled() {
-    return this.state.numberOfCards === null || this.state.color === null;
-  }
+  const generateButtonDisabled = () => {
+    return numberOfCards === null || color === null || branch === null;
+  };
 
-  render() {
     return (
-      <section className={this.sectionClasses}>
+      <section className={sectionClasses()}>
         <div className="container row no-print">
           <div className="col">
             <h1>Card Generator</h1>
@@ -199,29 +205,38 @@ class CardGenerator extends React.Component {
 
             <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
               <div className="col shrink padding-horizontal-md">
-                <Select
-                  className="number-select"
-                  placeholder="Number of Cards"
-                  onChange={this.handleNumberSelect}
-                  options={this.numberOfCardsOptions}
-                />
+              <Select
+                className="number-select"
+                placeholder="Number of Cards"
+                onChange={handleNumberSelect}
+                options={numberOfCardsOptions}
+              />
               </div>
               <div className="col shrink padding-horizontal-md">
                 <Select
                   className="number-select"
                   placeholder="Card Colors"
-                  onChange={this.handleColorSelect}
-                  options={this.colorOptions}
+                  onChange={handleColorSelect}
+                  options={colorOptions}
                 />
               </div>
+              <div className="col shrink padding-horizontal-md">
+               
+                <Select
+                className="branch-name-input"
+                placeholder="Select Branch"
+                onChange={handleBranchSelect}
+                options={users.map(user => ({ value: user.username, label: user.username }))}
+              />
+              </div>
               <div className="col shrink padding-horizontal-md margin-right-xlg">
-                <button
-                  className="primaryBtn"
-                  onClick={this.handleButton.bind(this)}
-                  disabled={this.generateButtonDisabled}
-                >
-                  Generate
-                </button>
+              <button
+                className="primaryBtn"
+                onClick={handleButton}
+                disabled={generateButtonDisabled()}
+              >
+                Generate
+              </button>
               </div>
             </div>
 
@@ -232,7 +247,7 @@ class CardGenerator extends React.Component {
                     type="checkbox"
                     id="blackWhite"
                     name="blackWhite"
-                    onChange={this.handleBWCheckbox}
+                    onChange={handleBWCheckbox}
                   />
                   <label htmlFor="blackWhite">Black & White</label>
                 </div>
@@ -242,44 +257,32 @@ class CardGenerator extends React.Component {
                 <Select
                   className="number-select"
                   placeholder="Cards Per Page"
-                  onChange={this.handlePerPageSelect}
-                  options={this.perPageOptions}
+                  onChange={handlePerPageSelect}
+                  options={perPageOptions}
                 />
               </div>
             </div>
-            <div className="col shrink padding-horizontal-md">
-                <label className={this.state.blackWhite ? 'toggle checked' : 'toggle'}>
-                  <span className="toggle-span"></span>
-                  <span>Print in Black/White</span>
-                  <input type="checkbox" onChange={this.handleBWCheckbox} checked={this.state.blackWhite}></input>
-                </label>
-              </div>
-              <div className="col padding-horizontal-md text-right">
-                <button data-visibility={this.state.generatedCards.length > 0 ? 'show' : 'hide'} className="altBtn" onClick={() => {window.print();return false;}}>Print Cards</button>
-              </div>
           </div>
         </div>
 
         <div className="row card-block justify-center margin-vertical-lg">
           <div className="col text-center">
-            {this.state.generatedCards.map((card, index) => {
-              return (
+          {generatedCards.map((card, index) => (
+              
                 <div
-                  data-color={
-                    this.state.blackWhite ? "dk-gray" : this.state.color
-                  }
+                  
                   className="card"
                   key={"a" + index}
                 >
                   <BingoCard card={card} />
                 </div>
-              );
-            })}
+              
+          ))}
           </div>
         </div>
       </section>
     );
   }
-}
+
 
 export default CardGenerator;

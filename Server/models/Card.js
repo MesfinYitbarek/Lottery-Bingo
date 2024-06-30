@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 
 const cardSchema = new mongoose.Schema({
   id: { type: Number, unique: true, required: true },
+  branch: { type: String },
   card: {
     B: [Number],
     I: [Number],
