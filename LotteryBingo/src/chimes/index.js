@@ -327,6 +327,7 @@ import amharicmaleplaystart from './amharicmaleplaystart.mp3';
 import amharicfemaleplaystart from './readyPlay.mp3';
 import tigplaystart from './tigPlay.mp3';
 import oroplaystart from './oroPlayStart.mp3';
+import pssound from './pssound.mp3';
 
 
 import onefo from './B1O.mp3'; 
@@ -412,7 +413,7 @@ import seventyfivefo from './O75O.mp3';
 //export{one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive};
 
 
-export {  tigplaystart,oroplaystart,amharicfemaleplaystart,amharicmaleplaystart, wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
+export { pssound,tigplaystart,oroplaystart,amharicfemaleplaystart,amharicmaleplaystart, wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
   thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven,
    sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, 
   chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
