@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import TransferCredit from "./TransferCredit";
 import DashboardHeader from "./DashboardHeader";
 import Sales from "./Sales";
+import CreateBranch from "./CreateBranch";
 
 const navigationItems = [
   { name: "Dashboard", isActive: true },
@@ -64,7 +65,7 @@ const AdminContainer = () => {
       </div>
       <div className=" tw-flex tw-justify-center tw-items-center">
       {condtion == "Dashboard" ? (
-        <p className=" tw-pl-72">home</p>
+        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <CreateBranch/> : "Home"}</p>
       ) : condtion == "Cartela" ? (
         <p className=" tw-pl-72"><Cartela/></p>
       ): condtion == "Credit" ? (

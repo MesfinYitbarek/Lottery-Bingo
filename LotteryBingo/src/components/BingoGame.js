@@ -377,6 +377,7 @@ import {
 } from "../chimes";
 import CartelaModal from "./subcomponents/CartelaModal.js";
 import Profile from "./subcomponents/Profile.js";
+import Header from "./common/Header.js";
 class BingoGame extends Component {
   constructor(props) {
     super(props);
@@ -475,7 +476,7 @@ class BingoGame extends Component {
       doubleCall: false,
       extraTalk: false,
       chime: false,
-
+ 
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
       selectedPattern: {
@@ -1343,6 +1344,12 @@ class BingoGame extends Component {
     // this.amount=0;
     // this.previousBall = null;
     // this.currentBall = null;
+    const { clickedButtons } = this.state;
+    this.props.history.push({
+      pathname: '/card-fetcher',
+      state: { clickedButtons }
+    });
+    
     this.startButton = 1;
     let x = this.state.amount / 1.3333333333333;
     this.amount = parseFloat(x.toFixed(3));
@@ -4269,7 +4276,8 @@ class BingoGame extends Component {
   render() {
 
     return (
-     
+     <div>
+      <div><Header/></div>
       <div className="dark-bg light-links">
         
         {/* ----------- Bingo Board ------------- */}
@@ -4593,12 +4601,11 @@ class BingoGame extends Component {
 
                 {/* <h2>  winnerCheck <GiPodiumWinner /> : <span className="check-win-box"> <input type="text" placeholder="Enter cartela id to check"  /><button>Check</button></span></h2> */}
               </div>
-              <div>
-                <Profile />
-              </div>
+           
             
           </div>
         </section>
+      </div>
       </div>
     );
   }

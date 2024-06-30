@@ -1,4 +1,5 @@
 import errorHandler from "../Utils/error.js";
+import Branch from "../models/Branch.js";
 import User from "../models/User.js";
 import bcryptjs from "bcryptjs"
 import jwt from 'jsonwebtoken'
@@ -26,18 +27,22 @@ export const signup = async (req, res, next) => {
 export const signin = async (req, res, next) => {
   const { username, password } = req.body;
   try {
-    // Find user by username
-    const validUser = await User.findOne({ username });
-    if (!validUser) return next(errorHandler(404, 'User not found!'));
+    // Find user or branch by username
+    const user = await User.findOne({ username });
+    const branch = await Branch.findOne({ username });
+
+    // Check if either user or branch exists
+    const validAccount = user || branch;
+    if (!validAccount) return next(errorHandler(404, 'User or Branch not found!'));
 
     // Validate Password
-    const validPassword = bcryptjs.compareSync(password, validUser.password);
+    const validPassword = bcryptjs.compareSync(password, validAccount.password);
     if (!validPassword) return next(errorHandler(401, 'Invalid password!'));
-  
-    // Generate JWT token
-    const token = jwt.sign({ id: validUser._id }, 'ecgfhufsdjkx634', { expiresIn: '1h' });
 
-    const { password: pass, ...rest } = validUser._doc;
+    // Generate JWT token
+    const token = jwt.sign({ id: validAccount._id }, 'ecgfhufsdjkx634', { expiresIn: '1h' });
+
+    const { password: pass, ...rest } = validAccount._doc;
     res
       .cookie('access_token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
       .status(200)
@@ -46,7 +51,6 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
-
 export const signout = async (req, res, next) => {
   try {
     res.clearCookie("access_token");
@@ -121,5 +125,120 @@ export const userEdit = async (req, res, next) => {
   } catch (error) {
     console.error("Error fetching User:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+  const userId = req.params.userId;
+
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ message: 'New Password and Confirm Password do not match' });
+  }
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = await bcryptjs.compare(oldPassword, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Old Password is incorrect' });
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    user.password = newPassword;
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+// branch
+
+export const branch = async (req, res, next) => {
+  try {
+    const branch = await Branch.find();
+    res.json(branch);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// catagory display for edit
+export const branchEdit = async (req, res, next) => {
+  const { id } = req.params; 
+
+  try {
+    const category = await Branch.findById(id); 
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" }); 
+    }
+    res.status(200).json(category); 
+  } catch (error) {
+    console.error("Error fetching category:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+//catagory creation
+export const createBranch = async (req, res, next) => {
+  const { name,username, phone, password,balance,cut,role } = req.body;
+  const newCatagory = new Branch({
+    name,username, phone, password,balance,cut,role
+  });
+  try {
+    await newCatagory.save();
+    res.status(201).json("Catagory created successfull");
+  } catch (error) {
+    next(error);
+  }
+};
+
+//delete catagory
+export const deleteBranch = async (req, res, next) => {
+  const catagory = await Branch.findById(req.params.id);
+
+  if (!catagory) {
+    return next(errorHandler(404, "Catagory not found!"));
+  }
+
+  if (req.user.id !== catagory.userRef) {
+    return next(errorHandler(401, "You can only delete your own catagory!"));
+  }
+
+  try {
+    await Branch.findByIdAndDelete(req.params.id);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// update catagory
+export const updateBranch = async (req, res, next) => {
+  const catagory = await Branch.findById(req.params.id);
+  if (!catagory) {
+    return next(errorHandler(404, " Catagory not found"));
+  }
+  if (req.user.id !== catagory.userRef) {
+    return next(errorHandler(401, " You can only update your own catagory!"));
+  }
+
+  try {
+    const updatedCatagory = await Branch.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.status(200).json(updatedCatagory);
+  } catch (error) {
+    next(error);
   }
 };
