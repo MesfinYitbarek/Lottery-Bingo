@@ -1,13 +1,8 @@
-/*
- *  Pattern Class
- *  Karol Brennan
- *  4.19.2020
- *  This class is used to display and control the game pattern.
- */
+
 import React from 'react';
 
 
-// ... your JavaScript code ...
+
 
 
 
