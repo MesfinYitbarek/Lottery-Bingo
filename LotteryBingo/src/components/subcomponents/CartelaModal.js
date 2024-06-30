@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
+import logoImage from "./winnerimg.jpg";
+
+
 const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount }) => {
   const [cartelaId, setCartelaId] = useState('');
   const [cartela, setCartela] = useState(null);
@@ -148,9 +151,12 @@ console.log('cartelamodel', betAmount, cardCount, totalAmount)
               ))}
             </div>
             {isBingo && (
+              // <div className="bingo-message tw-text-4xl tw-font-bold tw-text-red-600">
+              //   Bingo!
+              // </div>
               <div className="bingo-message tw-text-4xl tw-font-bold tw-text-red-600">
-                Bingo!
-              </div>
+          <img src= {logoImage} alt="bingo!"  className='logo2'/>
+        </div>
             )}
           </div>
         )}
