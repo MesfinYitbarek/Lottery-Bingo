@@ -2161,51 +2161,78 @@ class BingoGame extends Component {
               >
                 33
               </button>
+
+              <button onClick={this.state.isRed34 ? this.decrementCards34 :this.incrementCards34} className={ this.state.isRed34 ? 'red' : 'bt'} >34</button>
+                <button onClick={this.state.isRed35 ? this.decrementCards35 :this.incrementCards35} className={ this.state.isRed35 ? 'red' : 'bt'} >35</button>
+                <button onClick={this.state.isRed36 ? this.decrementCards36 :this.incrementCards36} className={ this.state.isRed36 ? 'red' : 'bt'} >36</button>
+                <button onClick={this.state.isRed37 ? this.decrementCards37 :this.incrementCards37} className={ this.state.isRed37 ? 'red' : 'bt'} >37</button>
+                <button onClick={this.state.isRed38 ? this.decrementCards38 :this.incrementCards38} className={ this.state.isRed38 ? 'red' : 'bt'} >38</button>
+                <button onClick={this.state.isRed39 ? this.decrementCards39 :this.incrementCards39} className={ this.state.isRed39 ? 'red' : 'bt'} >39</button>
+                <button onClick={this.state.isRed40 ? this.decrementCards40 :this.incrementCards40} className={ this.state.isRed40 ? 'red' : 'bt'} >40</button>
+                <button onClick={this.state.isRed41 ? this.decrementCards41 :this.incrementCards41} className={ this.state.isRed41 ? 'red' : 'bt'} >41</button>
+                <button onClick={this.state.isRed42 ? this.decrementCards42 :this.incrementCards42} className={ this.state.isRed42 ? 'red' : 'bt'} >42</button>
+                <button onClick={this.state.isRed43 ? this.decrementCards43 :this.incrementCards43} className={ this.state.isRed43 ? 'red' : 'bt'} >43</button>
+                <button onClick={this.state.isRed44 ? this.decrementCards44 :this.incrementCards44} className={ this.state.isRed44 ? 'red' : 'bt'} >44</button>
+                <button onClick={this.state.isRed45 ? this.decrementCards45 :this.incrementCards45} className={ this.state.isRed45 ? 'red' : 'bt'} >45</button>
+                <button onClick={this.state.isRed46 ? this.decrementCards46 :this.incrementCards46} className={ this.state.isRed46 ? 'red' : 'bt'} >46</button>
+                <button onClick={this.state.isRed47 ? this.decrementCards47 :this.incrementCards47} className={ this.state.isRed47 ? 'red' : 'bt'} >47</button>
+                <button onClick={this.state.isRed48 ? this.decrementCards48 :this.incrementCards48} className={ this.state.isRed48  ? 'red' : 'bt'} >48</button>
+                <button onClick={this.state.isRed49 ? this.decrementCards49 :this.incrementCards49} className={ this.state.isRed49 ? 'red' : 'bt'} >49</button>
+                <button onClick={this.state.isRed50 ? this.decrementCards50 :this.incrementCards50} className={ this.state.isRed50 ? 'red' : 'bt'} >50</button>
+                <button onClick={this.state.isRed51 ? this.decrementCards51 :this.incrementCards51} className={ this.state.isRed51 ? 'red' : 'bt'} >51</button>
+                <button onClick={this.state.isRed52 ? this.decrementCards52 :this.incrementCards52} className={ this.state.isRed52 ? 'red' : 'bt'} >52</button>
+                <button onClick={this.state.isRed53 ? this.decrementCards53 :this.incrementCards53} className={ this.state.isRed53 ? 'red' : 'bt'} >53</button>
+                <button onClick={this.state.isRed54 ? this.decrementCards54 :this.incrementCards54} className={ this.state.isRed54 ? 'red' : 'bt'} >54</button>
+                <button onClick={this.state.isRed55 ? this.decrementCards55 :this.incrementCards55} className={ this.state.isRed55 ? 'red' : 'bt'} >55</button>
+                <button onClick={this.state.isRed56 ? this.decrementCards56 :this.incrementCards56} className={ this.state.isRed56 ? 'red' : 'bt'} >56</button>
+                <button onClick={this.state.isRed57 ? this.decrementCards57 :this.incrementCards57} className={ this.state.isRed57 ? 'red' : 'bt'} >57</button>
+                <button onClick={this.state.isRed58 ? this.decrementCards58 :this.incrementCards58} className={ this.state.isRed58 ? 'red' : 'bt'} >58</button>
+                <button onClick={this.state.isRed59 ? this.decrementCards59 :this.incrementCards59} className={ this.state.isRed59 ? 'red' : 'bt'} >59</button>
+                <button onClick={this.state.isRed60 ? this.decrementCards60 :this.incrementCards60} className={ this.state.isRed60 ? 'red' : 'bt'} >60</button>
+                <button onClick={this.state.isRed61 ? this.decrementCards61 :this.incrementCards61} className={ this.state.isRed61 ? 'red' : 'bt'} >61</button>
+                <button onClick={this.state.isRed62 ? this.decrementCards62 :this.incrementCards62} className={ this.state.isRed62? 'red' : 'bt'} >62</button>
+                <button onClick={this.state.isRed63 ? this.decrementCards63 :this.incrementCards63} className={ this.state.isRed63 ? 'red' : 'bt'} >63</button>
+                <button onClick={this.state.isRed64 ? this.decrementCards64 :this.incrementCards64} className={ this.state.isRed64 ? 'red' : 'bt'} >64</button>
+                <button onClick={this.state.isRed65 ? this.decrementCards65 :this.incrementCards65} className={ this.state.isRed65 ? 'red' : 'bt'} >65</button>
+                <button onClick={this.state.isRed66 ? this.decrementCards66 :this.incrementCards66} className={ this.state.isRed66 ? 'red' : 'bt'} >66</button>
+                <button onClick={this.state.isRed67 ? this.decrementCards67 :this.incrementCards67} className={ this.state.isRed67 ? 'red' : 'bt'} >67</button>
+                <button onClick={this.state.isRed68 ? this.decrementCards68 :this.incrementCards68} className={ this.state.isRed68 ? 'red' : 'bt'} >68</button>
+                <button onClick={this.state.isRed69 ? this.decrementCards69 :this.incrementCards69} className={ this.state.isRed69 ? 'red' : 'bt'} >69</button>
+                <button onClick={this.state.isRed70 ? this.decrementCards70 :this.incrementCards70} className={ this.state.isRed70 ? 'red' : 'bt'} >70</button>
+                <button onClick={this.state.isRed71 ? this.decrementCards71 :this.incrementCards71} className={ this.state.isRed71 ? 'red' : 'bt'} >71</button>
+                <button onClick={this.state.isRed72 ? this.decrementCards72 :this.incrementCards72} className={ this.state.isRed72 ? 'red' : 'bt'} >72</button>
+                <button onClick={this.state.isRed73 ? this.decrementCards73 :this.incrementCards73} className={ this.state.isRed73 ? 'red' : 'bt'} >73</button>
+                <button onClick={this.state.isRed74 ? this.decrementCards74 :this.incrementCards74} className={ this.state.isRed74 ? 'red' : 'bt'} >74</button>
+                <button onClick={this.state.isRed75 ? this.decrementCards75 :this.incrementCards75} className={ this.state.isRed75 ? 'red' : 'bt'} >75</button>
+                <button onClick={this.state.isRed76 ? this.decrementCards76 :this.incrementCards76} className={ this.state.isRed76 ? 'red' : 'bt'} >76</button>
+                <button onClick={this.state.isRed77 ? this.decrementCards77 :this.incrementCards77} className={ this.state.isRed77 ? 'red' : 'bt'} >77</button>
+                <button onClick={this.state.isRed78 ? this.decrementCards78 :this.incrementCards78} className={ this.state.isRed78 ? 'red' : 'bt'} >78</button>
+                <button onClick={this.state.isRed79 ? this.decrementCards79 :this.incrementCards79} className={ this.state.isRed79 ? 'red' : 'bt'} >79</button>
+                <button onClick={this.state.isRed80 ? this.decrementCards80 :this.incrementCards80} className={ this.state.isRed80 ? 'red' : 'bt'} >80</button>
+                <button onClick={this.state.isRed81 ? this.decrementCards81 :this.incrementCards81} className={ this.state.isRed81 ? 'red' : 'bt'} >81</button>
+                <button onClick={this.state.isRed82 ? this.decrementCards82 :this.incrementCards82} className={ this.state.isRed82 ? 'red' : 'bt'} >82</button>
+                <button onClick={this.state.isRed83 ? this.decrementCards83 :this.incrementCards83} className={ this.state.isRed83 ? 'red' : 'bt'} >83</button>
+                <button onClick={this.state.isRed84 ? this.decrementCards84 :this.incrementCards84} className={ this.state.isRed84 ? 'red' : 'bt'} >84</button>
+                <button onClick={this.state.isRed85 ? this.decrementCards85 :this.incrementCards85} className={ this.state.isRed85 ? 'red' : 'bt'} >85</button>
+                <button onClick={this.state.isRed86 ? this.decrementCards86 :this.incrementCards86} className={ this.state.isRed86 ? 'red' : 'bt'} >86</button>
+                <button onClick={this.state.isRed87 ? this.decrementCards87 :this.incrementCards87} className={ this.state.isRed87 ? 'red' : 'bt'} >87</button>
+                <button onClick={this.state.isRed88 ? this.decrementCards88 :this.incrementCards88} className={ this.state.isRed88 ? 'red' : 'bt'} >88</button>
+                <button onClick={this.state.isRed89 ? this.decrementCards89 :this.incrementCards89} className={ this.state.isRed89 ? 'red' : 'bt'} >89</button>
+                <button onClick={this.state.isRed90 ? this.decrementCards90 :this.incrementCards90} className={ this.state.isRed90 ? 'red' : 'bt'} >90</button>
+                <button onClick={this.state.isRed91 ? this.decrementCards91 :this.incrementCards91} className={ this.state.isRed91 ? 'red' : 'bt'} >91</button>
+                <button onClick={this.state.isRed92 ? this.decrementCards92 :this.incrementCards92} className={ this.state.isRed92 ? 'red' : 'bt'} >92</button>
+                <button onClick={this.state.isRed93 ? this.decrementCards93 :this.incrementCards93} className={ this.state.isRed93 ? 'red' : 'bt'} >93</button>
+                <button onClick={this.state.isRed94 ? this.decrementCards94 :this.incrementCards94} className={ this.state.isRed94 ? 'red' : 'bt'} >94</button>
+                <button onClick={this.state.isRed95 ? this.decrementCards95 :this.incrementCards95} className={ this.state.isRed95 ? 'red' : 'bt'} >95</button>
+                <button onClick={this.state.isRed96 ? this.decrementCards96 :this.incrementCards96} className={ this.state.isRed96 ? 'red' : 'bt'} >96</button>
+                <button onClick={this.state.isRed97 ? this.decrementCards97 :this.incrementCards97} className={ this.state.isRed97 ? 'red' : 'bt'} >97</button>
+                <button onClick={this.state.isRed98 ? this.decrementCards98 :this.incrementCards98} className={ this.state.isRed98 ? 'red' : 'bt'} >98</button>
+                <button onClick={this.state.isRed99 ? this.decrementCards99 :this.incrementCards99} className={ this.state.isRed99 ? 'red' : 'bt'} >99</button>
+                <button onClick={this.state.isRed100 ? this.decrementCards100 :this.incrementCards100} className={ this.state.isRed100 ? 'red' : 'bt'} >100</button>
+ 
             </span>
             
-            {/* <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >34</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >35</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >36</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >37</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >38</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >39</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >40</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >41</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >42</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >43</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >44</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >45</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >46</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >47</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >48</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >49</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >50</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >51</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >52</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >53</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >54</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >55</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >56</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >57</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >58</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >59</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >60</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >61</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >62</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >63</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >64</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >65</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >66</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >67</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >68</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >69</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >70</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >71</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >72</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >73</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >74</button>
-                <button onClick={this.state.isRed ? this.decrementCards :this.incrementCards} className={ this.state.isRed ? 'red' : 'bt'} >75</button>
-                */}
+            
                
           </div>
 
