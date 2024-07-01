@@ -1344,11 +1344,11 @@ class BingoGame extends Component {
     // this.amount=0;
     // this.previousBall = null;
     // this.currentBall = null;
-    const { clickedButtons } = this.state;
-    this.props.history.push({
-      pathname: '/card-fetcher',
-      state: { clickedButtons }
-    });
+    // const { clickedButtons } = this.state;
+    // this.props.history.push({
+    //   pathname: '/card-fetcher',
+    //   state: { clickedButtons }
+    // });
     
     this.startButton = 1;
     let x = this.state.amount / 1.3333333333333;
