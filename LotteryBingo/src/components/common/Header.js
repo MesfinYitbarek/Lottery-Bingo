@@ -1,20 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-//import logoImage from "../../images/logoImage.svg";
+import logoImage from "../../images/logoImage.svg";
 import { useSelector } from "react-redux";
+import { RiFullscreenLine, RiFullscreenExitLine} from "react-icons/ri";
 
 import SignOut from "../admin/SignOut";
 import { BiShoppingBag } from "react-icons/bi";
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+   const toggleFullScreen = () => {
+    if (!isFullScreen) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    setIsFullScreen(!isFullScreen);
+  };
+
   return (
     <div>
       <header>
         <div className=" tw-flex tw-items-center tw-container tw-row tw-align-center">
-          <div className="tw-col tw-shrink">
+          <div className="tw-col tw-shrink tw-flex">
             <Link to="/">
-              <img src={"logoImage"} alt="Let's Play Bingo!" className="logo" />
+              <img src={logoImage} alt="Let's Play Bingo!" className="logo" />
             </Link>
+            <button
+                    onClick={toggleFullScreen}
+                    className="tw-border-none "
+                  >
+                    {isFullScreen ? <RiFullscreenExitLine /> : <RiFullscreenLine />}
+                  </button>
           </div>
           <div className="tw-col tw-grow tw-padding-md tw-no-text-wrap tw-text-right">
             <ul className="tw-menu"></ul>
@@ -57,8 +74,11 @@ const Header = () => {
                     </div>
                     <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-14 tw-right-4 group-hover:tw-block">
                       Your balance is {currentUser.balance}
+                   
                     </div>
+                   
                   </div>
+                
                 </div>
               ) : (
                 <div className="tw-mr-10">
