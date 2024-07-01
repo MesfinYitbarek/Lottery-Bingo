@@ -378,6 +378,7 @@ import {
 import CartelaModal from "./subcomponents/CartelaModal.js";
 import Profile from "./subcomponents/Profile.js";
 import Header from "./common/Header.js";
+import CardFetcher from "./subcomponents/CardFetcher.js";
 class BingoGame extends Component {
   constructor(props) {
     super(props);
@@ -397,6 +398,7 @@ class BingoGame extends Component {
     this.previousBall = null;
     this.currentBall = null;
     this.interval = null;
+    this.selectedCards= [];
     this.chimes = [
       { label: "Chime 1", value: chime1 },
       { label: "Chime 2", value: chime2 },
@@ -1334,35 +1336,29 @@ class BingoGame extends Component {
   };
 
   confirmstartGame = () => {
-    // Clear out local storage
-    // localStorage.removeItem("lpb-gameData");
-    // localStorage.removeItem("lpb-gameState");
-    // reset everything with the board
-    // clearInterval(this.interval);
-    // this.cancelSpeech();
-    // this.totalBallsCalled = 0;
-    // this.amount=0;
-    // this.previousBall = null;
-    // this.currentBall = null;
-    // const { clickedButtons } = this.state;
-    // this.props.history.push({
-    //   pathname: '/card-fetcher',
-    //   state: { clickedButtons }
-    // });
-    
     this.startButton = 1;
     let x = this.state.amount / 1.3333333333333;
     this.amount = parseFloat(x.toFixed(3));
     this.setState({
       cutBalance: this.amount,
     });
-
+    // const selectedCards = [];
+    for (let i = 1; i <= 100; i++) {
+      const isRedKey = `isRed${i}`; // Construct the key for the isRed state
+  
+      // Check if the isRed state for the current card is true
+      if (this.state[isRedKey]) {
+        this.selectedCards.push(i); // Add the card number to the array
+      }
+    
+    }
+    // console.log(this.selectedCards);
     this.setState({
       board: generateBingoBoard(),
-      // wildBall: null,
-      // running: false,
       showstartModal: false,
-      // previousCallList: [],
+      selectedCards:this.selectedCards,
+      
+     
     });
   };
 
@@ -1842,9 +1838,9 @@ class BingoGame extends Component {
             <span className="notranslate">
               <button
                 onClick={
-                  this.state.isRed ? this.decrementCards : this.incrementCards
+                  this.state.isRed1 ? this.decrementCards1 : this.incrementCards1
                 }
-                className={this.state.isRed ? "red" : "bt"}
+                className={this.state.isRed1 ? "red" : "bt"}
               >
                 1
               </button>
@@ -2284,10 +2280,12 @@ class BingoGame extends Component {
     });
   };
 
-  incrementCards = () => {
+  incrementCards1 = () => {
     // const currentState2 = this.state.isRed;
-    this.setState({ isRed: true });
-   
+    this.setState({ isRed1: true });
+  //  console.log('is red 2 is'+this.state.isRed2);
+  //  console.log('is red 100 is'+this.state.isRed100);
+  //  console.log('is red3 is'+this.state.isRed3);
 
     this.setState((prevState) => ({
       cardCount: prevState.cardCount + 1,
@@ -2303,8 +2301,8 @@ class BingoGame extends Component {
     }));
   };
 
-  decrementCards = () => {
-    const currentState01 = this.state.isRed;
+  decrementCards1 = () => {
+    const currentState01 = this.state.isRed1;
     this.setState({ isRed: !currentState01 });
 
     if (this.state.cardCount > 0) {
@@ -4427,7 +4425,7 @@ class BingoGame extends Component {
 
                 <button
                   onClick={this.shuffleBalls}
-                  disabled={this.state.running || this.totalBallsCalled > 0}
+                  disabled={this.state.running}
                 >
                   Shuffle Board <PiShuffleDuotone />
                 </button>
@@ -4616,7 +4614,11 @@ class BingoGame extends Component {
                 <br />
               </p>
              */}
-             
+             <div className=" tw-hidden">
+              <CardFetcher 
+              selectedCards = {this.selectedCards}
+              />
+             </div>
         
              <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
               <span className="notranslate">
