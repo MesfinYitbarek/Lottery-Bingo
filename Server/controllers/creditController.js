@@ -1,3 +1,4 @@
+import Branch from "../models/Branch.js";
 import Credit from "../models/Credit.js";
 import User from "../models/User.js";
 export const getCredit = async (req, res, next) => {
@@ -19,7 +20,7 @@ export const credit = async (req, res) => {
       return res.status(401).json({ msg: 'Unauthorized' });
     }
 
-    const recipient = await User.findOne({ phone: receiver });
+    const recipient = await Branch.findOne({ phone: receiver });
 
     if (!recipient) {
       return res.status(404).json({ msg: 'Recipient not found' });
@@ -81,15 +82,26 @@ export const transfer = async (req, res) => {
 
 export const balance = async (req, res) => {
   try {
-    const user = await User.findById( req.params.id );
+    // Attempt to find the user by ID
+    const user = await User.findById(req.params.id);
 
-    if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+    if (user) {
+      // If user is found, return the user's balance
+      return res.json({ balance: user.balance });
     }
 
-    res.json({ balance: user.balance });
+    // If user is not found, attempt to find the branch by ID
+    const branch = await Branch.findById(req.params.id);
+
+    if (branch) {
+      // If branch is found, return the branch's balance
+      return res.json({ balance: branch.balance });
+    }
+
+    // If neither user nor branch is found, return a 404 status
+    res.status(404).json({ msg: 'User or Branch not found' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
   }
-}
+};

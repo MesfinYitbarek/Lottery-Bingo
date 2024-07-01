@@ -176,13 +176,13 @@ export const branchEdit = async (req, res, next) => {
   const { id } = req.params; 
 
   try {
-    const category = await Branch.findById(id); 
-    if (!category) {
-      return res.status(404).json({ message: "Category not found" }); 
+    const user = await Branch.findById(id); 
+    if (!user) {
+      return res.status(404).json({ message: "Branch not found" }); 
     }
-    res.status(200).json(category); 
+    res.status(200).json(user); 
   } catch (error) {
-    console.error("Error fetching category:", error);
+    console.error("Error fetching Branch:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -203,18 +203,15 @@ export const createBranch = async (req, res, next) => {
 
 //delete catagory
 export const deleteBranch = async (req, res, next) => {
-  const catagory = await Branch.findById(req.params.id);
+  const users = await Branch.findById(req.params.id);
 
-  if (!catagory) {
-    return next(errorHandler(404, "Catagory not found!"));
-  }
-
-  if (req.user.id !== catagory.userRef) {
-    return next(errorHandler(401, "You can only delete your own catagory!"));
+  if (!users) {
+    return next(errorHandler(404, "Branch not found!"));
   }
 
   try {
     await Branch.findByIdAndDelete(req.params.id);
+    res.status(200).json("Branch has been deleted!");
   } catch (error) {
     next(error);
   }
@@ -222,22 +219,30 @@ export const deleteBranch = async (req, res, next) => {
 
 // update catagory
 export const updateBranch = async (req, res, next) => {
-  const catagory = await Branch.findById(req.params.id);
-  if (!catagory) {
-    return next(errorHandler(404, " Catagory not found"));
-  }
-  if (req.user.id !== catagory.userRef) {
-    return next(errorHandler(401, " You can only update your own catagory!"));
-  }
-
   try {
-    const updatedCatagory = await Branch.findByIdAndUpdate(
+    if (req.body.password) {
+      req.body.password = bcryptjs.hashSync(req.body.password, 10);
+    }
+    const updatedUser = await Branch.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      {
+        $set: {
+          username: req.body.username,
+          phone: req.body.email,
+          password: req.body.password,
+          avatar: req.body.avatar,
+          role: req.body.role,
+          name: req.body.name,
+          balance: req.body.balance,
+          cut: req.body.cut,
+         
+        },
+      },
       { new: true }
     );
 
-    res.status(200).json(updatedCatagory);
+    const { passowrd, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
   } catch (error) {
     next(error);
   }

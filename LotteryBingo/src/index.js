@@ -27,6 +27,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store.js";
 import Sales from "./components/admin/Sales.js";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.js";
+import CreateBranch from "./components/admin/CreateBranch.js";
+import Branch from "./components/admin/branch.js";
+import UpdateBranch from "./components/admin/UpdateBranch.js";
 
 const App = () => (
   <Provider store={store}>
@@ -50,6 +53,9 @@ const App = () => (
             <Route path="/add-users" element={<AddUsers />} />
             <Route path="/card" element={<CardFetcher />} />
             <Route path="/update-user/:id" element={<EditUser />} />
+            <Route path="/createbranch" element={<CreateBranch />} />
+            <Route path="/branch" element={<Branch />} />
+            <Route path="/updatebranch/:id" element={<UpdateBranch />} />
           </Route>
           
 

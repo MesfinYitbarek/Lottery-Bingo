@@ -10,6 +10,8 @@ import TransferCredit from "./TransferCredit";
 import DashboardHeader from "./DashboardHeader";
 import Sales from "./Sales";
 import CreateBranch from "./CreateBranch";
+import SuperAdmin from "./SuperAdmin";
+import Branch from "./branch";
 
 const navigationItems = [
   { name: "Dashboard", isActive: true },
@@ -65,7 +67,7 @@ const AdminContainer = () => {
       </div>
       <div className=" tw-flex tw-justify-center tw-items-center">
       {condtion == "Dashboard" ? (
-        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <CreateBranch/> : "Home"}</p>
+        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <SuperAdmin/> : "Home"}</p>
       ) : condtion == "Cartela" ? (
         <p className=" tw-pl-72"><Cartela/></p>
       ): condtion == "Credit" ? (
@@ -73,7 +75,7 @@ const AdminContainer = () => {
       ) : condtion == "Sales" ? (
         <p className=" tw-pl-72"><Sales/></p>
       ) : condtion == "Users" ? (
-        <p className=" tw-pl-72"><Users/></p>
+        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <Branch/> : <Users/>}</p>
       ) : condtion == "Log Out" ? (
         <p>lo</p>
       ) : (
