@@ -13,9 +13,9 @@ export const test = (req, res) => {
 
 export const signup = async (req, res, next) => {
   const { name,username,email, phone, password,balance,cut,branch,role } = req.body;
-
+  
   // Create new User
-  const newUser = new User({ name,username,email, phone, password,balance,cut,branch,role  });
+  const newUser = new User({ name,username,email, phone, password,balance,cut,branch,role,userRef: req.params.id  });
 
   try {
     await newUser.save();
@@ -61,7 +61,7 @@ export const signout = async (req, res, next) => {
 };
 export const users = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({userRef: req.params.id});
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch users' });
@@ -190,8 +190,9 @@ export const branchEdit = async (req, res, next) => {
 //catagory creation
 export const createBranch = async (req, res, next) => {
   const { name,username, phone, password,balance,cut,role } = req.body;
+  const {userRef} = req.params.id;
   const newCatagory = new Branch({
-    name,username, phone, password,balance,cut,role
+    name,username, phone, password,balance,cut,role,userRef: req.params.id
   });
   try {
     await newCatagory.save();

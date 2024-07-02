@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import { useSelector } from "react-redux";
 const AddUsers = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ const AddUsers = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:4000/api/user/signup", {
+      const res = await fetch(`http://localhost:4000/api/user/signup/${currentUser._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

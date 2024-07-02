@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
 const userSchema = new mongoose.Schema(
   {
+    userRef: {
+      type: String,
+      required: true,
+      
+    },
     name: {
       type: String,
       required: true,

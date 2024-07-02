@@ -23,7 +23,7 @@ const CreateBranch = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:4000/api/user/createbranch", {
+      const res = await fetch(`http://localhost:4000/api/user/createbranch/${currentUser._id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData }),
@@ -68,7 +68,7 @@ const CreateBranch = () => {
           />
            
           <input
-            type="text"
+            type="number"
             placeholder="Phone number"
             id="phone"
             required

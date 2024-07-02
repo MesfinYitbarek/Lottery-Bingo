@@ -2,10 +2,15 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
 const BranchSchema = new mongoose.Schema(
   {
-    name: {
+    userRef: {
+      type: String,
+      required: true,
+      
+    },
+     name: {
         type: String,
         required: true,
-        unique: true,
+       
       },
       username: {
         type: String,

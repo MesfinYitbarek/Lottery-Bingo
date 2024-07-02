@@ -2,14 +2,15 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { BiPlus } from 'react-icons/bi';
+import { useSelector } from "react-redux";
 const Users = () => {
     const [users, setUsers] = React.useState([]);
     const [error, setError] = React.useState(null);
-  
+    const { currentUser } = useSelector((state) => state.user);
     React.useEffect(() => {
         const fetchUsers = async () => {
           try {
-            const response = await fetch("http://localhost:4000/api/user/users");
+            const response = await fetch(`http://localhost:4000/api/user/users/${currentUser._id}`);
             const data = await response.json();
             setUsers(data);
           } catch (err) {
@@ -63,7 +64,7 @@ const Users = () => {
             <td className="tw-p-2 tw-px-4 ">Branch</td>
           </tr>
 
-          {users.map((data) => (
+          {users && users.map((data) => (
             <tr className="tw-hover:bg-slate-100">
               <td className="tw-flex tw-gap-3 tw-items-center">
                 <img

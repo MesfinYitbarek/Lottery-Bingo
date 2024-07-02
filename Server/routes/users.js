@@ -4,15 +4,15 @@ import { branch, branchEdit, changePassword, createBranch, deleteAdmin, deleteBr
 const userRouter = express.Router();
 
 userRouter.get("/test", test);
-userRouter.get("/users", users);
+userRouter.get("/users/:id", users);
 userRouter.delete('/delete/:id', deleteAdmin)
-userRouter.post("/signup", signup);
+userRouter.post("/signup/:id", signup);
 userRouter.post("/signin", signin);
 userRouter.post('/update/:id', updateAdmin)
 userRouter.get("/userEdit/:id", userEdit);
 userRouter.get("/signout", signout);
 userRouter.put('/:userId/change-password', changePassword);
-userRouter.post("/createbranch", createBranch);
+userRouter.post("/createbranch/:id", createBranch);
 userRouter.get("/branch", branch);
 userRouter.get("/branch/:id", branchEdit);
 userRouter.delete("/deletebranch/:id", deleteBranch);

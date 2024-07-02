@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import logoImage from "./winnerimg.jpg";
 
 
-const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount }) => {
+const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards }) => {
   const [cartelaId, setCartelaId] = useState('');
   const [cartela, setCartela] = useState(null);
   const [matchedNumbers, setMatchedNumbers] = useState([]);
@@ -14,8 +14,14 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount 
   const [isBingo, setIsBingo] = useState(false);
   const [bingoNumbers, setBingoNumbers] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
-
+  
   const fetchCartela = async () => {
+    const cartelaIdNumber = Number(cartelaId);
+
+    if (!selectedCards.includes(cartelaIdNumber)) {
+      alert('Cartela ID is not in the selected cards');
+      return;
+    }
     setIsFetching(true);
     setFetchError(null);
     try {
@@ -78,7 +84,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount 
     setIsBingo(!!bingoLine);
     setBingoNumbers(bingoLine || []);
   };
-console.log('cartelamodel', betAmount, cardCount, totalAmount)
+console.log('cartelamodel', betAmount, cardCount, totalAmount,selectedCards)
   const saveBingoData = async (bingoLine) => {
     const total = totalAmount;
     const bingoData = {

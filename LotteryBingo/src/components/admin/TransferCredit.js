@@ -57,7 +57,7 @@ const TransferCredit = () => {
       alert('Insufficient balance');
     } else {
       try {
-        await axios.post('http://localhost:4000/api/credit/transfer', {
+        await axios.post("http://localhost:4000/api/credit/transfer", {
           amount,
           receiver: receiver,
           sender: currentUser.phone,

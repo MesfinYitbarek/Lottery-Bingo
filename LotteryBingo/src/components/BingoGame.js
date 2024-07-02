@@ -384,6 +384,7 @@ class BingoGame extends Component {
     super(props);
     this.state = {
       showFullCallHistory: false,
+      
     };
     // -------------------------- Set properties ----- //
     // Balls display pieces
@@ -2250,11 +2251,13 @@ class BingoGame extends Component {
             )}
           </div>
           {console.log(this.state.betAmount)}
+          {console.log("selected bingo",this.selectedCards)}
           <div className="tw-hidden">
             <CallHistory
               betAmount={this.state.betAmount}
               cardCount={this.state.cardCount}
               totalAmount={this.state.amount}
+              selectedCards={this.selectedCards}
             />
           </div>
         </div>
@@ -4356,6 +4359,7 @@ class BingoGame extends Component {
                 betAmount={this.state.betAmount}
                 cardCount={this.state.cardCount}
                 totalAmount={this.state.amount}
+                selectedCards={this.selectedCards}
               ></CallHistory>
               {/* 
               <div

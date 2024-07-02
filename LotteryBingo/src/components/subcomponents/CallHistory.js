@@ -12,6 +12,7 @@ class CallHistory extends React.Component {
   }
 
   renderFullHistory() {
+    
     const ballHistory = [...this.props.calledBalls].reverse();
     if (this.state.showFullCallHistory) {
       return (
@@ -39,7 +40,7 @@ class CallHistory extends React.Component {
   }
 
   renderPreviousCalls() {
-    {console.log("call history" ,this.props.betAmount,this.props.calledBalls)}
+    {console.log("call history" ,this.props.betAmount,this.props.calledBalls,this.props.selectedCards)}
     if (this.props.calledBalls && this.props.calledBalls.length > 0) {
       const previousCallList = [...this.props.calledBalls];
       const last5Calls = previousCallList.reverse().slice(1, 6);
@@ -81,6 +82,7 @@ class CallHistory extends React.Component {
             betAmount={this.props.betAmount}
             cardCount={this.props.cardCount}
             totalAmount={this.props.totalAmount}
+            selectedCards={this.props.selectedCards}
           />
         )}
       </div>
