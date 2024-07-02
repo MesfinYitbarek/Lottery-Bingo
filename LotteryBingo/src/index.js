@@ -10,9 +10,9 @@ import logoImage from "./images/logoImage.svg";
 import About from "./components/pages/About.js";
 import BingoGame from "./components/BingoGame.js";
 import CardGenerator from "./components/pages/CardGenerator.js";
-import Donate from "./components/pages/Donate.js";
+
 import Help from "./components/pages/Help.js";
-import Privacy from "./components/pages/Privacy.js";
+
 import ReleaseNotes from "./components/pages/ReleaseNotes.js";
 import Terms from "./components/pages/Terms.js";
 import Patterns from "./components/pages/Patterns.js";
@@ -43,11 +43,11 @@ const App = () => (
             <Route exact path="/admin" element={<AdminContainer />} />
             <Route path="/users" element={<Users />} />
             <Route path="/about" element={<About />} />
-            <Route path="/donate" element={<Donate />} />
+     
             <Route path="/generator" element={<CardGenerator />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/patterns" element={<Patterns />} />
-            <Route path="/privacy" element={<Privacy />} />
+          
             <Route path="/releases" element={<ReleaseNotes />} />
             <Route path="/help" element={<Help />} />
             <Route path="/add-users" element={<AddUsers />} />
