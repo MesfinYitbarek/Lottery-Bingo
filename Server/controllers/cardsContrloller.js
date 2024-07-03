@@ -1,5 +1,6 @@
 // routes/cards.js
 
+import errorHandler from "../Utils/error.js";
 import getNextId from "../Utils/getNextId.js";
 import Card from "../models/Card.js";
 
@@ -48,5 +49,20 @@ export const getCardById = async (req, res) => {
     res.json(cards);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch cards' });
+  }
+};
+
+export const deleteBranch = async (req, res, next) => {
+  const users = await Card.findById(req.params.id);
+
+  if (!users) {
+    return next(errorHandler(404, "Card not found!"));
+  }
+
+  try {
+    await Card.findByIdAndDelete(req.params.id);
+    res.status(200).json("Card has been deleted!");
+  } catch (error) {
+    next(error);
   }
 };

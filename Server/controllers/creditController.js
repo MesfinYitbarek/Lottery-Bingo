@@ -1,3 +1,4 @@
+import Agent from "../models/Branch.js";
 import Branch from "../models/Branch.js";
 import Credit from "../models/Credit.js";
 import User from "../models/User.js";
@@ -20,7 +21,7 @@ export const credit = async (req, res) => {
       return res.status(401).json({ msg: 'Unauthorized' });
     }
 
-    const recipient = await Branch.findOne({ phone: receiver });
+    const recipient = await Agent.findOne({ phone: receiver });
 
     if (!recipient) {
       return res.status(404).json({ msg: 'Recipient not found' });
@@ -48,7 +49,7 @@ export const transfer = async (req, res) => {
   const { amount, receiver, sender } = req.body;
 
   try {
-    const senderr = await User.findOne({ phone: sender });
+    const senderr = (await User.findOne({ phone: sender })) || (await Agent.findOne({ phone: sender }));
     const recipient = await User.findOne({ phone: receiver });
 
     if (!senderr || !recipient) {
@@ -103,5 +104,35 @@ export const balance = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
+  }
+};
+
+export const deleteCredit = async (req, res, next) => {
+  const users = await Credit.findById(req.params.id);
+
+  if (!users) {
+    return next(errorHandler(404, "Credit not found!"));
+  }
+
+  try {
+    await Credit.findByIdAndDelete(req.params.id);
+    res.status(200).json("Credit has been deleted!");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteTransfer = async (req, res, next) => {
+  const users = await Credit.findById(req.params.id);
+
+  if (!users) {
+    return next(errorHandler(404, "Credit not found!"));
+  }
+
+  try {
+    await Credit.findByIdAndDelete(req.params.id);
+    res.status(200).json("Credit has been deleted!");
+  } catch (error) {
+    next(error);
   }
 };

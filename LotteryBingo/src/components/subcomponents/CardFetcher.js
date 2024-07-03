@@ -25,7 +25,18 @@ const CardFetcher = ({selectedCards}) => {
     };
 
     fetchCards();
-  }, []);
+  }, [cards]);
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(`http://localhost:4000/api/card/deletecard/${userId}`);
+
+      
+    } catch (err) {
+      
+      setError("Error deleting User");
+    }
+  };
 
   if (loading) return <p>Loading cards...</p>;
   if (error) return <p>{error}</p>;
@@ -38,6 +49,9 @@ const CardFetcher = ({selectedCards}) => {
           <div  key={index} className="card blue">
             <h3>Card ID: {cardData.id}</h3>
             <h3>Branch: {cardData.branch}</h3>
+            <button onClick={() => handleDeleteUser(cardData._id)} className='tw-border-red-600  tw-px-1 tw-rounded-none ' >
+                  Delete
+                </button>
             <BingoCard card={cardData.card} color="blue" />
           </div>
 

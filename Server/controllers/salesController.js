@@ -33,3 +33,18 @@ export const getSales = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch Sales' });
   }
 };
+
+export const deleteBranch = async (req, res, next) => {
+  const users = await Sales.findById(req.params.id);
+
+  if (!users) {
+    return next(errorHandler(404, "Sales not found!"));
+  }
+
+  try {
+    await Sales.findByIdAndDelete(req.params.id);
+    res.status(200).json("Sales has been deleted!");
+  } catch (error) {
+    next(error);
+  }
+};

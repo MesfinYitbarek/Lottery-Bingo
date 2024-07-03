@@ -1,4 +1,5 @@
 import errorHandler from "../Utils/error.js";
+import Agent from "../models/Branch.js";
 import Branch from "../models/Branch.js";
 import User from "../models/User.js";
 import bcryptjs from "bcryptjs"
@@ -29,7 +30,7 @@ export const signin = async (req, res, next) => {
   try {
     // Find user or branch by username
     const user = await User.findOne({ username });
-    const branch = await Branch.findOne({ username });
+    const branch = await Agent.findOne({ username });
 
     // Check if either user or branch exists
     const validAccount = user || branch;
@@ -164,7 +165,7 @@ export const changePassword = async (req, res) => {
 
 export const branch = async (req, res, next) => {
   try {
-    const branch = await Branch.find();
+    const branch = await Agent.find();
     res.json(branch);
   } catch (error) {
     next(error);
@@ -176,7 +177,7 @@ export const branchEdit = async (req, res, next) => {
   const { id } = req.params; 
 
   try {
-    const user = await Branch.findById(id); 
+    const user = await Agent.findById(id); 
     if (!user) {
       return res.status(404).json({ message: "Branch not found" }); 
     }
@@ -191,7 +192,7 @@ export const branchEdit = async (req, res, next) => {
 export const createBranch = async (req, res, next) => {
   const { name,username, phone, password,balance,cut,role } = req.body;
   const {userRef} = req.params.id;
-  const newCatagory = new Branch({
+  const newCatagory = new Agent({
     name,username, phone, password,balance,cut,role,userRef: req.params.id
   });
   try {
@@ -204,14 +205,14 @@ export const createBranch = async (req, res, next) => {
 
 //delete catagory
 export const deleteBranch = async (req, res, next) => {
-  const users = await Branch.findById(req.params.id);
+  const users = await Agent.findById(req.params.id);
 
   if (!users) {
     return next(errorHandler(404, "Branch not found!"));
   }
 
   try {
-    await Branch.findByIdAndDelete(req.params.id);
+    await Agent.findByIdAndDelete(req.params.id);
     res.status(200).json("Branch has been deleted!");
   } catch (error) {
     next(error);
@@ -224,7 +225,7 @@ export const updateBranch = async (req, res, next) => {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
     }
-    const updatedUser = await Branch.findByIdAndUpdate(
+    const updatedUser = await Agent.findByIdAndUpdate(
       req.params.id,
       {
         $set: {

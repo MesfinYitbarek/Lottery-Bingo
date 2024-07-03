@@ -70,6 +70,7 @@ class CallHistory extends React.Component {
   }
 
   render() {
+    
     return (
       <div className="text-center">
         {this.renderPreviousCalls()}

@@ -1,44 +1,34 @@
-import React, { useState } from "react";
+
+import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-const AddUsers = () => {
+import { useNavigate } from "react-router-dom";
+const CreateAgent = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { currentUser } = useSelector((state) => state.user);
-  const [users, setUsers] = React.useState([]);
-console.log(formData)
-  React.useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/api/branch/branch");
-        const data = await response.json();
-        setUsers(data);
-      } catch (err) {
-        setError("Error fetching User");
-      }
-    };
-
-    fetchUsers();
-  }, [users]);
-
+  const navigate = useNavigate();
+  console.log(formData);
   const handleChange = (e) => {
     setFormData({
       ...formData,
+
       [e.target.id]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:4000/api/user/signup/${currentUser._id}`, {
+      const res = await fetch(`http://localhost:4000/api/user/createbranch/${currentUser._id}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData }),
       });
+
       const data = await res.json();
       if (data.success === false) {
         setLoading(false);
@@ -47,21 +37,20 @@ console.log(formData)
       }
       setLoading(false);
       setError(null);
+      navigate("/admin");
     } catch (error) {
       setLoading(false);
       setError(error.message);
     }
   };
-
   return (
-    <div className="  tw-flex tw-justify-center tw-bg-slate-100 tw-items-center">
-      <div className=" tw-border-t-8 tw-border-t-blue-500     tw-bg-white tw-p-[5%] tw-rounded-2xl sm:tw-w-[650px]   tw-border tw-border-slate-300  tw-m-[5%]">
-        <form
+    <div className=" tw-flex tw-justify-center tw-items-center tw-pt-10  bg-slate-100 items-center h-screen">
+      <form
           onSubmit={handleSubmit}
           action=""
           className="  tw-flex tw-flex-col tw-justify-between tw-items-center tw-gap-6 "
         >
-          <input
+           <input
             type="text"
             placeholder="Full Name"
             id="name"
@@ -77,16 +66,9 @@ console.log(formData)
             onChange={handleChange}
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
           />
+           
           <input
-            type="email"
-            placeholder="Email"
-            id="email"
-            required
-            onChange={handleChange}
-            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
-          />
-          <input
-            type="text"
+            type="number"
             placeholder="Phone number"
             id="phone"
             required
@@ -101,7 +83,7 @@ console.log(formData)
             onChange={handleChange}
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 rounded-lg tw-border tw-border-slate-300 tw-p-3"
           />
-          <input
+            <input
             type="text"
             placeholder="Cut"
             id="cut"
@@ -109,30 +91,12 @@ console.log(formData)
             onChange={handleChange}
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
           />
-          <div className=" tw-flex  tw-gap-5">
-          <label htmlFor="branch" className=" tw-text-lg tw-font-bold">
-            {" "}
-            Branch:{" "}
-          </label>
-
-          <select
-            id="branch"
-            onChange={handleChange}
-            
-            className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
-          >
-            {users &&
-              users.map((users) => (
-                <option value={users.name}>{users.name}</option>
-              ))}
-          </select>
-          </div>
+           
           <div className=" tw-flex  tw-gap-5">
             <label htmlFor="role" className=" tw-text-lg tw-font-bold">
               {" "}
               Role:{" "}
             </label>
-
             <select
               id="role"
               onChange={handleChange}
@@ -148,14 +112,12 @@ console.log(formData)
             type="submit"
             className="sm:tw-w-[450px]  tw-font-semibold tw-hover:bg-white tw-hover:text-blue-600 tw-hover:border tw-hover:border-blue-400  tw-p-2 tw-px-6 tw-rounded-lg tw-text-white tw-bg-blue-600"
           >
-            {loading ? "Loading..." : "Create User"}
+            {loading ? "Loading..." : "Create Agent"}
           </button>
         </form>
-
-        {error && <p className=" tw-text-red-500 tw-mt-5">{error}</p>}
-      </div>
+      {error && <p className=" text-red-500 mt-5">{error}</p>}
     </div>
   );
 };
 
-export default AddUsers;
+export default CreateAgent;

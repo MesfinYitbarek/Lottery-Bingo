@@ -30,6 +30,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute.js";
 import CreateBranch from "./components/admin/CreateBranch.js";
 import Branch from "./components/admin/branch.js";
 import UpdateBranch from "./components/admin/UpdateBranch.js";
+import CreateAgent from "./components/admin/CreateAgent.js";
+import UpdateAgent from "./components/admin/UpdateAgent.js";
 
 const App = () => (
   <Provider store={store}>
@@ -54,7 +56,9 @@ const App = () => (
             <Route path="/card" element={<CardFetcher />} />
             <Route path="/update-user/:id" element={<EditUser />} />
             <Route path="/createbranch" element={<CreateBranch />} />
+            <Route path="/createagent" element={<CreateAgent />} />
             <Route path="/branch" element={<Branch />} />
+            <Route path="/updateagent/:id" element={<UpdateAgent />} />
             <Route path="/updatebranch/:id" element={<UpdateBranch />} />
           </Route>
           

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -12,6 +13,23 @@ const Sales = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
+  const [branch, setBranch] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/api/branch/branch");
+        const data = await response.json();
+        setBranch(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [branch]);
+
+  
 
   useEffect(() => {
     const fetchSales = async () => {
@@ -28,14 +46,24 @@ const Sales = () => {
     };
 
     fetchSales();
-  }, []);
+  }, [sales]);
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/sales/deletesales/${userId}`
+      );
+    } catch (err) {
+      setError("Error deleting User");
+    }
+  };
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/user/users");
+        const response = await fetch(`http://localhost:4000/api/user/users/${currentUser._id}`);
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -44,38 +72,47 @@ const Sales = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [users]);
 
   const handleFilter = () => {
-    console.log("Filtering with:", { startDate, endDate, selectedBranch, selectedCashier });
+    console.log("Filtering with:", {
+      startDate,
+      endDate,
+      selectedBranch,
+      selectedCashier,
+    });
 
     let filtered = sales;
 
     if (startDate) {
-      filtered = filtered.filter(sale => {
+      filtered = filtered.filter((sale) => {
         const saleDate = new Date(sale.createdAt);
         const filterStartDate = new Date(startDate);
-        console.log(`Comparing saleDate: ${saleDate} with startDate: ${filterStartDate}`);
+        console.log(
+          `Comparing saleDate: ${saleDate} with startDate: ${filterStartDate}`
+        );
         return saleDate >= filterStartDate;
       });
     }
 
     if (endDate) {
-      filtered = filtered.filter(sale => {
+      filtered = filtered.filter((sale) => {
         const saleDate = new Date(sale.createdAt);
         const filterEndDate = new Date(endDate);
         filterEndDate.setHours(23, 59, 59, 999); // Set end date to end of the day
-        console.log(`Comparing saleDate: ${saleDate} with endDate: ${filterEndDate}`);
+        console.log(
+          `Comparing saleDate: ${saleDate} with endDate: ${filterEndDate}`
+        );
         return saleDate <= filterEndDate;
       });
     }
 
     if (selectedBranch) {
-      filtered = filtered.filter(sale => sale.branch === selectedBranch);
+      filtered = filtered.filter((sale) => sale.branch === selectedBranch);
     }
 
     if (selectedCashier) {
-      filtered = filtered.filter(sale => sale.cashier === selectedCashier);
+      filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
     }
 
     console.log("Filtered results:", filtered);
@@ -101,7 +138,8 @@ const Sales = () => {
   return (
     <div className="tw-mt-10">
       <div className="tw-text-green-700 tw-pl-10  tw-font-bold tw-text-3xl">
-        Sales <span className=" tw-text-pink-600">(${currentUser.balance})</span> 
+        Sales{" "}
+        <span className=" tw-text-pink-600">(${currentUser.balance})</span>
       </div>
 
       <div className="tw-mb-5 tw-text-end tw-font-bold tw-text-xl tw-text-purple-600 tw-pr-12">
@@ -111,7 +149,7 @@ const Sales = () => {
       </div>
 
       <div className="tw-mb-5">
-      <input
+        <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
@@ -131,9 +169,9 @@ const Sales = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
         >
           <option value="">Select Branch</option>
-          {users.map((branch) => (
-            <option key={branch.id} value={branch.branch}>
-              {branch.branch}
+          {branch && branch.map((branch) => (
+            <option key={branch.id} value={branch.name}>
+              {branch.name}
             </option>
           ))}
         </select>
@@ -143,7 +181,7 @@ const Sales = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
         >
           <option value="">Select Cashier</option>
-          {users.map((cashier) => (
+          {users && users.map((cashier) => (
             <option key={cashier.id} value={cashier.username}>
               {cashier.username}
             </option>
@@ -188,8 +226,12 @@ const Sales = () => {
               <td className="tw-p-2 tw-px-4">{data.winner}</td>
               <td className="tw-p-2 tw-px-4">{data.branch}</td>
               <td className="tw-p-2 tw-px-4">{data.cashier}</td>
+
               <td className="tw-p-2 tw-px-4 tw-text-red-600 tw-text-center">
-                <button className="tw-border-red-600 tw-px-1 tw-rounded-none">
+                <button
+                  onClick={() => handleDeleteUser(data._id)}
+                  className="tw-border-red-600  tw-px-1 tw-rounded-none "
+                >
                   Delete
                 </button>
               </td>

@@ -16,7 +16,7 @@ const CardGenerator = () => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/user/branch");
+        const response = await fetch("http://localhost:4000/api/branch/branch");
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -226,7 +226,7 @@ const CardGenerator = () => {
                 className="branch-name-input"
                 placeholder="Select Branch"
                 onChange={handleBranchSelect}
-                options={users.map(user => ({ value: user.username, label: user.username }))}
+                options={users.map(user => ({ value: user.name, label: user.name }))}
               />
               </div>
               <div className="col shrink padding-horizontal-md margin-right-xlg">

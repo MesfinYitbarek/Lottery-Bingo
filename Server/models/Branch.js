@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
-const BranchSchema = new mongoose.Schema(
+const AgentSchema = new mongoose.Schema(
   {
     userRef: {
       type: String,
@@ -48,7 +48,7 @@ const BranchSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-BranchSchema.pre('save', async function (next) {
+AgentSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
       return next();
     }
@@ -58,5 +58,5 @@ BranchSchema.pre('save', async function (next) {
     next();
   });
 
-const Branch = mongoose.model("Branch", BranchSchema);
-export default Branch;
+const Agent = mongoose.model("Branch", AgentSchema);
+export default Agent;
