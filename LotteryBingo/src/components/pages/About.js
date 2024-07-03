@@ -1,5 +1,7 @@
 import React from "react";
-
+import buyacoffee from "../../images/buyacoffee.png";
+import venmo from "../../images/venmo.jpeg";
+import paypal from "../../images/paypalme.jpeg";
 class About extends React.Component {
 	render() {
 		return (

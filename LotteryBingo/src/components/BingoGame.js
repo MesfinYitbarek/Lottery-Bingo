@@ -378,7 +378,7 @@ class BingoGame extends Component {
     super(props);
     this.state = {
       showFullCallHistory: false,
-    isRed:{},
+  
 
       
     };
@@ -468,6 +468,7 @@ class BingoGame extends Component {
       running: false,
       startButton: false,
       enableCaller: false,
+     isRed:{isRed1:false, isRed2:false,isRed3:false,isRed4:false,isRed5:false,isRed6:false,},
       skipUnused: false,
       wildBingo: false,
       wolatya: false,
@@ -507,11 +508,12 @@ class BingoGame extends Component {
     this.loadVoices();
     // ensure the reset modal doesn't show at initial load
     this.setState({ showResetModal: false });
-    // let running = this.state.running;
+    //  let running = this.state.running;
     if (this.totalBallsCalled > 0) {
       this.startButton = 1;
     } else {
       this.startButton = 0;
+     
     }
     this.amount = this.state.cutBalance;
     // this.setState({sales:this.state.sales});
@@ -527,6 +529,7 @@ class BingoGame extends Component {
    */
   componentDidUpdate(prevProps, state) {
     let gameData = {
+    
       totalBallsCalled: this.totalBallsCalled,
       previousBall: this.previousBall,
       currentBall: this.currentBall,
@@ -1057,10 +1060,12 @@ class BingoGame extends Component {
 
   startNewAutoplayGame = () => {
     for (let i = 1; i <= 100; i++) {
-      const isRedKey = `isRed${i}`; 
+      const isRedState = this.state.isRed[`isRed${i}`];
+
+      if (isRedState)
   
       
-      if (this.state[isRedKey]) {
+       {
         this.selectedCards.push(i); 
       }
     
@@ -1507,8 +1512,9 @@ this.selectedCards=[];
 
   incrementCard = (number) => {
     // const currentState2 = this.state.isRed;
-    const stateKey = `isRed${number}`;
-    this.setState({ [stateKey]: true });
+    // const stateKey = `isRed${number}`;
+    // this.setState({ [stateKey]: true });
+    // this.setState({isRed1:true}),
     this.setState((prevState) => ({
       isRed: { ...prevState.isRed, [`isRed${number}`]: true },
       cardCount: prevState.cardCount + 1,
@@ -1520,8 +1526,9 @@ this.selectedCards=[];
   
 
     if (this.state.cardCount > 0) {
-      const stateKey = `isRed${number}`;
-      this.setState({ [stateKey]: false });
+    
+      // const stateKey = `isRed${number}`;
+      // this.setState({ [stateKey]: false });
       this.setState((prevState) => ({
         isRed: { ...prevState.isRed, [`isRed${number}`]: false },
         cardCount: prevState.cardCount - 1,
@@ -1580,7 +1587,7 @@ this.selectedCards=[];
         key={index + 1} 
         onClick={() => {
           const currentNumber = index + 1;
-          const isRedState = this.state.isRed[`isRed${currentNumber}`];
+           const isRedState = this.state.isRed[`isRed${currentNumber}`];
 
           if (isRedState) {
             this.decrementCard(currentNumber);
@@ -1588,6 +1595,7 @@ this.selectedCards=[];
             this.incrementCard(currentNumber);
           }
         }}
+      
         className={this.state.isRed[`isRed${index + 1}`] ? "red" : "bt"}
       >
         {index + 1}
@@ -1657,11 +1665,14 @@ this.selectedCards=[];
     switch (e.value) {
       case "amh-male":
         this.setState({
+    
           enableCaller: true,
+    
           doubleCall: false,
           tigrigna: false,
           wolayta: false,
           extraTalk: false,
+      
         });
         break;
       case "amh-fem":
