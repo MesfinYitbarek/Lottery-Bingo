@@ -71,6 +71,16 @@ const TransferCredit = () => {
     }
   };
 
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:4000/api/credit/delete/${userId}`
+      );
+    } catch (err) {
+      setError("Error deleting User");
+    }
+  };
+
   return (
     <div className="">
         <div className='tw-text-blue-800 tw-px-10 tw-rounded-md tw-font-semibold tw-mt-10 tw-p-4 tw-mb-10 tw-bg-white tw-shadow-lg'>
@@ -133,7 +143,10 @@ const TransferCredit = () => {
               
 
               <td className=" tw-p-2 tw-px-4     tw-text-red-600    tw-text-center">
-                <button  >
+                 <button
+                  onClick={() => handleDeleteUser(getcredit._id)}
+                  className="tw-border-red-600  tw-px-1 tw-rounded-none "
+                >
                   Delete
                 </button>
               </td>

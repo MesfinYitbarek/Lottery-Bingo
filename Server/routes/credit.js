@@ -1,5 +1,5 @@
 import express from "express"
-import { balance, credit, getCredit, transfer  } from "../controllers/creditController.js";
+import { balance, credit, deleteCredit, deleteTransfer, getCredit, transfer  } from "../controllers/creditController.js";
 
 
 
@@ -10,4 +10,6 @@ creditRouter.get("/getCredit/:id", getCredit);
 creditRouter.post("/create/:id", credit);
 creditRouter.post("/transfer", transfer);
 creditRouter.get("/:id/balance", balance);
+creditRouter.delete("/delete/:id", deleteTransfer);
+creditRouter.delete("/deletecredit/:id", deleteCredit);
 export default creditRouter
