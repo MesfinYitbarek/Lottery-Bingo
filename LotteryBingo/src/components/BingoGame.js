@@ -17,7 +17,8 @@ import { SlGameController } from "react-icons/sl";
 import { BiReset } from "react-icons/bi";
 import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
-import { FcMoneyTransfer } from "react-icons/fc";
+import { FcMoneyTransfer ,FcSpeaker} from "react-icons/fc";
+import { RiPaintBrushFill ,RiSpeakFill } from "react-icons/ri";
 
 // Custom Components
 import BingoBoard from "./subcomponents/BingoBoard.js";
@@ -476,8 +477,20 @@ class BingoGame extends Component {
       delay: 3500,
       running: false,
       startButton: false,
-      enableCaller: false,
-     isRed:{isRed1:false, isRed2:false,isRed3:false,isRed4:false,isRed5:false,isRed6:false,},
+      enableCaller: true,
+     isRed:{isRed1:false, isRed2:false, isRed3:false, isRed4:false, isRed5:false, isRed6:false, isRed7:false, isRed8:false, isRed9:false, isRed10:false, 
+      isRed11:false, isRed12:false, isRed13:false, isRed14:false, isRed15:false, isRed16:false, isRed17:false, isRed18:false, isRed19:false, isRed20:false,
+       isRed21:false, isRed22:false, isRed23:false, isRed24:false, isRed25:false, isRed26:false, isRed27:false, isRed28:false, isRed29:false, isRed30:false, 
+       isRed31:false, isRed32:false, isRed33:false, isRed34:false, isRed35:false, isRed36:false, isRed37:false, isRed38:false, isRed39:false, isRed40:false,
+        isRed41:false, isRed42:false, isRed43:false, isRed44:false, isRed45:false, isRed46:false, isRed47:false, isRed48:false, isRed49:false, isRed50:false, 
+        isRed51:false, isRed52:false, isRed53:false, isRed54:false, isRed55:false, isRed56:false, isRed57:false, isRed58:false, isRed59:false, isRed60:false,
+         isRed61:false, isRed62:false, isRed63:false, isRed64:false, isRed65:false, isRed66:false, isRed67:false, isRed68:false, isRed69:false, isRed70:false, 
+         isRed71:false, isRed72:false, isRed73:false, isRed74:false, isRed75:false, isRed76:false, isRed77: false, isRed78: false, isRed79: false, isRed80: false,
+          isRed81: false, isRed82: false, isRed83: false, isRed84: false, isRed85: false, isRed86: false, isRed87: false, isRed88: false, isRed89: false, isRed90: false,
+           isRed91: false, isRed92: false, isRed93: false, isRed94: false, isRed95: false, isRed96: false, isRed97: false, isRed98: false, isRed99: false, isRed100: false ,},
+
+
+     
       skipUnused: false,
       wildBingo: false,
       wolatya: false,
@@ -487,10 +500,13 @@ class BingoGame extends Component {
       extraTalk: false,
       chime: false,
       red:false,
-      default:false,
+      default:true,
       darkGrey:false,
       blue:false,
       darkRed:false,
+      cutBalance:0,
+      amount:0,
+      cardCount:0,
 
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
@@ -1277,13 +1293,14 @@ this.selectedCards=[];
     } else {
       clearInterval(this.interval);
       this.totalBallsCalled = totalPossibleBalls;
-     let finishSound= new Audio(pssound);
-     setTimeout(() => {
-      finishSound.play();
-    }, 3000);
+      // this.confirmResetGame();
+    //  let finishSound= new Audio(pssound);
+    //  setTimeout(() => {
+    //   finishSound.play();
+    // }, 3000);
       this.previousBall = this.currentBall;
       this.currentBall = null;
-      this.setState({ running: false });
+      
     }
   };
   winnerCheck = () => {
@@ -1296,7 +1313,7 @@ this.selectedCards=[];
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
     let sound = new Audio(this.shuffleSound);
-    let duration = 2000;
+    let duration = 1000;
     for (let i = 0; i <= duration; i++) {
       window.setTimeout(() => {
         if (i === 0) {
@@ -1955,7 +1972,7 @@ else if(this.state.darkGrey){
 
                 <button
                   onClick={this.toggleResetModal}
-                  disabled={this.state.running || this.totalBallsCalled === 0}
+                  disabled={ this.totalBallsCalled === 0}
                 >
                   Reset Board <BiReset />
                 </button>
@@ -2022,7 +2039,7 @@ else if(this.state.darkGrey){
                     <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        Audible Caller: <FaVolumeUp />{" "}
+                        Audible Caller: <RiSpeakFill /> <FcSpeaker />{" "}
                       </h6>
                     </div>
                     <div className="col grow min-size-150 padding-horizontal-lg">
@@ -2066,7 +2083,7 @@ else if(this.state.darkGrey){
                     <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        choose color: <FaVolumeUp />{" "}
+                        choose color: <RiPaintBrushFill />{" "}
                       </h6>
                     </div>
                   <div className="col grow padding-horizontal-lg">

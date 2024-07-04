@@ -102,46 +102,9 @@ const CardGenerator = () => {
     return card;
   };
 
-  const printCards = () => {
-    let style = document.createElement("style");
-    switch (perPage?.value) {
-      case "2":
-        style.appendChild(
-          document.createTextNode(
-            "@page { orientation: landscape; size: landscape; margin: 1in .5in; }"
-          )
-        );
-        break;
-      case "4":
-        style.appendChild(
-          document.createTextNode(
-            "@page { orientation: portrait; size: portrait; margin: 1in .5in; }"
-          )
-        );
-        break;
-      case "6":
-        style.appendChild(
-          document.createTextNode(
-            "@page { orientation: landscape; size: landscape; margin: 0.4in 0.25in; }"
-          )
-        );
-        break;
-      default:
-        style.appendChild(
-          document.createTextNode(
-            "@page { orientation: portrait; size: portrait; margin: 1in .5in; }"
-          )
-        );
-        break;
-    }
-    document.head.appendChild(style);
-  };
+ 
 
-  const perPageOptions = [
-    { value: "2", label: "2" },
-    { value: "4", label: "4" },
-      { value: "6", label: "6" },
-    ];
+  
   
 
   const numberOfCardsOptions = [];
@@ -192,16 +155,8 @@ const CardGenerator = () => {
         <div className="container row no-print">
           <div className="col">
             <h1>Card Generator</h1>
-            <p>
-              Generate your own cards to print for playing at home! Simply
-              choose a number and a color and click Generate!
-            </p>
-            <p className="medium-text">
-              Printing your cards will default to color and 4 cards per page.
-              Use the options below to change these settings. <br />
-              Printing 2 per page will result in larger cards for people who
-              like bigger cards or have vision impairment.
-            </p>
+           
+         
 
             <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
               <div className="col shrink padding-horizontal-md">
@@ -253,14 +208,7 @@ const CardGenerator = () => {
                 </div>
               </div>
 
-              <div className="col shrink padding-horizontal-md">
-                <Select
-                  className="number-select"
-                  placeholder="Cards Per Page"
-                  onChange={handlePerPageSelect}
-                  options={perPageOptions}
-                />
-              </div>
+             
             </div>
           </div>
         </div>
