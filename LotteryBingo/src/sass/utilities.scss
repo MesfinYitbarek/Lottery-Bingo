@@ -78,8 +78,8 @@
 /* Modals */
 .modal {
   color: white;
-  position: absolute;
-  top: 20%;
+
+  top: 50%;
   left: calc(50% - 25vw);
   width: 50vw;
   margin: 0 auto;
@@ -92,7 +92,7 @@
   white-space: pre-wrap;
   border-radius: 10%;
   @media screen and (max-width: 700px){
-    top: unset;
+    top: 50%;
     left: 0;
     right: 0;
     margin: -50vh 5%;
