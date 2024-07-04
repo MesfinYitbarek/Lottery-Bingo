@@ -423,6 +423,15 @@ class BingoGame extends Component {
       { label: "tigrigna-female", value: "tig-fem" },
     ];
 
+    this.colors = [
+      { label: "orange", value: "red" },
+      { label: "blue", value: "blue" },
+      { label: "darkGrey", value: "darkGrey" },
+      { label: "dark-red", value: "darkRed" },
+      { label: "default", value: "default" },
+      
+    ];
+
     this.shuffleSound = shuffle;
 
     // Patterns
@@ -477,9 +486,15 @@ class BingoGame extends Component {
       doubleCall: false,
       extraTalk: false,
       chime: false,
+      red:false,
+      default:false,
+      darkGrey:false,
+      blue:false,
+      darkRed:false,
 
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
+      selectedColor: this.colors[0],
       selectedPattern: {
         value: this.patternPlaceholder,
         label: this.patternPlaceholder,
@@ -1717,6 +1732,67 @@ this.selectedCards=[];
     }
   };
 
+
+  handleColorchooser = (e) => {
+    this.setState({ selectedColor: e });
+
+    switch (e.value) {
+      case "red":
+        this.setState({
+    
+          red: true,
+    
+          blue: false,
+          darkGrey: false,
+          darkRed: false,
+          default:false,
+      
+        });
+        break;
+      case "blue":
+        this.setState({
+          red: false,
+          default:false,
+          blue: true,
+          darkGrey: false,
+          darkRed: false,
+        });
+        break;
+      case "darkGrey":
+        this.setState({
+          red: false,
+    default:false,
+          blue: false,
+          darkGrey: true,
+          darkRed: false,
+        });
+        break;
+      case "darkRed":
+        this.setState({
+          red: false,
+    
+          blue: false,
+          darkGrey: false,
+          darkRed: true,
+          default:false,
+        });
+        break;
+
+        case "default":
+          this.setState({
+            red: false,
+      default:true,
+            blue: false,
+            darkGrey: false,
+            darkRed: false,
+          });
+          break;
+    
+      default:
+        break;
+    }
+  };
+
   /**
    * Choose Chime Function
    * Sets the selected chime audible
@@ -1737,11 +1813,31 @@ this.selectedCards=[];
 
   /* ------------------- Render */
   render() {
-
+let colorClasses ;
+if(this.state.blue){
+  colorClasses="dark-blue-bg light-links";
+}
+else if(this.state.red){
+ colorClasses= "red-bg light-links"
+}
+else if(this.state.darkGrey){
+  colorClasses= "dark-gray-bg light-links"
+ }
+ else if(this.state.darkRed){
+  colorClasses= "dark-red-bg light-links"
+ }
+ else if(this.state.default)
+ {
+   colorClasses= "dark-bg light-links"
+ }
+ else{
+  colorClasses= "dark-bg light-links"
+ }
+// colorClasses= this.state.enableCaller? "dark-bg light-links": "red-bg light-links";
     return (
      <div>
       <div><Header/></div>
-      <div className="dark-bg light-links">
+      <div className={colorClasses}>
         
         {/* ----------- Bingo Board ------------- */}
         <section className="board-block">
@@ -1948,7 +2044,10 @@ this.selectedCards=[];
                             options={this.callers}
                           />
                         </div>
+
                       </div>
+
+
 
                       {/* Only shown if speech is DISABLED by the browser */}
                       <div
@@ -1957,16 +2056,30 @@ this.selectedCards=[];
                           this.speechEnabled === true ? "hide" : "show"
                         }
                       >
-                        <div className="col grow">
-                          Sorry, but your browser does not support the audible
-                          bingo caller.
-                        </div>
+                       
                       </div>
                     </div>
                   </div>
 
                 
-
+                  <div className="row align-start justify-start">
+                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                      <h6>
+                        {" "}
+                        choose color: <FaVolumeUp />{" "}
+                      </h6>
+                    </div>
+                  <div className="col grow padding-horizontal-lg">
+                          <Select
+                            className="select-input"
+                            placeholder="Choose colors"
+                            menuPlacement="auto"
+                            value={this.state.selectedColor}
+                            onChange={this.handleColorchooser}
+                            options={this.colors}
+                          />
+                        </div>
+                        </div>
                   {/* ----------- Chime ----------- */}
                   <div className="row no-wrap align-start justify-start">
                     <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
