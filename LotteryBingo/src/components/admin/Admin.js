@@ -12,6 +12,7 @@ import Sales from "./Sales";
 import CreateBranch from "./CreateBranch";
 import SuperAdmin from "./SuperAdmin";
 import Branch from "./branch";
+import AdminDashboard from "./Home";
 
 const navigationItems = [
   { name: "Dashboard", isActive: true },
@@ -67,7 +68,7 @@ const AdminContainer = () => {
       </div>
       <div className=" tw-flex tw-justify-center tw-items-center">
       {condtion == "Dashboard" ? (
-        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <SuperAdmin/> : "Home"}</p>
+        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <SuperAdmin/> :<AdminDashboard/>}</p>
       ) : condtion == "Cartela" ? (
         <p className=" tw-pl-72"><Cartela/></p>
       ): condtion == "Credit" ? (

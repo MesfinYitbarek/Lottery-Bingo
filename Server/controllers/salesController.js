@@ -48,3 +48,59 @@ export const deleteBranch = async (req, res, next) => {
     next(error);
   }
 };
+
+export const salesTime = async (req, res) => {
+  try {
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const startOfYear = new Date(now.getFullYear(), 0, 1);
+
+    const dailyTotal = await Sales.aggregate([
+      { $match: { createdAt: { $gte: startOfDay } } },
+      { $group: { _id: null, total: { $sum: "$total" } } }
+    ]);
+
+    const weeklyTotal = await Sales.aggregate([
+      { $match: { createdAt: { $gte: startOfWeek } } },
+      { $group: { _id: null, total: { $sum: "$total" } } }
+    ]);
+
+    const monthlyTotal = await Sales.aggregate([
+      { $match: { createdAt: { $gte: startOfMonth } } },
+      { $group: { _id: null, total: { $sum: "$total" } } }
+    ]);
+
+    const yearlyTotal = await Sales.aggregate([
+      { $match: { createdAt: { $gte: startOfYear } } },
+      { $group: { _id: null, total: { $sum: "$total" } } }
+    ]);
+
+    res.json({
+      dailyTotal: dailyTotal[0]?.total || 0,
+      weeklyTotal: weeklyTotal[0]?.total || 0,
+      monthlyTotal: monthlyTotal[0]?.total || 0,
+      yearlyTotal: yearlyTotal[0]?.total || 0,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch aggregated sales data' });
+  }
+}
+
+// Endpoint to get sales data grouped by branch and cashier
+export const salesBranch =  async (req, res) => {
+  try {
+    const salesByBranch = await Sales.aggregate([
+      { $group: { _id: "$branch", total: { $sum: "$total" } } }
+    ]);
+
+    const salesByCashier = await Sales.aggregate([
+      { $group: { _id: "$cashier", total: { $sum: "$total" } } }
+    ]);
+
+    res.json({ salesByBranch, salesByCashier });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch grouped sales data' });
+  }
+}

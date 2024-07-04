@@ -78,8 +78,8 @@
 /* Modals */
 .modal {
   color: white;
-
-  top: 50%;
+  position: absolute;
+  top: 20%;
   left: calc(50% - 25vw);
   width: 50vw;
   margin: 0 auto;

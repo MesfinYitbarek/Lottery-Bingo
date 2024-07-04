@@ -93,7 +93,7 @@ const CreateBranch = () => {
           </label>
           <select
             id="agent"
-            required
+        
             onChange={handleChange}
             className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
           >
