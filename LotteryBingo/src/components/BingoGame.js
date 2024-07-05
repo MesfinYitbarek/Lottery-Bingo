@@ -493,7 +493,7 @@ class BingoGame extends Component {
      
       skipUnused: false,
       wildBingo: false,
-      wolatya: false,
+   
       tigrigna: false,
       evensOdds: false,
       doubleCall: false,
@@ -1591,7 +1591,7 @@ this.selectedCards=[];
               <input
                 type="number"
                 value={this.state.cardCount}
-                // readOnly
+                readOnly
                 onChange={this.handleCardCountChange}
               />
               {/* <button onClick={this.decrementCards}>-</button> */}
