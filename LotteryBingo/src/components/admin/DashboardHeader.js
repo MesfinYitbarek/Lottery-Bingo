@@ -4,11 +4,12 @@ import { BiShoppingBag } from 'react-icons/bi';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import SignOut from './SignOut';
-
+import CallHistory from '../subcomponents/CallHistory';
+import BingoGame from '../BingoGame';
 const DashboardHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [balance, setBalance] = useState(0);
-
+console.log(balance)
   useEffect(() => {
     const fetchBalance = async () => {
       try {
@@ -63,6 +64,7 @@ const DashboardHeader = () => {
               </div>
             )}
     </div>
+    
       </div>
     </div>
   )
