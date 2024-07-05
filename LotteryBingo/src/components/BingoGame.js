@@ -1619,10 +1619,11 @@ this.selectedCards=[];
         key={index + 1} 
         onClick={() => {
           const currentNumber = index + 1;
-           const isRedState = this.state.isRed[`isRed${currentNumber}`];
+          const isRedState = this.state.isRed[`isRed${currentNumber}`];
 
           if (isRedState) {
             this.decrementCard(currentNumber);
+            
           } else {
             this.incrementCard(currentNumber);
           }
@@ -1632,6 +1633,7 @@ this.selectedCards=[];
       >
         {index + 1}
       </button>
+      
     ))}
     </span>
                
@@ -1651,14 +1653,7 @@ this.selectedCards=[];
           </div>
           {console.log(this.state.betAmount)}
           {console.log("selected bingo",this.selectedCards)}
-          <div className="tw-hidden">
-            <CallHistory
-              betAmount={this.state.betAmount}
-              cardCount={this.state.cardCount}
-              totalAmount={this.state.amount}
-              selectedCards={this.selectedCards}
-            />
-          </div>
+          
         </div>
       );
     } else {
