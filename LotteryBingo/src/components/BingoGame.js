@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import Slider from "rc-slider";
 import Select from "react-select";
 import {
-  FaVolumeUp,
+
   FaBell,
   FaRunning,
   FaSearch,
