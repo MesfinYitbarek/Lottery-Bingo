@@ -58,14 +58,16 @@ const CardFetcher = ({ selectedCards }) => {
           <div className="col text-center">
             {cards.map((cardData, index) => (
               <div key={index} className="card blue tw-text-blue-800">
-                <h3>Card ID: {cardData.id}</h3>
-                <h3>Branch: {cardData.branch}</h3>
-                <button
+                 <button
                   onClick={() => handleDeleteUser(cardData._id)}
                   className="tw-border-red-600 tw-text-red-600 tw-px-1 tw-rounded-none"
                 >
                   Delete
                 </button>
+                 <h3>Branch: {cardData.branch}</h3>
+                <h3>Card ID: {cardData.id}</h3>
+               
+               
                 <BingoCard card={cardData.card} color="blue" />
               </div>
             ))}

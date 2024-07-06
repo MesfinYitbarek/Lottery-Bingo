@@ -49,9 +49,7 @@ const CardGenerator = () => {
     setColor(event.value);
   };
 
-  const handlePerPageSelect = (event) => {
-    setPerPage(event);
-  };
+
 
   const handleBWCheckbox = (e) => {
     setBlackWhite(e.currentTarget.checked);

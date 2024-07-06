@@ -6,6 +6,12 @@ import Cartela from "./Cartela";
 import CreateCredit from "./CreateCredit";
 import { useSelector } from "react-redux";
 
+import { TfiDashboard } from "react-icons/tfi";
+import { PiCardsThreeLight } from "react-icons/pi";
+import { SiCashapp } from "react-icons/si";
+import { FcSalesPerformance } from "react-icons/fc";
+import { FaUsers } from "react-icons/fa6";
+
 import TransferCredit from "./TransferCredit";
 import DashboardHeader from "./DashboardHeader";
 import Sales from "./Sales";
@@ -15,11 +21,11 @@ import Branch from "./branch";
 import AdminDashboard from "./Home";
 
 const navigationItems = [
-  { name: "Dashboard", isActive: true },
-  { name: "Cartela" },
-  { name: "Credit" },
-  { name: "Sales" },
-  { name: "Users" },
+  { name: "Dashboard", isActive: true, icon:<TfiDashboard />  },
+  { name: "Cartela", icon:<PiCardsThreeLight /> },
+  { name: "Credit", icon: <SiCashapp/>},
+  { name: "Sales", icon:<FcSalesPerformance/>},
+  { name: "Users",  icon:<FaUsers />},
 ];
 
 const AdminContainer = () => {
@@ -60,6 +66,7 @@ const AdminContainer = () => {
           `}
                 >
                   {item.name}
+                  {item.icon}
                 </button>
               ))}
             </div>
@@ -89,3 +96,7 @@ const AdminContainer = () => {
 };
 
 export default AdminContainer;
+
+
+
+
