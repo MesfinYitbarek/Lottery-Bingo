@@ -43,45 +43,52 @@ const SignIn = () => {
     }
   };
 
-return (
-  <div className="tw-h-screen tw-pt-28 tw-bg-slate-50 tw-dark:bg-gray-800">
-    <div className="tw-flex tw-justify-center tw-items-center">
-      <div className="tw-shadow-sm tw-flex tw-flex-col tw-justify-center tw-items-center tw-p-6 tw-rounded-2xl tw-bg-slate-50 tw-border tw-border-slate-300 tw-m-3 tw-sm:w-650px tw-dark:bg-gray-400">
-        <h1 className="tw-m-3 tw-font-serif tw-text-4xl tw-text-sky-900">Hi, Welcome back!</h1>
-        <form onSubmit={handleSubmit} className="tw-flex tw-flex-col tw-justify-between tw-items-center tw-gap-6">
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            required
-            onChange={handleChange}
-            className="tw-dark:bg-slate-100 tw-sm:w-450px tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3 tw-focus:outline-none"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            required
-            onChange={handleChange}
-            className="tw-dark:bg-slate-100 tw-sm:w-450px tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3 tw-focus:outline-none"
-          />
-
-          <button
-            disabled={loading}
-            type="submit"
-            className="tw-sm:w-450px tw-font-semibold tw-p-2 tw-px-6 tw-rounded-lg tw-text-white tw-bg-blue-600 tw-hover:bg-white tw-hover:text-blue-600 tw-hover:border tw-hover:border-blue-400 tw-transition tw-duration-300 tw-ease-in-out"
+  return (
+    <div className="tw-dark:bg-gray-800 tw-h-screen tw-pt-28 tw-bg-slate-50">
+      
+      <div className="tw-flex tw-justify-center tw-items-center">
+        <div className="tw-shadow-sm tw-flex tw-flex-col tw-justify-center tw-items-center tw-dark:bg-gray-400 tw-p-[2%] tw-rounded-2xl tw-sm:w-[650px] tw-bg-slate-50 tw-border tw-border-slate-300 tw-m-[3%]">
+          <h1 className="tw-m-3 tw-font-serif tw-text-4xl tw-text-sky-900">
+            Hi, Welcome back!
+          </h1>
+          <form
+            onSubmit={handleSubmit}
+            action=""
+            className="tw-flex tw-flex-col tw-justify-between tw-items-center tw-gap-6 "
           >
-            {loading ? "Loading..." : "Sign In"}
-          </button>
-        </form>
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              required
+              onChange={handleChange}
+              className="tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
+            />
 
-        {error && <p className="tw-text-red-500 tw-mt-2">{error}</p>}
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              required
+              onChange={handleChange}
+              className="tw-dark:bg-slate-100 tw-sm:w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3"
+            />
+            <button
+              disabled={loading}
+              type="submit"
+              className="tw-sm:w-[450px]  tw-font-semibold tw-hover:bg-white tw-hover:text-blue-600 tw-hover:border tw-hover:border-blue-400  tw-p-2 tw-px-6 tw-rounded-lg tw-text-white tw-bg-blue-600"
+            >
+              {loading ? "Loading..." : "Sign In"}
+            </button>
+           
+          </form>
+          
+          <div className="">{error && <p className="tw-text-red-500 ">{error}</p>}</div>
+        </div>
       </div>
+      
     </div>
-  </div>
-);
-
+  );
 };
 
 export default SignIn;
