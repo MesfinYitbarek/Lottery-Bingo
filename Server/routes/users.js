@@ -1,10 +1,12 @@
 import express from "express"
-import { branch, branchEdit, changePassword, createBranch, deleteAdmin, deleteBranch, signin, signout, signup, test, updateAdmin, updateBranch, userEdit, users } from "../controllers/usersController.js";
+import { branch, branchEdit, changePassword, createBranch, deleteAdmin, deleteBranch, getusers, signin, signout, signup, test, updateAdmin, updateBranch, userEdit, users } from "../controllers/usersController.js";
+import { getBranch } from "../controllers/branchControllers.js";
 
 const userRouter = express.Router();
 
 userRouter.get("/test", test);
 userRouter.get("/users/:id", users);
+userRouter.get("/getusers/:id", getusers);
 userRouter.delete('/delete/:id', deleteAdmin)
 userRouter.post("/signup/:id", signup);
 userRouter.post("/signin", signin);
@@ -14,6 +16,7 @@ userRouter.get("/signout", signout);
 userRouter.put('/:userId/change-password', changePassword);
 userRouter.post("/createbranch/:id", createBranch);
 userRouter.get("/branch", branch);
+
 userRouter.get("/branch/:id", branchEdit);
 userRouter.delete("/deletebranch/:id", deleteBranch);
 userRouter.post("/updatebranch/:id", updateBranch);

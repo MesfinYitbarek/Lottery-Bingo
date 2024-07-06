@@ -69,6 +69,15 @@ export const users = async (req, res) => {
   }
 };
 
+export const getusers = async (req, res) => {
+  try {
+    const users = await User.find({branch: req.params.id});
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+};
+
 export const deleteAdmin = async (req, res, next) => {
   const users = await User.findById(req.params.id);
 

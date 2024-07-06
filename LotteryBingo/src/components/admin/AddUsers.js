@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const AddUsers = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
-console.log(formData)
+  const navigate = useNavigate();
+  console.log(formData)
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -47,6 +49,7 @@ console.log(formData)
       }
       setLoading(false);
       setError(null);
+      navigate("/admin");
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -121,6 +124,7 @@ console.log(formData)
             
             className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
           >
+          <option value="">Select Branch</option>
             {users &&
               users.map((users) => (
                 <option value={users.name}>{users.name}</option>

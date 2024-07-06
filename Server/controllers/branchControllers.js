@@ -10,7 +10,14 @@ export const branch = async (req, res, next) => {
       next(error);
     }
   };
-  
+  export const getBranch = async (req, res, next) => {
+    try {
+      const branch = await Branch.find({agent: req.params.id});
+      res.json(branch);
+    } catch (error) {
+      next(error);
+    }
+  };
   // catagory display for edit
   export const branchEdit = async (req, res, next) => {
     const { id } = req.params; 

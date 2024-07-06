@@ -97,6 +97,7 @@ const CreateBranch = () => {
             onChange={handleChange}
             className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
           >
+            <option value="">Select Agent</option>
             {users &&
               users.map((users) => (
                 <option value={users.username}>{users.username}</option>

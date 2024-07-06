@@ -13,48 +13,59 @@ const Sales = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
-  const [branch, setBranch] = React.useState([]);
+  const [branch, setBranch] = useState([]);
+  const [getbranch, setgetBranch] = useState([]);
+  const [branchCashiers, setBranchCashiers] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
 
-  React.useEffect(() => {
-    const fetchUsers = async () => {
+  useEffect(() => {
+    const fetchgetBranches = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const data = await response.json();
+        setgetBranch(data);
+      } catch (err) {
+        setError("Error fetching branches");
+      }
+    };
+
+    fetchgetBranches();
+  }, [currentUser.username]);
+
+  useEffect(() => {
+    const fetchBranches = async () => {
       try {
         const response = await fetch("http://localhost:4000/api/branch/branch");
         const data = await response.json();
         setBranch(data);
       } catch (err) {
-        setError("Error fetching User");
+        setError("Error fetching branches");
       }
     };
 
-    fetchUsers();
-  }, [branch]);
-
-  
+    fetchBranches();
+  }, []);
 
   useEffect(() => {
     const fetchSales = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:4000/api/sales/getSales"
-        );
+        const response = await fetch("http://localhost:4000/api/sales/getSales");
         const data = await response.json();
         setSales(data);
-        setFilteredSales(data);
       } catch (err) {
-        setError("Error fetching Sales");
+        setError("Error fetching sales");
       }
     };
 
     fetchSales();
-  }, [sales]);
+  }, []);
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:4000/api/sales/deletesales/${userId}`
-      );
+      await axios.delete(`http://localhost:4000/api/sales/deletesales/${userId}`);
+      setFilteredSales((prev) => prev.filter((sale) => sale._id !== userId));
     } catch (err) {
-      setError("Error deleting User");
+      setError("Error deleting sale");
     }
   };
 
@@ -67,44 +78,42 @@ const Sales = () => {
         const data = await response.json();
         setUsers(data);
       } catch (err) {
-        setError("Error fetching User");
+        setError("Error fetching users");
       }
     };
 
     fetchUsers();
-  }, [users]);
+  }, [currentUser._id]);
+
+  useEffect(() => {
+    const fetchCashiersByBranch = async () => {
+      if (selectedBranch) {
+        try {
+          const response = await fetch(`http://localhost:4000/api/user/getusers/${selectedBranch}`);
+          const data = await response.json();
+          setBranchCashiers(data);
+        } catch (err) {
+          setError("Error fetching cashiers for branch");
+        }
+      } else {
+        setBranchCashiers([]);
+      }
+    };
+
+    fetchCashiersByBranch();
+  }, [selectedBranch]);
 
   const handleFilter = () => {
-    console.log("Filtering with:", {
-      startDate,
-      endDate,
-      selectedBranch,
-      selectedCashier,
-    });
-
     let filtered = sales;
 
     if (startDate) {
-      filtered = filtered.filter((sale) => {
-        const saleDate = new Date(sale.createdAt);
-        const filterStartDate = new Date(startDate);
-        console.log(
-          `Comparing saleDate: ${saleDate} with startDate: ${filterStartDate}`
-        );
-        return saleDate >= filterStartDate;
-      });
+      filtered = filtered.filter((sale) => new Date(sale.createdAt) >= new Date(startDate));
     }
 
     if (endDate) {
-      filtered = filtered.filter((sale) => {
-        const saleDate = new Date(sale.createdAt);
-        const filterEndDate = new Date(endDate);
-        filterEndDate.setHours(23, 59, 59, 999); // Set end date to end of the day
-        console.log(
-          `Comparing saleDate: ${saleDate} with endDate: ${filterEndDate}`
-        );
-        return saleDate <= filterEndDate;
-      });
+      const filterEndDate = new Date(endDate);
+      filterEndDate.setHours(23, 59, 59, 999);
+      filtered = filtered.filter((sale) => new Date(sale.createdAt) <= filterEndDate);
     }
 
     if (selectedBranch) {
@@ -115,9 +124,9 @@ const Sales = () => {
       filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
     }
 
-    console.log("Filtered results:", filtered);
     setFilteredSales(filtered);
-    setCurrentPage(1); // Reset to the first page after filtering
+    setCurrentPage(1);
+    setIsFiltered(true);
   };
 
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -137,9 +146,8 @@ const Sales = () => {
 
   return (
     <div className="tw-mt-10">
-      <div className="tw-text-green-700 tw-pl-10  tw-font-bold tw-text-3xl">
-        Sales{" "}
-        <span className=" tw-text-pink-600">(${currentUser.balance})</span>
+      <div className="tw-text-green-700 tw-pl-10 tw-font-bold tw-text-3xl">
+        Sales <span className="tw-text-pink-600">(${currentUser.balance})</span>
       </div>
 
       <div className="tw-mb-5 tw-text-end tw-font-bold tw-text-xl tw-text-purple-600 tw-pr-12">
@@ -169,7 +177,7 @@ const Sales = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
         >
           <option value="">Select Branch</option>
-          {branch && branch.map((branch) => (
+          {getbranch.map((branch) => (
             <option key={branch.id} value={branch.name}>
               {branch.name}
             </option>
@@ -181,7 +189,7 @@ const Sales = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
         >
           <option value="">Select Cashier</option>
-          {users && users.map((cashier) => (
+          {branchCashiers.map((cashier) => (
             <option key={cashier.id} value={cashier.username}>
               {cashier.username}
             </option>
@@ -195,68 +203,75 @@ const Sales = () => {
         </button>
       </div>
 
-      <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
-        <thead>
-          <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
-            <th className="tw-p-2 tw-px-4">Date</th>
-            <th className="tw-p-2 tw-px-4">Bet</th>
-            <th className="tw-p-2 tw-px-4">Player#</th>
-            <th className="tw-p-2 tw-px-4">Total Won</th>
-            <th className="tw-p-2 tw-px-4">Cut</th>
-            <th className="tw-p-2 tw-px-4">Won</th>
-            <th className="tw-p-2 tw-px-4">#Call</th>
-            <th className="tw-p-2 tw-px-4">Winners</th>
-            <th className="tw-p-2 tw-px-4">Branch</th>
-            <th className="tw-p-2 tw-px-4">Cashier</th>
-            <th className="tw-p-2 tw-px-4">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRows.map((data) => (
-            <tr key={data._id} className="tw-hover:bg-slate-100">
-              <td className="tw-p-2 tw-px-4">
-                {new Date(data.createdAt).toLocaleDateString()}
-              </td>
-              <td className="tw-p-2 tw-px-4">&#36;{data.bet}</td>
-              <td className="tw-p-2 tw-px-4">{data.player}</td>
-              <td className="tw-p-2 tw-px-4">&#36;{data.total}</td>
-              <td className="tw-p-2 tw-px-4">&#36;{data.cut}</td>
-              <td className="tw-p-2 tw-px-4">&#36;{data.won}</td>
-              <td className="tw-p-2 tw-px-4">{data.call}</td>
-              <td className="tw-p-2 tw-px-4">{data.winner}</td>
-              <td className="tw-p-2 tw-px-4">{data.branch}</td>
-              <td className="tw-p-2 tw-px-4">{data.cashier}</td>
+      {isFiltered && (
+        <>
+          <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
+            <thead>
+              <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
+                <th className="tw-p-2 tw-px-4">Date</th>
+                <th className="tw-p-2 tw-px-4">Bet</th>
+                <th className="tw-p-2 tw-px-4">Player#</th>
+                <th className="tw-p-2 tw-px-4">Total Won</th>
+                <th className="tw-p-2 tw-px-4">Cut</th>
+                <th className="tw-p-2 tw-px-4">Won</th>
+                <th className="tw-p-2 tw-px-4">#Call</th>
+                <th className="tw-p-2 tw-px-4">Winners</th>
+                <th className="tw-p-2 tw-px-4">Branch</th>
+                <th className="tw-p-2 tw-px-4">Cashier</th>
+                <th className="tw-p-2 tw-px-4">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentRows.map((data) => (
+                <tr key={data._id} className="tw-hover:bg-slate-100">
+                  <td className="tw-p-2 tw-px-4">
+                    {new Date(data.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.bet}</td>
+                  <td className="tw-p-2 tw-px-4">{data.player}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.total}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.cut}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.won}</td>
+                  <td className="tw-p-2 tw-px-4">{data.call}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners}</td>
+                  <td className="tw-p-2 tw-px-4">{data.branch}</td>
+                  <td className="tw-p-2 tw-px-4">{data.cashier}</td>
+                  <td className="tw-p-2 tw-px-4">
+                    <button
+                      onClick={() => handleDeleteUser(data._id)}
+                      className="tw-bg-red-500 tw-text-white tw-px-2 tw-py-1 tw-rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-              <td className="tw-p-2 tw-px-4 tw-text-red-600 tw-text-center">
-                <button
-                  onClick={() => handleDeleteUser(data._id)}
-                  className="tw-border-red-600  tw-px-1 tw-rounded-none "
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <div className="tw-mt-4 tw-flex tw-justify-center">
+            <nav>
+              <ul className="tw-flex tw-list-none">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <li key={index} className="tw-mx-1">
+                    <a
+                      href="#"
+                      onClick={(event) => handleClick(event, index + 1)}
+                      className={`tw-px-3 tw-py-1 tw-border tw-rounded ${
+                        currentPage === index + 1 ? "tw-bg-blue-500 tw-text-white" : "tw-bg-white tw-text-blue-500"
+                      }`}
+                    >
+                      {index + 1}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </>
+      )}
 
-      <div className="tw-flex tw-justify-center tw-mt-4">
-        {[...Array(totalPages).keys()].map((number) => (
-          <button
-            key={number + 1}
-            onClick={(event) => handleClick(event, number + 1)}
-            className={`tw-px-4 tw-py-2 tw-mx-1 tw-border ${
-              currentPage === number + 1
-                ? "tw-bg-blue-600 tw-text-white"
-                : "tw-bg-white tw-text-blue-600"
-            }`}
-          >
-            {number + 1}
-          </button>
-        ))}
-      </div>
-
-      {error && <p className="tw-text-red-500">{error}</p>}
+      {error && <div className="tw-text-red-500">{error}</div>}
     </div>
   );
 };

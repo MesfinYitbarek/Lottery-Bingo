@@ -2,6 +2,7 @@ import React from "react";
 import Select from "react-select";
 import axios from "axios";
 import BingoCard from "../subcomponents/BingoCard";
+import { useSelector } from "react-redux";
 
 const CardGenerator = () => {
   const [generatedCards, setGeneratedCards] = React.useState([]);
@@ -12,11 +13,12 @@ const CardGenerator = () => {
   const [branch, setBranch] = React.useState(null);
   const [users, setUsers] = React.useState([]);
   const [error, setError] = React.useState(null);
-
+  const { currentUser } = useSelector((state) => state.user);
+  
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/branch/branch");
+        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
         const data = await response.json();
         setUsers(data);
       } catch (err) {
