@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "../../images/logoImage.svg";
 import { useSelector } from "react-redux";
 import { RiFullscreenLine, RiFullscreenExitLine} from "react-icons/ri";
-
+import axios from "axios";
 import SignOut from "../admin/SignOut";
 import { BiShoppingBag } from "react-icons/bi";
+import BingoGame from "../BingoGame";
+import CallHistory from "../subcomponents/CallHistory";
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const [balance, setBalance] = useState(0);
+console.log(balance)
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+               const res = await axios.get(`http://localhost:4000/api/credit/${currentUser._id}/balance`);
+        setBalance(res.data.balance);
+      } catch (err) {
+        alert('Error fetching balance');
+      }
+    };
+
+    if (currentUser) {
+      fetchBalance();
+    }
+  }, [currentUser,balance]);
+
    const toggleFullScreen = () => {
     if (!isFullScreen) {
       document.documentElement.requestFullscreen();
@@ -73,7 +93,7 @@ const Header = () => {
                       <BiShoppingBag />{" "}
                     </div>
                     <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-14 tw-right-4 group-hover:tw-block">
-                      Your balance is {currentUser.balance}
+                      Your balance is {balance}
                    
                     </div>
                    
@@ -96,6 +116,10 @@ const Header = () => {
             <div id="google_translate_element"></div>
           </div>
         </div>
+        <div className=' tw-hidden'>
+    <CallHistory balance={currentUser.balance} />
+    <BingoGame balance={currentUser.balance} />
+    </div>
       </header>
     </div>
   );

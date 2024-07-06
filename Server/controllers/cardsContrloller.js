@@ -34,11 +34,13 @@ export const cards = async (req, res) => {
 
 // Route to fetch cards
 export const getCards = async (req, res) => {
+  const { branch } = req.query;
   try {
-    const cards = await Card.find();
+    const query = branch ? { branch } : {};
+    const cards = await Card.find(query);
     res.json(cards);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch cards' });
+    res.status(500).json({ message: "Failed to fetch cards" });
   }
 };
 
