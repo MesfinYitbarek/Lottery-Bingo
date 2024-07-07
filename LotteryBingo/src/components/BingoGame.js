@@ -565,6 +565,7 @@ class BingoGame extends Component {
       previousBall: this.previousBall,
       currentBall: this.currentBall,
       interval: this.interval,
+selectedCards:this.selectedCards,
       //  sales:this.sales,
       //  totalBalance:this.totalBalance,
     };
