@@ -61,6 +61,10 @@ ul li {
 	height: 100px;
 	width: auto;
 }
+.img-fluid{
+	height: 20px;
+	width: 50px;
+}
 .qr-code {
 	max-height: 150px;
 	margin: 0.5rem;
@@ -80,30 +84,30 @@ ul li {
 }
 
 /* Google Translate */
-.goog-te-gadget-simple {
-	border: 0 !important;
-	font-family: var(--body-font);
-	.goog-te-menu-value {
-		span {
-			&:first-child {
-				font-family: var(--body-font);
-				font-size: 0.85rem;
-				line-height: 2.5;
-			}
-			&:last-child {
-				font-size: 0;
-				color: #3c3c3c !important;
-				&:before {
-					display: inline-block;
-					content: "\2329";
-					font-size: 1.5rem;
-					transform: rotate(-90deg);
-					padding-right: 1rem;
-				}
-			}
-		}
-	}
-}
+// .goog-te-gadget-simple {
+// 	border: 0 !important;
+// 	font-family: var(--body-font);
+// 	.goog-te-menu-value {
+// 		span {
+// 			&:first-child {
+// 				font-family: var(--body-font);
+// 				font-size: 0.85rem;
+// 				line-height: 2.5;
+// 			}
+// 			&:last-child {
+// 				font-size: 0;
+// 				color: #3c3c3c !important;
+// 				&:before {
+// 					display: inline-block;
+// 					content: "\2329";
+// 					font-size: 1.5rem;
+// 					transform: rotate(-90deg);
+// 					padding-right: 1rem;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 /* Release Notes */
 .date {

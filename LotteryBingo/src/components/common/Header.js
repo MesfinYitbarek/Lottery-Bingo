@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "../../images/logoImage.svg";
+import amhflag from "../../images/amharaflag.png";
+import oromoflag from "../../images/oromoflag.png";
+import tigreflag from "../../images/tigreflag.png";
+import engflag from "../../images/engflag.jpg";
+
 import { useSelector } from "react-redux";
 import { RiFullscreenLine, RiFullscreenExitLine } from "react-icons/ri";
 import axios from "axios";
@@ -8,6 +13,18 @@ import SignOut from "../admin/SignOut";
 import { BiShoppingBag } from "react-icons/bi";
 
 const Header = () => {
+  const flags = document.getElementsByClassName('flag_link');
+
+
+Array.prototype.forEach.call(flags, function(e){
+  e.addEventListener('click', function(){
+    var lang = e.getAttribute('data-lang'); 
+    var languageSelect = document.querySelector("select.goog-te-combo");
+    languageSelect.value = lang; 
+    languageSelect.dispatchEvent(new Event("change"));
+  }); 
+});
+
   const { currentUser } = useSelector((state) => state.user);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -105,15 +122,28 @@ const Header = () => {
                   </Link>
                 </div>
               )}
+              
             </div>
           </div>
           <div className="tw-col tw-shrink tw-text-right tw-margin-left-lg">
-            <div id="google_translate_element"></div>
+          <div class="flag">
+   
+   <a href="#" class="flag_link taj" data-lang="am">amh<img class="img-fluid" src={amhflag} alt=""></img></a>
+   <a href="#" class="flag_link rus" data-lang="ti">tig<img class="img-fluid" src={tigreflag} alt=""></img></a>
+   <a href="#" class="flag_link rus" data-lang="om">oro<img class="img-fluid" src={oromoflag} alt=""></img></a>
+   
+</div>
+
+            {/* <div id="google_translate_element"></div> */}
+            
           </div>
         </div>
       </header>
+      
     </div>
+    
   );
+
 };
 
 export default Header;
