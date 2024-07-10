@@ -2077,11 +2077,11 @@ class BingoGame extends Component {
                   >
                     {this.totalBallsCalled === 0 ? (
                       <>
-                        Start New Game <SlGameController />
+                        New Game <SlGameController />
                       </>
                     ) : (
                       <>
-                        Call Next Number <FaStepForward />
+                        Next <FaStepForward />
                       </>
                     )}
                   </button>
@@ -2101,11 +2101,11 @@ class BingoGame extends Component {
                   >
                     {this.state.running ? (
                       <>
-                        Pause Autoplay <FaPause />
+                        Pause  <FaPause />
                       </>
                     ) : (
                       <>
-                        Start Autoplay <VscDebugStart />
+                        Start  <VscDebugStart />
                       </>
                     )}
                   </button>
@@ -2142,9 +2142,9 @@ class BingoGame extends Component {
                 >
                   {/* ----------- Autoplay Settings ---------- */}
                   <div className="row no-wrap align-center justify-start">
-                    <div className="col shrink min-size-150 padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-horizontal-lg">
                       <h6>
-                        Autoplay Speed: <SiFastapi />{" "}
+                        Speed: <SiFastapi />{" "}
                       </h6>
                     </div>
                     <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
@@ -2153,7 +2153,7 @@ class BingoGame extends Component {
                         data-disabled={this.state.displayBoardOnly}
                       >
                         <div className="col shrink padding-right-lg white-text">
-                          Slower
+                          Slow
                           <span>&nbsp;</span>
                           <MdOutlineAssistWalker />
                         </div>
@@ -2168,7 +2168,7 @@ class BingoGame extends Component {
                           />
                         </div>
                         <div className="col shrink padding-left-lg white-text">
-                          Faster <span>&nbsp;</span>
+                          Fast <span>&nbsp;</span>
                           <FaRunning />
                         </div>
                       </div>
@@ -2177,13 +2177,13 @@ class BingoGame extends Component {
 
                   {/* ----------- Caller ---------- */}
                   <div className="row align-start justify-start">
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        Audible Caller: <RiSpeakFill /> <FcSpeaker />{" "}
+                      speaker: <RiSpeakFill /> <FcSpeaker />{" "}
                       </h6>
                     </div>
-                    <div className="col grow min-size-150 padding-horizontal-lg">
+                    <div className="col grow min-size-80 padding-horizontal-lg">
                       {/* Disabled if manual calling mode is on */}
                       <div
                         className="row no-wrap justify-start"
@@ -2221,10 +2221,10 @@ class BingoGame extends Component {
 
                 
                   <div className="row align-start justify-start">
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        choose color: <RiPaintBrushFill />{" "}
+                     color: <RiPaintBrushFill />{" "}
                       </h6>
                     </div>
                   <div className="col grow padding-horizontal-lg">
@@ -2240,9 +2240,9 @@ class BingoGame extends Component {
                         </div>
                   {/* ----------- Chime ----------- */}
                   <div className="row no-wrap align-start justify-start">
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
                       <h6>
-                        Audible Chime: <FaBell />
+                        bell: <FaBell />
                       </h6>
                     </div>
 
@@ -2269,9 +2269,9 @@ class BingoGame extends Component {
                     className="row no-wrap align-start justify-start"
                     data-visibility={this.state.chime ? "show" : "hide"}
                   >
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
                       <h6>
-                        Chime Selection: <FaSearch />
+                    bell Selection: <FaSearch />
                       </h6>
                     </div>
 
@@ -2291,15 +2291,15 @@ class BingoGame extends Component {
               </div>
 
               <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
-                <span className="notranslate">
+                
                   <h2>
                     {" "}
                     win amount <FcMoneyTransfer /> :{" "}
                   </h2>{" "}
-                  <div className="win-amount-box">
+                  <div className="win-amount-box notranslate">
                     <h1>{this.amount}Birr</h1>{" "}
                   </div>
-                </span>
+              
               </div>
             </div>
           </section>
