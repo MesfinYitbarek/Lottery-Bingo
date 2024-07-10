@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "../../images/logoImage.svg";
-import amhflag from "../../images/amharaflag.png";
-import oromoflag from "../../images/oromoflag.png";
-import tigreflag from "../../images/tigreflag.png";
-import engflag from "../../images/engflag.jpg";
 
 import { useSelector } from "react-redux";
 import { RiFullscreenLine, RiFullscreenExitLine } from "react-icons/ri";
@@ -131,6 +127,7 @@ Array.prototype.forEach.call(flags, function(e){
    <button className="headerbt"><a href="#" class="flag_link " data-lang="am">amh</a></button>
    <button className="headerbt"><a href="#" class="flag_link " data-lang="ti">tig</a></button>
    <button className="headerbt"><a href="#" class="flag_link " data-lang="om">oro</a></button>
+   <button className="headerbt"><a href="#" class="flag_link " data-lang="so">som</a></button>
    
 </div>
 
