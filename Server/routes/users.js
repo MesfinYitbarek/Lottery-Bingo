@@ -1,5 +1,5 @@
 import express from "express"
-import { branch, branchEdit, changePassword, createBranch, deleteAdmin, deleteBranch, getusers, signin, signout, signup, test, updateAdmin, updateBranch, userEdit, users } from "../controllers/usersController.js";
+import { branch, branchEdit, changePassword, createBranch, cutBalance, deleteAdmin, deleteBranch, getusers, signin, signout, signup, test, updateAdmin, updateBranch, userEdit, users } from "../controllers/usersController.js";
 import { getBranch } from "../controllers/branchControllers.js";
 
 const userRouter = express.Router();
@@ -16,7 +16,7 @@ userRouter.get("/signout", signout);
 userRouter.put('/:userId/change-password', changePassword);
 userRouter.post("/createbranch/:id", createBranch);
 userRouter.get("/branch", branch);
-
+userRouter.put('/:userId/balance', cutBalance);
 userRouter.get("/branch/:id", branchEdit);
 userRouter.delete("/deletebranch/:id", deleteBranch);
 userRouter.post("/updatebranch/:id", updateBranch);

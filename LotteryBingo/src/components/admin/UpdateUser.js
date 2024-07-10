@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 const EditUser = () => {
   const { id } = useParams(); 
   
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
+
+  const { currentUser } = useSelector((state) => state.user);
+  const [users, setUsers] = React.useState([]);
+ 
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [users]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -103,14 +120,18 @@ const EditUser = () => {
             <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
             Branch
             </label>
-            <input
-              className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
-              type="text"
-              name="branch"
-              value={user.branch || ""} 
-              onChange={handleChange}
-              required
-            />
+            <select
+            id="branch"
+            onChange={handleChange}
+            
+            className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+          >
+          <option value="">Select Branch</option>
+            {users &&
+              users.map((users) => (
+                <option value={users.name}>{users.name}</option>
+              ))}
+          </select>
           </div>
           <div className="tw-mb-4">
             <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
@@ -148,9 +169,9 @@ const EditUser = () => {
               onChange={handleChange}
               className=" tw-dark:bg-slate-100  tw-sm:w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
             >
-              <option value={"student"}>Student</option>
-              <option value={"instructor"}>Instructor</option>
+              <option value={"employee"}>Employee</option>
               <option value={"admin"}>Admin</option>
+              
             </select>
           </div>
           

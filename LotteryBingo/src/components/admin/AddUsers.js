@@ -12,7 +12,7 @@ const AddUsers = () => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/branch/branch");
+        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
         const data = await response.json();
         setUsers(data);
       } catch (err) {

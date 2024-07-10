@@ -1,0 +1,129 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useSelector } from "react-redux";
+const CardForm = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({
+    id: '',
+    branch: '',
+    B: ['', '', '', '', ''],
+    I: ['', '', '', '', ''],
+    N: ['', '', '', '', ''],
+    G: ['', '', '', '', ''],
+    O: ['', '', '', '', '']
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleArrayChange = (e, column, index) => {
+    const { value } = e.target;
+    const updatedColumn = [...formData[column]];
+    updatedColumn[index] = value;
+    setFormData({
+      ...formData,
+      [column]: updatedColumn
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const cardData = {
+      id: formData.id,
+      branch: formData.branch,
+      card: {
+        B: formData.B.map(Number),
+        I: formData.I.map(Number),
+        N: formData.N.map(Number),
+        G: formData.G.map(Number),
+        O: formData.O.map(Number)
+      }
+    };
+
+    try {
+      const response = await axios.post('http://localhost:4000/api/card/create', cardData);
+      console.log('Card created:', response.data);
+    } catch (error) {
+      console.error('Error creating card:', error);
+    }
+  };
+
+  const [users, setUsers] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [users]);
+
+  return (
+    <form onSubmit={handleSubmit} style={{ margin: '20px', marginTop:"30px", fontFamily: 'Arial, sans-serif', maxWidth: '500px', margin: 'auto', padding: '20px', border: '2px solid #2a2df5', borderRadius: '10px', backgroundColor: '#f9f9f9' }}>
+      <div style={{ marginBottom: '15px' }}>
+        <label style={{ marginRight: '10px' }}>ID:</label>
+        <input
+          type="number"
+          name="id"
+          value={formData.id}
+          onChange={handleChange}
+          required
+          style={{ padding: '10px', width: 'calc(100% - 22px)', borderRadius: '5px', border: '1px solid #ccc' }}
+        />
+      </div>
+      <div style={{ marginBottom: '15px' }}>
+      
+          <label htmlFor="branch" className=" tw-text-lg tw-font-bold">
+            {" "}
+            Branch:{" "}
+          </label>
+
+          <select
+            id="branch"
+            onChange={handleChange}
+            
+            className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+          >
+          <option value="">Select Branch</option>
+            {users &&
+              users.map((users) => (
+                <option value={users.name}>{users.name}</option>
+              ))}
+          </select>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+        {['B', 'I', 'N', 'G', 'O'].map((column) => (
+          <div key={column} style={{ textAlign: 'center', flex: '1', margin: '0 5px' }}>
+            <label style={{ fontSize: '18px', marginBottom: '10px', display: 'block', color: '#2a2df5' }}>{column}</label>
+            {formData[column].map((val, index) => (
+              <input
+                key={index}
+                type="number"
+                value={val}
+                onChange={(e) => handleArrayChange(e, column, index)}
+                required
+                style={{ padding: '10px', marginBottom: '5px', width: '100%', borderRadius: '5px', border: '1px solid #ccc' }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+      <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#2a2df5', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', width: '100%', fontSize: '16px' }}>
+        Create Card
+      </button>
+    </form>
+  );
+};
+
+export default CardForm;

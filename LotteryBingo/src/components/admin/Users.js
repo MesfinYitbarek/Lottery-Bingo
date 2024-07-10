@@ -1,9 +1,23 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { BiPlus } from 'react-icons/bi';
 import { useSelector } from "react-redux";
+import { useBalance } from '../BalanceContext'; 
+import AddUsers from './AddUsers';
 const Users = () => {
+  const balance = useBalance();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  
     const [users, setUsers] = React.useState([]);
     const [error, setError] = React.useState(null);
     const { currentUser } = useSelector((state) => state.user);
@@ -38,6 +52,7 @@ const Users = () => {
 
   return (
     <div className="tw-mt-10 ">
+       <div>Your balance is: {balance}</div>;
       <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
           <tr className=" ">
             <td></td>
@@ -49,9 +64,8 @@ const Users = () => {
             <td></td>
 
             <td className="tw-text-center">
-              <Link to={"/add-users"} className="tw-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-text-white tw-bg-blue-800  tw-hover:text-white tw-px-4 tw-py-1 tw-mr-1 tw-font-semibold">
-               <BiPlus/> Add 
-              </Link>
+              
+              <button onClick={openModal} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'><BiPlus/> Add User</button>
             </td>
           </tr>
           <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white ">
@@ -94,6 +108,14 @@ const Users = () => {
           ))}
         </table>
         {error && <p className="tw-text-red-500 ">{error}</p>}
+        {isModalOpen && (
+        <div className='tw-absolute tw-top-4 tw-inset-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50'>
+          <div className='tw-bg-white tw-p-4 tw-rounded-md tw-shadow-lg tw-relative'>
+            <button className='tw-absolute tw-top-2 tw-right-2 tw-text-gray-800' onClick={closeModal}>X</button>
+            <AddUsers/>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

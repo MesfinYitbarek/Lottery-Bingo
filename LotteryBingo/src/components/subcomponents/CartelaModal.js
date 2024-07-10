@@ -25,7 +25,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     setIsFetching(true);
     setFetchError(null);
     try {
-      const response = await fetch(`http://localhost:4000/api/card/cartela/${cartelaId}`, {
+      const response = await fetch(`http://localhost:4000/api/card/cartela/${currentUser.branch}/${cartelaId}`, {
         method: 'GET',
       });
       if (!response.ok) {

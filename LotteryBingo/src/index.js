@@ -32,9 +32,12 @@ import Branch from "./components/admin/branch.js";
 import UpdateBranch from "./components/admin/UpdateBranch.js";
 import CreateAgent from "./components/admin/CreateAgent.js";
 import UpdateAgent from "./components/admin/UpdateAgent.js";
+import CardForm from "./components/admin/Card.js";
+import { BalanceProvider } from "./components/BalanceContext.js";
 
 const App = () => (
   <Provider store={store}>
+    <BalanceProvider>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <Routes>
@@ -54,6 +57,7 @@ const App = () => (
             <Route path="/help" element={<Help />} />
             <Route path="/add-users" element={<AddUsers />} />
             <Route path="/card" element={<CardFetcher />} />
+            <Route path="/createcard" element={<CardForm />} />
             <Route path="/update-user/:id" element={<EditUser />} />
             <Route path="/createbranch" element={<CreateBranch />} />
             <Route path="/createagent" element={<CreateAgent />} />
@@ -67,6 +71,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </PersistGate>
+    </BalanceProvider>
   </Provider>
 );
 

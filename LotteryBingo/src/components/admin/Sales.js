@@ -106,6 +106,14 @@ const Sales = () => {
   const handleFilter = () => {
     let filtered = sales;
 
+    const isAnyFilterApplied = startDate || endDate || selectedBranch || selectedCashier;
+
+    if (!isAnyFilterApplied) {
+      setFilteredSales([]);
+      setIsFiltered(false);
+      return;
+    }
+
     if (startDate) {
       filtered = filtered.filter((sale) => new Date(sale.createdAt) >= new Date(startDate));
     }
@@ -203,7 +211,7 @@ const Sales = () => {
         </button>
       </div>
 
-      {isFiltered && (
+      {isFiltered && filteredSales.length > 0 && (
         <>
           <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
             <thead>

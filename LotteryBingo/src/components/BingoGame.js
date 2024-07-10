@@ -1,9 +1,12 @@
-
 // Dependencies
 import React, { Component } from "react";
+import { useBalance } from "./BalanceContext.js";
 
+import { connect } from "react-redux";
+import withBalance from "./WithBalance.js";
 import Slider from "rc-slider";
 import Select from "react-select";
+import { updateUserStart, updateUserSuccess, updateUserFailure } from '../redux/user/userSlice';
 import {
   FaVolumeUp,
   FaBell,
@@ -17,14 +20,13 @@ import { SlGameController } from "react-icons/sl";
 import { BiReset } from "react-icons/bi";
 import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
-import { FcMoneyTransfer ,FcSpeaker} from "react-icons/fc";
-import { RiPaintBrushFill ,RiSpeakFill } from "react-icons/ri";
+import { FcMoneyTransfer, FcSpeaker } from "react-icons/fc";
+import { RiPaintBrushFill, RiSpeakFill } from "react-icons/ri";
 
 // Custom Components
 import BingoBoard from "./subcomponents/BingoBoard.js";
 import Pattern from "./subcomponents/Pattern.js";
 import CallHistory from "./subcomponents/CallHistory.js";
-
 
 import { MdOutlineAssistWalker } from "react-icons/md";
 
@@ -32,7 +34,6 @@ import { MdOutlineAssistWalker } from "react-icons/md";
 import {
   generateBingoBoard,
   getRandomBingoNumber,
-
   getBallDisplay,
   getLogoBallDisplay,
   // getLanguageText,
@@ -358,30 +359,95 @@ import {
   pop3,
   pop4,
   shuffle,
-  onefo, twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo,
-   tenfo, elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo,
-    seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo, 
-    twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, 
-    twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo,
-     thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo, thirtyninefo,
-      fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo, fortysevenfo, 
-      fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo, fiftyfourfo, fiftyfivefo, fiftysixfo, 
-      fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo, sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo,
-       sixtysixfo, sixtysevenfo, sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, 
-       seventyfourfo, seventyfivefo,amharicmaleplaystart,tigplaystart,oroplaystart,amharicfemaleplaystart,
+  onefo,
+  twofo,
+  threefo,
+  fourfo,
+  fivefo,
+  sixfo,
+  sevenfo,
+  eightfo,
+  ninefo,
+  tenfo,
+  elevenfo,
+  twelvefo,
+  thirteenfo,
+  fourteenfo,
+  fifteenfo,
+  sixteenfo,
+  seventeenfo,
+  eighteenfo,
+  nineteenfo,
+  twentyfo,
+  twentyonefo,
+  twentytwofo,
+  twentythreefo,
+  twentyfourfo,
+  twentyfivefo,
+  twentysixfo,
+  twentysevenfo,
+  twentyeightfo,
+  twentyninefo,
+  thirtyfo,
+  thirtyonefo,
+  thirtytwofo,
+  thirtythreefo,
+  thirtyfourfo,
+  thirtyfivefo,
+  thirtysixfo,
+  thirtysevenfo,
+  thirtyeightfo,
+  thirtyninefo,
+  fortyfo,
+  fortyonefo,
+  fortytwofo,
+  fortythreefo,
+  fortyfourfo,
+  fortyfivefo,
+  fortysixfo,
+  fortysevenfo,
+  fortyeightfo,
+  fortyninefo,
+  fiftyfo,
+  fiftyonefo,
+  fiftytwofo,
+  fiftythreefo,
+  fiftyfourfo,
+  fiftyfivefo,
+  fiftysixfo,
+  fiftysevenfo,
+  fiftyeightfo,
+  fiftyninefo,
+  sixtyfo,
+  sixtyonefo,
+  sixtytwofo,
+  sixtythreefo,
+  sixtyfourfo,
+  sixtyfivefo,
+  sixtysixfo,
+  sixtysevenfo,
+  sixtyeightfo,
+  sixtyninefo,
+  seventyfo,
+  seventyonefo,
+  seventytwofo,
+  seventythreefo,
+  seventyfourfo,
+  seventyfivefo,
+  amharicmaleplaystart,
+  tigplaystart,
+  oroplaystart,
+  amharicfemaleplaystart,
 } from "../chimes";
-import CartelaModal from "./subcomponents/CartelaModal.js";
-import Profile from "./subcomponents/Profile.js";
+
 import Header from "./common/Header.js";
 import CardFetcher from "./subcomponents/CardFetcher.js";
+import axios from "axios";
 class BingoGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showFullCallHistory: false,
-  
-
-      
     };
     // -------------------------- Set properties ----- //
     // Balls display pieces
@@ -390,14 +456,14 @@ class BingoGame extends Component {
     // this.totalBalance =1000;
     this.amount = 0;
     this.cutBalance = 0;
-  
-   
+
+    
     this.startButton = 0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
     this.currentBall = null;
     this.interval = null;
-    this.selectedCards= [];
+    this.selectedCards = [];
     this.chimes = [
       { label: "Chime 1", value: chime1 },
       { label: "Chime 2", value: chime2 },
@@ -430,7 +496,6 @@ class BingoGame extends Component {
       { label: "darkGrey", value: "darkGrey" },
       { label: "dark-red", value: "darkRed" },
       { label: "default", value: "default" },
-      
     ];
 
     this.shuffleSound = shuffle;
@@ -478,35 +543,125 @@ class BingoGame extends Component {
       running: false,
       startButton: false,
       enableCaller: true,
-     isRed:{isRed1:false, isRed2:false, isRed3:false, isRed4:false, isRed5:false, isRed6:false, isRed7:false, isRed8:false, isRed9:false, isRed10:false, 
-      isRed11:false, isRed12:false, isRed13:false, isRed14:false, isRed15:false, isRed16:false, isRed17:false, isRed18:false, isRed19:false, isRed20:false,
-       isRed21:false, isRed22:false, isRed23:false, isRed24:false, isRed25:false, isRed26:false, isRed27:false, isRed28:false, isRed29:false, isRed30:false, 
-       isRed31:false, isRed32:false, isRed33:false, isRed34:false, isRed35:false, isRed36:false, isRed37:false, isRed38:false, isRed39:false, isRed40:false,
-        isRed41:false, isRed42:false, isRed43:false, isRed44:false, isRed45:false, isRed46:false, isRed47:false, isRed48:false, isRed49:false, isRed50:false, 
-        isRed51:false, isRed52:false, isRed53:false, isRed54:false, isRed55:false, isRed56:false, isRed57:false, isRed58:false, isRed59:false, isRed60:false,
-         isRed61:false, isRed62:false, isRed63:false, isRed64:false, isRed65:false, isRed66:false, isRed67:false, isRed68:false, isRed69:false, isRed70:false, 
-         isRed71:false, isRed72:false, isRed73:false, isRed74:false, isRed75:false, isRed76:false, isRed77: false, isRed78: false, isRed79: false, isRed80: false,
-          isRed81: false, isRed82: false, isRed83: false, isRed84: false, isRed85: false, isRed86: false, isRed87: false, isRed88: false, isRed89: false, isRed90: false,
-           isRed91: false, isRed92: false, isRed93: false, isRed94: false, isRed95: false, isRed96: false, isRed97: false, isRed98: false, isRed99: false, isRed100: false ,},
+      isRed: {
+        isRed1: false,
+        isRed2: false,
+        isRed3: false,
+        isRed4: false,
+        isRed5: false,
+        isRed6: false,
+        isRed7: false,
+        isRed8: false,
+        isRed9: false,
+        isRed10: false,
+        isRed11: false,
+        isRed12: false,
+        isRed13: false,
+        isRed14: false,
+        isRed15: false,
+        isRed16: false,
+        isRed17: false,
+        isRed18: false,
+        isRed19: false,
+        isRed20: false,
+        isRed21: false,
+        isRed22: false,
+        isRed23: false,
+        isRed24: false,
+        isRed25: false,
+        isRed26: false,
+        isRed27: false,
+        isRed28: false,
+        isRed29: false,
+        isRed30: false,
+        isRed31: false,
+        isRed32: false,
+        isRed33: false,
+        isRed34: false,
+        isRed35: false,
+        isRed36: false,
+        isRed37: false,
+        isRed38: false,
+        isRed39: false,
+        isRed40: false,
+        isRed41: false,
+        isRed42: false,
+        isRed43: false,
+        isRed44: false,
+        isRed45: false,
+        isRed46: false,
+        isRed47: false,
+        isRed48: false,
+        isRed49: false,
+        isRed50: false,
+        isRed51: false,
+        isRed52: false,
+        isRed53: false,
+        isRed54: false,
+        isRed55: false,
+        isRed56: false,
+        isRed57: false,
+        isRed58: false,
+        isRed59: false,
+        isRed60: false,
+        isRed61: false,
+        isRed62: false,
+        isRed63: false,
+        isRed64: false,
+        isRed65: false,
+        isRed66: false,
+        isRed67: false,
+        isRed68: false,
+        isRed69: false,
+        isRed70: false,
+        isRed71: false,
+        isRed72: false,
+        isRed73: false,
+        isRed74: false,
+        isRed75: false,
+        isRed76: false,
+        isRed77: false,
+        isRed78: false,
+        isRed79: false,
+        isRed80: false,
+        isRed81: false,
+        isRed82: false,
+        isRed83: false,
+        isRed84: false,
+        isRed85: false,
+        isRed86: false,
+        isRed87: false,
+        isRed88: false,
+        isRed89: false,
+        isRed90: false,
+        isRed91: false,
+        isRed92: false,
+        isRed93: false,
+        isRed94: false,
+        isRed95: false,
+        isRed96: false,
+        isRed97: false,
+        isRed98: false,
+        isRed99: false,
+        isRed100: false,
+      },
 
-
-     
       skipUnused: false,
       wildBingo: false,
-   
+
       tigrigna: false,
       evensOdds: false,
       doubleCall: false,
       extraTalk: false,
       chime: false,
-      red:false,
-      default:true,
-      darkGrey:false,
-      blue:false,
-      darkRed:false,
-      cutBalance:0,
-      amount:0,
-      cardCount:0,
+      red: false,
+      default: true,
+      darkGrey: false,
+      blue: false,
+      darkRed: false,
+      cutBalance: 0,
+      amount: 0,
+      cardCount: 0,
 
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
@@ -524,8 +679,6 @@ class BingoGame extends Component {
       },
       showResetModal: false,
       showstartModal: false,
-      
-     
     };
   }
 
@@ -544,7 +697,6 @@ class BingoGame extends Component {
       this.startButton = 1;
     } else {
       this.startButton = 0;
-     
     }
     this.amount = this.state.cutBalance;
     // this.setState({sales:this.state.sales});
@@ -560,12 +712,11 @@ class BingoGame extends Component {
    */
   componentDidUpdate(prevProps, state) {
     let gameData = {
-    
       totalBallsCalled: this.totalBallsCalled,
       previousBall: this.previousBall,
       currentBall: this.currentBall,
       interval: this.interval,
-selectedCards:this.selectedCards,
+      selectedCards: this.selectedCards,
       //  sales:this.sales,
       //  totalBalance:this.totalBalance,
     };
@@ -1081,29 +1232,20 @@ selectedCards:this.selectedCards,
         let sound1 = new Audio(maleamharic[ball.number]);
         sound1.play();
       }
-   
     } else {
       this.say([ball.letter, " ", ball.number]);
     }
   };
 
-  
-
-
   startNewAutoplayGame = () => {
     for (let i = 1; i <= 100; i++) {
       const isRedState = this.state.isRed[`isRed${i}`];
 
-      if (isRedState)
-  
-      
-       {
-        this.selectedCards.push(i); 
+      if (isRedState) {
+        this.selectedCards.push(i);
       }
-    
     }
 
-  
     if (this.state.doubleCall) {
       // this.say("Let's Play Bingo!");
       let soundstartfa = new Audio(amharicfemaleplaystart);
@@ -1142,8 +1284,6 @@ selectedCards:this.selectedCards,
     // }
   };
 
-  
-
   toggleGame = () => {
     let running = this.state.running;
     if (running === true) {
@@ -1174,7 +1314,7 @@ selectedCards:this.selectedCards,
     this.cancelSpeech();
     this.totalBallsCalled = 0;
     this.amount = 0;
-this.selectedCards=[];
+    this.selectedCards = [];
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
@@ -1184,11 +1324,39 @@ this.selectedCards=[];
       running: false,
       showResetModal: false,
       previousCallList: [],
-   
     });
   };
+  
+  confirmstartGame = async () => {
+    const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
+    const {balance} = this.props;
+    console.log("confirm", currentUser, balance)
+    if(balance < this.state.amount) {
+      alert('Insufficent balance',currentUser, balance);
+    } else {
 
-  confirmstartGame = () => {
+    
+    const newBalance = balance - this.state.amount;
+ 
+
+ updateUserStart();
+    try {
+      await axios.put(`http://localhost:4000/api/user/${currentUser._id}/balance`, {
+        balance: newBalance,
+      }); 
+      updateUserSuccess({ ...currentUser, balance: newBalance }); 
+      const updatedAmount = (this.state.amount / 1.3333333333333).toFixed(3);
+      this.setState({
+        cutBalance: parseFloat(updatedAmount),
+        board: generateBingoBoard(),
+        showstartModal: false,
+      });
+
+    } catch (err) {
+      console.error('Error updating balance:', err);
+      alert('Error updating balance');
+    }
+  }
     this.startButton = 1;
     let x = this.state.amount / 1.3333333333333;
     this.amount = parseFloat(x.toFixed(3));
@@ -1196,15 +1364,11 @@ this.selectedCards=[];
       cutBalance: this.amount,
     });
 
-    
- 
     this.setState({
       board: generateBingoBoard(),
       showstartModal: false,
-     
+
       // selectedCards:this.selectedCards,
-      
-     
     });
   };
 
@@ -1295,13 +1459,12 @@ this.selectedCards=[];
       clearInterval(this.interval);
       this.totalBallsCalled = totalPossibleBalls;
       // this.confirmResetGame();
-    //  let finishSound= new Audio(pssound);
-    //  setTimeout(() => {
-    //   finishSound.play();
-    // }, 3000);
+      //  let finishSound= new Audio(pssound);
+      //  setTimeout(() => {
+      //   finishSound.play();
+      // }, 3000);
       this.previousBall = this.currentBall;
       this.currentBall = null;
-      
     }
   };
   winnerCheck = () => {
@@ -1360,7 +1523,6 @@ this.selectedCards=[];
   handleCheckbox = (e) => {
     let gamemode = e.currentTarget.dataset.gamemode;
     switch (gamemode) {
-      
       case "enable-chime":
         this.setState({ chime: e.currentTarget.checked });
         break;
@@ -1447,6 +1609,7 @@ this.selectedCards=[];
    */
   get currentCallDisplay() {
     const currentCall = this.currentBall;
+
     if (currentCall) {
       let numbers = ["0"];
       if (Object.prototype.hasOwnProperty.call(currentCall, "number")) {
@@ -1556,10 +1719,7 @@ this.selectedCards=[];
   };
 
   decrementCard = (number) => {
-  
-
     if (this.state.cardCount > 0) {
-    
       // const stateKey = `isRed${number}`;
       // this.setState({ [stateKey]: false });
       this.setState((prevState) => ({
@@ -1616,28 +1776,27 @@ this.selectedCards=[];
             <h2>select cartela</h2>
             <span className="notranslate">
               {Array.from({ length: 100 }, (_, index) => (
-      <button 
-        key={index + 1} 
-        onClick={() => {
-          const currentNumber = index + 1;
-          const isRedState = this.state.isRed[`isRed${currentNumber}`];
+                <button
+                  key={index + 1}
+                  onClick={() => {
+                    const currentNumber = index + 1;
+                    const isRedState =
+                      this.state.isRed[`isRed${currentNumber}`];
 
-          if (isRedState) {
-            this.decrementCard(currentNumber);
-            
-          } else {
-            this.incrementCard(currentNumber);
-          }
-        }}
-      
-        className={this.state.isRed[`isRed${index + 1}`] ? "red" : "bt"}
-      >
-        {index + 1}
-      </button>
-      
-    ))}
-    </span>
-               
+                    if (isRedState) {
+                      this.decrementCard(currentNumber);
+                    } else {
+                      this.incrementCard(currentNumber);
+                    }
+                  }}
+                  className={
+                    this.state.isRed[`isRed${index + 1}`] ? "red" : "bt"
+                  }
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </span>
           </div>
 
           <div
@@ -1653,8 +1812,7 @@ this.selectedCards=[];
             )}
           </div>
           {console.log(this.state.betAmount)}
-          {console.log("selected bingo",this.selectedCards)}
-          
+          {console.log("selected bingo", this.selectedCards)}
         </div>
       );
     } else {
@@ -1678,11 +1836,6 @@ this.selectedCards=[];
     });
   };
 
-    
-
-
-
-
   /*
    *  Choose Caller Function
    *  This sets the selected caller
@@ -1693,14 +1846,12 @@ this.selectedCards=[];
     switch (e.value) {
       case "amh-male":
         this.setState({
-    
           enableCaller: true,
-    
+
           doubleCall: false,
           tigrigna: false,
           wolayta: false,
           extraTalk: false,
-      
         });
         break;
       case "amh-fem":
@@ -1745,27 +1896,24 @@ this.selectedCards=[];
     }
   };
 
-
   handleColorchooser = (e) => {
     this.setState({ selectedColor: e });
 
     switch (e.value) {
       case "red":
         this.setState({
-    
           red: true,
-    
+
           blue: false,
           darkGrey: false,
           darkRed: false,
-          default:false,
-      
+          default: false,
         });
         break;
       case "blue":
         this.setState({
           red: false,
-          default:false,
+          default: false,
           blue: true,
           darkGrey: false,
           darkRed: false,
@@ -1774,7 +1922,7 @@ this.selectedCards=[];
       case "darkGrey":
         this.setState({
           red: false,
-    default:false,
+          default: false,
           blue: false,
           darkGrey: true,
           darkRed: false,
@@ -1783,24 +1931,24 @@ this.selectedCards=[];
       case "darkRed":
         this.setState({
           red: false,
-    
+
           blue: false,
           darkGrey: false,
           darkRed: true,
-          default:false,
+          default: false,
         });
         break;
 
-        case "default":
-          this.setState({
-            red: false,
-      default:true,
-            blue: false,
-            darkGrey: false,
-            darkRed: false,
-          });
-          break;
-    
+      case "default":
+        this.setState({
+          red: false,
+          default: true,
+          blue: false,
+          darkGrey: false,
+          darkRed: false,
+        });
+        break;
+
       default:
         break;
     }
@@ -1818,103 +1966,100 @@ this.selectedCards=[];
     this.setState({ selectedChime: e });
   };
 
+  BalanceDisplay = () => {
+    const balance = useBalance();
 
-
-
- 
- 
+    this.balance = balance;
+  };
 
   /* ------------------- Render */
   render() {
-let colorClasses ;
-if(this.state.blue){
-  colorClasses="dark-blue-bg light-links";
-}
-else if(this.state.red){
- colorClasses= "red-bg light-links"
-}
-else if(this.state.darkGrey){
-  colorClasses= "dark-gray-bg light-links"
- }
- else if(this.state.darkRed){
-  colorClasses= "dark-red-bg light-links"
- }
- else if(this.state.default)
- {
-   colorClasses= "dark-bg light-links"
- }
- else{
-  colorClasses= "dark-bg light-links"
- }
-// colorClasses= this.state.enableCaller? "dark-bg light-links": "red-bg light-links";
+    const { balance } = this.props;
+    console.log("baab" , balance)
+    let colorClasses;
+    if (this.state.blue) {
+      colorClasses = "dark-blue-bg light-links";
+    } else if (this.state.red) {
+      colorClasses = "red-bg light-links";
+    } else if (this.state.darkGrey) {
+      colorClasses = "dark-gray-bg light-links";
+    } else if (this.state.darkRed) {
+      colorClasses = "dark-red-bg light-links";
+    } else if (this.state.default) {
+      colorClasses = "dark-bg light-links";
+    } else {
+      colorClasses = "dark-bg light-links";
+    }
+
+    // colorClasses= this.state.enableCaller? "dark-bg light-links": "red-bg light-links";
     return (
-     <div>
-      <div><Header/></div>
-      <div className={colorClasses}>
-        
-        {/* ----------- Bingo Board ------------- */}
-        <section className="board-block">
-       
-          <div className="container row no-wrap align-stretch">
-         
-            {/* ------ Board ------- */}
-            <div className="col pattern-side shrink padding-xlg">
-              {/* -------- Digital Displays --------- */}
-              <div className="row no-wrap margin-bottom-lg justify-space-between white-text">
-                <div className="col text-center margin-sm">
-                  <div className="callNumber notranslate">
-                    {this.numberDisplay}
+      <div>
+        <div>
+          <Header />{" "}
+        </div>
+        <div className={colorClasses}>
+          {/* ----------- Bingo Board ------------- */}
+          <section className="board-block">
+            <div className="container row no-wrap align-stretch">
+              {/* ------ Board ------- */}
+              <div className="col pattern-side shrink padding-xlg">
+                {/* -------- Digital Displays --------- */}
+                <div className="row no-wrap margin-bottom-lg justify-space-between white-text">
+                  <div className="col text-center margin-sm">
+                    <div className="callNumber notranslate">
+                      {this.numberDisplay}
+                    </div>
+                    <div className="callNumber-text uppercase">Total Calls</div>
                   </div>
-                  <div className="callNumber-text uppercase">Total Calls</div>
-                </div>
-                <div className="col text-center margin-sm">
-                  <div className="callNumber notranslate">
-                    {this.previousCallDisplay}
+                  <div className="col text-center margin-sm">
+                    <div className="callNumber notranslate">
+                      {this.previousCallDisplay}
+                    </div>
+                    <div className="callNumber-text uppercase">
+                      Previous Call
+                    </div>
                   </div>
-                  <div className="callNumber-text uppercase">Previous Call</div>
                 </div>
+
+                {/* -------- Pattern --------- */}
+                <Pattern
+                  pattern={this.state.selectedPattern}
+                  update={this.handleUpdatePattern}
+                />
               </div>
 
-              {/* -------- Pattern --------- */}
-              <Pattern
-                pattern={this.state.selectedPattern}
-                update={this.handleUpdatePattern}
-              />
-           
+              <div className="col board-side">
+                <BingoBoard
+                  board={this.state.board}
+                  // manualMode={this.state.displayBoardOnly}
+                  manualCall={this.manualCall}
+                />
+              </div>
             </div>
-            
-            <div className="col board-side">
-              <BingoBoard
-                board={this.state.board}
-                // manualMode={this.state.displayBoardOnly}
-                manualCall={this.manualCall}
-              />
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ----------- BOTTOM SECTION ------------- */}
-        <section className="game-controls new-bg">
-          <div className="container row justify-start align-start">
-            {/* ----------- Current Ball Display ------------- */}
-            <div className="col min-size-250 padding-vertical-xxlg padding-horizontal-md notranslate">
-              {this.currentBallDisplay}
+          {/* ----------- BOTTOM SECTION ------------- */}
+          <section className="game-controls new-bg">
+            <div className="container row justify-start align-start">
+              {/* ----------- Current Ball Display ------------- */}
+              <div className="col min-size-250 padding-vertical-xxlg padding-horizontal-md notranslate">
+                {this.currentBallDisplay}
 
-              <CallHistory
-                calledBalls={this.state.previousCallList}
-                betAmount={this.state.betAmount}
-                cardCount={this.state.cardCount}
-                totalAmount={this.state.amount}
-                selectedCards={this.selectedCards}
-              ></CallHistory>
-              {/* 
+                <CallHistory
+                  calledBalls={this.state.previousCallList}
+                  betAmount={this.state.betAmount}
+                  cardCount={this.state.cardCount}
+                  totalAmount={this.state.amount}
+                  selectedCards={this.selectedCards}
+                ></CallHistory>
+                {/* 
               <div
                 data-visibility={this.state.wildBingo ? "show" : "hide"}
                 className="white-text text-center margin-top-lg"
               >
                 <strong>Wild Ball: </strong> {this.state.wildBall}
               </div> */}
-            </div>
+              </div>
 
             {/* ----------- Gameplay Controls ------------- */}
             <div className="col shrink padding-vertical-xxlg padding-horizontal-md">
@@ -1932,11 +2077,11 @@ else if(this.state.darkGrey){
                   >
                     {this.totalBallsCalled === 0 ? (
                       <>
-                        New Game <SlGameController />
+                        Start New Game <SlGameController />
                       </>
                     ) : (
                       <>
-                        Next <FaStepForward />
+                        Call Next Number <FaStepForward />
                       </>
                     )}
                   </button>
@@ -1956,11 +2101,11 @@ else if(this.state.darkGrey){
                   >
                     {this.state.running ? (
                       <>
-                        Pause <FaPause />
+                        Pause Autoplay <FaPause />
                       </>
                     ) : (
                       <>
-                        Start <VscDebugStart />
+                        Start Autoplay <VscDebugStart />
                       </>
                     )}
                   </button>
@@ -1970,14 +2115,14 @@ else if(this.state.darkGrey){
                   onClick={this.toggleResetModal}
                   disabled={ this.totalBallsCalled === 0}
                 >
-                  Reset <BiReset />
+                  Reset Board <BiReset />
                 </button>
 
                 <button
                   onClick={this.shuffleBalls}
                   disabled={this.state.running}
                 >
-                  Shuffle board <PiShuffleDuotone />
+                  Shuffle Board <PiShuffleDuotone />
                 </button>
               </section>
               {this.resetConfirmationModalDisplay}
@@ -1997,9 +2142,9 @@ else if(this.state.darkGrey){
                 >
                   {/* ----------- Autoplay Settings ---------- */}
                   <div className="row no-wrap align-center justify-start">
-                    <div className="col shrink min-size-80 padding-horizontal-lg">
+                    <div className="col shrink min-size-150 padding-horizontal-lg">
                       <h6>
-                         Speed: <SiFastapi />{" "}
+                        Autoplay Speed: <SiFastapi />{" "}
                       </h6>
                     </div>
                     <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
@@ -2008,7 +2153,7 @@ else if(this.state.darkGrey){
                         data-disabled={this.state.displayBoardOnly}
                       >
                         <div className="col shrink padding-right-lg white-text">
-                          Slow
+                          Slower
                           <span>&nbsp;</span>
                           <MdOutlineAssistWalker />
                         </div>
@@ -2023,7 +2168,7 @@ else if(this.state.darkGrey){
                           />
                         </div>
                         <div className="col shrink padding-left-lg white-text">
-                          Fast <span>&nbsp;</span>
+                          Faster <span>&nbsp;</span>
                           <FaRunning />
                         </div>
                       </div>
@@ -2032,13 +2177,13 @@ else if(this.state.darkGrey){
 
                   {/* ----------- Caller ---------- */}
                   <div className="row align-start justify-start">
-                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        Caller: <RiSpeakFill /> <FcSpeaker />{" "}
+                        Audible Caller: <RiSpeakFill /> <FcSpeaker />{" "}
                       </h6>
                     </div>
-                    <div className="col grow min-size-80 padding-horizontal-lg">
+                    <div className="col grow min-size-150 padding-horizontal-lg">
                       {/* Disabled if manual calling mode is on */}
                       <div
                         className="row no-wrap justify-start"
@@ -2076,10 +2221,10 @@ else if(this.state.darkGrey){
 
                 
                   <div className="row align-start justify-start">
-                    <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                      color: <RiPaintBrushFill />{" "}
+                        choose color: <RiPaintBrushFill />{" "}
                       </h6>
                     </div>
                   <div className="col grow padding-horizontal-lg">
@@ -2095,78 +2240,83 @@ else if(this.state.darkGrey){
                         </div>
                   {/* ----------- Chime ----------- */}
                   <div className="row no-wrap align-start justify-start">
-                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
                       <h6>
-                      bell: <FaBell />
+                        Audible Chime: <FaBell />
                       </h6>
                     </div>
 
-                    <div className="col grow padding-horizontal-lg">
-                      <label
-                        className={
-                          this.state.chime ? "toggle checked" : "toggle"
-                        }
-                      >
-                        <span className="toggle-span"></span>
-                        <span>enable</span>
-                        <input
-                          type="checkbox"
-                          data-gamemode="enable-chime"
-                          onChange={this.handleCheckbox}
-                          checked={this.state.chime}
-                        ></input>
-                      </label>
+                      <div className="col grow padding-horizontal-lg">
+                        <label
+                          className={
+                            this.state.chime ? "toggle checked" : "toggle"
+                          }
+                        >
+                          <span className="toggle-span"></span>
+                          <span>enable</span>
+                          <input
+                            type="checkbox"
+                            data-gamemode="enable-chime"
+                            onChange={this.handleCheckbox}
+                            checked={this.state.chime}
+                          ></input>
+                        </label>
+                      </div>
                     </div>
-                  </div>
 
                   {/* ----------- Chime Selection ----------- */}
                   <div
                     className="row no-wrap align-start justify-start"
                     data-visibility={this.state.chime ? "show" : "hide"}
                   >
-                    <div className="col shrink min-size-40 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
                       <h6>
-                        bell Selection: <FaSearch />
+                        Chime Selection: <FaSearch />
                       </h6>
                     </div>
 
-                    <div className="col grow padding-horizontal-lg">
-                      <Select
-                        className="select-input"
-                        placeholder="Choose Chime"
-                        menuPlacement="auto"
-                        value={this.state.selectedChime}
-                        onChange={this.handleChooseChime}
-                        options={this.chimes}
-                      />
+                      <div className="col grow padding-horizontal-lg">
+                        <Select
+                          className="select-input"
+                          placeholder="Choose Chime"
+                          menuPlacement="auto"
+                          value={this.state.selectedChime}
+                          onChange={this.handleChooseChime}
+                          options={this.chimes}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            </div>
-
-           
-             <div className=" tw-hidden">
-              <CardFetcher 
-              selectedCards = {this.selectedCards}
-              />
-             </div>
-        
-             <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
-              <span className="notranslate">
-<h2> win amount   <FcMoneyTransfer /> : </h2>  <div className="win-amount-box"><h1>{this.amount}Birr</h1> </div>
-</span>
-
-
+                </section>
               </div>
-           
-            
-          </div>
-        </section>
-      </div>
+
+              <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
+                <span className="notranslate">
+                  <h2>
+                    {" "}
+                    win amount <FcMoneyTransfer /> :{" "}
+                  </h2>{" "}
+                  <div className="win-amount-box">
+                    <h1>{this.amount}Birr</h1>{" "}
+                  </div>
+                </span>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     );
   }
 }
 
-export default BingoGame;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+  balance: state.user.currentUser ? state.user.currentUser.balance : 0,
+});
+
+const mapDispatchToProps = {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+};
+export default connect(mapStateToProps, mapDispatchToProps) (withBalance( BingoGame));

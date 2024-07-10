@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { BiPlus } from 'react-icons/bi';
 import { useSelector } from "react-redux";
+import CreateAgent from './CreateAgent';
+import CreateBranch from './CreateBranch';
 const Branch = () => {
     const [users, setUsers] = React.useState([]);
     const [branch, setBranch] = React.useState([]);
@@ -66,7 +68,24 @@ const Branch = () => {
         }
       };
 
+      const [isModalOpen, setIsModalOpen] = useState(false);
 
+      const openModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+      };
+      const [isModalBranchOpen, setIsModalBranchOpen] = useState(false);
+
+      const openBranchModal = () => {
+        setIsModalBranchOpen(true);
+      };
+    
+      const closeBranchModal = () => {
+        setIsModalBranchOpen(false);
+      };
   return (
     <div>
     <div className="tw-mt-10 ">
@@ -85,6 +104,7 @@ const Branch = () => {
               <Link to={"/createagent"} className="tw-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-text-white tw-bg-blue-800  tw-hover:text-white tw-px-4 tw-py-1 tw-mr-1 tw-font-semibold">
                <BiPlus/> Add 
               </Link>
+              <button onClick={openModal} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'><BiPlus/> Add User</button>
             </td>
           </tr>
           <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white ">
@@ -144,6 +164,7 @@ const Branch = () => {
               <Link to={"/createbranch"} className="tw-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-text-white tw-bg-blue-800  tw-hover:text-white tw-px-4 tw-py-1 tw-mr-1 tw-font-semibold">
                <BiPlus/> Add 
               </Link>
+              <button onClick={openBranchModal} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'><BiPlus/> Add Branch</button>
             </td>
           </tr>
           <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white ">
@@ -177,6 +198,22 @@ const Branch = () => {
         </table>
         {error && <p className="tw-text-red-500 ">{error}</p>}
     </div>
+    {isModalOpen && (
+        <div className='tw-absolute tw-top-4 tw-inset-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50'>
+          <div className='tw-bg-white tw-p-4 tw-rounded-md tw-shadow-lg tw-relative'>
+            <button className='tw-absolute tw-top-2 tw-right-2 tw-text-gray-800' onClick={closeModal}>X</button>
+            <CreateAgent/>
+          </div>
+        </div>
+      )}
+      {isModalBranchOpen && (
+        <div className='tw-absolute tw-top-4 tw-inset-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50'>
+          <div className='tw-bg-white tw-p-4 tw-rounded-md tw-shadow-lg tw-relative'>
+            <button className='tw-absolute tw-top-2 tw-right-2 tw-text-gray-800' onClick={closeBranchModal}>X</button>
+            <CreateBranch/>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

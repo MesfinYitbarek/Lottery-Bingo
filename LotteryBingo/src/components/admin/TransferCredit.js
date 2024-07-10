@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import axios from 'axios';
+import { updateUserStart, updateUserSuccess, updateUserFailure } from '../../redux/user/userSlice';
 //import { BiCheckbox } from 'react-icons/bi';
 
 const TransferCredit = () => {
@@ -56,12 +57,14 @@ const TransferCredit = () => {
     if (parseFloat(amount) > balance) {
       alert('Insufficient balance');
     } else {
+      updateUserStart();
       try {
         await axios.post("http://localhost:4000/api/credit/transfer", {
           amount,
           receiver: receiver,
           sender: currentUser.phone,
         });
+        updateUserSuccess({ ...currentUser, balance: balance - amount });
         alert('Credit transferred successfully');
         setCredit({ amount: '', receiver: '' });
        // To refresh the user's credit balance

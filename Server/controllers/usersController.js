@@ -258,3 +258,23 @@ export const updateBranch = async (req, res, next) => {
     next(error);
   }
 };
+
+export const cutBalance = async (req, res) => {
+  const { userId } = req.params;
+  const { balance } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    user.balance = balance;
+    await user.save();
+
+    res.json({ balance: user.balance });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}

@@ -5,6 +5,16 @@ import getNextId from "../Utils/getNextId.js";
 import Card from "../models/Card.js";
 
 
+export const create  =  async (req, res) => {
+  const { id, branch, card } = req.body;
+  try {
+    const newCard = new Card({ id, branch, card });
+    await newCard.save();
+    res.status(201).json(newCard);
+  } catch (err) {
+    res.status(500).json({ error: 'Error creating card' });
+  }
+}
 // Route to save generated cards
 export const cards = async (req, res) => {
   try {
@@ -48,6 +58,16 @@ export const getCardById = async (req, res) => {
 
   try {
     const cards = await Card.find({id : req.params.id});
+    res.json(cards);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch cards' });
+  }
+};
+
+export const getCardByBranch = async (req, res) => {
+
+  try {
+    const cards = await Card.find({id : req.params.id, branch : req.params.branch});
     res.json(cards);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch cards' });
