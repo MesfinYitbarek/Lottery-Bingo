@@ -64,7 +64,7 @@ Array.prototype.forEach.call(flags, function(e){
             <Link to="/">
               <img src={logoImage} alt="Let's Play Bingo!" className="logo" />
             </Link>
-            <button onClick={toggleFullScreen} className="tw-border-none ">
+            <button onClick={toggleFullScreen} className="fullscreenbt ">
               {isFullScreen ? <RiFullscreenExitLine /> : <RiFullscreenLine />}
             </button>
           </div>
@@ -128,9 +128,9 @@ Array.prototype.forEach.call(flags, function(e){
           <div className="tw-col tw-shrink tw-text-right tw-margin-left-lg">
           <div class="flag">
    
-   <a href="#" class="flag_link taj" data-lang="am">amh<img class="img-fluid" src={amhflag} alt=""></img></a>
-   <a href="#" class="flag_link rus" data-lang="ti">tig<img class="img-fluid" src={tigreflag} alt=""></img></a>
-   <a href="#" class="flag_link rus" data-lang="om">oro<img class="img-fluid" src={oromoflag} alt=""></img></a>
+   <button className="headerbt"><a href="#" class="flag_link " data-lang="am">amh</a></button>
+   <button className="headerbt"><a href="#" class="flag_link " data-lang="ti">tig</a></button>
+   <button className="headerbt"><a href="#" class="flag_link " data-lang="om">oro</a></button>
    
 </div>
 

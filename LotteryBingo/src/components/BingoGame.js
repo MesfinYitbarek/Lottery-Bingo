@@ -1932,11 +1932,11 @@ else if(this.state.darkGrey){
                   >
                     {this.totalBallsCalled === 0 ? (
                       <>
-                        Start New Game <SlGameController />
+                        New Game <SlGameController />
                       </>
                     ) : (
                       <>
-                        Call Next Number <FaStepForward />
+                        Next <FaStepForward />
                       </>
                     )}
                   </button>
@@ -1956,11 +1956,11 @@ else if(this.state.darkGrey){
                   >
                     {this.state.running ? (
                       <>
-                        Pause Autoplay <FaPause />
+                        Pause <FaPause />
                       </>
                     ) : (
                       <>
-                        Start Autoplay <VscDebugStart />
+                        Start <VscDebugStart />
                       </>
                     )}
                   </button>
@@ -1970,14 +1970,14 @@ else if(this.state.darkGrey){
                   onClick={this.toggleResetModal}
                   disabled={ this.totalBallsCalled === 0}
                 >
-                  Reset Board <BiReset />
+                  Reset <BiReset />
                 </button>
 
                 <button
                   onClick={this.shuffleBalls}
                   disabled={this.state.running}
                 >
-                  Shuffle Board <PiShuffleDuotone />
+                  Shuffle board <PiShuffleDuotone />
                 </button>
               </section>
               {this.resetConfirmationModalDisplay}
@@ -1997,9 +1997,9 @@ else if(this.state.darkGrey){
                 >
                   {/* ----------- Autoplay Settings ---------- */}
                   <div className="row no-wrap align-center justify-start">
-                    <div className="col shrink min-size-150 padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-horizontal-lg">
                       <h6>
-                        Autoplay Speed: <SiFastapi />{" "}
+                         Speed: <SiFastapi />{" "}
                       </h6>
                     </div>
                     <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
@@ -2008,7 +2008,7 @@ else if(this.state.darkGrey){
                         data-disabled={this.state.displayBoardOnly}
                       >
                         <div className="col shrink padding-right-lg white-text">
-                          Slower
+                          Slow
                           <span>&nbsp;</span>
                           <MdOutlineAssistWalker />
                         </div>
@@ -2023,7 +2023,7 @@ else if(this.state.darkGrey){
                           />
                         </div>
                         <div className="col shrink padding-left-lg white-text">
-                          Faster <span>&nbsp;</span>
+                          Fast <span>&nbsp;</span>
                           <FaRunning />
                         </div>
                       </div>
@@ -2032,13 +2032,13 @@ else if(this.state.darkGrey){
 
                   {/* ----------- Caller ---------- */}
                   <div className="row align-start justify-start">
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        Audible Caller: <RiSpeakFill /> <FcSpeaker />{" "}
+                        Caller: <RiSpeakFill /> <FcSpeaker />{" "}
                       </h6>
                     </div>
-                    <div className="col grow min-size-150 padding-horizontal-lg">
+                    <div className="col grow min-size-80 padding-horizontal-lg">
                       {/* Disabled if manual calling mode is on */}
                       <div
                         className="row no-wrap justify-start"
@@ -2076,10 +2076,10 @@ else if(this.state.darkGrey){
 
                 
                   <div className="row align-start justify-start">
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
                       <h6>
                         {" "}
-                        choose color: <RiPaintBrushFill />{" "}
+                      color: <RiPaintBrushFill />{" "}
                       </h6>
                     </div>
                   <div className="col grow padding-horizontal-lg">
@@ -2095,9 +2095,9 @@ else if(this.state.darkGrey){
                         </div>
                   {/* ----------- Chime ----------- */}
                   <div className="row no-wrap align-start justify-start">
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
                       <h6>
-                        Audible Chime: <FaBell />
+                      bell: <FaBell />
                       </h6>
                     </div>
 
@@ -2124,9 +2124,9 @@ else if(this.state.darkGrey){
                     className="row no-wrap align-start justify-start"
                     data-visibility={this.state.chime ? "show" : "hide"}
                   >
-                    <div className="col shrink min-size-150 padding-vertical-md padding-horizontal-lg">
+                    <div className="col shrink min-size-40 padding-vertical-md padding-horizontal-lg">
                       <h6>
-                        Chime Selection: <FaSearch />
+                        bell Selection: <FaSearch />
                       </h6>
                     </div>
 
