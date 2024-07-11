@@ -457,7 +457,7 @@ class BingoGame extends Component {
     this.amount = 0;
     this.cutBalance = 0;
 
-    
+    this.balance = 0;
     this.startButton = 0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
@@ -1339,7 +1339,7 @@ class BingoGame extends Component {
     
     const newBalance = balance - this.state.amount;
  
-
+    this.state.balance = this.state.amount - (this.state.amount * (currentUser.cut)/100)
  updateUserStart();
     try {
       await axios.put(`http://localhost:4000/api/user/${currentUser._id}/balance`, {
@@ -2074,7 +2074,7 @@ class BingoGame extends Component {
                           this.togglestartModal
                         : this.callBingoNumber
                     }
-                    disabled={this.state.running}
+                    disabled={this.state.running || balance <= 0 }
                   >
                     {this.totalBallsCalled === 0 ? (
                       <>
@@ -2298,7 +2298,7 @@ class BingoGame extends Component {
                     win amount <FcMoneyTransfer /> :{" "}
                   </h2>{" "}
                   <div className="win-amount-box notranslate">
-                    <h1>{this.amount}Birr</h1>{" "}
+                    <h1>{this.state.balance}Birr</h1>{" "}
                   </div>
               
               </div>
