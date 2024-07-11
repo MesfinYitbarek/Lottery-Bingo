@@ -94,14 +94,7 @@ const EditUser = () => {
             <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="email">
               Email
             </label>
-            <input
-              className="tw-w-full tw-px-3 py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
-              type="email"
-              name="email"
-              value={user.email || ""} 
-              onChange={handleChange}
-              required
-            />
+            
           </div>
           <div className="tw-mb-4">
             <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">

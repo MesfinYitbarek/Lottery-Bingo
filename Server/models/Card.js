@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 
 const cardSchema = new mongoose.Schema({
-  id: { type: Number, unique: true, required: true },
+  id: { type: Number, required: true },
   branch: { type: String },
   card: {
     B: [Number],
@@ -18,5 +18,5 @@ const cardSchema = new mongoose.Schema({
   },
 });
 
-const Card = mongoose.model('Card', cardSchema);
+const Card = mongoose.model('Cards', cardSchema);
 export default Card

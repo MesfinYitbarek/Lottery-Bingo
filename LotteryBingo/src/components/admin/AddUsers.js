@@ -80,14 +80,7 @@ const AddUsers = () => {
             onChange={handleChange}
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
           />
-          <input
-            type="email"
-            placeholder="Email"
-            id="email"
-            required
-            onChange={handleChange}
-            className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
-          />
+          
           <input
             type="number"
             placeholder="Phone number"

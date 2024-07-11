@@ -45,7 +45,7 @@ const Branch = () => {
           if (response.data.success) {
             setUsers([...users.filter((users) => users._id !== userId)]);
           } else {
-            setError("Error deleting User");
+            setError("Error filtering User");
           }
         } catch (err) {
           
@@ -60,11 +60,11 @@ const Branch = () => {
           if (response.data.success) {
             setBranch([...users.filter((users) => users._id !== userId)]);
           } else {
-            setError("Error deleting User");
+            setError("Error filtering branch");
           }
         } catch (err) {
           
-          setError("Error deleting User");
+          setError("Error deleting branch");
         }
       };
 

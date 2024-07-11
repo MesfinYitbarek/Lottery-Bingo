@@ -13,10 +13,10 @@ export const test = (req, res) => {
 
 
 export const signup = async (req, res, next) => {
-  const { name,username,email, phone, password,balance,cut,branch,role } = req.body;
+  const { name,username, phone, password,balance,cut,branch,role } = req.body;
   
   // Create new User
-  const newUser = new User({ name,username,email, phone, password,balance,cut,branch,role,userRef: req.params.id  });
+  const newUser = new User({ name,username, phone, password,balance,cut,branch,role,userRef: req.params.id  });
 
   try {
     await newUser.save();

@@ -52,7 +52,7 @@ const Users = () => {
 
   return (
     <div className="tw-mt-10 ">
-       <div>Your balance is: {balance}</div>;
+       
       <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
           <tr className=" ">
             <td></td>

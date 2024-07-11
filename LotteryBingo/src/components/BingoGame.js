@@ -2078,7 +2078,7 @@ class BingoGame extends Component {
                   >
                     {this.totalBallsCalled === 0 ? (
                       <>
-                        New Game <SlGameController />
+                      {balance ? "Start New Game" : `Your balance is ${balance}`}  <SlGameController />
                       </>
                     ) : (
                       <>
