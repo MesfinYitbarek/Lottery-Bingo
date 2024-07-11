@@ -1313,7 +1313,7 @@ class BingoGame extends Component {
 
     this.cancelSpeech();
     this.totalBallsCalled = 0;
-    this.amount = 0;
+    
     this.selectedCards = [];
     this.previousBall = null;
     this.currentBall = null;
@@ -1324,6 +1324,7 @@ class BingoGame extends Component {
       running: false,
       showResetModal: false,
       previousCallList: [],
+      balance : 0,
     });
   };
   
