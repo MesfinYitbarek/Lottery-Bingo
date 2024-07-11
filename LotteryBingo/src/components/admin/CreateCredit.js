@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import axios from 'axios';
 
 const CreateCredit = () => {
-
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
  
   const [credit, setCredit] = useState({
@@ -88,7 +88,7 @@ const CreateCredit = () => {
             className='tw-ml-3 tw-p-1 '
           />
         </div>
-        <input type="submit" value="Create Credit" className=" tw-border-none btn btn-primary btn-block tw-bg-blue-800 tw-text-white tw-p-1 tw-w-[30%] tw-px-3" />
+        <button type="submit"  className=" tw-border-none btn btn-primary btn-block tw-bg-blue-800 tw-text-white tw-p-1 tw-w-[30%] tw-px-3" disabled={loading} >{loading ? "Loading..." : "Create Credit"} </button>
       </form>
       </div>
       <div className=' mt-8'>

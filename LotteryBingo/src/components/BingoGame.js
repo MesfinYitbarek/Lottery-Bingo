@@ -1237,7 +1237,35 @@ class BingoGame extends Component {
     }
   };
 
-  startNewAutoplayGame = () => {
+  startNewAutoplayGame = async () => {
+    const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
+    const {balance} = this.props;
+    console.log("confirm", currentUser, balance)
+    if(balance < this.state.amount) {
+      alert('Insufficent balance',currentUser, balance);
+    } else {
+
+    
+    const newBalance = balance - this.state.amount;
+ 
+    this.state.balance = this.state.amount - (this.state.amount * (currentUser.cut)/100)
+ updateUserStart();
+    try {
+      await axios.put(`http://localhost:4000/api/user/${currentUser._id}/balance`, {
+        balance: newBalance,
+      }); 
+      updateUserSuccess({ ...currentUser, balance: newBalance }); 
+      const updatedAmount = (this.state.amount / 1.3333333333333).toFixed(3);
+      this.setState({
+        cutBalance: parseFloat(updatedAmount),
+        board: generateBingoBoard(),
+        showstartModal: false,
+      });
+
+    } catch (err) {
+      console.error('Error updating balance:', err);
+      alert('Error updating balance');
+    }
     for (let i = 1; i <= 100; i++) {
       const isRedState = this.state.isRed[`isRed${i}`];
 
@@ -1281,7 +1309,7 @@ class BingoGame extends Component {
     } else {
       this.toggleGame();
     }
-    // }
+     }
   };
 
   toggleGame = () => {
@@ -1329,34 +1357,7 @@ class BingoGame extends Component {
   
   
   confirmstartGame = async () => {
-    const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
-    const {balance} = this.props;
-    console.log("confirm", currentUser, balance)
-    if(balance < this.state.amount) {
-      alert('Insufficent balance',currentUser, balance);
-    } else {
-
     
-    const newBalance = balance - this.state.amount;
- 
-    this.state.balance = this.state.amount - (this.state.amount * (currentUser.cut)/100)
- updateUserStart();
-    try {
-      await axios.put(`http://localhost:4000/api/user/${currentUser._id}/balance`, {
-        balance: newBalance,
-      }); 
-      updateUserSuccess({ ...currentUser, balance: newBalance }); 
-      const updatedAmount = (this.state.amount / 1.3333333333333).toFixed(3);
-      this.setState({
-        cutBalance: parseFloat(updatedAmount),
-        board: generateBingoBoard(),
-        showstartModal: false,
-      });
-
-    } catch (err) {
-      console.error('Error updating balance:', err);
-      alert('Error updating balance');
-    }
  
     this.startButton = 1;
     let x = this.state.amount / 1.3333333333333;
@@ -1371,7 +1372,7 @@ class BingoGame extends Component {
 
       // selectedCards:this.selectedCards,
     });
-  };
+  
 }
   callBingoNumber = () => {
     let totalBallsCalled = this.totalBallsCalled;

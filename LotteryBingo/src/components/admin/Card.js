@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 const CardForm = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     id: '',
@@ -12,12 +14,13 @@ const CardForm = () => {
     G: ['', '', '', '', ''],
     O: ['', '', '', '', '']
   });
-
+console.log(formData)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]:value,
+      
     });
   };
 
@@ -47,9 +50,9 @@ const CardForm = () => {
 
     try {
       const response = await axios.post('http://localhost:4000/api/card/create', cardData);
-      console.log('Card created:', response.data);
+      alert('Card created!!');
     } catch (error) {
-      console.error('Error creating card:', error);
+      alert('Error creating card:', error);
     }
   };
 
@@ -90,7 +93,7 @@ const CardForm = () => {
           </label>
 
           <select
-            id="branch"
+            name="branch"
             onChange={handleChange}
             
             className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
@@ -119,9 +122,10 @@ const CardForm = () => {
           </div>
         ))}
       </div>
-      <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#2a2df5', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', width: '100%', fontSize: '16px' }}>
-        Create Card
+      <button disabled={loading} type="submit" style={{ padding: '10px 20px', backgroundColor: '#2a2df5', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', width: '100%', fontSize: '16px' }}>
+      {loading ? "Loading..." : "Create Card"} 
       </button>
+      {error && <p className=" tw-text-red-500 tw-mt-5">{error}</p>}
     </form>
   );
 };
