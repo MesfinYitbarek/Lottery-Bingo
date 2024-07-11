@@ -5,8 +5,8 @@ import { updateUserStart, updateUserSuccess, updateUserFailure } from '../../red
 //import { BiCheckbox } from 'react-icons/bi';
 
 const TransferCredit = () => {
-
-  const { loading,currentUser } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const [credit, setCredit] = useState({
     amount: '',
@@ -120,7 +120,7 @@ const TransferCredit = () => {
             required
           />
         </div>
-        <div > <input  type="submit" value="Transfer" className="btn btn-primary btn-block tw-text-white tw-bg-blue-800 tw-p-0.5 tw-px-4 tw-rounded-md" /></div>
+        <div > <button  type="submit" className="btn btn-primary btn-block tw-text-white tw-bg-blue-800 tw-p-0.5 tw-px-4 tw-rounded-md" disabled={loading} >{loading ? "Loading..." : "Transfer"}  </button></div>
        
       </form>
       </div>
