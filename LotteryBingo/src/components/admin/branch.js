@@ -101,9 +101,7 @@ const Branch = () => {
             <td></td>
 
             <td className="tw-text-center">
-              <Link to={"/createagent"} className="tw-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-text-white tw-bg-blue-800  tw-hover:text-white tw-px-4 tw-py-1 tw-mr-1 tw-font-semibold">
-               <BiPlus/> Add 
-              </Link>
+              
               <button onClick={openModal} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'><BiPlus/> Add User</button>
             </td>
           </tr>
@@ -161,9 +159,7 @@ const Branch = () => {
             <td></td>
 
             <td className="tw-text-center">
-              <Link to={"/createbranch"} className="tw-flex tw-items-center tw-gap-2 tw-rounded-md tw-border tw-text-white tw-bg-blue-800  tw-hover:text-white tw-px-4 tw-py-1 tw-mr-1 tw-font-semibold">
-               <BiPlus/> Add 
-              </Link>
+              
               <button onClick={openBranchModal} className='tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800'><BiPlus/> Add Branch</button>
             </td>
           </tr>

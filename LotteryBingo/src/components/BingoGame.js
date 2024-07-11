@@ -1356,7 +1356,7 @@ class BingoGame extends Component {
       console.error('Error updating balance:', err);
       alert('Error updating balance');
     }
-  }
+ 
     this.startButton = 1;
     let x = this.state.amount / 1.3333333333333;
     this.amount = parseFloat(x.toFixed(3));
@@ -1371,7 +1371,7 @@ class BingoGame extends Component {
       // selectedCards:this.selectedCards,
     });
   };
-
+}
   callBingoNumber = () => {
     let totalBallsCalled = this.totalBallsCalled;
     let selectedPattern = this.state.selectedPattern;
