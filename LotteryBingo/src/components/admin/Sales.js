@@ -241,7 +241,7 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">&#36;{data.cut}</td>
                   <td className="tw-p-2 tw-px-4">&#36;{data.won}</td>
                   <td className="tw-p-2 tw-px-4">{data.call}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winner}</td>
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
                   <td className="tw-p-2 tw-px-4">

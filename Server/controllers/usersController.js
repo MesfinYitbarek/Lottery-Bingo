@@ -103,7 +103,7 @@ export const updateAdmin = async (req, res, next) => {
       {
         $set: {
           username: req.body.username,
-          phone: req.body.email,
+          phone: req.body.phone,
           password: req.body.password,
           avatar: req.body.avatar,
           role: req.body.role,

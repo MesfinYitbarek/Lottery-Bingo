@@ -1327,6 +1327,7 @@ class BingoGame extends Component {
     });
   };
   
+  
   confirmstartGame = async () => {
     const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
     const {balance} = this.props;

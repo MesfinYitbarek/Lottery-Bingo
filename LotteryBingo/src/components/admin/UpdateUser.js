@@ -109,7 +109,7 @@ const EditUser = () => {
             </label>
             <input
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
-              type="text"
+              type="number"
               name="phone"
               value={user.phone || ""} 
               onChange={handleChange}

@@ -2,6 +2,7 @@ import Agent from "../models/Branch.js";
 import Branch from "../models/Branch.js";
 import Credit from "../models/Credit.js";
 import User from "../models/User.js";
+import errorHandler from "../Utils/error.js";
 export const getCredit = async (req, res, next) => {
   try {
     const credit = await Credit.find({sender : req.params.id});

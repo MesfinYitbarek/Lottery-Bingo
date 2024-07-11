@@ -1,5 +1,5 @@
 import Sales from "../models/Sales.js";
-
+import errorHandler from "../Utils/error.js";
 export const sales = async (req, res) => {
   const { bet, player, total,cut,won, branch, call, winner, cashier } =
     req.body;

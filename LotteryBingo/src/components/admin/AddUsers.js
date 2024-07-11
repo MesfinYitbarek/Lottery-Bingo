@@ -89,7 +89,7 @@ const AddUsers = () => {
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
           />
           <input
-            type="text"
+            type="number"
             placeholder="Phone number"
             id="phone"
             required
