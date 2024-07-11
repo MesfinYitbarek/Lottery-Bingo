@@ -17,14 +17,17 @@ const CreateCredit = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await axios.post(`http://localhost:4000/api/credit/create/${currentUser._id}`, {
         amount,
         receiver,
       });
+      setLoading(false);
       alert('Credit created successfully');
       setCredit({ amount: '', receiver: '' });
     } catch (err) {
+      setLoading(false);
       alert('Error creating credit');
     }
   };

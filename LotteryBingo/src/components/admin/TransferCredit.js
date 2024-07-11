@@ -58,6 +58,7 @@ const TransferCredit = () => {
       alert('Insufficient balance');
     } else {
       updateUserStart();
+      setLoading(true);
       try {
         await axios.post("http://localhost:4000/api/credit/transfer", {
           amount,
@@ -67,8 +68,9 @@ const TransferCredit = () => {
         updateUserSuccess({ ...currentUser, balance: balance - amount });
         alert('Credit transferred successfully');
         setCredit({ amount: '', receiver: '' });
-       // To refresh the user's credit balance
+        setLoading(false);// To refresh the user's credit balance
       } catch (err) {
+        setLoading(false);
         alert('Error transferring credit');
       }
     }

@@ -47,11 +47,12 @@ console.log(formData)
         O: formData.O.map(Number)
       }
     };
-
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:4000/api/card/create', cardData);
       alert('Card created!!');
     } catch (error) {
+      setLoading(false);
       alert('Error creating card:', error);
     }
   };
