@@ -2076,6 +2076,7 @@ class BingoGame extends Component {
                           this.togglestartModal
                         : this.callBingoNumber
                     }
+                    className="notranslate"
                     disabled={this.state.running || balance <= 0 }
                   >
                     {this.totalBallsCalled === 0 ? (
@@ -2093,7 +2094,7 @@ class BingoGame extends Component {
                     data-disabled={this.state.displayBoardOnly}
                     data-newgame={this.totalBallsCalled === 0}
                     className={
-                      this.state.running ? "pause-button" : "play-button"
+                      this.state.running ? "pause-button notranslate" : "play-button notranslate" 
                     }
                     disabled={this.startButton === 0}
                     onClick={
