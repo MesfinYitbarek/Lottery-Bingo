@@ -2,12 +2,31 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BingoCard from "./BingoCard";
+import { useSelector } from "react-redux";
 
 const CardFetcher = ({ selectedCards }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [branch, setBranch] = useState("");
+  const { currentUser } = useSelector((state) => state.user);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+        );
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [currentUser.username]);
 
   const fetchCards = async (branch) => {
     setLoading(true);
@@ -27,7 +46,11 @@ const CardFetcher = ({ selectedCards }) => {
   };
 
   const handleSearch = () => {
-    fetchCards(branch);
+    if (branch) {
+      fetchCards(branch);
+    } else {
+      setError("Please select a branch");
+    }
   };
 
   const handleDeleteUser = async (userId) => {
@@ -40,15 +63,26 @@ const CardFetcher = ({ selectedCards }) => {
   };
 
   return (
-    <div className=" tw-bg-gray-100  tw-min-h-screen">
-      <div className=" tw-pt-7  tw-items-center tw-flex-col tw-justify-center tw-text-center branch-input">
-        <input
-          type="text"
-          value={branch}
+    <div className="tw-bg-gray-100 tw-min-h-screen">
+      <div className="tw-pt-7 tw-items-center tw-flex-col tw-justify-center tw-text-center branch-input">
+        <label htmlFor="branch" className="tw-text-lg tw-font-bold">
+          Branch:{" "}
+        </label>
+        <select
+          id="branch"
           onChange={handleBranchChange}
-          placeholder="Enter branch"
-          className=" tw-p-2 tw-border-blue-800 "
-        />
+          className="tw-dark:bg-slate-100 sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5"
+        >
+          <option value="">Select Branch</option>
+          {["admin", "employee"].includes(currentUser.role) ? (
+            <option value={currentUser.branch}>{currentUser.branch}</option>
+          ) : (
+            users &&
+            users.map((user) => (
+              <option key={user.id} value={user.name}>{user.name}</option>
+            ))
+          )}
+        </select>
         <button onClick={handleSearch}>Search</button>
       </div>
       {loading && <p>Loading cards...</p>}
@@ -58,16 +92,14 @@ const CardFetcher = ({ selectedCards }) => {
           <div className="col text-center">
             {cards.map((cardData, index) => (
               <div key={index} className="card blue tw-text-blue-800">
-                 <button
+                <button
                   onClick={() => handleDeleteUser(cardData._id)}
                   className="tw-border-red-600 tw-text-red-600 tw-px-1 tw-rounded-none"
                 >
                   Delete
                 </button>
-                 <h3>Branch: {cardData.branch}</h3>
+                <h3>Branch: {cardData.branch}</h3>
                 <h3>Card ID: {cardData.id}</h3>
-               
-               
                 <BingoCard card={cardData.card} color="blue" />
               </div>
             ))}

@@ -127,6 +127,7 @@ const UpdateAgent = () => {
               <option value={"employee"}>Employee</option>
 
               <option value={"admin"}>Admin</option>
+              <option value={"agent"}>Agent</option>
             </select>
           </div>
           

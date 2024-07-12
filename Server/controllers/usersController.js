@@ -71,7 +71,7 @@ export const users = async (req, res) => {
 
 export const getusers = async (req, res) => {
   try {
-    const users = await User.find({branch: req.params.id});
+    const users = await User.find({branch: req.params.id,  role: "employee"});
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch users' });

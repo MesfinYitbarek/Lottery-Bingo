@@ -12,6 +12,7 @@ const CardGenerator = () => {
   const [perPage, setPerPage] = React.useState(null);
   const [branch, setBranch] = React.useState(null);
   const [users, setUsers] = React.useState([]);
+  const [startingPoint, setStartingPoint] = React.useState(null);
   const [error, setError] = React.useState(null);
   const { currentUser } = useSelector((state) => state.user);
   
@@ -51,8 +52,6 @@ const CardGenerator = () => {
     setColor(event.value);
   };
 
-
-
   const handleBWCheckbox = (e) => {
     setBlackWhite(e.currentTarget.checked);
   };
@@ -61,10 +60,14 @@ const CardGenerator = () => {
     setBranch(event.value);
   };
 
+  const handleStartingPointSelect = (event) => {
+    setStartingPoint(parseInt(event.value));
+  };
+
   const handleButton = async () => {
     let cards = [];
-    for (let i = 1; i <= numberOfCards; i++) {
-      cards.push(generateCard());
+    for (let i = 0; i < numberOfCards; i++) {
+      cards.push({ id: startingPoint + i, card: generateCard() });
     }
     setGeneratedCards(cards);
 
@@ -74,7 +77,7 @@ const CardGenerator = () => {
         "http://localhost:4000/api/card/cards",
         {
           branch: branch,
-          cards: cards.map((card) => ({ card })),
+          cards: cards.map((card) => ({ id: card.id, card: card.card })),
         }
       );
       console.log("Cards saved:", response.data);
@@ -102,14 +105,14 @@ const CardGenerator = () => {
     return card;
   };
 
- 
-
-  
-  
-
   const numberOfCardsOptions = [];
   for (let i = 0; i <= 100; i++) {
     numberOfCardsOptions.push({ value: i.toString(), label: i.toString() });
+  }
+
+  const startingPointOptions = [];
+  for (let i = 1; i <= 1000; i++) {
+    startingPointOptions.push({ value: i.toString(), label: i.toString() });
   }
 
   const colorOptions = [
@@ -147,44 +150,49 @@ const CardGenerator = () => {
   };
 
   const generateButtonDisabled = () => {
-    return numberOfCards === null || color === null || branch === null;
+    return numberOfCards === null || color === null || branch === null || startingPoint === null;
   };
 
-    return (
-      <section className={sectionClasses()}>
-        <div className="container row no-print">
-          <div className="col">
-            <h1>Card Generator</h1>
-           
-         
+  return (
+    <section className={sectionClasses()}>
+      <div className="container row no-print">
+        <div className="col">
+          <h1>Card Generator</h1>
 
-            <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
-              <div className="col shrink padding-horizontal-md">
+          <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
+            <div className="col shrink padding-horizontal-md">
               <Select
                 className="number-select"
                 placeholder="Number of Cards"
                 onChange={handleNumberSelect}
                 options={numberOfCardsOptions}
               />
-              </div>
-              <div className="col shrink padding-horizontal-md">
-                <Select
-                  className="number-select"
-                  placeholder="Card Colors"
-                  onChange={handleColorSelect}
-                  options={colorOptions}
-                />
-              </div>
-              <div className="col shrink padding-horizontal-md">
-               
-                <Select
+            </div>
+            <div className="col shrink padding-horizontal-md">
+              <Select
+                className="number-select"
+                placeholder="Card Colors"
+                onChange={handleColorSelect}
+                options={colorOptions}
+              />
+            </div>
+            <div className="col shrink padding-horizontal-md">
+              <Select
                 className="branch-name-input"
                 placeholder="Select Branch"
                 onChange={handleBranchSelect}
                 options={users.map(user => ({ value: user.name, label: user.name }))}
               />
-              </div>
-              <div className="col shrink padding-horizontal-md margin-right-xlg">
+            </div>
+            <div className="col shrink padding-horizontal-md">
+              <Select
+                className="starting-point-select"
+                placeholder="Starting Point"
+                onChange={handleStartingPointSelect}
+                options={startingPointOptions}
+              />
+            </div>
+            <div className="col shrink padding-horizontal-md margin-right-xlg">
               <button
                 className="primaryBtn"
                 onClick={handleButton}
@@ -192,45 +200,36 @@ const CardGenerator = () => {
               >
                 Generate
               </button>
-              </div>
             </div>
+          </div>
 
-            <div className="row justify-start align-center">
-              <div className="col shrink padding-horizontal-md">
-                <div className="checkbox-container">
-                  <input
-                    type="checkbox"
-                    id="blackWhite"
-                    name="blackWhite"
-                    onChange={handleBWCheckbox}
-                  />
-                  <label htmlFor="blackWhite">Black & White</label>
-                </div>
+          <div className="row justify-start align-center">
+            <div className="col shrink padding-horizontal-md">
+              <div className="checkbox-container">
+                <input
+                  type="checkbox"
+                  id="blackWhite"
+                  name="blackWhite"
+                  onChange={handleBWCheckbox}
+                />
+                <label htmlFor="blackWhite">Black & White</label>
               </div>
-
-             
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="row card-block justify-center margin-vertical-lg">
-          <div className="col text-center">
+      <div className="row card-block justify-center margin-vertical-lg">
+        <div className="col text-center">
           {generatedCards.map((card, index) => (
-              
-                <div
-                  
-                  className="card"
-                  key={"a" + index}
-                >
-                  <BingoCard card={card} />
-                </div>
-              
+            <div className="card" key={card.id}>
+              <BingoCard card={card.card} />
+            </div>
           ))}
-          </div>
         </div>
-      </section>
-    );
-  }
-
+      </div>
+    </section>
+  );
+};
 
 export default CardGenerator;

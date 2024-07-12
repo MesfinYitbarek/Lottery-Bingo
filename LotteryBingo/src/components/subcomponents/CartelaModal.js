@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-
 import logoImage from "./winnerimg.jpg";
-
 
 const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards }) => {
   const [cartelaId, setCartelaId] = useState('');
@@ -13,8 +11,9 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
   const [fetchError, setFetchError] = useState(null);
   const [isBingo, setIsBingo] = useState(false);
   const [bingoNumbers, setBingoNumbers] = useState([]);
+  const [winnerCards, setWinnerCards] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
-  
+
   const fetchCartela = async () => {
     const cartelaIdNumber = Number(cartelaId);
 
@@ -78,21 +77,32 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     }
 
     if (bingoLine) {
-      saveBingoData(bingoLine);
+      saveBingoData();
     }
 
     setIsBingo(!!bingoLine);
     setBingoNumbers(bingoLine || []);
   };
-console.log('cartelamodel', betAmount, cardCount, totalAmount,selectedCards)
-  const saveBingoData = async (bingoLine) => {
+
+  console.log('cartelamodel', betAmount, cardCount, totalAmount, selectedCards);
+
+  const saveBingoData = () => {
+    setWinnerCards((prevWinnerCards) => [...prevWinnerCards, cartelaId]);
+  };
+
+  const handleEndGame = async () => {
+    if (winnerCards.length === 0) {
+      alert('No winners to save');
+      return;
+    }
+
     const total = totalAmount;
     const bingoData = {
       bet: betAmount,
       player: cardCount,
       total: totalAmount,
       call: calledBalls.length,
-      winner: cartelaId,
+      winner: winnerCards,
       branch: currentUser.branch,
       cashier: currentUser.username,
       date: new Date().toISOString(),
@@ -101,9 +111,12 @@ console.log('cartelamodel', betAmount, cardCount, totalAmount,selectedCards)
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/api/sales/sales', bingoData);
+      const response = await axios.post('http://localhost:4000/api/sales/sales', { winners: [bingoData] });
       if (response.status === 200) {
         console.log('Bingo data saved successfully');
+        alert('Sales data saved successfully');
+        setWinnerCards([]); // Clear winner cards after saving
+        onClose(); // Close the modal
       } else {
         console.error('Failed to save bingo data');
       }
@@ -158,17 +171,15 @@ console.log('cartelamodel', betAmount, cardCount, totalAmount,selectedCards)
               ))}
             </div>
             {isBingo && (
-              // <div className="bingo-message tw-text-4xl tw-font-bold tw-text-red-600">
-              //   Bingo!
-              // </div>
               <div className="bingo-message tw-text-4xl tw-font-bold tw-text-red-600">
-          <img src= {logoImage} alt="bingo!"  className='logo2'/>
-        </div>
+                <img src={logoImage} alt="bingo!" className='logo2' />
+              </div>
             )}
           </div>
         )}
         <p>
           <button onClick={onClose}>Close</button>
+          <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game</button>
         </p>
       </div>
       <div className="modal-backdrop" onClick={onClose}></div>
