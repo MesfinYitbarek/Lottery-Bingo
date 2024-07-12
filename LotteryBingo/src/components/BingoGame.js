@@ -1248,16 +1248,16 @@ class BingoGame extends Component {
     
     const newBalance = balance - this.state.amount;
  
-    this.state.balance = this.state.amount - (this.state.amount * (currentUser.cut)/100)
+   
  updateUserStart();
     try {
       await axios.put(`http://localhost:4000/api/user/${currentUser._id}/balance`, {
         balance: newBalance,
       }); 
       updateUserSuccess({ ...currentUser, balance: newBalance }); 
-      const updatedAmount = (this.state.amount / 1.3333333333333).toFixed(3);
+  
       this.setState({
-        cutBalance: parseFloat(updatedAmount),
+        
         board: generateBingoBoard(),
         showstartModal: false,
       });
@@ -1358,6 +1358,18 @@ class BingoGame extends Component {
   
   
   confirmstartGame = async () => {
+
+    const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
+    const {balance} = this.props;
+    console.log("confirm", currentUser, balance)
+    if(balance < this.state.amount) {
+      alert('Insufficent balance',currentUser, balance);
+    } else {
+
+    
+    const newBalance = balance - this.state.amount;
+ 
+    this.state.balance = this.state.amount - (this.state.amount * (currentUser.cut)/100)
     
  
     this.startButton = 1;
@@ -1372,7 +1384,7 @@ class BingoGame extends Component {
       showstartModal: false,
 
       // selectedCards:this.selectedCards,
-    });
+    });}
   
 }
   callBingoNumber = () => {
@@ -2071,7 +2083,7 @@ class BingoGame extends Component {
                   <button
                     data-disabled={this.state.displayBoardOnly}
                     onClick={
-                      this.totalBallsCalled === 0
+                      this.totalBallsCalled === 0 
                         ? // ? this.startNewGame
                           this.togglestartModal
                         : this.callBingoNumber
