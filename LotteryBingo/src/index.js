@@ -44,7 +44,7 @@ const App = () => (
           <Route element={<PrivateRoute allowedRoles={["employee" ]} />}>
             <Route exact path="/" element={<BingoGame />} />
           </Route>
-          <Route element={<PrivateRoute allowedRoles={["superadmin", "admin"]} />}>
+          <Route element={<PrivateRoute allowedRoles={["superadmin", "admin", "agent"]} />}>
             <Route exact path="/admin" element={<AdminContainer />} />
             <Route path="/users" element={<Users />} />
             <Route path="/about" element={<About />} />

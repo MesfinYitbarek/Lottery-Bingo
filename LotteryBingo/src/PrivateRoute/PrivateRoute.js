@@ -16,7 +16,7 @@ export default function PrivateRoute({ allowedRoles = [] }) {
 
   if (allowedRoles.length && !allowedRoles.includes(currentUser.role)) {
     // User does not have any of the allowed roles
-    if (currentUser.role == "admin" ||"superadmin" ) {
+    if (currentUser.role == "admin" ||"superadmin" || "agent"  ) {
         return <Navigate to="/admin" />;
       }
     return <Navigate to="/" />;

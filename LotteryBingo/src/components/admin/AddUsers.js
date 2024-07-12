@@ -8,11 +8,13 @@ const AddUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
   const navigate = useNavigate();
-  console.log(formData)
+  console.log(formData);
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const response = await fetch(
+          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+        );
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -34,13 +36,16 @@ const AddUsers = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:4000/api/user/signup/${currentUser._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `http://localhost:4000/api/user/signup/${currentUser._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         setLoading(false);
@@ -80,7 +85,7 @@ const AddUsers = () => {
             onChange={handleChange}
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 p-3  focus:tw-outline-none"
           />
-          
+
           <input
             type="number"
             placeholder="Phone number"
@@ -106,23 +111,26 @@ const AddUsers = () => {
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
           />
           <div className=" tw-flex  tw-gap-5">
-          <label htmlFor="branch" className=" tw-text-lg tw-font-bold">
-            {" "}
-            Branch:{" "}
-          </label>
+            <label htmlFor="branch" className=" tw-text-lg tw-font-bold">
+              {" "}
+              Branch:{" "}
+            </label>
 
-          <select
-            id="branch"
-            onChange={handleChange}
-            
-            className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
-          >
-          <option value="">Select Branch</option>
-            {users &&
-              users.map((users) => (
-                <option value={users.name}>{users.name}</option>
-              ))}
-          </select>
+            <select
+              id="branch"
+              onChange={handleChange}
+              className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+            >
+              <option value="">Select Branch</option>
+              {["admin", "employee"].includes(currentUser.role) ? (
+                <option value={currentUser.branch}>{currentUser.branch}</option>
+              ) : (
+                users &&
+                users.map((users) => (
+                  <option value={users.name}>{users.name}</option>
+                ))
+              )}
+            </select>
           </div>
           <div className=" tw-flex  tw-gap-5">
             <label htmlFor="role" className=" tw-text-lg tw-font-bold">
@@ -136,7 +144,11 @@ const AddUsers = () => {
               className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
             >
               <option value={"employee"}>Employee</option>
-              <option value={"admin"}>Admin</option>
+              {currentUser.role == "agent" ? (
+                <option value={"admin"}>Admin</option>
+              ) : (
+                ""
+              )}
             </select>
           </div>
 

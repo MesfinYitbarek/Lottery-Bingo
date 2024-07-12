@@ -21,7 +21,9 @@ const Sales = () => {
   useEffect(() => {
     const fetchgetBranches = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const response = await fetch(
+          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+        );
         const data = await response.json();
         setgetBranch(data);
       } catch (err) {
@@ -49,9 +51,12 @@ const Sales = () => {
   useEffect(() => {
     const fetchSales = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/sales/getSales");
+        const response = await fetch(
+          "http://localhost:4000/api/sales/getSales"
+        );
         const data = await response.json();
-        setSales(data);
+        const expandedSales = data.flatMap((sale) => sale.winners);
+        setSales(expandedSales);
       } catch (err) {
         setError("Error fetching sales");
       }
@@ -62,7 +67,9 @@ const Sales = () => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:4000/api/sales/deletesales/${userId}`);
+      await axios.delete(
+        `http://localhost:4000/api/sales/deletesales/${userId}`
+      );
       setFilteredSales((prev) => prev.filter((sale) => sale._id !== userId));
     } catch (err) {
       setError("Error deleting sale");
@@ -74,7 +81,9 @@ const Sales = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/user/users/${currentUser._id}`);
+        const response = await fetch(
+          `http://localhost:4000/api/user/users/${currentUser._id}`
+        );
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -89,7 +98,9 @@ const Sales = () => {
     const fetchCashiersByBranch = async () => {
       if (selectedBranch) {
         try {
-          const response = await fetch(`http://localhost:4000/api/user/getusers/${selectedBranch}`);
+          const response = await fetch(
+            `http://localhost:4000/api/user/getusers/${selectedBranch}`
+          );
           const data = await response.json();
           setBranchCashiers(data);
         } catch (err) {
@@ -106,22 +117,28 @@ const Sales = () => {
   const handleFilter = () => {
     let filtered = sales;
 
-    const isAnyFilterApplied = startDate || endDate || selectedBranch || selectedCashier;
+    // Check if all the filters are applied
+    const isAllFilterApplied =
+      startDate && endDate && selectedBranch && selectedCashier;
 
-    if (!isAnyFilterApplied) {
+    if (!isAllFilterApplied) {
       setFilteredSales([]);
       setIsFiltered(false);
       return;
     }
 
     if (startDate) {
-      filtered = filtered.filter((sale) => new Date(sale.createdAt) >= new Date(startDate));
+      filtered = filtered.filter(
+        (sale) => new Date(sale.createdAt) >= new Date(startDate)
+      );
     }
 
     if (endDate) {
       const filterEndDate = new Date(endDate);
       filterEndDate.setHours(23, 59, 59, 999);
-      filtered = filtered.filter((sale) => new Date(sale.createdAt) <= filterEndDate);
+      filtered = filtered.filter(
+        (sale) => new Date(sale.createdAt) <= filterEndDate
+      );
     }
 
     if (selectedBranch) {
@@ -179,18 +196,24 @@ const Sales = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
           placeholder="End Date"
         />
+
         <select
           value={selectedBranch}
           onChange={(e) => setSelectedBranch(e.target.value)}
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
         >
           <option value="">Select Branch</option>
-          {getbranch.map((branch) => (
-            <option key={branch.id} value={branch.name}>
-              {branch.name}
-            </option>
-          ))}
+          {["admin", "employee"].includes(currentUser.role) ? (
+            <option value={currentUser.branch}>{currentUser.branch}</option>
+          ) : (
+            getbranch.map((branch) => (
+              <option key={branch.id} value={branch.name}>
+                {branch.name}
+              </option>
+            ))
+          )}
         </select>
+
         <select
           value={selectedCashier}
           onChange={(e) => setSelectedCashier(e.target.value)}
@@ -241,7 +264,7 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">&#36;{data.cut}</td>
                   <td className="tw-p-2 tw-px-4">&#36;{data.won}</td>
                   <td className="tw-p-2 tw-px-4">{data.call}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winner}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winner.join(', ')}</td>
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
                   <td className="tw-p-2 tw-px-4">
@@ -266,7 +289,9 @@ const Sales = () => {
                       href="#"
                       onClick={(event) => handleClick(event, index + 1)}
                       className={`tw-px-3 tw-py-1 tw-border tw-rounded ${
-                        currentPage === index + 1 ? "tw-bg-blue-500 tw-text-white" : "tw-bg-white tw-text-blue-500"
+                        currentPage === index + 1
+                          ? "tw-bg-blue-500 tw-text-white"
+                          : "tw-bg-white tw-text-blue-500"
                       }`}
                     >
                       {index + 1}

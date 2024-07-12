@@ -1,15 +1,23 @@
 import mongoose from 'mongoose';
 
-const SalesSchema = new mongoose.Schema({
-  bet: { type: Number},
+const WinnerSchema = new mongoose.Schema({
+  bet: { type: Number },
   player: { type: Number },
   total: { type: Number },
   cut: { type: Number },
   won: { type: Number },
   branch: { type: String },
   call: { type: Number },
-  winner: { type: String },
+  winner: { type: [String] }, // Array of winner card IDs
   cashier: { type: String },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
+});
+
+const SalesSchema = new mongoose.Schema({
+  winners: [WinnerSchema],
   createdAt: {
     type: Date,
     default: Date.now,
@@ -17,4 +25,4 @@ const SalesSchema = new mongoose.Schema({
 });
 
 const Sales = mongoose.model('Sales', SalesSchema);
-export default Sales
+export default Sales;

@@ -22,26 +22,22 @@ export const cards = async (req, res) => {
 
     // Validate input
     if (!branch || !cards || !Array.isArray(cards)) {
-      return res.status(400).json({ error: 'Invalid input' });
+      return res.status(400).json({ error: "Invalid input" });
     }
 
-    // Add unique IDs and branch name to each card
-    const cardsWithIds = await Promise.all(
-      cards.map(async (card) => ({
-        ...card,
-        id: await getNextId(),
-        branch,
-      }))
-    );
+    // Add branch name to each card (IDs are already assigned by the frontend)
+    const cardsWithBranch = cards.map((card) => ({
+      ...card,
+      branch,
+    }));
 
     // Save cards to the database
-    const savedCards = await Card.insertMany(cardsWithIds);
+    const savedCards = await Card.insertMany(cardsWithBranch);
     res.status(201).json(savedCards);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to save cards' });
+    res.status(500).json({ error: "Failed to save cards" });
   }
 };
-
 // Route to fetch cards
 export const getCards = async (req, res) => {
   const { branch } = req.query;

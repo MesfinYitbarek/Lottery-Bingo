@@ -3,18 +3,20 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 const EditUser = () => {
-  const { id } = useParams(); 
-  
+  const { id } = useParams();
+
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
 
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
- 
+
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const response = await fetch(
+          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+        );
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -28,10 +30,11 @@ const EditUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/user/userEdit/${id}`);
+        const response = await axios.get(
+          `http://localhost:4000/api/user/userEdit/${id}`
+        );
         setUser(response.data);
       } catch (err) {
-      
         setError("Error fetching user details");
       }
     };
@@ -46,16 +49,18 @@ const EditUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        const response = await axios.post(`http://localhost:4000/api/user/update/${id}`, user);
-        if (response.data) {
-          setError(response.data.message || "Update successfully.");
-        } else {
-          setError(response.data.message || "Update failed. Please try again.");
-        }
-      } catch (err) {
-       
-        setError("Error updating user. Please try again."); 
+      const response = await axios.post(
+        `http://localhost:4000/api/user/update/${id}`,
+        user
+      );
+      if (response.data) {
+        setError(response.data.message || "Update successfully.");
+      } else {
+        setError(response.data.message || "Update failed. Please try again.");
       }
+    } catch (err) {
+      setError("Error updating user. Please try again.");
+    }
   };
 
   return (
@@ -64,111 +69,134 @@ const EditUser = () => {
         <h2 className="tw-text-lg tw-font-semibold tw-mb-4">Edit User</h2>
         {error && <p className="tw-text-red-500 tw-mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
-        <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
+          <div className="tw-mb-4">
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="username"
+            >
               Name
             </label>
             <input
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
               type="text"
               name="name"
-              value={user.name || ""} 
+              value={user.name || ""}
               onChange={handleChange}
               required
             />
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="username"
+            >
               Username
             </label>
             <input
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
               type="text"
               name="username"
-              value={user.username || ""} 
+              value={user.username || ""}
               onChange={handleChange}
               required
             />
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="email">
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
-            
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
-            Phone
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="username"
+            >
+              Phone
             </label>
             <input
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
               type="number"
               name="phone"
-              value={user.phone || ""} 
+              value={user.phone || ""}
               onChange={handleChange}
               required
             />
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
-            Branch
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="username"
+            >
+              Branch
             </label>
             <select
-            id="branch"
-            onChange={handleChange}
-            
-            className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
-          >
-          <option value="">Select Branch</option>
-            {users &&
-              users.map((users) => (
-                <option value={users.name}>{users.name}</option>
-              ))}
-          </select>
+              id="branch"
+              onChange={handleChange}
+              className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+            >
+              <option value="">Select Branch</option>
+              {["admin", "employee"].includes(currentUser.role) ? (
+                <option value={currentUser.branch}>{currentUser.branch}</option>
+              ) : (
+                users &&
+                users.map((users) => (
+                  <option value={users.name}>{users.name}</option>
+                ))
+              )}
+            </select>
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="username">
-            Cut
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="username"
+            >
+              Cut
             </label>
             <input
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
               type="text"
               name="cut"
-              value={user.cut || ""} 
+              value={user.cut || ""}
               onChange={handleChange}
               required
             />
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="password">
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
               type="password"
               name="password"
-              
               onChange={handleChange}
-              
             />
           </div>
           <div className="tw-mb-4">
             <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="role">
-            Role
+              Role
             </label>
             <select
               name="role"
-              value={user.role || ""} 
+              value={user.role || ""}
               onChange={handleChange}
               className=" tw-dark:bg-slate-100  tw-sm:w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
             >
               <option value={"employee"}>Employee</option>
-              <option value={"admin"}>Admin</option>
-              
+              {currentUser.role == "agent" ? (
+                <option value={"admin"}>Admin</option>
+              ) : (
+                ""
+              )}
             </select>
           </div>
-          
-          
+
           <div className="tw-flex tw-justify-end tw-mt-4">
             <button
               type="submit"

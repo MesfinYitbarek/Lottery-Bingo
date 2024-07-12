@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Bar, Pie, Line } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,10 +11,9 @@ import {
   PointElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 } from 'chart.js';
-import moment from 'moment';
-import { BiDollar } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
 
 ChartJS.register(
   CategoryScale,
@@ -29,21 +28,26 @@ ChartJS.register(
   Legend
 );
 
-const AdminDashboard = () => {
+const AdminDashboardHome = () => {
   const [aggregatedSales, setAggregatedSales] = useState({});
   const [salesByBranch, setSalesByBranch] = useState([]);
   const [salesByCashier, setSalesByCashier] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchSalesData = async () => {
       try {
-        const aggregatedResponse = await fetch('http://localhost:4000/api/sales/salesTime');
+        const aggregatedResponse = await fetch(
+          `http://localhost:4000/api/sales/salesTimeByBranch?branch=${currentUser.branch}`
+        );
         const aggregatedData = await aggregatedResponse.json();
         setAggregatedSales(aggregatedData);
 
-        const groupedResponse = await fetch('http://localhost:4000/api/sales/salesBranch');
+        const groupedResponse = await fetch(
+          `http://localhost:4000/api/sales/salesBranchByBranch?branch=${currentUser.branch}`
+        );
         const groupedData = await groupedResponse.json();
         setSalesByBranch(groupedData.salesByBranch);
         setSalesByCashier(groupedData.salesByCashier);
@@ -56,7 +60,7 @@ const AdminDashboard = () => {
     };
 
     fetchSalesData();
-  }, []);
+  }, [currentUser.branch]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -99,21 +103,6 @@ const AdminDashboard = () => {
     ],
   });
 
-  const lineData = (data) => ({
-    labels: data.map(item => item._id),
-    datasets: [
-      {
-        label: 'Sales by Branch',
-        data: data.map(item => item.total),
-        fill: false,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(5, 38, 255, 1)',
-        borderWidth: 2,
-        tension: 0.1,
-      },
-    ],
-  });
-
   return (
     <div style={{ padding: '10px' }}>
       <div className='tw-flex tw-gap-10'>
@@ -137,61 +126,17 @@ const AdminDashboard = () => {
         </div>
         <div style={{ marginBottom: '40px' }}>
           <h2 className='tw-text-blue-800'>Sales by Branch</h2>
-          <Pie
-            data={pieData(salesByBranch)}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Sales by Branch' },
-              },
-            }}
-          />
+          <Pie data={pieData(salesByBranch)} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Sales by Branch' }}}}/>
         </div>
       </div>
       <div className='tw-flex tw-justify-between tw-items-center'>
-        <div style={{ marginBottom: '40px' }}>
-          <h2 className='tw-text-blue-800'>Sales by Branch</h2>
-          <Bar
-            data={barData(salesByBranch, 'Sales by Branch')}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Sales by Branch' },
-              },
-            }}
-          />
-        </div>
         <div>
           <h2 className='tw-text-blue-800'>Sales by Cashier</h2>
-          <Bar
-            data={barData(salesByCashier, 'Sales by Cashier')}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Sales by Cashier' },
-              },
-            }}
-          />
+          <Bar data={barData(salesByCashier, 'Sales by Cashier')} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Sales by Cashier' }}}}/>
         </div>
-      </div>
-      <div style={{ marginBottom: '40px' }}>
-        <h2 className='tw-text-blue-800'>Sales by Branch (Line Chart)</h2>
-        <Line
-          data={lineData(salesByBranch)}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: { position: 'top' },
-              title: { display: true, text: 'Sales by Branch Over Time' },
-            },
-          }}
-        />
       </div>
     </div>
   );
 };
 
-export default AdminDashboard;
+export default AdminDashboardHome;
