@@ -34,6 +34,7 @@ import CreateAgent from "./components/admin/CreateAgent.js";
 import UpdateAgent from "./components/admin/UpdateAgent.js";
 import CardForm from "./components/admin/Card.js";
 import { BalanceProvider } from "./components/BalanceContext.js";
+import CaheirContainer from "./components/admin/CasheirAdmin.js";
 
 const App = () => (
   <Provider store={store}>
@@ -43,6 +44,7 @@ const App = () => (
         <Routes>
           <Route element={<PrivateRoute allowedRoles={["employee" ]} />}>
             <Route exact path="/" element={<BingoGame />} />
+            <Route exact path="/casheir" element={<CaheirContainer />} />
           </Route>
           <Route element={<PrivateRoute allowedRoles={["superadmin", "admin", "agent"]} />}>
             <Route exact path="/admin" element={<AdminContainer />} />
