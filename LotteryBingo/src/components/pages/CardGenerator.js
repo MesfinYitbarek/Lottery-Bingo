@@ -1,5 +1,4 @@
 import React from "react";
-import Select from "react-select";
 import axios from "axios";
 import BingoCard from "../subcomponents/BingoCard";
 import { useSelector } from "react-redux";
@@ -15,11 +14,13 @@ const CardGenerator = () => {
   const [startingPoint, setStartingPoint] = React.useState(null);
   const [error, setError] = React.useState(null);
   const { currentUser } = useSelector((state) => state.user);
-  
+
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const response = await fetch(
+          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+        );
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -29,7 +30,21 @@ const CardGenerator = () => {
 
     fetchUsers();
   }, []);
+  const [superBranch, setSuperBranch] = React.useState([]);
 
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const data = await response.json();
+        setSuperBranch(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [superBranch]);
   const generateBingoNumbers = () => {
     let letters = ["B", "I", "N", "G", "O"];
     let numbers = {};
@@ -45,11 +60,11 @@ const CardGenerator = () => {
   };
 
   const handleNumberSelect = (event) => {
-    setNumberOfCards(parseInt(event.value));
+    setNumberOfCards(parseInt(event.target.value));
   };
 
   const handleColorSelect = (event) => {
-    setColor(event.value);
+    setColor(event.target.value);
   };
 
   const handleBWCheckbox = (e) => {
@@ -57,11 +72,11 @@ const CardGenerator = () => {
   };
 
   const handleBranchSelect = (event) => {
-    setBranch(event.value);
+    setBranch(event.target.value);
   };
 
   const handleStartingPointSelect = (event) => {
-    setStartingPoint(parseInt(event.value));
+    setStartingPoint(parseInt(event.target.value));
   };
 
   const handleButton = async () => {
@@ -129,7 +144,9 @@ const CardGenerator = () => {
   ];
 
   const sectionClasses = () => {
-    let classes = "padding-vertical-xxlg pale-gray-bg " + (blackWhite ? "print-bw " : "print-color ");
+    let classes =
+      "padding-vertical-xxlg pale-gray-bg " +
+      (blackWhite ? "print-bw " : "print-color ");
     if (perPage !== null) {
       switch (perPage.value) {
         case "2":
@@ -150,7 +167,12 @@ const CardGenerator = () => {
   };
 
   const generateButtonDisabled = () => {
-    return numberOfCards === null || color === null || branch === null || startingPoint === null;
+    return (
+      numberOfCards === null ||
+      color === null ||
+      branch === null ||
+      startingPoint === null
+    );
   };
 
   return (
@@ -161,36 +183,63 @@ const CardGenerator = () => {
 
           <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
             <div className="col shrink padding-horizontal-md">
-              <Select
-                className="number-select"
-                placeholder="Number of Cards"
-                onChange={handleNumberSelect}
-                options={numberOfCardsOptions}
-              />
+              <select className="number-select" onChange={handleNumberSelect}>
+                <option value="">Number of Cards</option>
+                {numberOfCardsOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="col shrink padding-horizontal-md">
-              <Select
-                className="number-select"
-                placeholder="Card Colors"
-                onChange={handleColorSelect}
-                options={colorOptions}
-              />
+              <select className="number-select" onChange={handleColorSelect}>
+                <option value="">Card Colors</option>
+                {colorOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="col shrink padding-horizontal-md">
-              <Select
+              <select
                 className="branch-name-input"
-                placeholder="Select Branch"
                 onChange={handleBranchSelect}
-                options={users.map(user => ({ value: user.name, label: user.name }))}
-              />
+              >
+                <option value="">Select Branch</option>
+                {["admin", "employee"].includes(currentUser.role) ? (
+                  <option value={currentUser.branch}>
+                    {currentUser.branch}
+                  </option>
+                ) : currentUser.role == "superadmin" ? (
+                  superBranch.map((branch) => (
+                    <option key={branch.id} value={branch.name}>
+                      {branch.name}
+                    </option>
+                  ))
+                ) : (
+                  users &&
+                  users.map((user) => (
+                    <option key={user.id} value={user.name}>
+                      {user.name}
+                    </option>
+                  ))
+                )}
+              </select>
             </div>
             <div className="col shrink padding-horizontal-md">
-              <Select
+              <select
                 className="starting-point-select"
-                placeholder="Starting Point"
                 onChange={handleStartingPointSelect}
-                options={startingPointOptions}
-              />
+              >
+                <option value="">Starting Point</option>
+                {startingPointOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="col shrink padding-horizontal-md margin-right-xlg">
               <button
