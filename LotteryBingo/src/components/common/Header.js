@@ -9,17 +9,16 @@ import SignOut from "../admin/SignOut";
 import { BiShoppingBag } from "react-icons/bi";
 
 const Header = () => {
-  const flags = document.getElementsByClassName('flag_link');
+  const flags = document.getElementsByClassName("flag_link");
 
-
-Array.prototype.forEach.call(flags, function(e){
-  e.addEventListener('click', function(){
-    var lang = e.getAttribute('data-lang'); 
-    var languageSelect = document.querySelector("select.goog-te-combo");
-    languageSelect.value = lang; 
-    languageSelect.dispatchEvent(new Event("change"));
-  }); 
-});
+  Array.prototype.forEach.call(flags, function (e) {
+    e.addEventListener("click", function () {
+      var lang = e.getAttribute("data-lang");
+      var languageSelect = document.querySelector("select.goog-te-combo");
+      languageSelect.value = lang;
+      languageSelect.dispatchEvent(new Event("change"));
+    });
+  });
 
   const { currentUser } = useSelector((state) => state.user);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -64,6 +63,7 @@ Array.prototype.forEach.call(flags, function(e){
               {isFullScreen ? <RiFullscreenExitLine /> : <RiFullscreenLine />}
             </button>
           </div>
+          
           <div className="tw-col tw-grow tw-padding-md tw-no-text-wrap tw-text-right">
             <ul className="tw-menu"></ul>
 
@@ -100,18 +100,21 @@ Array.prototype.forEach.call(flags, function(e){
                   </div>
                   <div className="tw-group tw-mr-3">
                     <div className=" tw-flex tw-gap-1 tw-items-center">
-                    <div className="tw-text-3xl tw-text-blue-800 tw-mr-12">
-                      {" "}
-                      <BiShoppingBag />{" "}
-                    </div>
-                    <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-20 tw-right-52 group-hover:tw-block">
-                      Your balance is {balance}
-                    </div>
-                    <div>
-                    <Link to={'/casheir'} className="tw-bg-blue-800 tw-p-1.5 hover:tw-text-white tw-px-4 tw-text-white tw-rounded-md ">
-                       Dashboard
-                    </Link>
-                    </div>
+                      <div className="tw-text-3xl tw-text-blue-800 tw-mr-12">
+                        {" "}
+                        <BiShoppingBag />{" "}
+                      </div>
+                      <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-20 tw-right-52 group-hover:tw-block">
+                        Your balance is {balance}
+                      </div>
+                      <div>
+                        <Link
+                          to={"/casheir"}
+                          className="tw-bg-blue-800 tw-p-1.5 hover:tw-text-white tw-px-4 tw-text-white tw-rounded-md "
+                        >
+                          Dashboard
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -125,29 +128,38 @@ Array.prototype.forEach.call(flags, function(e){
                   </Link>
                 </div>
               )}
-              
             </div>
           </div>
           <div className="tw-col tw-shrink tw-text-right tw-margin-left-lg">
-          <div class="flag">
-   
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="am">amh</a></button>
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="ti">tig</a></button>
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="om">oro</a></button>
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="so">som</a></button>
-   
-</div>
+            <div class="flag">
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="am">
+                  amh
+                </a>
+              </button>
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="ti">
+                  tig
+                </a>
+              </button>
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="om">
+                  oro
+                </a>
+              </button>
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="so">
+                  som
+                </a>
+              </button>
+            </div>
 
             {/* <div id="google_translate_element"></div> */}
-            
           </div>
         </div>
       </header>
-      
     </div>
-    
   );
-
 };
 
 export default Header;

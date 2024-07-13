@@ -53,6 +53,11 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       const matched = calledBalls.filter((call) =>
         allNumbers.includes(call.number)
       );
+
+      // Always include the middle "Free" space as matched
+      const freeSpace = { number: "Free", column: "N", index: 2 };
+      matched.push(freeSpace);
+
       setMatchedNumbers(matched);
       checkBingo(cartela.card, matched);
     }
@@ -62,15 +67,15 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     const rows = [...Array(5)].map((_, i) => Object.keys(card).map(col => card[col][i]));
     const columns = Object.values(card);
     const diagonals = [
-      [card.B[0], card.I[1], card.N[2], card.G[3], card.O[4]],
-      [card.O[0], card.G[1], card.N[2], card.I[3], card.B[4]]
+      [card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+      [card.O[0], card.G[1], "Free", card.I[3], card.B[4]]
     ];
 
     const lines = [...rows, ...columns, ...diagonals];
 
     let bingoLine = null;
     for (const line of lines) {
-      if (line.every(num => matched.some(call => call.number === num))) {
+      if (line.every(num => matched.some(call => call.number === num || num === "Free"))) {
         bingoLine = line;
         break;
       }
@@ -151,19 +156,20 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
               {Object.entries(cartela[0].card).map(([column, numbers]) => (
                 <div key={column} className="cartela-column">
                   <h5>{column}</h5>
-                  {numbers.map((number) => {
+                  {numbers.map((number, index) => {
                     const isMatched = matchedNumbers.some(
                       (call) => call.number === number
                     );
                     const isBingoNumber = bingoNumbers.includes(number);
+                    const isFreeSpace = column === 'N' && index === 2;
                     return (
                       <div
                         key={number}
-                        className={`${isMatched ? 'matched' : ''} ${
-                          isBingoNumber ? 'bingo-number' : ''
-                        }`}
+                        className={`${isMatched || isFreeSpace ? 'matched' : ''} ${
+                          isBingoNumber || isFreeSpace ? 'bingo-number' : ''
+                        } ${isFreeSpace ? 'free-space' : ''}`}
                       >
-                        {number}
+                        {isFreeSpace ? "Free" : number}
                       </div>
                     );
                   })}
