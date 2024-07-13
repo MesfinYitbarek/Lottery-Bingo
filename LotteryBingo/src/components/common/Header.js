@@ -82,11 +82,11 @@ Array.prototype.forEach.call(flags, function(e){
                          group-hover:tw-block tw-w-[200px] 
                         tw-bg-white  tw-text-black tw-shadow-sm  "
                     >
-                      <ul className=" tw-flex-col tw-justify-start   tw-text-blue-800 ">
-                        <h1 className=" tw-text-lg tw-text-center tw-text-blue-800 tw-font-bold">
+                      <ul className=" tw-flex-col tw-justify-start   tw-text-blue-800 notranslate">
+                        <h1 className=" tw-text-lg tw-text-center tw-text-blue-800 tw-font-bold notranslate">
                           {currentUser.username}
                         </h1>
-                        <Link to={""} className="  ">
+                        <Link to={""} className="notranslate  ">
                           <h3 className="tw-text-lg tw-text-center tw-hover:bg-slate-200 ">
                             Change Password
                           </h3>
@@ -104,7 +104,7 @@ Array.prototype.forEach.call(flags, function(e){
                       {" "}
                       <BiShoppingBag />{" "}
                     </div>
-                    <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-20 tw-right-52 group-hover:tw-block">
+                    <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-20 tw-right-52 group-hover:tw-block notranslate">
                       Your balance is {balance}
                     </div>
                     <div>
@@ -116,10 +116,10 @@ Array.prototype.forEach.call(flags, function(e){
                   </div>
                 </div>
               ) : (
-                <div className="tw-mr-10">
+                <div className="tw-mr-10 ">
                   <Link
                     to={"/sign-in"}
-                    className="tw-bg-blue-800 tw-p-1.5 hover:tw-text-white tw-px-4 tw-text-white tw-rounded-md "
+                    className="tw-bg-blue-800 tw-p-1.5 hover:tw-text-white tw-px-4 tw-text-white tw-rounded-md notranslate"
                   >
                     SignIn
                   </Link>

@@ -28,7 +28,7 @@ const CaheirContainer = () => {
   var condtion = "";
 
   return (
-    <div className=" tw-bg-gray-100 tw-pb-12 tw-min-h-screen ">
+    <div className=" tw-bg-gray-100 tw-pb-12 tw-min-h-screen notranslate">
       <div>
         <div>
           <DashboardHeader />
