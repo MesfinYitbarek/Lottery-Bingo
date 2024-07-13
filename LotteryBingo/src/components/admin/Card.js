@@ -14,7 +14,25 @@ const CardForm = () => {
     G: ["", "", "", "", ""],
     O: ["", "", "", "", ""],
   });
+
   console.log(formData);
+
+  const [superBranch, setSuperBranch] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const data = await response.json();
+        setSuperBranch(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [superBranch]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -122,7 +140,13 @@ const CardForm = () => {
           <option value="">Select Branch</option>
           {["admin", "employee"].includes(currentUser.role) ? (
             <option value={currentUser.branch}>{currentUser.branch}</option>
-          ) : (
+          ) : currentUser.role == "superadmin" ? (
+            superBranch.map((branch) => (
+              <option key={branch.id} value={branch.name}>
+                {branch.name}
+              </option>
+            ))
+          ): (
             users &&
             users.map((users) => (
               <option value={users.name}>{users.name}</option>

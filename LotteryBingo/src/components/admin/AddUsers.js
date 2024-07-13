@@ -52,6 +52,7 @@ const AddUsers = () => {
         setError(data.message);
         return;
       }
+      alert("User successfully created!")
       setLoading(false);
       setError(null);
       navigate("/admin");

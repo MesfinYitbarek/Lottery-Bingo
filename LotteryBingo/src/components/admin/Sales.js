@@ -18,6 +18,22 @@ const Sales = () => {
   const [branchCashiers, setBranchCashiers] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
 
+  const [superBranch, setSuperBranch] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const data = await response.json();
+        setSuperBranch(data);
+      } catch (err) {
+        setError("Error fetching User");
+      }
+    };
+
+    fetchUsers();
+  }, [superBranch]);
+
   useEffect(() => {
     const fetchgetBranches = async () => {
       try {
@@ -205,6 +221,12 @@ const Sales = () => {
           <option value="">Select Branch</option>
           {["admin", "employee"].includes(currentUser.role) ? (
             <option value={currentUser.branch}>{currentUser.branch}</option>
+          ) : currentUser.role == "superadmin" ? (
+            superBranch.map((branch) => (
+              <option key={branch.id} value={branch.name}>
+                {branch.name}
+              </option>
+            ))
           ) : (
             getbranch.map((branch) => (
               <option key={branch.id} value={branch.name}>
@@ -264,7 +286,7 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">&#36;{data.cut}</td>
                   <td className="tw-p-2 tw-px-4">&#36;{data.won}</td>
                   <td className="tw-p-2 tw-px-4">{data.call}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winner.join(', ')}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winner.join(", ")}</td>
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
                   <td className="tw-p-2 tw-px-4">
