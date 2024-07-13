@@ -86,7 +86,7 @@ Array.prototype.forEach.call(flags, function(e){
                         <h1 className=" tw-text-lg tw-text-center tw-text-blue-800 tw-font-bold">
                           {currentUser.username}
                         </h1>
-                        <Link to={""} className="  ">
+                        <Link to={"/changePassword"} className="  ">
                           <h3 className="tw-text-lg tw-text-center tw-hover:bg-slate-200 ">
                             Change Password
                           </h3>

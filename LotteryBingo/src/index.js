@@ -35,6 +35,7 @@ import UpdateAgent from "./components/admin/UpdateAgent.js";
 import CardForm from "./components/admin/Card.js";
 import { BalanceProvider } from "./components/BalanceContext.js";
 import CaheirContainer from "./components/admin/CasheirAdmin.js";
+import ChangePassword from "./components/Authentication/ChangePassword.js";
 
 const App = () => (
   <Provider store={store}>
@@ -42,6 +43,10 @@ const App = () => (
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <Routes>
+        <Route element={<PrivateRoute />}>
+            <Route exact path="/changePassword" element={<ChangePassword />} />
+
+          </Route>
           <Route element={<PrivateRoute allowedRoles={["employee" ]} />}>
             <Route exact path="/" element={<BingoGame />} />
             <Route exact path="/casheir" element={<CaheirContainer />} />
