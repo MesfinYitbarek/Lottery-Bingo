@@ -20,6 +20,7 @@ import SuperAdmin from "./SuperAdmin";
 import Branch from "./branch";
 import AdminDashboard from "./Home";
 import AdminDashboardHome from "./AdminHome";
+import AgentDash from "./AgentDashboard";
 
 const navigationItems = [
   { name: "Dashboard", isActive: true, icon:<TfiDashboard />  },
@@ -76,7 +77,7 @@ const AdminContainer = () => {
       </div>
       <div className=" tw-flex tw-justify-center tw-items-center">
       {condtion == "Dashboard" ? (
-        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <AdminDashboard/> :currentUser.role == 'agent' ? " " :currentUser.role == 'admin' ?<AdminDashboardHome/> : ""}</p>
+        <p className=" tw-pl-72">{currentUser.role == 'superadmin' ? <AdminDashboard/> :currentUser.role == 'agent' ? <AgentDash/> :currentUser.role == 'admin' ?<AdminDashboardHome/> : ""}</p>
       ) : condtion == "Cartela" ? (
         <p className=" tw-pl-72"><Cartela/></p>
       ): condtion == "Credit" ? (
