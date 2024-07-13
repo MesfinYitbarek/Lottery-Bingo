@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";  
 import Collapse from "@mui/material/Collapse";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from "@mui/icons-material/Close"; 
 import { makeStyles } from '@mui/styles';
 // Custom styles
 const useStyles = makeStyles({
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     },
     marginTop: "20px",
     width: "100%",
-  },
+  },     
   closeButton: {
     display: "block",
     margin: "20px auto 0 auto",
@@ -58,7 +58,7 @@ const ChangePassword = ({ onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [open, setOpen] = useState(true);
-
+   
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
@@ -77,7 +77,7 @@ const ChangePassword = ({ onClose }) => {
       };
 
       const { data } = await axios.put(
-        `/api/user/${currentUser._id}/change-password`,
+        `http://localhost:4000/api/user/${currentUser._id}/change-password`,
         { oldPassword, newPassword, confirmPassword },
         config
       );

@@ -39,14 +39,12 @@ const Users = () => {
   const handleDeleteUser = async (userId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/user/delete/${userId}`
+        `http://localhost:4000/api/sales/deletesales/${userId}`
       );
 
       if (response.data.success) {
         setUsers([...users.filter((users) => users._id !== userId)]);
-      } else {
-        setError("Error deleting User");
-      }
+      } 
     } catch (err) {
       setError("Error deleting User");
     }

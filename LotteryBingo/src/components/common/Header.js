@@ -9,17 +9,16 @@ import SignOut from "../admin/SignOut";
 import { BiShoppingBag } from "react-icons/bi";
 
 const Header = () => {
-  const flags = document.getElementsByClassName('flag_link');
+  const flags = document.getElementsByClassName("flag_link");
 
-
-Array.prototype.forEach.call(flags, function(e){
-  e.addEventListener('click', function(){
-    var lang = e.getAttribute('data-lang'); 
-    var languageSelect = document.querySelector("select.goog-te-combo");
-    languageSelect.value = lang; 
-    languageSelect.dispatchEvent(new Event("change"));
-  }); 
-});
+  Array.prototype.forEach.call(flags, function (e) {
+    e.addEventListener("click", function () {
+      var lang = e.getAttribute("data-lang");
+      var languageSelect = document.querySelector("select.goog-te-combo");
+      languageSelect.value = lang;
+      languageSelect.dispatchEvent(new Event("change"));
+    });
+  });
 
   const { currentUser } = useSelector((state) => state.user);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -64,6 +63,7 @@ Array.prototype.forEach.call(flags, function(e){
               {isFullScreen ? <RiFullscreenExitLine /> : <RiFullscreenLine />}
             </button>
           </div>
+          
           <div className="tw-col tw-grow tw-padding-md tw-no-text-wrap tw-text-right">
             <ul className="tw-menu"></ul>
 
@@ -125,29 +125,38 @@ Array.prototype.forEach.call(flags, function(e){
                   </Link>
                 </div>
               )}
-              
             </div>
           </div>
           <div className="tw-col tw-shrink tw-text-right tw-margin-left-lg">
-          <div class="flag">
-   
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="am">amh</a></button>
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="ti">tig</a></button>
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="om">oro</a></button>
-   <button className="headerbt"><a href="#" class="flag_link " data-lang="so">som</a></button>
-   
-</div>
+            <div class="flag">
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="am">
+                  amh
+                </a>
+              </button>
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="ti">
+                  tig
+                </a>
+              </button>
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="om">
+                  oro
+                </a>
+              </button>
+              <button className="headerbt">
+                <a href="#" class="flag_link " data-lang="so">
+                  som
+                </a>
+              </button>
+            </div>
 
             {/* <div id="google_translate_element"></div> */}
-            
           </div>
         </div>
       </header>
-      
     </div>
-    
   );
-
 };
 
 export default Header;

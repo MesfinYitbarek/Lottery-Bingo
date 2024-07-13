@@ -40,12 +40,14 @@ export const getSales = async (req, res) => {
   }
 };
 
-export const getSalesByCasheir = async (req, res) => {
+
+
+export const getSalesByCashier = async (req, res) => {
   try {
-    const users = await Sales.find({cashier : req.params.cashier});
-    res.json(users);
+    const sales = await Sales.find({ 'winners.cashier': req.params.cashier });
+    res.json(sales);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch Sales' });
+    res.status(500).json({ error: 'Failed to fetch sales' });
   }
 };
 
