@@ -98,13 +98,20 @@ Array.prototype.forEach.call(flags, function(e){
                       </ul>
                     </div>
                   </div>
-                  <div className="tw-group">
+                  <div className="tw-group tw-mr-3">
+                    <div className=" tw-flex tw-gap-1 tw-items-center">
                     <div className="tw-text-3xl tw-text-blue-800 tw-mr-12">
                       {" "}
                       <BiShoppingBag />{" "}
                     </div>
-                    <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-14 tw-right-4 group-hover:tw-block">
+                    <div className="tw-text-blue-800 tw-font-semibold tw-hidden tw-mr-6 tw-absolute tw-top-20 tw-right-52 group-hover:tw-block">
                       Your balance is {balance}
+                    </div>
+                    <div>
+                    <Link to={'/casheir'} className="tw-bg-blue-800 tw-p-1.5 hover:tw-text-white tw-px-4 tw-text-white tw-rounded-md ">
+                       Dashboard
+                    </Link>
+                    </div>
                     </div>
                   </div>
                 </div>

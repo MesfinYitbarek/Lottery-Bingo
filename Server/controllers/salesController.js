@@ -40,6 +40,15 @@ export const getSales = async (req, res) => {
   }
 };
 
+export const getSalesByCasheir = async (req, res) => {
+  try {
+    const users = await Sales.find({cashier : req.params.cashier});
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch Sales' });
+  }
+};
+
 export const deleteBranch = async (req, res, next) => {
   try {
     const sales = await Sales.findById(req.params.id);
