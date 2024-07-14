@@ -97,9 +97,9 @@ const CardGenerator = () => {
           cards: cards.map((card) => ({ id: card.id, card: card.card })),
         }
       );
-      console.log("Cards saved:", response.data);
+      alert("Cards saved!");
     } catch (error) {
-      console.error("Failed to save cards:", error);
+      alert("Failed to save cards:");
     }
   };
 

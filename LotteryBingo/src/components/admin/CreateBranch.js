@@ -53,10 +53,12 @@ const CreateBranch = () => {
         setError(data.message);
         return;
       }
+      alert("Branch is successfully created!")
       setLoading(false);
       setError(null);
       navigate("/admin");
     } catch (error) {
+      alert("Branch is not created!")
       setLoading(false);
       setError(error.message);
     }

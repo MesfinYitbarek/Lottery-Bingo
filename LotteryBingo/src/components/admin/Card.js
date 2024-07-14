@@ -79,7 +79,7 @@ const CardForm = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      alert("Error creating card:", error);
+      alert("Error creating card:");
     }
   };
 

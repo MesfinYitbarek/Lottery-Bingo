@@ -35,10 +35,12 @@ const CreateAgent = () => {
         setError(data.message);
         return;
       }
+      alert("Agent is created Successully")
       setLoading(false);
       setError(null);
       navigate("/admin");
     } catch (error) {
+      alert("Agent is not created ")
       setLoading(false);
       setError(error.message);
     }
