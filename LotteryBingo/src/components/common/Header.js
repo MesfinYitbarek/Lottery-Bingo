@@ -24,7 +24,7 @@ const Header = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const [balance, setBalance] = useState(0);
-  console.log(balance);
+
   useEffect(() => {
     const fetchBalance = async () => {
       try {

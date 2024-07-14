@@ -9,7 +9,7 @@ import { FcSalesPerformance } from "react-icons/fc";
 
 import TransferCredit from "./TransferCredit";
 import DashboardHeader from "./DashboardHeader";
-import Sales from "./Sales";
+
 import Users from "./CasheirSales";
 
 const navigationItems = [

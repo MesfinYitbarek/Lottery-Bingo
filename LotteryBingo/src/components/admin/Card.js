@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+
 const CardForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -10,7 +11,7 @@ const CardForm = () => {
     branch: "",
     B: ["", "", "", "", ""],
     I: ["", "", "", "", ""],
-    N: ["", "", "", "", ""],
+    N: ["", "", "Free", "", ""],
     G: ["", "", "", "", ""],
     O: ["", "", "", "", ""],
   });
@@ -44,7 +45,11 @@ const CardForm = () => {
   const handleArrayChange = (e, column, index) => {
     const { value } = e.target;
     const updatedColumn = [...formData[column]];
-    updatedColumn[index] = value;
+    if (column === "N" && index === 2) {
+      updatedColumn[index] = "Free";
+    } else {
+      updatedColumn[index] = value;
+    }
     setFormData({
       ...formData,
       [column]: updatedColumn,
@@ -59,7 +64,7 @@ const CardForm = () => {
       card: {
         B: formData.B.map(Number),
         I: formData.I.map(Number),
-        N: formData.N.map(Number),
+        N: formData.N.map((val) => (val === "Free" ? val : Number(val))),
         G: formData.G.map(Number),
         O: formData.O.map(Number),
       },
@@ -71,6 +76,7 @@ const CardForm = () => {
         cardData
       );
       alert("Card created!!");
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       alert("Error creating card:", error);
@@ -140,13 +146,13 @@ const CardForm = () => {
           <option value="">Select Branch</option>
           {["admin", "employee"].includes(currentUser.role) ? (
             <option value={currentUser.branch}>{currentUser.branch}</option>
-          ) : currentUser.role == "superadmin" ? (
+          ) : currentUser.role === "superadmin" ? (
             superBranch.map((branch) => (
               <option key={branch.id} value={branch.name}>
                 {branch.name}
               </option>
             ))
-          ): (
+          ) : (
             users &&
             users.map((users) => (
               <option value={users.name}>{users.name}</option>
@@ -179,16 +185,18 @@ const CardForm = () => {
             {formData[column].map((val, index) => (
               <input
                 key={index}
-                type="number"
-                value={val}
+                type={column === "N" && index === 2 ? "text" : "number"}
+                value={column === "N" && index === 2 ? "Free" : val}
                 onChange={(e) => handleArrayChange(e, column, index)}
                 required
+                readOnly={column === "N" && index === 2}
                 style={{
                   padding: "10px",
                   marginBottom: "5px",
                   width: "100%",
                   borderRadius: "5px",
                   border: "1px solid #ccc",
+                  backgroundColor: column === "N" && index === 2 ? "#e0e0e0" : "white",
                 }}
               />
             ))}

@@ -69,7 +69,7 @@ const AgentDash = () => {
 
         setLoading(false);
       } catch (err) {
-        console.error('Failed to fetch sales data:', err);
+        
         setError('Failed to fetch sales data');
         setLoading(false);
       }

@@ -9,8 +9,9 @@ import creditRouter from "./routes/credit.js";
 import salesRouter from "./routes/sales.js";
 import branchRouter from "./routes/Agent.js";
 // Connect to MongoDB database
+dotenv.config();
 mongoose
-  .connect("mongodb+srv://mesfinyitbarek55:12348109@lotterybingo.knjysl9.mongodb.net/?retryWrites=true&w=majority&appName=LotteryBingo")
+  .connect(process.env.MONGO)
   .then(() => {
     console.log("Connected to MongoDB!");
   })

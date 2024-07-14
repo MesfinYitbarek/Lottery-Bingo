@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -48,7 +48,7 @@ const Sales = () => {
     };
 
     fetchgetBranches();
-  }, [currentUser.username]);
+  }, [currentUser.username, branch]);
 
   useEffect(() => {
     const fetchBranches = async () => {
@@ -99,7 +99,7 @@ const Sales = () => {
     };
 
     fetchUsers();
-  }, [currentUser._id]);
+  }, [currentUser._id],users);
 
   useEffect(() => {
     const fetchCashiersByBranch = async () => {

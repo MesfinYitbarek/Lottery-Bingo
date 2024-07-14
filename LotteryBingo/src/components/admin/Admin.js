@@ -15,8 +15,7 @@ import { FaUsers } from "react-icons/fa6";
 import TransferCredit from "./TransferCredit";
 import DashboardHeader from "./DashboardHeader";
 import Sales from "./Sales";
-import CreateBranch from "./CreateBranch";
-import SuperAdmin from "./SuperAdmin";
+
 import Branch from "./branch";
 import AdminDashboard from "./Home";
 import AdminDashboardHome from "./AdminHome";

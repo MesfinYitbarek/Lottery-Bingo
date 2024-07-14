@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // Styles
 import "./sass/main.scss";
 import "./index.css";
 // Images
-import logoImage from "./images/logoImage.svg";
+
 // Custom Components
 import About from "./components/pages/About.js";
 import BingoGame from "./components/BingoGame.js";
@@ -25,7 +25,7 @@ import SignIn from "./components/Authentication/SignIn.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store.js";
-import Sales from "./components/admin/Sales.js";
+
 import PrivateRoute from "./PrivateRoute/PrivateRoute.js";
 import CreateBranch from "./components/admin/CreateBranch.js";
 import Branch from "./components/admin/branch.js";
