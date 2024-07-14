@@ -71,34 +71,30 @@ export const salesTime = async (req, res) => {
   try {
     const now = new Date();
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+
+    // Calculate start of the week (Sunday)
+    const startOfWeek = new Date(startOfDay);
+    startOfWeek.setDate(startOfDay.getDate() - startOfDay.getDay());
+
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const startOfYear = new Date(now.getFullYear(), 0, 1);
 
-    const dailyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      { $match: { 'winners.createdAt': { $gte: startOfDay } } },
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
+    // Aggregate sales data
+    const aggregateSales = async (startDate) => {
+      return await Sales.aggregate([
+        { $unwind: '$winners' },
+        { $match: { 'winners.createdAt': { $gte: startDate } } },
+        { $group: { _id: null, total: { $sum: '$winners.total' } } }
+      ]);
+    };
 
-    const weeklyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      { $match: { 'winners.createdAt': { $gte: startOfWeek } } },
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
+    // Aggregate sales data for each time period
+    const dailyTotal = await aggregateSales(startOfDay);
+    const weeklyTotal = await aggregateSales(startOfWeek);
+    const monthlyTotal = await aggregateSales(startOfMonth);
+    const yearlyTotal = await aggregateSales(startOfYear);
 
-    const monthlyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      { $match: { 'winners.createdAt': { $gte: startOfMonth } } },
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
-
-    const yearlyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      { $match: { 'winners.createdAt': { $gte: startOfYear } } },
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
-
+    // Send the response with summed totals
     res.json({
       dailyTotal: dailyTotal[0]?.total || 0,
       weeklyTotal: weeklyTotal[0]?.total || 0,
@@ -106,9 +102,10 @@ export const salesTime = async (req, res) => {
       yearlyTotal: yearlyTotal[0]?.total || 0,
     });
   } catch (error) {
+    console.error('Error fetching aggregated sales data:', error);
     res.status(500).json({ error: 'Failed to fetch aggregated sales data' });
   }
-}
+};
 
 export const salesBranch = async (req, res) => {
   try {
