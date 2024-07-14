@@ -128,6 +128,8 @@ export const salesBranch = async (req, res) => {
   }
 }
 
+
+
 export const salesTimeByBranch = async (req, res) => {
   try {
     const { branch } = req.query;
@@ -136,15 +138,21 @@ export const salesTimeByBranch = async (req, res) => {
 
     // Set dates without hours to ensure day-level granularity
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay());
+    
+    // Calculate start of the week (Sunday)
+    const startOfWeek = new Date(startOfDay);
+    startOfWeek.setDate(startOfDay.getDate() - startOfDay.getDay());
+
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const startOfYear = new Date(now.getFullYear(), 0, 1);
 
-    const getMatchStage = (date, branch) => branch
-      ? { $match: { 'winners.branch': branch, 'createdAt': { $gte: date } } }
-      : { $match: { 'createdAt': { $gte: date } } };
+    // Function to get the match stage for aggregation pipeline
+    const getMatchStage = (date, branch) => 
+      branch
+        ? { $match: { 'winners.branch': branch, 'createdAt': { $gte: date } } }
+        : { $match: { 'createdAt': { $gte: date } } };
 
+    // Function to aggregate sales data
     const aggregateSales = async (branch, startDate) => {
       return await Sales.aggregate([
         { $unwind: '$winners' },
@@ -153,13 +161,21 @@ export const salesTimeByBranch = async (req, res) => {
       ]);
     };
 
+    // Function to sum totals
+    const sumTotals = (totals) => totals.reduce((acc, total) => acc + (total[0]?.total || 0), 0);
+
+    // If no branches are provided, handle it gracefully
+    if (branches.length === 0) {
+      branches.push(null); // Add a null branch to handle the case with no specific branches
+    }
+
+    // Aggregate sales data for each time period
     const dailyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfDay)));
     const weeklyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfWeek)));
     const monthlyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfMonth)));
     const yearlyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfYear)));
 
-    const sumTotals = (totals) => totals.reduce((acc, total) => acc + (total[0]?.total || 0), 0);
-
+    // Send the response with summed totals
     res.json({
       dailyTotal: sumTotals(dailyTotals),
       weeklyTotal: sumTotals(weeklyTotals),
