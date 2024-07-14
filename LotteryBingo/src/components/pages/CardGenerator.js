@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BingoCard from "../subcomponents/BingoCard";
 import { useSelector } from "react-redux";
@@ -15,7 +15,7 @@ const CardGenerator = () => {
   const [error, setError] = React.useState(null);
   const { currentUser } = useSelector((state) => state.user);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
@@ -30,9 +30,10 @@ const CardGenerator = () => {
 
     fetchUsers();
   }, []);
+
   const [superBranch, setSuperBranch] = React.useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(`http://localhost:4000/api/branch/branch`);
@@ -45,6 +46,7 @@ const CardGenerator = () => {
 
     fetchUsers();
   }, [superBranch]);
+
   const generateBingoNumbers = () => {
     let letters = ["B", "I", "N", "G", "O"];
     let numbers = {};
@@ -104,134 +106,137 @@ const CardGenerator = () => {
   const generateCard = () => {
     let numbers = generateBingoNumbers();
     let card = {};
+    let middleIndex = Math.floor((5 * 5) / 2); // Calculate middle index
 
-    Object.keys(numbers).forEach((letter) => {
+    Object.keys(numbers).forEach((letter, index) => {
       let chosenNumbers = [];
       for (let i = 0; i < 5; i++) {
-        chosenNumbers.push(
-          numbers[letter].splice(
-            Math.floor(Math.random() * numbers[letter].length),
-            1
-          )[0]
-        );
-      }
-      card[letter] = chosenNumbers;
-    });
-    return card;
-  };
-
-  const numberOfCardsOptions = [];
-  for (let i = 0; i <= 100; i++) {
-    numberOfCardsOptions.push({ value: i.toString(), label: i.toString() });
-  }
-
-  const startingPointOptions = [];
-  for (let i = 1; i <= 1000; i++) {
-    startingPointOptions.push({ value: i.toString(), label: i.toString() });
-  }
-
-  const colorOptions = [
-    { value: "red", label: "red" },
-    { value: "orange", label: "orange" },
-    { value: "yellow", label: "yellow" },
-    { value: "green", label: "green" },
-    { value: "blue", label: "blue" },
-    { value: "purple", label: "purple" },
-    { value: "pink", label: "pink" },
-    { value: "aqua", label: "aqua" },
-    { value: "gray", label: "gray" },
-    { value: "brown", label: "brown" },
-  ];
-
-  const sectionClasses = () => {
-    let classes =
-      "padding-vertical-xxlg pale-gray-bg " +
-      (blackWhite ? "print-bw " : "print-color ");
-    if (perPage !== null) {
-      switch (perPage.value) {
-        case "2":
-          classes += "print-two ";
-          break;
-        case "4":
-          classes += "print-four ";
-          break;
-        case "6":
-          classes += "print-six ";
-          break;
-        default:
-          classes += "print-four ";
-          break;
-      }
+        if (index === 2 && i === 2) {  // Replace middle position with "Free"
+          chosenNumbers.push("Free");
+        } else {
+          chosenNumbers.push(
+            numbers[letter].splice(
+              Math.floor(Math.random() * numbers[letter].length),
+              1
+            )[0]
+            );
+          }
+        }
+        card[letter] = chosenNumbers;
+      });
+      return card;
+    };
+  
+    const numberOfCardsOptions = [];
+    for (let i = 0; i <= 100; i++) {
+      numberOfCardsOptions.push({ value: i.toString(), label: i.toString() });
     }
-    return classes;
-  };
-
-  const generateButtonDisabled = () => {
+  
+    const startingPointOptions = [];
+    for (let i = 1; i <= 1000; i++) {
+      startingPointOptions.push({ value: i.toString(), label: i.toString() });
+    }
+  
+    const colorOptions = [
+      { value: "red", label: "red" },
+      { value: "orange", label: "orange" },
+      { value: "yellow", label: "yellow" },
+      { value: "green", label: "green" },
+      { value: "blue", label: "blue" },
+      { value: "purple", label: "purple" },
+      { value: "pink", label: "pink" },
+      { value: "aqua", label: "aqua" },
+      { value: "gray", label: "gray" },
+      { value: "brown", label: "brown" },
+    ];
+  
+    const sectionClasses = () => {
+      let classes =
+        "padding-vertical-xxlg pale-gray-bg " +
+        (blackWhite ? "print-bw " : "print-color ");
+      if (perPage !== null) {
+        switch (perPage.value) {
+          case "2":
+            classes += "print-two ";
+            break;
+          case "4":
+            classes += "print-four ";
+            break;
+          case "6":
+            classes += "print-six ";
+            break;
+          default:
+            classes += "print-four ";
+            break;
+        }
+      }
+      return classes;
+    };
+  
+    const generateButtonDisabled = () => {
+      return (
+        numberOfCards === null ||
+        color === null ||
+        branch === null ||
+        startingPoint === null
+      );
+    };
+  
     return (
-      numberOfCards === null ||
-      color === null ||
-      branch === null ||
-      startingPoint === null
-    );
-  };
-
-  return (
-    <section className={sectionClasses()}>
-      <div className="container row no-print">
-        <div className="col">
-          <h1>Card Generator</h1>
-
-          <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
-            <div className="col shrink padding-horizontal-md">
-              <select className="number-select" onChange={handleNumberSelect}>
-                <option value="">Number of Cards</option>
-                {numberOfCardsOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col shrink padding-horizontal-md">
-              <select className="number-select" onChange={handleColorSelect}>
-                <option value="">Card Colors</option>
-                {colorOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col shrink padding-horizontal-md">
-              <select
-                className="branch-name-input"
-                onChange={handleBranchSelect}
-              >
-                <option value="">Select Branch</option>
-                {["admin", "employee"].includes(currentUser.role) ? (
-                  <option value={currentUser.branch}>
-                    {currentUser.branch}
-                  </option>
-                ) : currentUser.role == "superadmin" ? (
-                  superBranch.map((branch) => (
-                    <option key={branch.id} value={branch.name}>
-                      {branch.name}
+      <section className={sectionClasses()}>
+        <div className="container row no-print">
+          <div className="col">
+            <h1>Card Generator</h1>
+  
+            <div className="row justify-start align-center extra-pale-gray-bg padding-xlg">
+              <div className="col shrink padding-horizontal-md">
+                <select className="number-select" onChange={handleNumberSelect}>
+                  <option value="">Number of Cards</option>
+                  {numberOfCardsOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
                     </option>
-                  ))
-                ) : (
-                  users &&
-                  users.map((user) => (
-                    <option key={user.id} value={user.name}>
-                      {user.name}
+                  ))}
+                </select>
+              </div>
+              <div className="col shrink padding-horizontal-md">
+                <select className="number-select" onChange={handleColorSelect}>
+                  <option value="">Card Colors</option>
+                  {colorOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
                     </option>
-                  ))
-                )}
-              </select>
-            </div>
-            <div className="col shrink padding-horizontal-md">
-              <select
-                className="starting-point-select"
-                onChange={handleStartingPointSelect}
+                  ))}
+                </select>
+              </div>
+              <div className="col shrink padding-horizontal-md">
+                <select
+                  className="branch-name-input"
+                  onChange={handleBranchSelect}
+                >
+                  <option value="">Select Branch</option>
+                  {["admin", "employee"].includes(currentUser.role) ? (
+                    <option value={currentUser.branch}>{currentUser.branch}</option>
+                  ) : currentUser.role == "superadmin" ? (
+                    superBranch.map((branch) => (
+                      <option key={branch.id} value={branch.name}>
+                        {branch.name}
+                      </option>
+                    ))
+                  ) : (
+                    users &&
+                    users.map((user) => (
+                      <option key={user.id} value={user.name}>
+                        {user.name}
+                      </option>
+                    ))
+                  )}
+                </select>
+              </div>
+              <div className="col shrink padding-horizontal-md">
+                <select
+                  className="starting-point-select"
+                  onChange={handleStartingPointSelect}
               >
                 <option value="">Starting Point</option>
                 {startingPointOptions.map((option) => (
