@@ -7,8 +7,8 @@ salesRouter.get("/getSales/:cashier", getSalesByCashier);
 
 salesRouter.post("/sales", sales);
 salesRouter.get("/salesBranch", salesBranch);
-salesRouter.get('/salesTimeByBranch', salesTimeByBranch);
-salesRouter.get('/salesBranchByBranch', salesBranchByBranch);
+salesRouter.get("/salesTimeByBranch", salesTimeByBranch);
+salesRouter.get("/salesBranchByBranch", salesBranchByBranch);
 salesRouter.get("/salesTime", salesTime);
 salesRouter.delete("/deletesales/:id", deleteBranch);
 export default salesRouter

@@ -81,7 +81,16 @@ const Sales = () => {
     fetchSales();
   }, []);
 
- 
+  const handleDeleteUser = async (userId) => {
+    try {
+      await axios.delete(
+        `http://localhost:4000/api/sales/deletesales/${userId}`
+      );
+      setFilteredSales((prev) => prev.filter((sale) => sale._id !== userId));
+    } catch (err) {
+      setError("Error deleting sale");
+    }
+  };
 
   const [users, setUsers] = useState([]);
 
@@ -262,7 +271,7 @@ const Sales = () => {
                 <th className="tw-p-2 tw-px-4">Winners</th>
                 <th className="tw-p-2 tw-px-4">Branch</th>
                 <th className="tw-p-2 tw-px-4">Cashier</th>
-               
+                <th className="tw-p-2 tw-px-4">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -280,7 +289,14 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">{data.winner.join(", ")}</td>
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
-                 
+                  <td className="tw-p-2 tw-px-4">
+                    <button
+                      onClick={() => handleDeleteUser(data._id)}
+                      className="tw-bg-red-500 tw-text-white tw-px-2 tw-py-1 tw-rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
