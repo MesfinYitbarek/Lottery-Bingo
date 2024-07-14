@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-
-
 import { useSelector } from "react-redux";
 
 const Users = () => {
@@ -27,15 +25,15 @@ const Users = () => {
   }, [users]);
 
   const handleFilter = () => {
-   let filtered = users;
+    let filtered = users;
 
-  if (startDate) {
-    filtered = filtered.filter(
-      (sale) => new Date(sale.createdAt) >= new Date(startDate)
-    );
-  }
-  setFilteredSales(filtered);
-  }
+    if (startDate) {
+      filtered = filtered.filter(
+        (sale) => new Date(sale.createdAt) >= new Date(startDate)
+      );
+    }
+    setFilteredSales(filtered);
+  };
   return (
     <div className="tw-mt-10 ">
       <div>
@@ -52,7 +50,7 @@ const Users = () => {
         >
           Find
         </button>
-         </div>
+      </div>
 
       <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
         <thead>
@@ -70,46 +68,51 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredSales ? filteredSales.map((data) => (
-              <tr key={data._id} className="tw-hover:bg-slate-100">
-                <td className="tw-p-2 tw-px-4">
-                  {new Date(data.createdAt).toLocaleDateString()}
-                </td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].total}</td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
-                <td className="tw-p-2 tw-px-4">
-                  {data.winners[0].winner
-                    ? data.winners[0].winner.join(", ")
-                    : "-"}
-                </td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
-              </tr>
-            )) :
-            users.map((data) => (
-              <tr key={data._id} className="tw-hover:bg-slate-100">
-                <td className="tw-p-2 tw-px-4">
-                  {new Date(data.createdAt).toLocaleDateString()}
-                </td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].total}</td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
-                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
-                <td className="tw-p-2 tw-px-4">
-                  {data.winners[0].winner
-                    ? data.winners[0].winner.join(", ")
-                    : "-"}
-                </td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
-                <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
-              </tr>
-            ))}
+          {filteredSales
+            ? filteredSales.map((data) => (
+                <tr key={data._id} className="tw-hover:bg-slate-100">
+                  <td className="tw-p-2 tw-px-4">
+                    {new Date(data.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
+                  <td className="tw-p-2 tw-px-4">
+                    &#36;{data.winners[0].total}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
+                  <td className="tw-p-2 tw-px-4">
+                    {data.winners[0].winner
+                      ? data.winners[0].winner.join(", ")
+                      : "-"}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
+                </tr>
+              ))
+            : users.map((data) => (
+                <tr key={data._id} className="tw-hover:bg-slate-100">
+                  <td className="tw-p-2 tw-px-4">
+                    {new Date(data.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
+                  <td className="tw-p-2 tw-px-4">
+                    &#36;{data.winners[0].total}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
+                  <td className="tw-p-2 tw-px-4">
+                    {data.winners[0].winner
+                      ? data.winners[0].winner.join(", ")
+                      : "-"}
+                  </td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
+                </tr>
+              ))}
         </tbody>
       </table>
       {error && <p className="tw-text-red-500 ">{error}</p>}

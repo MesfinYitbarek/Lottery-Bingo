@@ -8,7 +8,7 @@ const AddUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
   const navigate = useNavigate();
-  console.log(formData);
+
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {

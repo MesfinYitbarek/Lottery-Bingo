@@ -31,7 +31,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
         throw new Error('Failed to fetch cartela');
       }
       const data = await response.json();
-      console.log('Fetched data:', data);
+      
       setCartela(data);
     } catch (error) {
       setFetchError(error.message);
@@ -42,7 +42,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
 
   useEffect(() => {
     if (cartela && cartela.length > 0) {
-      console.log('Cartela state updated:', cartela);
+      
       checkCartelaNumbers(cartela[0]);
     }
   }, [cartela]);
@@ -89,7 +89,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     setBingoNumbers(bingoLine || []);
   };
 
-  console.log('cartelamodel', betAmount, cardCount, totalAmount, selectedCards);
+  
 
   const saveBingoData = () => {
     setWinnerCards((prevWinnerCards) => [...prevWinnerCards, cartelaId]);
@@ -118,20 +118,20 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     try {
       const response = await axios.post('http://localhost:4000/api/sales/sales', { winners: [bingoData] });
       if (response.status === 200) {
-        console.log('Bingo data saved successfully');
+        
         alert('Sales data saved successfully');
         setWinnerCards([]); // Clear winner cards after saving
         onClose(); // Close the modal
       } else {
-        console.error('Failed to save bingo data');
+        alert('Failed to save bingo data');
       }
     } catch (error) {
-      console.error('Error saving bingo data:', error);
+      alert('Error saving bingo data:', error);
     }
   };
 
   useEffect(() => {
-    console.log('Matched numbers updated:', matchedNumbers);
+    
   }, [matchedNumbers]);
 
   return (

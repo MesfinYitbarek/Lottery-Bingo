@@ -85,6 +85,11 @@ const AgentDash = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  const formatNumber = (num) => {
+    if (num < 1000) return num; // No formatting for numbers below 1000
+    return (num / 1000).toFixed(1) + 'K'; // Format numbers above 1000 with "K"
+  };
+  
   const barData = (data, label) => ({
     labels: data.map(item => item._id),
     datasets: [
@@ -142,19 +147,19 @@ const AgentDash = () => {
       <div className='tw-flex tw-gap-10'>
         <div style={{ marginBottom: '20px' }} className='tw-grid tw-grid-cols-2 tw-gap-7'>
           <div className='tw-rounded-lg tw-flex-col tw-justify-center tw-items-center tw-gap-2 tw-bg-white tw-p-9 tw-shadow-lg'>
-            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${aggregatedSales.dailyTotal}</p>
+            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${formatNumber(aggregatedSales.dailyTotal)}</p>
             <p className='tw-text-center'>Today's sales</p>
           </div>
           <div className='tw-rounded-lg tw-bg-white tw-p-9 tw-shadow-lg'>
-            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${aggregatedSales.weeklyTotal}</p>
+            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${formatNumber(aggregatedSales.weeklyTotal)}</p>
             <p className='tw-text-center'>Weekly sales</p>
           </div>
           <div className='tw-rounded-lg tw-bg-white tw-p-9 tw-shadow-lg'>
-            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${aggregatedSales.monthlyTotal}</p>
+            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${formatNumber(aggregatedSales.monthlyTotal)}</p>
             <p className='tw-text-center'>Monthly sales</p>
           </div>
           <div className='tw-rounded-lg tw-bg-white tw-p-9 tw-shadow-lg'>
-            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${aggregatedSales.yearlyTotal}</p>
+            <p className='tw-text-center tw-text-red-500 tw-font-bold tw-text-2xl'>${formatNumber(aggregatedSales.yearlyTotal)}</p>
             <p className='tw-text-center'>Yearly sales</p>
           </div>
         </div>
