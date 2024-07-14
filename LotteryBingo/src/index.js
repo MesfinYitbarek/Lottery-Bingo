@@ -36,6 +36,7 @@ import CardForm from "./components/admin/Card.js";
 import { BalanceProvider } from "./components/BalanceContext.js";
 import CaheirContainer from "./components/admin/CasheirAdmin.js";
 import ChangePassword from "./components/Authentication/ChangePassword.js";
+import AgentDash from "./components/admin/AgentDashboard.js";
 
 const App = () => (
   <Provider store={store}>
@@ -53,6 +54,7 @@ const App = () => (
           </Route>
           <Route element={<PrivateRoute allowedRoles={["superadmin", "admin", "agent"]} />}>
             <Route exact path="/admin" element={<AdminContainer />} />
+            <Route exact path="/agent" element={<AgentDash />} />
             <Route path="/users" element={<Users />} />
             <Route path="/about" element={<About />} />
      

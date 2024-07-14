@@ -131,71 +131,101 @@ export const salesBranch = async (req, res) => {
 export const salesTimeByBranch = async (req, res) => {
   try {
     const { branch } = req.query;
+    const branches = branch ? branch.split(',') : [];
     const now = new Date();
+
+    // Set dates without hours to ensure day-level granularity
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay());
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const startOfYear = new Date(now.getFullYear(), 0, 1);
 
-    const matchStage = branch ? { $match: { 'winners.branch': branch, 'winners.createdAt': { $gte: startOfDay } } } : { $match: { 'winners.createdAt': { $gte: startOfDay } } };
+    const getMatchStage = (date, branch) => branch
+      ? { $match: { 'winners.branch': branch, 'createdAt': { $gte: date } } }
+      : { $match: { 'createdAt': { $gte: date } } };
 
-    const dailyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      matchStage,
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
+    const aggregateSales = async (branch, startDate) => {
+      return await Sales.aggregate([
+        { $unwind: '$winners' },
+        getMatchStage(startDate, branch),
+        { $group: { _id: null, total: { $sum: '$winners.total' } } }
+      ]);
+    };
 
-    matchStage.$match['winners.createdAt'] = { $gte: startOfWeek };
-    const weeklyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      matchStage,
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
+    const dailyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfDay)));
+    const weeklyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfWeek)));
+    const monthlyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfMonth)));
+    const yearlyTotals = await Promise.all(branches.map(branch => aggregateSales(branch, startOfYear)));
 
-    matchStage.$match['winners.createdAt'] = { $gte: startOfMonth };
-    const monthlyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      matchStage,
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
-
-    matchStage.$match['winners.createdAt'] = { $gte: startOfYear };
-    const yearlyTotal = await Sales.aggregate([
-      { $unwind: '$winners' },
-      matchStage,
-      { $group: { _id: null, total: { $sum: '$winners.total' } } }
-    ]);
+    const sumTotals = (totals) => totals.reduce((acc, total) => acc + (total[0]?.total || 0), 0);
 
     res.json({
-      dailyTotal: dailyTotal[0]?.total || 0,
-      weeklyTotal: weeklyTotal[0]?.total || 0,
-      monthlyTotal: monthlyTotal[0]?.total || 0,
-      yearlyTotal: yearlyTotal[0]?.total || 0,
+      dailyTotal: sumTotals(dailyTotals),
+      weeklyTotal: sumTotals(weeklyTotals),
+      monthlyTotal: sumTotals(monthlyTotals),
+      yearlyTotal: sumTotals(yearlyTotals),
     });
   } catch (error) {
+    console.error('Error fetching aggregated sales data:', error);
     res.status(500).json({ error: 'Failed to fetch aggregated sales data' });
   }
-}
+};
 
 export const salesBranchByBranch = async (req, res) => {
   try {
     const { branch } = req.query;
-    const matchStage = branch ? { $match: { 'winners.branch': branch } } : {};
+    const branches = branch ? branch.split(',') : [];
+    const matchStage = (branch) => (branch ? { $match: { 'winners.branch': branch } } : {});
 
-    const salesByBranch = await Sales.aggregate([
-      { $unwind: '$winners' },
-      matchStage,
-      { $group: { _id: '$winners.branch', total: { $sum: '$winners.total' } } }
-    ]);
+    console.log('Branch:', branch);
+    console.log('Branches array:', branches);
 
-    const salesByCashier = await Sales.aggregate([
-      { $unwind: '$winners' },
-      matchStage,
-      { $group: { _id: '$winners.cashier', total: { $sum: '$winners.total' } } }
-    ]);
+    const aggregateBranchSales = async (branch) => {
+      return await Sales.aggregate([
+        { $unwind: '$winners' },
+        matchStage(branch),
+        { $group: { _id: '$winners.branch', total: { $sum: '$winners.total' } } }
+      ]);
+    };
+
+    console.log('Aggregate Branch Sales function:', aggregateBranchSales);
+
+    const aggregateCashierSales = async (branch) => {
+      return await Sales.aggregate([
+        { $unwind: '$winners' },
+        matchStage(branch),
+        { $group: { _id: '$winners.cashier', total: { $sum: '$winners.total' } } }
+      ]);
+    };
+
+    const salesByBranchPromises = branches.map(branch => aggregateBranchSales(branch));
+    const salesByCashierPromises = branches.map(branch => aggregateCashierSales(branch));
+
+    const salesByBranchResults = await Promise.all(salesByBranchPromises);
+    const salesByCashierResults = await Promise.all(salesByCashierPromises);
+
+    console.log('Sales by Branch Results:', salesByBranchResults);
+    console.log('Sales by Cashier Results:', salesByCashierResults);
+
+    const mergeResults = (results) => {
+      const merged = {};
+      results.flat().forEach(item => {
+        if (merged[item._id]) {
+          merged[item._id] += item.total;
+        } else {
+          merged[item._id] = item.total;
+        }
+      });
+      return Object.entries(merged).map(([id, total]) => ({ _id: id, total }));
+    };
+
+    const salesByBranch = mergeResults(salesByBranchResults);
+    const salesByCashier = mergeResults(salesByCashierResults);
 
     res.json({ salesByBranch, salesByCashier });
   } catch (error) {
+    console.error('Error fetching grouped sales data:', error);
     res.status(500).json({ error: 'Failed to fetch grouped sales data' });
   }
-}
+};
