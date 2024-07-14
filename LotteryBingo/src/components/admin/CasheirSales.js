@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 
@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 const Users = () => {
   const [users, setUsers] = React.useState([]);
   const [error, setError] = React.useState(null);
+  const [filteredSales, setFilteredSales] = useState([]);
+  const [startDate, setStartDate] = useState("");
   const { currentUser } = useSelector((state) => state.user);
   React.useEffect(() => {
     const fetchUsers = async () => {
@@ -24,8 +26,34 @@ const Users = () => {
     fetchUsers();
   }, [users]);
 
+  const handleFilter = () => {
+   let filtered = users;
+
+  if (startDate) {
+    filtered = filtered.filter(
+      (sale) => new Date(sale.createdAt) >= new Date(startDate)
+    );
+  }
+  setFilteredSales(filtered);
+  }
   return (
     <div className="tw-mt-10 ">
+      <div>
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
+          placeholder="Start Date"
+        />
+        <button
+          onClick={handleFilter}
+          className="tw-px-4 tw-py-2 tw-bg-blue-600 tw-text-white tw-rounded"
+        >
+          Find
+        </button>
+         </div>
+
       <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
         <thead>
           <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
@@ -42,7 +70,26 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users &&
+          {filteredSales ? filteredSales.map((data) => (
+              <tr key={data._id} className="tw-hover:bg-slate-100">
+                <td className="tw-p-2 tw-px-4">
+                  {new Date(data.createdAt).toLocaleDateString()}
+                </td>
+                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
+                <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
+                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].total}</td>
+                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
+                <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
+                <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
+                <td className="tw-p-2 tw-px-4">
+                  {data.winners[0].winner
+                    ? data.winners[0].winner.join(", ")
+                    : "-"}
+                </td>
+                <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
+                <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
+              </tr>
+            )) :
             users.map((data) => (
               <tr key={data._id} className="tw-hover:bg-slate-100">
                 <td className="tw-p-2 tw-px-4">

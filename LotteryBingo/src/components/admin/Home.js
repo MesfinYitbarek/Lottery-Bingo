@@ -13,8 +13,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import moment from 'moment';
-import { BiDollar } from 'react-icons/bi';
+
 
 ChartJS.register(
   CategoryScale,

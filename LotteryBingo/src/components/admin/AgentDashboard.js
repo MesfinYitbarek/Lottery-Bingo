@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Bar, Pie , Line} from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -7,9 +7,11 @@ import {
   BarElement,
   PieController,
   ArcElement,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 } from 'chart.js';
 import { useSelector } from 'react-redux';
 
@@ -19,6 +21,8 @@ ChartJS.register(
   BarElement,
   PieController,
   ArcElement,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
   Legend
@@ -119,6 +123,20 @@ const AgentDash = () => {
     ],
   });
 
+  const lineData = (data) => ({
+    labels: data.map(item => item._id),
+    datasets: [
+      {
+        label: 'Sales by Branch',
+        data: data.map(item => item.total),
+        fill: false,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(5, 38, 255, 1)',
+        borderWidth: 2,
+        tension: 0.1,
+      },
+    ],
+  });
   return (
     <div style={{ padding: '10px' }}>
       <div className='tw-flex tw-gap-10'>
@@ -150,6 +168,19 @@ const AgentDash = () => {
           <h2 className='tw-text-blue-800'>Sales by Cashier</h2>
           <Bar data={barData(salesByCashier, 'Sales by Cashier')} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Sales by Cashier' }}}}/>
         </div>
+      </div>
+      <div style={{ marginBottom: '40px' }}>
+        <h2 className='tw-text-blue-800'>Sales by Branch (Line Chart)</h2>
+        <Line
+          data={lineData(salesByBranch)}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Sales by Branch Over Time' },
+            },
+          }}
+        />
       </div>
     </div>
   );
