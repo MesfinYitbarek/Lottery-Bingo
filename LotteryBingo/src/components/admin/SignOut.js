@@ -12,7 +12,7 @@ const SignOut = () => {
   const handleSignout = async () => {
     try {
       dispatch(signoutUserStart());
-      const res = await fetch("http://localhost:4000/api/user/signout/");
+      const res = await fetch("/api/user/signout/");
       const data = await res.json();
       if (data.success === false) {
         dispatch(signoutUserFailure(data.message));

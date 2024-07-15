@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Users = () => {
-  const [users, setUsers] = React.useState([]);
-  const [error, setError] = React.useState(null);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
   const [filteredSales, setFilteredSales] = useState([]);
   const [startDate, setStartDate] = useState("");
   const { currentUser } = useSelector((state) => state.user);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/sales/getSales/${currentUser.username}`
+          `/api/sales/getSales/${currentUser.username}`
         );
         const data = await response.json();
         setUsers(data);
@@ -22,7 +22,7 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, [users]);
+  }, [currentUser.username]);
 
   const handleFilter = () => {
     let filtered = users;
@@ -34,8 +34,30 @@ const Users = () => {
     }
     setFilteredSales(filtered);
   };
+
+  // Calculate totals
+  const totalWinning = filteredSales.reduce(
+    (sum, sale) => sum + (sale.winners[0]?.won || 0),
+    0
+  );
+  const totalCut = filteredSales.reduce(
+    (sum, sale) => sum + (sale.winners[0]?.cut || 0),
+    0
+  );
+  const totalTransactions = filteredSales.length;
+
   return (
     <div className="tw-mt-10 ">
+      <div className="tw-text-green-700 tw-pl-10 tw-font-bold tw-text-3xl">
+        Sales <span className="tw-text-pink-600">(${currentUser.balance})</span>
+      </div>
+
+      <div className="tw-mb-5 tw-text-end tw-font-bold tw-text-xl tw-text-purple-600 tw-pr-12">
+        <div>Total Winning: ${totalWinning}</div>
+        <div>Total Cut: ${totalCut}</div>
+        <div>Total Transactions: {totalTransactions}</div>
+      </div>
+      
       <div>
         <input
           type="date"
@@ -68,51 +90,30 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredSales
-            ? filteredSales.map((data) => (
+          {filteredSales.length > 0
+            && filteredSales.map((data) => (
                 <tr key={data._id} className="tw-hover:bg-slate-100">
                   <td className="tw-p-2 tw-px-4">
                     {new Date(data.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0]?.bet}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0]?.player}</td>
                   <td className="tw-p-2 tw-px-4">
-                    &#36;{data.winners[0].total}
+                    &#36;{data.winners[0]?.total}
                   </td>
-                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
-                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0]?.cut}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0]?.won}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0]?.call}</td>
                   <td className="tw-p-2 tw-px-4">
-                    {data.winners[0].winner
+                    {data.winners[0]?.winner
                       ? data.winners[0].winner.join(", ")
                       : "-"}
                   </td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
-                </tr>
-              ))
-            : users.map((data) => (
-                <tr key={data._id} className="tw-hover:bg-slate-100">
-                  <td className="tw-p-2 tw-px-4">
-                    {new Date(data.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].bet}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].player}</td>
-                  <td className="tw-p-2 tw-px-4">
-                    &#36;{data.winners[0].total}
-                  </td>
-                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].cut}</td>
-                  <td className="tw-p-2 tw-px-4">&#36;{data.winners[0].won}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].call}</td>
-                  <td className="tw-p-2 tw-px-4">
-                    {data.winners[0].winner
-                      ? data.winners[0].winner.join(", ")
-                      : "-"}
-                  </td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].branch}</td>
-                  <td className="tw-p-2 tw-px-4">{data.winners[0].cashier}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0]?.branch}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0]?.cashier}</td>
                 </tr>
               ))}
+            
         </tbody>
       </table>
       {error && <p className="tw-text-red-500 ">{error}</p>}

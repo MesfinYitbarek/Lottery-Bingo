@@ -16,7 +16,7 @@ const CardFetcher = ({ selectedCards }) => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+          `/api/branch/getbranch/${currentUser.username}`
         );
         const data = await response.json();
         setUsers(data);
@@ -32,7 +32,7 @@ const CardFetcher = ({ selectedCards }) => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
@@ -46,7 +46,7 @@ const CardFetcher = ({ selectedCards }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`http://localhost:4000/api/card/getCards?branch=${branch}`);
+      const response = await axios.get(`/api/card/getCards?branch=${branch}`);
       setCards(response.data);
     } catch (error) {
       setError("Failed to fetch cards");
@@ -69,7 +69,7 @@ const CardFetcher = ({ selectedCards }) => {
 
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:4000/api/card/deletecard/${userId}`);
+      await axios.delete(`/api/card/deletecard/${userId}`);
       fetchCards(branch); // Refetch cards after deleting
     } catch (err) {
       setError("Error deleting card");

@@ -13,7 +13,7 @@ const AddUsers = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+          `/api/branch/getbranch/${currentUser.username}`
         );
         const data = await response.json();
         setUsers(data);
@@ -37,7 +37,7 @@ const AddUsers = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:4000/api/user/signup/${currentUser._id}`,
+        `/api/user/signup/${currentUser._id}`,
         {
           method: "POST",
           headers: {

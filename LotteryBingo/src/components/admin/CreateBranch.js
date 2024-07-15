@@ -22,7 +22,7 @@ const CreateBranch = () => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/user/branch`);
+        const response = await fetch(`/api/user/branch`);
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -39,7 +39,7 @@ const CreateBranch = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:4000/api/branch/createbranch/${currentUser._id}`,
+        `/api/branch/createbranch/${currentUser._id}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -12,7 +12,7 @@ const DashboardHeader = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-               const res = await axios.get(`http://localhost:4000/api/credit/${currentUser._id}/balance`);
+               const res = await axios.get(`/api/credit/${currentUser._id}/balance`);
         setBalance(res.data.balance);
       } catch (err) {
         alert('Error fetching balance');

@@ -24,7 +24,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     setIsFetching(true);
     setFetchError(null);
     try {
-      const response = await fetch(`http://localhost:4000/api/card/cartela/${currentUser.branch}/${cartelaId}`, {
+      const response = await fetch(`/api/card/cartela/${currentUser.branch}/${cartelaId}`, {
         method: 'GET',
       });
       if (!response.ok) {
@@ -116,7 +116,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     };
 
     try {
-      const response = await axios.post('http://localhost:4000/api/sales/sales', { winners: [bingoData] });
+      const response = await axios.post('/api/sales/sales', { winners: [bingoData] });
       if (response.status === 200) {
         
         alert('Sales data saved successfully');

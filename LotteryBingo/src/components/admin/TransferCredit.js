@@ -18,7 +18,7 @@ const TransferCredit = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/credit/${currentUser._id}/balance`);
+        const res = await axios.get(`/api/credit/${currentUser._id}/balance`);
         setBalance(res.data.balance);
       } catch (err) {
         alert('Error fetching balance');
@@ -35,7 +35,7 @@ const TransferCredit = () => {
   useEffect(() => {
     const fetchgetCredit = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/credit/getCredit/${currentUser.phone}`);
+        const res = await axios.get(`/api/credit/getCredit/${currentUser.phone}`);
         setCreditget(res.data);
         
       } catch (err) {
@@ -60,7 +60,7 @@ const TransferCredit = () => {
       updateUserStart();
       setLoading(true);
       try {
-        await axios.post("http://localhost:4000/api/credit/transfer", {
+        await axios.post("/api/credit/transfer", {
           amount,
           receiver: receiver,
           sender: currentUser.phone,
@@ -79,7 +79,7 @@ const TransferCredit = () => {
   const handleDeleteUser = async (userId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/credit/delete/${userId}`
+        `/api/credit/delete/${userId}`
       );
     } catch (err) {
       setError("Error deleting User");

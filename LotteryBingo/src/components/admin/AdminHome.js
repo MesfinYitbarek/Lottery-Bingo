@@ -40,25 +40,25 @@ const AdminDashboardHome = () => {
     const fetchSalesData = async () => {
       try {
         const aggregatedResponse = await fetch(
-          `http://localhost:4000/api/sales/salesTimeByBranch?branch=${currentUser.branch}`
+          `/api/sales/salesTimeByBranch?branch=${currentUser.branch}`
         );
         const aggregatedData = await aggregatedResponse.json();
         setAggregatedSales(aggregatedData);
 
         const groupedResponse = await fetch(
-          `http://localhost:4000/api/sales/salesBranchByBranch?branch=${currentUser.branch}`
+          `/api/sales/salesBranchByBranch?branch=${currentUser.branch}`
         );
         const groupedData = await groupedResponse.json();
         setSalesByBranch(groupedData.salesByBranch);
         setSalesByCashier(groupedData.salesByCashier);
 
         setLoading(false);
-      } catch (err) {
+      } catch (err) { 
         setError('Failed to fetch sales data');
-        setLoading(false);
-      }
+        setLoading(false); 
+      } 
     };
-
+           
     fetchSalesData();
   }, [currentUser.branch]);
 

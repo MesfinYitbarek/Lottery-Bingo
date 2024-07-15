@@ -19,7 +19,7 @@ const CreateCredit = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`http://localhost:4000/api/credit/create/${currentUser._id}`, {
+      await axios.post(`/api/credit/create/${currentUser._id}`, {
         amount,
         receiver,
       });
@@ -41,7 +41,7 @@ const CreateCredit = () => {
   useEffect(() => {
     const fetchgetCredit = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/credit/getCredit/${currentUser.phone}`);
+        const res = await axios.get(`/api/credit/getCredit/${currentUser.phone}`);
         setCreditget(res.data);
         
       } catch (err) {
@@ -57,7 +57,7 @@ const CreateCredit = () => {
   const handleDeleteUser = async (userId) => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/credit/deletecredit/${userId}`
+        `/api/credit/deletecredit/${userId}`
       );
     } catch (err) {
       setError("Error deleting User");
