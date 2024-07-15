@@ -23,7 +23,7 @@ const Sales = () => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
@@ -38,7 +38,7 @@ const Sales = () => {
     const fetchgetBranches = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+          `/api/branch/getbranch/${currentUser.username}`
         );
         const data = await response.json();
         setgetBranch(data);
@@ -53,7 +53,7 @@ const Sales = () => {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/branch/branch");
+        const response = await fetch("/api/branch/branch");
         const data = await response.json();
         setBranch(data);
       } catch (err) {
@@ -68,7 +68,7 @@ const Sales = () => {
     const fetchSales = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/sales/getSales"
+          "/api/sales/getSales"
         );
         const data = await response.json();
         const expandedSales = data.flatMap((sale) => sale.winners);
@@ -89,7 +89,7 @@ const Sales = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/user/users/${currentUser._id}`
+          `/api/user/users/${currentUser._id}`
         );
         const data = await response.json();
         setUsers(data);
@@ -106,7 +106,7 @@ const Sales = () => {
       if (selectedBranch) {
         try {
           const response = await fetch(
-            `http://localhost:4000/api/user/getusers/${selectedBranch}`
+            `/api/user/getusers/${selectedBranch}`
           );
           const data = await response.json();
           setBranchCashiers(data);

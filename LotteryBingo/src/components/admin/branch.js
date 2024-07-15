@@ -13,7 +13,7 @@ const Branch = () => {
     React.useEffect(() => {
         const fetchUsers = async () => {
           try {
-            const response = await fetch(`http://localhost:4000/api/user/branch`);
+            const response = await fetch(`/api/user/branch`);
             const data = await response.json();
             setUsers(data);
           } catch (err) {
@@ -26,7 +26,7 @@ const Branch = () => {
       React.useEffect(() => {
         const fetchUsers = async () => {
           try {
-            const response = await fetch(`http://localhost:4000/api/branch/branch`);
+            const response = await fetch(`/api/branch/branch`);
             const data = await response.json();
             setBranch(data);
           } catch (err) {
@@ -40,7 +40,7 @@ const Branch = () => {
 
       const handleDeleteUser = async (userId) => {
         try {
-          const response = await axios.delete(`http://localhost:4000/api/user/deletebranch/${userId}`);
+          const response = await axios.delete(`/api/user/deletebranch/${userId}`);
     
           if (response.data.success) {
             setUsers([...users.filter((users) => users._id !== userId)]);
@@ -55,7 +55,7 @@ const Branch = () => {
 
       const handleDeleteBranch = async (userId) => {
         try {
-          const response = await axios.delete(`http://localhost:4000/api/branch/deletebranch/${userId}`);
+          const response = await axios.delete(`/api/branch/deletebranch/${userId}`);
     
           if (response.data.success) {
             setBranch([...users.filter((users) => users._id !== userId)]);

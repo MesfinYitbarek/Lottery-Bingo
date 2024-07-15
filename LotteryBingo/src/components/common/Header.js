@@ -29,7 +29,7 @@ const Header = () => {
     const fetchBalance = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/credit/${currentUser._id}/balance`
+          `/api/credit/${currentUser._id}/balance`
         );
         setBalance(res.data.balance);
       } catch (err) {

@@ -19,7 +19,7 @@ const CardGenerator = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+          `/api/branch/getbranch/${currentUser.username}`
         );
         const data = await response.json();
         setUsers(data);
@@ -36,7 +36,7 @@ const CardGenerator = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
@@ -91,7 +91,7 @@ const CardGenerator = () => {
     // Save generated cards to backend
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/card/cards",
+        "/api/card/cards",
         {
           branch: branch,
           cards: cards.map((card) => ({ id: card.id, card: card.card })),

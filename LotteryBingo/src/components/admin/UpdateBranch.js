@@ -12,7 +12,7 @@ const UpdateBranch = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/branch/branch/${id}`
+          `/api/branch/branch/${id}`
         );
         setUser(response.data);
       } catch (err) {
@@ -31,7 +31,7 @@ const UpdateBranch = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/branch/updatebranch/${id}`,
+        `/api/branch/updatebranch/${id}`,
         user
       );
       if (response.data) {
@@ -50,7 +50,7 @@ const UpdateBranch = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/user/branch`
+          `/api/user/branch`
         );
         setAgent(response.data);
       } catch (err) {

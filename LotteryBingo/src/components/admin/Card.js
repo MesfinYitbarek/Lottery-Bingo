@@ -23,7 +23,7 @@ const CardForm = () => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/branch`);
+        const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
@@ -72,7 +72,7 @@ const CardForm = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/card/create",
+        "/api/card/create",
         cardData
       );
       alert("Card created!!");
@@ -89,7 +89,7 @@ const CardForm = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+          `/api/branch/getbranch/${currentUser.username}`
         );
         const data = await response.json();
         setUsers(data);

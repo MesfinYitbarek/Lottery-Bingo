@@ -77,7 +77,7 @@ const ChangePassword = ({ onClose }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:4000/api/user/${currentUser._id}/change-password`,
+        `/api/user/${currentUser._id}/change-password`,
         { oldPassword, newPassword, confirmPassword },
         config
       );

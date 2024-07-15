@@ -38,11 +38,11 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchSalesData = async () => {
       try {
-        const aggregatedResponse = await fetch('http://localhost:4000/api/sales/salesTime');
+        const aggregatedResponse = await fetch('/api/sales/salesTime');
         const aggregatedData = await aggregatedResponse.json();
         setAggregatedSales(aggregatedData);
 
-        const groupedResponse = await fetch('http://localhost:4000/api/sales/salesBranch');
+        const groupedResponse = await fetch('/api/sales/salesBranch');
         const groupedData = await groupedResponse.json();
         setSalesByBranch(groupedData.salesByBranch);
         setSalesByCashier(groupedData.salesByCashier);

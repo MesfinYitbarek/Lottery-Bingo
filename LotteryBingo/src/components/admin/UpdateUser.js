@@ -15,7 +15,7 @@ const EditUser = () => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/branch/getbranch/${currentUser.username}`
+          `/api/branch/getbranch/${currentUser.username}`
         );
         const data = await response.json();
         setUsers(data);
@@ -31,7 +31,7 @@ const EditUser = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/user/userEdit/${id}`
+          `/api/user/userEdit/${id}`
         );
         setUser(response.data);
       } catch (err) {
@@ -50,7 +50,7 @@ const EditUser = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/user/update/${id}`,
+        `/api/user/update/${id}`,
         user
       );
       if (response.data) {

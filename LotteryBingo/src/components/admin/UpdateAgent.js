@@ -11,7 +11,7 @@ const UpdateAgent = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/user/branch/${id}`);
+        const response = await axios.get(`/api/user/branch/${id}`);
         setUser(response.data);
       } catch (err) {
       
@@ -29,7 +29,7 @@ const UpdateAgent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-        const response = await axios.post(`http://localhost:4000/api/user/updatebranch/${id}`, user);
+        const response = await axios.post(`/api/user/updatebranch/${id}`, user);
         if (response.data) {
           setError(response.data.message || "Update successfully.");
         } else {
@@ -128,6 +128,7 @@ const UpdateAgent = () => {
 
               <option value={"admin"}>Admin</option>
               <option value={"agent"}>Agent</option>
+              <option value={"superadmin"}>Super Admin</option>
             </select>
           </div>
           

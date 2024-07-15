@@ -6,7 +6,11 @@ import { connect } from "react-redux";
 import withBalance from "./WithBalance.js";
 import Slider from "rc-slider";
 import Select from "react-select";
-import { updateUserStart, updateUserSuccess, updateUserFailure } from '../redux/user/userSlice';
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+} from "../redux/user/userSlice";
 import {
   FaVolumeUp,
   FaBell,
@@ -1238,78 +1242,81 @@ class BingoGame extends Component {
   };
 
   startNewAutoplayGame = async () => {
-    const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
-    const {balance} = this.props;
-    console.log("confirm", currentUser, balance)
-    if(balance < this.state.amount) {
-      alert('Insufficent balance',currentUser, balance);
+    const {
+      currentUser,
+      updateUserStart,
+      updateUserSuccess,
+      updateUserFailure,
+    } = this.props;
+    const { balance } = this.props;
+
+    if (balance < this.state.amount) {
+      alert("Insufficent balance", currentUser, balance);
     } else {
+      const newBalance = balance - this.state.amount;
 
-    
-    const newBalance = balance - this.state.amount;
- 
-   
- updateUserStart();
-    try {
-      await axios.put(`http://localhost:4000/api/user/${currentUser._id}/balance`, {
-        balance: newBalance,
-      }); 
-      updateUserSuccess({ ...currentUser, balance: newBalance }); 
-  
-      this.setState({
-        
-        board: generateBingoBoard(),
-        showstartModal: false,
-      });
+      updateUserStart();
+      try {
+        await axios.put(
+          `http://localhost:4000/api/user/${currentUser._id}/balance`,
+          {
+            balance: newBalance,
+          }
+        );
+        updateUserSuccess({ ...currentUser, balance: newBalance });
 
-    } catch (err) {
-      console.error('Error updating balance:', err);
-      alert('Error updating balance');
-    }
-    for (let i = 1; i <= 100; i++) {
-      const isRedState = this.state.isRed[`isRed${i}`];
+        this.setState({
+          board: generateBingoBoard(),
+          showstartModal: false,
+        });
+      } catch (err) {
+        console.error("Error updating balance:", err);
+        alert("Error updating balance");
+      }
+      for (let i = 1; i <= 100; i++) {
+        const isRedState = this.state.isRed[`isRed${i}`];
 
-      if (isRedState) {
-        this.selectedCards.push(i);
+        if (isRedState) {
+          this.selectedCards.push(i);
+        }
+      }
+
+      if (this.state.doubleCall) {
+        // this.say("Let's Play Bingo!");
+        let soundstartfa = new Audio(amharicfemaleplaystart);
+        soundstartfa.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 2000);
+      } else if (this.state.extraTalk) {
+        let soundstartfo = new Audio(oroplaystart);
+        soundstartfo.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
+      } else if (this.state.enableCaller) {
+        let soundstartma = new Audio(amharicmaleplaystart);
+        soundstartma.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 2000);
+      } else if (this.state.wolayta) {
+        let soundstartfw = new Audio(wolplaystart);
+        soundstartfw.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
+      } else if (this.state.tigrigna) {
+        let soundstartft = new Audio(tigplaystart);
+        soundstartft.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
+        // this.toggleGame();
+      } else {
+        this.toggleGame();
       }
     }
-
-    if (this.state.doubleCall) {
-      // this.say("Let's Play Bingo!");
-      let soundstartfa = new Audio(amharicfemaleplaystart);
-      soundstartfa.play();
-      window.setTimeout(() => {
-        this.toggleGame();
-      }, 2000);
-    } else if (this.state.extraTalk) {
-      let soundstartfo = new Audio(oroplaystart);
-      soundstartfo.play();
-      window.setTimeout(() => {
-        this.toggleGame();
-      }, 3000);
-    } else if (this.state.enableCaller) {
-      let soundstartma = new Audio(amharicmaleplaystart);
-      soundstartma.play();
-      window.setTimeout(() => {
-        this.toggleGame();
-      }, 2000);
-    } else if (this.state.wolayta) {
-      let soundstartfw = new Audio(wolplaystart);
-      soundstartfw.play();
-      window.setTimeout(() => {
-        this.toggleGame();
-      }, 3000);
-    } else if (this.state.tigrigna) {
-      let soundstartft = new Audio(tigplaystart);
-      soundstartft.play();
-      window.setTimeout(() => {
-        this.toggleGame();
-      }, 3000);
-      // this.toggleGame();
-    } else {
-      this.toggleGame();
-    }
-     }
   };
 
   toggleGame = () => {
@@ -1341,7 +1348,7 @@ class BingoGame extends Component {
 
     this.cancelSpeech();
     this.totalBallsCalled = 0;
-    
+
     this.selectedCards = [];
     this.previousBall = null;
     this.currentBall = null;
@@ -1352,41 +1359,42 @@ class BingoGame extends Component {
       running: false,
       showResetModal: false,
       previousCallList: [],
-      balance : 0,
+      balance: 0,
     });
   };
-  
-  
+
   confirmstartGame = async () => {
+    const {
+      currentUser,
+      updateUserStart,
+      updateUserSuccess,
+      updateUserFailure,
+    } = this.props;
+    const { balance } = this.props;
 
-    const { currentUser, updateUserStart, updateUserSuccess, updateUserFailure } = this.props;
-    const {balance} = this.props;
-    console.log("confirm", currentUser, balance)
-    if(balance < this.state.amount) {
-      alert('Insufficent balance',currentUser, balance);
+    if (balance < this.state.amount) {
+      alert("Insufficent balance", currentUser, balance);
     } else {
+      const newBalance = balance - this.state.amount;
 
-    
-    const newBalance = balance - this.state.amount;
- 
-    this.state.balance = this.state.amount - (this.state.amount * (currentUser.cut)/100)
-    
- 
-    this.startButton = 1;
-    let x = this.state.amount / 1.3333333333333;
-    this.amount = parseFloat(x.toFixed(3));
-    this.setState({
-      cutBalance: this.amount,
-    });
+      this.state.balance =
+        this.state.amount - (this.state.amount * currentUser.cut) / 100;
 
-    this.setState({
-      board: generateBingoBoard(),
-      showstartModal: false,
+      this.startButton = 1;
+      let x = this.state.amount / 1.3333333333333;
+      this.amount = parseFloat(x.toFixed(3));
+      this.setState({
+        cutBalance: this.amount,
+      });
 
-      // selectedCards:this.selectedCards,
-    });}
-  
-}
+      this.setState({
+        board: generateBingoBoard(),
+        showstartModal: false,
+
+        // selectedCards:this.selectedCards,
+      });
+    }
+  };
   callBingoNumber = () => {
     let totalBallsCalled = this.totalBallsCalled;
     let selectedPattern = this.state.selectedPattern;
@@ -1746,7 +1754,6 @@ class BingoGame extends Component {
   };
 
   get startConfirmationModalDisplay() {
-    console.log("card count is" + this.state.amount / this.state.betAmount);
     if (this.state.showstartModal === true) {
       let balance = this.totalBalance;
 
@@ -1819,15 +1826,7 @@ class BingoGame extends Component {
             onClick={(e) => {
               e.preventDefault();
             }}
-          >
-            {console.log(
-              this.state.betAmount,
-              this.state.amount,
-              this.state.cardCount
-            )}
-          </div>
-          {console.log(this.state.betAmount)}
-          {console.log("selected bingo", this.selectedCards)}
+          ></div>
         </div>
       );
     } else {
@@ -1990,7 +1989,7 @@ class BingoGame extends Component {
   /* ------------------- Render */
   render() {
     const { balance } = this.props;
-    console.log("baab" , balance)
+
     let colorClasses;
     if (this.state.blue) {
       colorClasses = "dark-blue-bg light-links";
@@ -2076,191 +2075,187 @@ class BingoGame extends Component {
               </div> */}
               </div>
 
-            {/* ----------- Gameplay Controls ------------- */}
-            <div className="col shrink padding-vertical-xxlg padding-horizontal-md">
-              <section className="gameplay-controls">
-                <div data-disabled={this.totalBallsCalled >= 75}>
+              {/* ----------- Gameplay Controls ------------- */}
+              <div className="col shrink padding-vertical-xxlg padding-horizontal-md">
+                <section className="gameplay-controls">
+                  <div data-disabled={this.totalBallsCalled >= 75}>
+                    <button
+                      data-disabled={this.state.displayBoardOnly}
+                      onClick={
+                        this.totalBallsCalled === 0
+                          ? // ? this.startNewGame
+                            this.togglestartModal
+                          : this.callBingoNumber
+                      }
+                      className="notranslate"
+                      disabled={this.state.running || balance <= 0}
+                    >
+                      {this.totalBallsCalled === 0 ? (
+                        <>
+                          {balance
+                            ? "Start New Game"
+                            : `Your balance is ${balance}`}{" "}
+                          <SlGameController />
+                        </>
+                      ) : (
+                        <>
+                          Next <FaStepForward />
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      data-disabled={this.state.displayBoardOnly}
+                      data-newgame={this.totalBallsCalled === 0}
+                      className={
+                        this.state.running
+                          ? "pause-button notranslate"
+                          : "play-button notranslate"
+                      }
+                      disabled={this.startButton === 0}
+                      onClick={
+                        this.totalBallsCalled === 0
+                          ? this.startNewAutoplayGame
+                          : this.toggleGame
+                      }
+                    >
+                      {this.state.running ? (
+                        <>
+                          Pause <FaPause />
+                        </>
+                      ) : (
+                        <>
+                          Start <VscDebugStart />
+                        </>
+                      )}
+                    </button>
+                  </div>
+
                   <button
-                    data-disabled={this.state.displayBoardOnly}
-                    onClick={
-                      this.totalBallsCalled === 0 
-                        ? // ? this.startNewGame
-                          this.togglestartModal
-                        : this.callBingoNumber
-                    }
-                    className="notranslate"
-                    disabled={this.state.running || balance <= 0 }
+                    onClick={this.toggleResetModal}
+                    disabled={this.totalBallsCalled === 0}
                   >
-                    {this.totalBallsCalled === 0 ? (
-                      <>
-                      {balance ? "Start New Game" : `Your balance is ${balance}`}  <SlGameController />
-                      </>
-                    ) : (
-                      <>
-                        Next <FaStepForward />
-                      </>
-                    )}
+                    Reset Board <BiReset />
                   </button>
 
                   <button
-                    data-disabled={this.state.displayBoardOnly}
-                    data-newgame={this.totalBallsCalled === 0}
-                    className={
-                      this.state.running ? "pause-button notranslate" : "play-button notranslate" 
-                    }
-                    disabled={this.startButton === 0}
-                    onClick={
-                      this.totalBallsCalled === 0
-                        ? this.startNewAutoplayGame
-                        : this.toggleGame
-                    }
+                    onClick={this.shuffleBalls}
+                    disabled={this.state.running}
                   >
-                    {this.state.running ? (
-                      <>
-                        Pause  <FaPause />
-                      </>
-                    ) : (
-                      <>
-                        Start  <VscDebugStart />
-                      </>
-                    )}
+                    Shuffle Board <PiShuffleDuotone />
                   </button>
-                </div>
+                </section>
+                {this.resetConfirmationModalDisplay}
+                {this.startConfirmationModalDisplay}
+              </div>
 
-                <button
-                  onClick={this.toggleResetModal}
-                  disabled={ this.totalBallsCalled === 0}
-                >
-                  Reset Board <BiReset />
-                </button>
-
-                <button
-                  onClick={this.shuffleBalls}
-                  disabled={this.state.running}
-                >
-                  Shuffle Board <PiShuffleDuotone />
-                </button>
-              </section>
-              {this.resetConfirmationModalDisplay}
-              {this.startConfirmationModalDisplay}
-            </div>
-
-            {/* ----------- Game Settings ------------- */}
-            <div className="col grow no-wrap padding-vertical-xxlg padding-horizontal-md white-text">
-              <section className="game-settings">
-                
-
-                {/* ----------- Settings when using generation ---------- */}
-                <div
-                // data-visibility={
-                //   this.state.displayBoardOnly === false ? "show" : "hide"
-                // }
-                >
-                  {/* ----------- Autoplay Settings ---------- */}
-                  <div className="row no-wrap align-center justify-start">
-                    <div className="col shrink min-size-80 padding-horizontal-lg">
-                      <h6>
-                        Speed: <SiFastapi />{" "}
-                      </h6>
-                    </div>
-                    <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
-                      <div
-                        className="row no-wrap align-center slider"
-                        data-disabled={this.state.displayBoardOnly}
-                      >
-                        <div className="col shrink padding-right-lg white-text">
-                          Slow
-                          <span>&nbsp;</span>
-                          <MdOutlineAssistWalker />
-                        </div>
-                        <div className="col">
-                          <Slider
-                            min={2500}
-                            max={6500}
-                            step={500}
-                            value={this.state.delay}
-                            onChange={this.handleDelayChange}
-                            reverse={true}
-                          />
-                        </div>
-                        <div className="col shrink padding-left-lg white-text">
-                          Fast <span>&nbsp;</span>
-                          <FaRunning />
+              {/* ----------- Game Settings ------------- */}
+              <div className="col grow no-wrap padding-vertical-xxlg padding-horizontal-md white-text">
+                <section className="game-settings">
+                  {/* ----------- Settings when using generation ---------- */}
+                  <div
+                  // data-visibility={
+                  //   this.state.displayBoardOnly === false ? "show" : "hide"
+                  // }
+                  >
+                    {/* ----------- Autoplay Settings ---------- */}
+                    <div className="row no-wrap align-center justify-start">
+                      <div className="col shrink min-size-80 padding-horizontal-lg">
+                        <h6>
+                          Speed: <SiFastapi />{" "}
+                        </h6>
+                      </div>
+                      <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
+                        <div
+                          className="row no-wrap align-center slider"
+                          data-disabled={this.state.displayBoardOnly}
+                        >
+                          <div className="col shrink padding-right-lg white-text">
+                            Slow
+                            <span>&nbsp;</span>
+                            <MdOutlineAssistWalker />
+                          </div>
+                          <div className="col">
+                            <Slider
+                              min={2500}
+                              max={6500}
+                              step={500}
+                              value={this.state.delay}
+                              onChange={this.handleDelayChange}
+                              reverse={true}
+                            />
+                          </div>
+                          <div className="col shrink padding-left-lg white-text">
+                            Fast <span>&nbsp;</span>
+                            <FaRunning />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* ----------- Caller ---------- */}
-                  <div className="row align-start justify-start">
-                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
-                      <h6>
-                        {" "}
-                      speaker: <RiSpeakFill /> <FcSpeaker />{" "}
-                      </h6>
-                    </div>
-                    <div className="col grow min-size-80 padding-horizontal-lg">
-                      {/* Disabled if manual calling mode is on */}
-                      <div
-                        className="row no-wrap justify-start"
-                        data-visibility={
-                          this.speechEnabled === true ? "show" : "hide"
-                        }
-                      >
-                       
-                        <div className="col grow padding-horizontal-lg">
-                          <Select
-                            className="select-input"
-                            placeholder="Choose callers"
-                            menuPlacement="auto"
-                            value={this.state.selectedCaller}
-                            onChange={this.handleChooseCaller}
-                            options={this.callers}
-                          />
+                    {/* ----------- Caller ---------- */}
+                    <div className="row align-start justify-start">
+                      <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                        <h6>
+                          {" "}
+                          speaker: <RiSpeakFill /> <FcSpeaker />{" "}
+                        </h6>
+                      </div>
+                      <div className="col grow min-size-80 padding-horizontal-lg">
+                        {/* Disabled if manual calling mode is on */}
+                        <div
+                          className="row no-wrap justify-start"
+                          data-visibility={
+                            this.speechEnabled === true ? "show" : "hide"
+                          }
+                        >
+                          <div className="col grow padding-horizontal-lg">
+                            <Select
+                              className="select-input"
+                              placeholder="Choose callers"
+                              menuPlacement="auto"
+                              value={this.state.selectedCaller}
+                              onChange={this.handleChooseCaller}
+                              options={this.callers}
+                            />
+                          </div>
                         </div>
 
-                      </div>
-
-
-
-                      {/* Only shown if speech is DISABLED by the browser */}
-                      <div
-                        className="row no-wrap"
-                        data-visibility={
-                          this.speechEnabled === true ? "hide" : "show"
-                        }
-                      >
-                       
+                        {/* Only shown if speech is DISABLED by the browser */}
+                        <div
+                          className="row no-wrap"
+                          data-visibility={
+                            this.speechEnabled === true ? "hide" : "show"
+                          }
+                        ></div>
                       </div>
                     </div>
-                  </div>
 
-                
-                  <div className="row align-start justify-start">
-                    <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
-                      <h6>
-                        {" "}
-                     color: <RiPaintBrushFill />{" "}
-                      </h6>
+                    <div className="row align-start justify-start">
+                      <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
+                        <h6>
+                          {" "}
+                          color: <RiPaintBrushFill />{" "}
+                        </h6>
+                      </div>
+                      <div className="col grow padding-horizontal-lg">
+                        <Select
+                          className="select-input"
+                          placeholder="Choose colors"
+                          menuPlacement="auto"
+                          value={this.state.selectedColor}
+                          onChange={this.handleColorchooser}
+                          options={this.colors}
+                        />
+                      </div>
                     </div>
-                  <div className="col grow padding-horizontal-lg">
-                          <Select
-                            className="select-input"
-                            placeholder="Choose colors"
-                            menuPlacement="auto"
-                            value={this.state.selectedColor}
-                            onChange={this.handleColorchooser}
-                            options={this.colors}
-                          />
-                        </div>
-                        </div>
-                  {/* ----------- Chime ----------- */}
-                  <div className="row no-wrap align-start justify-start">
-                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
-                      <h6>
-                        bell: <FaBell />
-                      </h6>
-                    </div>
+                    {/* ----------- Chime ----------- */}
+                    <div className="row no-wrap align-start justify-start">
+                      <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                        <h6>
+                          bell: <FaBell />
+                        </h6>
+                      </div>
 
                       <div className="col grow padding-horizontal-lg">
                         <label
@@ -2280,16 +2275,16 @@ class BingoGame extends Component {
                       </div>
                     </div>
 
-                  {/* ----------- Chime Selection ----------- */}
-                  <div
-                    className="row no-wrap align-start justify-start"
-                    data-visibility={this.state.chime ? "show" : "hide"}
-                  >
-                    <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
-                      <h6>
-                    bell Selection: <FaSearch />
-                      </h6>
-                    </div>
+                    {/* ----------- Chime Selection ----------- */}
+                    <div
+                      className="row no-wrap align-start justify-start"
+                      data-visibility={this.state.chime ? "show" : "hide"}
+                    >
+                      <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                        <h6>
+                          bell Selection: <FaSearch />
+                        </h6>
+                      </div>
 
                       <div className="col grow padding-horizontal-lg">
                         <Select
@@ -2307,15 +2302,13 @@ class BingoGame extends Component {
               </div>
 
               <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
-                
-                  <h2>
-                    {" "}
-                    win amount <FcMoneyTransfer /> :{" "}
-                  </h2>{" "}
-                  <div className="win-amount-box notranslate">
-                    <h1>{this.state.balance}Birr</h1>{" "}
-                  </div>
-              
+                <h2>
+                  {" "}
+                  win amount <FcMoneyTransfer /> :{" "}
+                </h2>{" "}
+                <div className="win-amount-box notranslate">
+                  <h1>{this.state.balance}Birr</h1>{" "}
+                </div>
               </div>
             </div>
           </section>
@@ -2335,4 +2328,7 @@ const mapDispatchToProps = {
   updateUserSuccess,
   updateUserFailure,
 };
-export default connect(mapStateToProps, mapDispatchToProps) (withBalance( BingoGame));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withBalance(BingoGame));

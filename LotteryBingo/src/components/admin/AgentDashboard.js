@@ -40,7 +40,7 @@ const AgentDash = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/branch/getbranch/${currentUser.username}`);
+        const response = await fetch(`/api/branch/getbranch/${currentUser.username}`);
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -59,13 +59,13 @@ const AgentDash = () => {
         const branchNames = users.map(user => user.name);
 
         const aggregatedResponse = await fetch(
-          `http://localhost:4000/api/sales/salesTimeByBranch?branch=${branchNames.join(',')}`
+          `/api/sales/salesTimeByBranch?branch=${branchNames.join(',')}`
         );
         const aggregatedData = await aggregatedResponse.json();
         setAggregatedSales(aggregatedData);
 
         const groupedResponse = await fetch(
-          `http://localhost:4000/api/sales/salesBranchByBranch?branch=${branchNames.join(',')}`
+          `/api/sales/salesBranchByBranch?branch=${branchNames.join(',')}`
         );
         const groupedData = await groupedResponse.json();
         setSalesByBranch(groupedData.salesByBranch);
