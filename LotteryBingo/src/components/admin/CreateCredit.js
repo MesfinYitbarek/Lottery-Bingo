@@ -11,8 +11,6 @@ const CreateCredit = () => {
     receiver: '',
   });
 
- 
-  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -48,24 +46,24 @@ const CreateCredit = () => {
       try {
         const res = await axios.get(`/api/credit/getCredit/${currentUser.phone}`);
         setCreditget(res.data);
-        
       } catch (err) {
         alert('Error fetching credit');
       }
     };
 
     if (currentUser) {
-        fetchgetCredit();
+      fetchgetCredit();
     }
-  }, [currentUser,getcredit]);
+  }, [currentUser]);
 
   const handleDeleteUser = async (userId) => {
     try {
-      const response = await axios.delete(
-        `/api/credit/deletecredit/${userId}`
-      );
+      await axios.delete(`/api/credit/deletecredit/${userId}`);
+      // Refetch credits after deleting
+      const res = await axios.get(`/api/credit/getCredit/${currentUser.phone}`);
+      setCreditget(res.data);
     } catch (err) {
-      setError("Error deleting User");
+      alert("Error deleting User");
     }
   };
 
@@ -78,71 +76,70 @@ const CreateCredit = () => {
   const totalPages = Math.ceil(getcredit.length / itemsPerPage);
 
   return (
-    <div className="tw-form-container ">
-      <div className='tw-mb-5  tw-bg-white tw-p-6 tw-shadow-md '>
-      <h1 className=' tw-text-2xl tw-text-blue-800 '>Create <span className="tw-text-primary">Credit</span></h1>
-      <form onSubmit={onSubmit} className=' tw-flex tw-flex-col tw-gap-3  '>
-        <div className="tw-form-group ">
-          <label htmlFor="amount" className='tw-text-blue-800  '>Amount</label>
-          <input
-            type="number"
-            name="amount"
-            value={amount}
-            onChange={onChange}
-            required
-            className='tw-ml-3 tw-p-1 '
-          />
-        </div>
-        <div className="tw-form-group">
-          <label htmlFor="toPhoneNumber" className='tw-text-blue-800 '>Recipient Phone Number</label>
-          <input
-            type="number"
-            name="receiver"
-            value={receiver}
-            onChange={onChange}
-            required
-            className='tw-ml-3 tw-p-1 '
-          />
-        </div>
-        <button type="submit"  className=" tw-border-none btn btn-primary btn-block tw-bg-blue-800 tw-text-white tw-p-1 tw-w-[30%] tw-px-3" disabled={loading} >{loading ? "Loading..." : "Create Credit"} </button>
-      </form>
+    <div className="tw-form-container">
+      <div className='tw-mb-5 tw-bg-white tw-p-6 tw-shadow-md'>
+        <h1 className='tw-text-2xl tw-text-blue-800'>Create <span className="tw-text-primary">Credit</span></h1>
+        <form onSubmit={onSubmit} className='tw-flex tw-flex-col tw-gap-3'>
+          <div className="tw-form-group">
+            <label htmlFor="amount" className='tw-text-blue-800'>Amount</label>
+            <input
+              type="number"
+              name="amount"
+              value={amount}
+              onChange={onChange}
+              required
+              className='tw-ml-3 tw-p-1'
+            />
+          </div>
+          <div className="tw-form-group">
+            <label htmlFor="toPhoneNumber" className='tw-text-blue-800'>Recipient Phone Number</label>
+            <input
+              type="number"
+              name="receiver"
+              value={receiver}
+              onChange={onChange}
+              required
+              className='tw-ml-3 tw-p-1'
+            />
+          </div>
+          <button type="submit" className="tw-border-none btn btn-primary btn-block tw-bg-blue-800 tw-text-white tw-p-1 tw-w-[30%] tw-px-3" disabled={loading}>
+            {loading ? "Loading..." : "Create Credit"}
+          </button>
+        </form>
       </div>
-      <div className=' mt-8'>
-      <table className=" tw-rounded-md tw-text-[16px]  tw-text-sky-800 tw-bg-white   tw-px-10 tw-py-4 tw-shadow-lg  tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
-          
-          <tr className=" tw-bg-blue-800 tw-font-semibold tw-text-white ">
-            <td className="tw-p-2 tw-px-4 ">Sender </td>
-            <td className="tw-p-2 tw-px-4 ">Receiver</td>
-            <td className="tw-p-2 tw-px-4 ">Amount in Credit</td>
-            <td className="tw-p-2 tw-px-4 ">Date</td>
-           
-          </tr>
-                      
-          {currentItems.length > 0 ? currentItems.map((getcredit) =>  (
-            <tr className=" tw-hover:bg-slate-100"> 
-              <td className="tw-p-2 tw-px-4 ">
-                {getcredit.sender}
-              </td>
-              <td className="tw-p-2 tw-px-4  ">{getcredit.receiver}</td>
-              <td className="tw-p-2 tw-px-4  ">{getcredit.amount}</td>
-              <td className="tw-p-2 tw-px-4  ">{getcredit.createdAt}</td>
-              
-
-              <td className=" tw-p-2 tw-px-4     tw-text-red-600    tw-text-center">
-                 <button
-                  onClick={() => handleDeleteUser(getcredit._id)}
-                  className="tw-border-red-600  tw-px-1 tw-rounded-none "
-                >
-                  Delete
-                </button>
-              </td>
-              
+      <div className='mt-8'>
+        <table className="tw-rounded-md tw-text-[16px] tw-text-sky-800 tw-bg-white tw-px-10 tw-py-4 tw-shadow-lg tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
+          <thead>
+            <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
+              <td className="tw-p-2 tw-px-4">Sender</td>
+              <td className="tw-p-2 tw-px-4">Receiver</td>
+              <td className="tw-p-2 tw-px-4">Amount in Credit</td>
+              <td className="tw-p-2 tw-px-4">Date</td>
+              <td className="tw-p-2 tw-px-4">Actions</td>
             </tr>
-          )):(
-            <tr>
-              <td colSpan="5" className="tw-text-center tw-p-4">No records found</td>
-            </tr>
-          )}
+          </thead>
+          <tbody>
+            {currentItems.length > 0 ? currentItems.map((credit) => (
+              <tr key={credit._id} className="tw-hover:bg-slate-100">
+                <td className="tw-p-2 tw-px-4">{credit.sender}</td>
+                <td className="tw-p-2 tw-px-4">{credit.receiver}</td>
+                <td className="tw-p-2 tw-px-4">{credit.amount}</td>
+                <td className="tw-p-2 tw-px-4">{new Date(credit.createdAt).toLocaleDateString()}</td>
+                <td className="tw-p-2 tw-px-4 tw-text-red-600 tw-text-center">
+                  <button
+                    onClick={() => handleDeleteUser(credit._id)}
+                    className="tw-border-red-600 tw-px-1 tw-rounded-none"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            )) : (
+              <tr>
+                <td colSpan="5" className="tw-text-center tw-p-4">No records found</td>
+              </tr>
+            )}
+          </tbody>
         </table>
         <div className="tw-flex tw-justify-center tw-mt-4">
           {Array.from({ length: totalPages }, (_, index) => (
