@@ -11,6 +11,9 @@ const Users = () => {
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(10);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -26,12 +29,12 @@ const Users = () => {
         const data = await response.json();
         setUsers(data);
       } catch (err) {
-        setError("Error fetching User");
+        setError("Error fetching Users");
       }
     };
 
     fetchUsers();
-  }, [currentUser._id],users); // Only re-run when currentUser._id changes
+  }, [currentUser._id, users]);
 
   const handleDeleteUser = async (userId) => {
     try {
@@ -46,20 +49,27 @@ const Users = () => {
     }
   };
 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const totalPages = Math.ceil(users.length / usersPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <div className="tw-mt-10">
-      <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
+    <div className="tw-mt-10 tw-px-4 tw-py-2">
+      <div className="tw-flex tw-justify-between tw-items-center tw-mb-4">
+        <h2 className="tw-text-2xl tw-font-semibold tw-text-sky-900">User Management</h2>
+        <button
+          onClick={openModal}
+          className="tw-flex tw-items-center tw-border-2 tw-p-2 tw-border-blue-800 tw-text-blue-800"
+        >
+          <BiPlus className="tw-mr-2" /> Add User
+        </button>
+      </div>
+      <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] tw-w-full">
         <thead>
-          <tr>
-            <th colSpan="8" className="tw-text-center">
-              <button
-                onClick={openModal}
-                className="tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800"
-              >
-                <BiPlus /> Add User
-              </button>
-            </th>
-          </tr>
           <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
             <th className="tw-p-2 tw-px-4">Name</th>
             <th className="tw-p-2 tw-px-4">Username</th>
@@ -72,10 +82,10 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users &&
-            users.map((data) => (
+          {currentUsers &&
+            currentUsers.map((data) => (
               <tr key={data._id} className="tw-hover:bg-slate-100">
-                <td className="tw-flex tw-gap-3 tw-items-center">
+                <td className="tw-flex tw-gap-3 tw-items-center tw-p-2 tw-px-4">
                   <img
                     src={data.avatar}
                     alt="profile"
@@ -92,13 +102,13 @@ const Users = () => {
                 <td className="tw-p-2 tw-px-4 tw-text-center">
                   <button
                     onClick={() => handleDeleteUser(data._id)}
-                    className="tw-border-red-600 tw-px-1 tw-rounded-none tw-text-red-600"
+                    className="tw-border-red-600 tw-px-2 tw-rounded-md tw-text-red-600"
                   >
                     Delete
                   </button>
                   <Link
                     to={`/update-user/${data._id}`}
-                    className="tw-text-purple-600 tw-ml-2"
+                    className="tw-text-purple-600 tw-ml-4"
                   >
                     Edit
                   </Link>
@@ -107,10 +117,23 @@ const Users = () => {
             ))}
         </tbody>
       </table>
-      {error && <p className="tw-text-red-500">{error}</p>}
+      {error && <p className="tw-text-red-500 tw-mt-4">{error}</p>}
+      <div className="tw-flex tw-justify-center tw-items-center tw-my-4">
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => paginate(index + 1)}
+            className={`tw-px-3 tw-py-1 tw-mx-1 tw-border tw-border-blue-800 tw-rounded-md ${
+              currentPage === index + 1 ? "tw-bg-blue-800 tw-text-white" : "tw-bg-white tw-text-blue-800"
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
       {isModalOpen && (
-        <div className="tw-absolute tw-top-4 tw-inset-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50">
-          <div className="tw-bg-white tw-p-4 tw-rounded-md tw-shadow-lg tw-relative">
+        <div className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50">
+          <div className="tw-bg-white tw-p-6 tw-rounded-md tw-shadow-lg tw-relative">
             <button
               className="tw-absolute tw-top-2 tw-right-2 tw-text-gray-800"
               onClick={closeModal}

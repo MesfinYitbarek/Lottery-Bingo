@@ -5,11 +5,16 @@ import axios from 'axios';
 const CreateCredit = () => {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
- 
+
   const [credit, setCredit] = useState({
     amount: '',
     receiver: '',
   });
+
+ 
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const { amount, receiver } = credit;
 
@@ -64,6 +69,14 @@ const CreateCredit = () => {
     }
   };
 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = getcredit.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(getcredit.length / itemsPerPage);
+
   return (
     <div className="tw-form-container ">
       <div className='tw-mb-5  tw-bg-white tw-p-6 tw-shadow-md '>
@@ -105,7 +118,7 @@ const CreateCredit = () => {
            
           </tr>
                       
-          {getcredit ? getcredit.map((getcredit) =>  (
+          {currentItems.length > 0 ? currentItems.map((getcredit) =>  (
             <tr className=" tw-hover:bg-slate-100"> 
               <td className="tw-p-2 tw-px-4 ">
                 {getcredit.sender}
@@ -125,8 +138,23 @@ const CreateCredit = () => {
               </td>
               
             </tr>
-          )):(<div>not found</div>)}
+          )):(
+            <tr>
+              <td colSpan="5" className="tw-text-center tw-p-4">No records found</td>
+            </tr>
+          )}
         </table>
+        <div className="tw-flex tw-justify-center tw-mt-4">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`tw-px-3 tw-py-1 tw-mx-1 ${currentPage === index + 1 ? 'tw-bg-blue-800 tw-text-white' : 'tw-bg-gray-200 tw-text-gray-800'}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
