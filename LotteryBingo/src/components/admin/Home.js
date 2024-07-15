@@ -62,6 +62,7 @@ const AdminDashboard = () => {
 
   const formatNumber = (num) => {
     if (num < 1000) return num; // No formatting for numbers below 1000
+    else if(num>=1000000)   return (num / 1000000).toFixed(1) + 'M';
     return (num / 1000).toFixed(1) + 'K'; // Format numbers above 1000 with "K"
   };
 

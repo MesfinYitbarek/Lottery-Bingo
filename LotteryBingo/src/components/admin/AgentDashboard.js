@@ -86,7 +86,9 @@ const AgentDash = () => {
   if (error) return <div>{error}</div>;
 
   const formatNumber = (num) => {
-    if (num < 1000) return num; // No formatting for numbers below 1000
+    if (num < 1000) return num;
+    else if(num>=1000000)   return (num / 1000000).toFixed(1) + 'M';
+     // No formatting for numbers below 1000
     return (num / 1000).toFixed(1) + 'K'; // Format numbers above 1000 with "K"
   };
   
