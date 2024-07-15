@@ -154,9 +154,7 @@ const ChangePassword = ({ onClose }) => {
           Change Password
         </Button>
       </form>
-      <button className=' mt-2 justify-end text-end font-bold' type="button" onClick={onClose}>
-        Close
-      </button>
+     
     </div>
   );
 };

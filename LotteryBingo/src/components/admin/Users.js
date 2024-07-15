@@ -31,7 +31,7 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, [currentUser._id]); // Only re-run when currentUser._id changes
+  }, [currentUser._id],users); // Only re-run when currentUser._id changes
 
   const handleDeleteUser = async (userId) => {
     try {

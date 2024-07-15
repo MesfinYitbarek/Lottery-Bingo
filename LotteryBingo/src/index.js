@@ -41,45 +41,51 @@ import AgentDash from "./components/admin/AgentDashboard.js";
 const App = () => (
   <Provider store={store}>
     <BalanceProvider>
-    <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <Routes>
-        <Route element={<PrivateRoute />}>
-            <Route exact path="/changePassword" element={<ChangePassword />} />
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<PrivateRoute />}>
+              <Route
+                exact
+                path="/changePassword"
+                element={<ChangePassword />}
+              />
+            </Route>
+            <Route element={<PrivateRoute allowedRoles={["employee"]} />}>
+              <Route exact path="/" element={<BingoGame />} />
+              <Route exact path="/casheir" element={<CaheirContainer />} />
+            </Route>
+            <Route
+              element={
+                <PrivateRoute allowedRoles={["superadmin", "admin", "agent"]} />
+              }
+            >
+              <Route exact path="/admin" element={<AdminContainer />} />
+              <Route exact path="/agent" element={<AgentDash />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/about" element={<About />} />
 
-          </Route>
-          <Route element={<PrivateRoute allowedRoles={["employee" ]} />}>
-            <Route exact path="/" element={<BingoGame />} />
-            <Route exact path="/casheir" element={<CaheirContainer />} />
-          </Route>
-          <Route element={<PrivateRoute allowedRoles={["superadmin", "admin", "agent"]} />}>
-            <Route exact path="/admin" element={<AdminContainer />} />
-            <Route exact path="/agent" element={<AgentDash />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/about" element={<About />} />
-     
-            <Route path="/generator" element={<CardGenerator />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/patterns" element={<Patterns />} />
-          
-            <Route path="/releases" element={<ReleaseNotes />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/add-users" element={<AddUsers />} />
-            <Route path="/card" element={<CardFetcher />} />
-            <Route path="/createcard" element={<CardForm />} />
-            <Route path="/update-user/:id" element={<EditUser />} />
-            <Route path="/createbranch" element={<CreateBranch />} />
-            <Route path="/createagent" element={<CreateAgent />} />
-            <Route path="/branch" element={<Branch />} />
-            <Route path="/updateagent/:id" element={<UpdateAgent />} />
-            <Route path="/updatebranch/:id" element={<UpdateBranch />} />
-          </Route>
-          
+              <Route path="/generator" element={<CardGenerator />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/patterns" element={<Patterns />} />
 
-          <Route path="/sign-in" element={<SignIn />} />
-        </Routes>
-      </BrowserRouter>
-    </PersistGate>
+              <Route path="/releases" element={<ReleaseNotes />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/add-users" element={<AddUsers />} />
+              <Route path="/card" element={<CardFetcher />} />
+              <Route path="/createcard" element={<CardForm />} />
+              <Route path="/update-user/:id" element={<EditUser />} />
+              <Route path="/createbranch" element={<CreateBranch />} />
+              <Route path="/createagent" element={<CreateAgent />} />
+              <Route path="/branch" element={<Branch />} />
+              <Route path="/updateagent/:id" element={<UpdateAgent />} />
+              <Route path="/updatebranch/:id" element={<UpdateBranch />} />
+            </Route>
+
+            <Route path="/sign-in" element={<SignIn />} />
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </BalanceProvider>
   </Provider>
 );
