@@ -12,7 +12,7 @@ import {
   updateUserFailure,
 } from "../redux/user/userSlice";
 import {
-  FaVolumeUp,
+
   FaBell,
   FaRunning,
   FaSearch,
@@ -445,7 +445,7 @@ import {
 } from "../chimes";
 
 import Header from "./common/Header.js";
-import CardFetcher from "./subcomponents/CardFetcher.js";
+
 import axios from "axios";
 class BingoGame extends Component {
   constructor(props) {
@@ -1246,7 +1246,7 @@ class BingoGame extends Component {
       currentUser,
       updateUserStart,
       updateUserSuccess,
-      updateUserFailure,
+     
     } = this.props;
     const { balance } = this.props;
 
@@ -1270,7 +1270,7 @@ class BingoGame extends Component {
           showstartModal: false,
         });
       } catch (err) {
-        console.error("Error updating balance:", err);
+
         alert("Error updating balance");
       }
       for (let i = 1; i <= 100; i++) {
@@ -1366,16 +1366,13 @@ class BingoGame extends Component {
   confirmstartGame = async () => {
     const {
       currentUser,
-      updateUserStart,
-      updateUserSuccess,
-      updateUserFailure,
     } = this.props;
     const { balance } = this.props;
 
     if (balance < this.state.amount) {
       alert("Insufficent balance", currentUser, balance);
     } else {
-      const newBalance = balance - this.state.amount;
+     // const newBalance = balance - this.state.amount;
 
       this.state.balance =
         this.state.amount - (this.state.amount * currentUser.cut) / 100;

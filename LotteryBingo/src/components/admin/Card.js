@@ -16,7 +16,7 @@ const CardForm = () => {
     O: ["", "", "", "", ""],
   });
 
-  console.log(formData);
+ 
 
   const [superBranch, setSuperBranch] = React.useState([]);
 
@@ -109,7 +109,6 @@ const CardForm = () => {
         marginTop: "30px",
         fontFamily: "Arial, sans-serif",
         maxWidth: "500px",
-        margin: "auto",
         padding: "20px",
         border: "2px solid #2a2df5",
         borderRadius: "10px",

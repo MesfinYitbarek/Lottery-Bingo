@@ -9,7 +9,7 @@ const CreateAgent = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  console.log(formData);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,

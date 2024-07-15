@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import axios from 'axios';
-import { updateUserStart, updateUserSuccess, updateUserFailure } from '../../redux/user/userSlice';
-//import { BiCheckbox } from 'react-icons/bi';
+import { updateUserStart, updateUserSuccess } from '../../redux/user/userSlice';
+
 
 const TransferCredit = () => {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-
+ 
   const [credit, setCredit] = useState({
     amount: '',
     receiver: '',
@@ -82,7 +82,7 @@ const TransferCredit = () => {
         `/api/credit/delete/${userId}`
       );
     } catch (err) {
-      setError("Error deleting User");
+      alert("Error deleting User");
     }
   };
 

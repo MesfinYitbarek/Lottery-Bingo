@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import BingoCard from "../subcomponents/BingoCard";
 import { useSelector } from "react-redux";
@@ -12,7 +12,7 @@ const CardGenerator = () => {
   const [branch, setBranch] = React.useState(null);
   const [users, setUsers] = React.useState([]);
   const [startingPoint, setStartingPoint] = React.useState(null);
-  const [error, setError] = React.useState(null);
+
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const CardGenerator = () => {
         const data = await response.json();
         setUsers(data);
       } catch (err) {
-        setError("Error fetching branches");
+        alert("Error fetching branches");
       }
     };
 
@@ -40,7 +40,7 @@ const CardGenerator = () => {
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
-        setError("Error fetching User");
+        alert("Error fetching User");
       }
     };
 
@@ -106,7 +106,7 @@ const CardGenerator = () => {
   const generateCard = () => {
     let numbers = generateBingoNumbers();
     let card = {};
-    let middleIndex = Math.floor((5 * 5) / 2); // Calculate middle index
+   // let middleIndex = Math.floor((5 * 5) / 2); // Calculate middle index
 
     Object.keys(numbers).forEach((letter, index) => {
       let chosenNumbers = [];

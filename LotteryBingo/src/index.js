@@ -7,14 +7,12 @@ import "./index.css";
 // Images
 
 // Custom Components
-import About from "./components/pages/About.js";
+
 import BingoGame from "./components/BingoGame.js";
 import CardGenerator from "./components/pages/CardGenerator.js";
 
-import Help from "./components/pages/Help.js";
-
 import ReleaseNotes from "./components/pages/ReleaseNotes.js";
-import Terms from "./components/pages/Terms.js";
+
 import Patterns from "./components/pages/Patterns.js";
 import AddUsers from "./components/admin/AddUsers.js";
 import CardFetcher from "./components/subcomponents/CardFetcher.js";
@@ -63,14 +61,13 @@ const App = () => (
               <Route exact path="/admin" element={<AdminContainer />} />
               <Route exact path="/agent" element={<AgentDash />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/about" element={<About />} />
 
               <Route path="/generator" element={<CardGenerator />} />
-              <Route path="/terms" element={<Terms />} />
+
               <Route path="/patterns" element={<Patterns />} />
 
               <Route path="/releases" element={<ReleaseNotes />} />
-              <Route path="/help" element={<Help />} />
+
               <Route path="/add-users" element={<AddUsers />} />
               <Route path="/card" element={<CardFetcher />} />
               <Route path="/createcard" element={<CardForm />} />

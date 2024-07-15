@@ -2,14 +2,14 @@ import React, {useState} from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import { BiPlus } from 'react-icons/bi';
-import { useSelector } from "react-redux";
+
 import CreateAgent from './CreateAgent';
 import CreateBranch from './CreateBranch';
 const Branch = () => {
     const [users, setUsers] = React.useState([]);
     const [branch, setBranch] = React.useState([]);
     const [error, setError] = React.useState(null);
-  const { currentUser } = useSelector((state) => state.user);
+
     React.useEffect(() => {
         const fetchUsers = async () => {
           try {
