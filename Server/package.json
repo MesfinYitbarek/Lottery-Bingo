@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build":"npm install --force && npm install --force  --prefix LotteryBingo && npm run build"
+    "build":"npm install --force && npm install --force  --prefix letsplaybingo-react && npm run build"
   },
   "keywords": [],
   "author": "",
