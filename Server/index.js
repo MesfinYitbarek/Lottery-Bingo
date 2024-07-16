@@ -8,6 +8,7 @@ import cardRouter from "./routes/cards.js";
 import creditRouter from "./routes/credit.js";
 import salesRouter from "./routes/sales.js";
 import branchRouter from "./routes/Agent.js";
+import path from "path"
 // Connect to MongoDB database
 dotenv.config();
 mongoose
@@ -19,6 +20,7 @@ mongoose
     console.log(err);
   });
 
+  const __dirname = path.resolve();
 const app = express();
 
 
@@ -35,6 +37,12 @@ app.use("/api/credit", creditRouter);
 app.use("/api/sales", salesRouter);
 app.use("/api/branch", branchRouter);
 
+app.use(express.static(path.join(__dirname, "/LotteryBingo/built")
+))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'LotteryBingo', 'built', 'index.html'))
+})
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
