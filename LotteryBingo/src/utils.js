@@ -73,7 +73,7 @@ export const getLogoBallDisplay = () => {
     <div className="ball-display white relative notranslate">
       <div className="content">
         <div className="ball-content">
-          <img src={logoImage} alt="Lets Play Bingo Logo"/>
+          <img src={"logoImage"} alt="Lets Play Bingo Logo"/>
         </div>
       </div>
     </div>
