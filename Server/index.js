@@ -37,11 +37,11 @@ app.use("/api/credit", creditRouter);
 app.use("/api/sales", salesRouter);
 app.use("/api/branch", branchRouter);
 
-app.use(express.static(path.join(__dirname, "/LotteryBingo")
+app.use(express.static(path.join(__dirname, '/LotteryBingo/build')
 ))
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'LotteryBingo', 'index.html'))
+  res.sendFile(path.join(__dirname, 'LotteryBingo','build', 'index.html'))
 })
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
