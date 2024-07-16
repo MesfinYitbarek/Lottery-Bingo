@@ -10,7 +10,7 @@ const CreateCredit = () => {
     amount: '',
     receiver: '',
   });
-
+  const [getcredit, setCreditget] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -35,11 +35,9 @@ const CreateCredit = () => {
     }
   };
 
-  if (currentUser && currentUser.role !== 'superadmin') {
-    return <h1>Unauthorized</h1>;
-  }
+ 
 
-  const [getcredit, setCreditget] = useState([]);
+  
 
   useEffect(() => {
     const fetchgetCredit = async () => {

@@ -818,7 +818,7 @@ class BingoGame extends Component {
     // call the new ball, first call it all together, then call each character individually
     // let ballstring = ball.number.toString();
     if (this.state.wildBall) {
-      console.log("hi");
+      alert("hi");
     } else if (this.state.doubleCall) {
       const femaleamharic = [
         chime1,

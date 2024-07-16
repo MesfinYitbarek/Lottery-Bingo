@@ -13,7 +13,7 @@ import CardGenerator from "./components/pages/CardGenerator.js";
 
 import ReleaseNotes from "./components/pages/ReleaseNotes.js";
 
-import Patterns from "./components/pages/Patterns.js";
+//import Patterns from "./components/pages/Patterns.js";
 import AddUsers from "./components/admin/AddUsers.js";
 import CardFetcher from "./components/subcomponents/CardFetcher.js";
 import AdminContainer from "./components/admin/Admin.js";
@@ -64,7 +64,7 @@ const App = () => (
 
               <Route path="/generator" element={<CardGenerator />} />
 
-              <Route path="/patterns" element={<Patterns />} />
+              {/*<Route path="/patterns" element={<Patterns />} />*/}
 
               <Route path="/releases" element={<ReleaseNotes />} />
 

@@ -9,11 +9,10 @@ export default function PrivateRoute({ allowedRoles = [] }) {
     return <Navigate to="/sign-in" />;
   }
 
-  // Check if user has any of the allowed roles
-
-  if (allowedRoles.length && !allowedRoles.includes(currentUser.role)) {
+  // Check if user has any of the allowed roles (using strict comparison)
+  if (allowedRoles.length && !allowedRoles.some((role) => currentUser.role === role)) {
     // User does not have any of the allowed roles
-    if (currentUser.role == "admin" || "superadmin" || "agent") {
+    if (currentUser.role === "admin" || currentUser.role === "superadmin" || currentUser.role === "agent") {
       return <Navigate to="/admin" />;
     }
     return <Navigate to="/" />;

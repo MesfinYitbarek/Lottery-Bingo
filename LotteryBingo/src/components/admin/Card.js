@@ -71,7 +71,7 @@ const CardForm = () => {
     };
     setLoading(true);
     try {
-      const response = await axios.post(
+    await axios.post(
         "/api/card/create",
         cardData
       );

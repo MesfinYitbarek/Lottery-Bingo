@@ -90,7 +90,7 @@ const CardGenerator = () => {
 
     // Save generated cards to backend
     try {
-      const response = await axios.post(
+       await axios.post(
         "/api/card/cards",
         {
           branch: branch,
