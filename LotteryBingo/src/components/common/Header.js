@@ -5,7 +5,7 @@ import axios from "axios";
 import { RiFullscreenLine, RiFullscreenExitLine } from "react-icons/ri";
 import { BiShoppingBag } from "react-icons/bi";
 
-import logoImage from "../../images/logoImage.svg";
+
 import SignOut from "../admin/SignOut";
 import ChangePassword from "../Authentication/ChangePassword";
 import "./Header.css";
@@ -48,7 +48,13 @@ const Header = () => {
       <div className="container">
         <div className="left-section">
           <Link to="/">
-            <img src={logoImage} alt="Let's Play Bingo!" className="logo" />
+          <div className=" tw-flex-col tw-gap-0 tw-items-center tw-text-center">
+            <h1 className=" tw-text-green-800 tw-font-extrabold tw-text-4xl ">
+             <span className=" tw-text-blue-800">Bingo</span> Lottery
+            </h1>
+            
+          </div>
+            
           </Link>
         </div>
 

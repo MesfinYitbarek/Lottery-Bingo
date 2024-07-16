@@ -8,7 +8,7 @@ const CardGenerator = () => {
   const [numberOfCards, setNumberOfCards] = React.useState(null);
   const [blackWhite, setBlackWhite] = React.useState(false);
   const [color, setColor] = React.useState(null);
-  const [perPage, setPerPage] = React.useState(null);
+  const [perPage] = React.useState(null);
   const [branch, setBranch] = React.useState(null);
   const [users, setUsers] = React.useState([]);
   const [startingPoint, setStartingPoint] = React.useState(null);
