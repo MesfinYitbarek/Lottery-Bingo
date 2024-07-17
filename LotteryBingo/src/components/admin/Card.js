@@ -6,7 +6,7 @@ const CardForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     id: "",
     branch: "",
     B: ["", "", "", "", ""],
@@ -14,16 +14,15 @@ const CardForm = () => {
     N: ["", "", "Free", "", ""],
     G: ["", "", "", "", ""],
     O: ["", "", "", "", ""],
-  });
-
- 
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
   const [superBranch, setSuperBranch] = React.useState([]);
 
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`/api/branch/branch`);
+        const response = await fetch("/api/branch/branch");
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
@@ -71,12 +70,10 @@ const CardForm = () => {
     };
     setLoading(true);
     try {
-    await axios.post(
-        "/api/card/create",
-        cardData
-      );
+      await axios.post("/api/card/create", cardData);
       alert("Card created!!");
       setLoading(false);
+      setFormData(initialFormData);
     } catch (error) {
       setLoading(false);
       alert("Error creating card:");
@@ -88,9 +85,7 @@ const CardForm = () => {
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          `/api/branch/getbranch/${currentUser.username}`
-        );
+        const response = await fetch(`/api/branch/getbranch/${currentUser.username}`);
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -132,15 +127,13 @@ const CardForm = () => {
         />
       </div>
       <div style={{ marginBottom: "15px" }}>
-        <label htmlFor="branch" className=" tw-text-lg tw-font-bold">
-          {" "}
-          Branch:{" "}
+        <label htmlFor="branch" className="tw-text-lg tw-font-bold">
+          Branch:
         </label>
-
         <select
           name="branch"
           onChange={handleChange}
-          className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+          className="tw-dark:bg-slate-100 sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5"
         >
           <option value="">Select Branch</option>
           {["admin", "employee"].includes(currentUser.role) ? (
@@ -153,8 +146,10 @@ const CardForm = () => {
             ))
           ) : (
             users &&
-            users.map((users) => (
-              <option value={users.name}>{users.name}</option>
+            users.map((user) => (
+              <option key={user.name} value={user.name}>
+                {user.name}
+              </option>
             ))
           )}
         </select>
@@ -195,7 +190,8 @@ const CardForm = () => {
                   width: "100%",
                   borderRadius: "5px",
                   border: "1px solid #ccc",
-                  backgroundColor: column === "N" && index === 2 ? "#e0e0e0" : "white",
+                  backgroundColor:
+                    column === "N" && index === 2 ? "#e0e0e0" : "white",
                 }}
               />
             ))}
@@ -218,7 +214,7 @@ const CardForm = () => {
       >
         {loading ? "Loading..." : "Create Card"}
       </button>
-      {error && <p className=" tw-text-red-500 tw-mt-5">{error}</p>}
+      {error && <p className="tw-text-red-500 tw-mt-5">{error}</p>}
     </form>
   );
 };
