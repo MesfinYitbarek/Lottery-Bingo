@@ -1258,7 +1258,7 @@ class BingoGame extends Component {
       updateUserStart();
       try {
         await axios.put(
-          `http://localhost:4000/api/user/${currentUser._id}/balance`,
+          `/api/user/${currentUser._id}/balance`,
           {
             balance: newBalance,
           }
