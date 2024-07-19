@@ -1369,12 +1369,12 @@ class BingoGame extends Component {
     } = this.props;
     const { balance } = this.props;
 
-    if (balance < this.state.amount) {
-      alert("Insufficent balance", currentUser, balance);
+    if (balance < this.state.amount || this.state.betAmount<10) {
+      alert("Insufficent balance or minimum bet amount entered(minimum amount is 10 birr)", currentUser, balance);
     } else {
      // const newBalance = balance - this.state.amount;
 
-      this.state.balance =
+      this.state.balance =                                              
         this.state.amount - (this.state.amount * currentUser.cut) / 100;
 
       this.startButton = 1;
@@ -1760,11 +1760,13 @@ class BingoGame extends Component {
             <div>
               <h5>Enter bet amount</h5>{" "}
               <input
-                type="number"
-                placeholder="Bet Amount"
-                required
-                onChange={this.handleBetAmountChange}
-              />
+  type="number"
+  placeholder="Bet Amount"
+  required
+  onChange={this.handleBetAmountChange}
+
+/> 
+
             </div>{" "}
             <label>Number of Cards:</label>
             <div className="number-input">
