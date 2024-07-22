@@ -61,6 +61,6 @@
     "typescript": "^4.6.3",
      "@babel/plugin-proposal-private-property-in-object": "^7" 
   },
- "proxy": "https://api.lotterybingoet.com"
+ "proxy": "http://localhost:4000"
 
 }
