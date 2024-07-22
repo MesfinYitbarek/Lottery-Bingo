@@ -21,6 +21,7 @@ jobs:
           echo "${{ secrets.SSH_HOST_KEY1 }}" > ~/.ssh/known_hosts
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
           rsync -av --delete --exclude='.env' . root@164.92.181.109:/var/www/Bingo
-          ssh root@164.92.181.109 -t << 'EOF'cd /var/www/Bingo
+          ssh root@164.92.181.109 -t << 'EOF'
+            cd /var/www/Bingo
             pm2 restart lottery 
           EOF
