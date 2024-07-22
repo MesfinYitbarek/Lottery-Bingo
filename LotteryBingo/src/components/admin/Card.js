@@ -56,7 +56,7 @@ const CardForm = () => {
   const handleArrayChange = (e, column, index) => {
     const { value } = e.target;
     
-    // Check if the value is a valid two-digit number
+    // Allow empty string or numbers between 1 and 99
     if (value !== "" && (isNaN(value) || value < 1 || value > 99)) {
       return;
     }
@@ -65,26 +65,6 @@ const CardForm = () => {
     if (column === "N" && index === 2) {
       updatedColumn[index] = "Free";
     } else {
-      // Check for duplicates in the same column
-      if (value !== "" && updatedColumn.includes(value)) {
-        alert("This number is already used in this column!");
-        return;
-      }
-
-      // Check for duplicates across all columns
-      const allNumbers = [
-        ...formData.B,
-        ...formData.I,
-        ...formData.G,
-        ...formData.O,
-        ...formData.N.filter((val, idx) => idx !== 2), // Exclude 'Free' space
-      ];
-
-      if (value !== "" && allNumbers.includes(value)) {
-        alert("This number is already used in another column!");
-        return;
-      }
-
       updatedColumn[index] = value;
     }
 
@@ -94,8 +74,36 @@ const CardForm = () => {
     });
   };
 
+  const checkForRepeatedNumbers = () => {
+    const allNumbers = [
+      ...formData.B,
+      ...formData.I,
+      ...formData.G,
+      ...formData.O,
+      ...formData.N.filter((val, idx) => idx !== 2), // Exclude 'Free' space
+    ].filter(num => num !== ""); // Remove empty strings
+
+    const uniqueNumbers = new Set(allNumbers);
+    
+    if (uniqueNumbers.size !== allNumbers.length) {
+      return "There are repeated numbers in the card. Please check and ensure all numbers are unique.";
+    }
+
+    // Check if each column has the correct range of numbers
+    
+
+    return null; // No errors found
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const repeatedNumbersError = checkForRepeatedNumbers();
+    if (repeatedNumbersError) {
+      alert(repeatedNumbersError);
+      return;
+    }
+    
     const cardData = {
       id: formData.id,
       branch: formData.branch,
