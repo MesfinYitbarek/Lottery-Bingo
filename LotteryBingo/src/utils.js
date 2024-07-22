@@ -1,5 +1,5 @@
 import React from 'react';
-
+import picture from "./logoImagelast.jpg"
 
 
 /**
@@ -73,7 +73,7 @@ export const getLogoBallDisplay = () => {
     <div className="ball-display white relative notranslate">
       <div className="content">
         <div className="ball-content">
-       
+          <img src={picture} alt="Lets Play Bingo" className='logobl' />
         </div>
       </div>
     </div>
