@@ -20,4 +20,4 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_HOST_KEY1 }}" > ~/.ssh/known_hosts
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          rsync -av --delete --exclude='./server/.env' . root@164.92.181.109:/var/www
+          rsync -av --delete --exclude='./server/.env' . root@164.92.181.109:/var/www/Bingo
