@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -17,21 +17,33 @@ const CardForm = () => {
   };
   const [formData, setFormData] = useState(initialFormData);
 
-  const [superBranch, setSuperBranch] = React.useState([]);
+  const [superBranch, setSuperBranch] = useState([]);
+  const [users, setUsers] = useState([]);
 
-  React.useEffect(() => {
-    const fetchUsers = async () => {
+  useEffect(() => {
+    const fetchBranches = async () => {
       try {
         const response = await fetch("/api/branch/branch");
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
-        setError("Error fetching User");
+        setError("Error fetching branches");
       }
     };
 
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`/api/branch/getbranch/${currentUser.username}`);
+        const data = await response.json();
+        setUsers(data);
+      } catch (err) {
+        setError("Error fetching users");
+      }
+    };
+
+    fetchBranches();
     fetchUsers();
-  }, [superBranch]);
+  }, [currentUser.username]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,10 +55,21 @@ const CardForm = () => {
 
   const handleArrayChange = (e, column, index) => {
     const { value } = e.target;
+    
+    // Check if the value is a valid two-digit number
+    if (value !== "" && (isNaN(value) || value < 1 || value > 99)) {
+      return;
+    }
+
     const updatedColumn = [...formData[column]];
     if (column === "N" && index === 2) {
       updatedColumn[index] = "Free";
     } else {
+      // Check for duplicates
+      if (value !== "" && updatedColumn.includes(value)) {
+        alert("This number is already used in this column!");
+        return;
+      }
       updatedColumn[index] = value;
     }
     setFormData({
@@ -73,28 +96,12 @@ const CardForm = () => {
       await axios.post("/api/card/create", cardData);
       alert("Card created!!");
       setLoading(false);
-      setFormData(initialFormData);
+      setFormData(initialFormData); // Reset form after successful creation
     } catch (error) {
       setLoading(false);
       alert("Error creating card:");
     }
   };
-
-  const [users, setUsers] = React.useState([]);
-
-  React.useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(`/api/branch/getbranch/${currentUser.username}`);
-        const data = await response.json();
-        setUsers(data);
-      } catch (err) {
-        setError("Error fetching User");
-      }
-    };
-
-    fetchUsers();
-  }, [users]);
 
   return (
     <form
@@ -133,6 +140,7 @@ const CardForm = () => {
         <select
           name="branch"
           onChange={handleChange}
+          value={formData.branch}
           className="tw-dark:bg-slate-100 sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5"
         >
           <option value="">Select Branch</option>
@@ -184,6 +192,8 @@ const CardForm = () => {
                 onChange={(e) => handleArrayChange(e, column, index)}
                 required
                 readOnly={column === "N" && index === 2}
+                min="1"
+                max="99"
                 style={{
                   padding: "10px",
                   marginBottom: "5px",
