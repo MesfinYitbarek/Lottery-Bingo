@@ -5,7 +5,7 @@ import axios from "axios";
 import { RiFullscreenLine, RiFullscreenExitLine } from "react-icons/ri";
 import { BiShoppingBag } from "react-icons/bi";
 
-
+import headerlogo from "./logoImagelast.jpg";
 import SignOut from "../admin/SignOut";
 import ChangePassword from "../Authentication/ChangePassword";
 import "./Header.css";
@@ -49,10 +49,10 @@ const Header = () => {
         <div className="left-section">
           <Link to="/">
           <div className=" tw-flex-col tw-gap-0 tw-items-center tw-text-center">
-            <h1 className=" tw-text-green-800 tw-font-extrabold tw-text-4xl ">
+            {/* <h1 className=" tw-text-green-800 tw-font-extrabold tw-text-4xl ">
              <span className=" tw-text-blue-800">Bingo</span> Lottery
-            </h1>
-            
+            </h1> */}
+            <img src={headerlogo} className="logo"></img>
           </div>
             
           </Link>
