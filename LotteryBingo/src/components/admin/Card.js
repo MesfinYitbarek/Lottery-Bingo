@@ -65,13 +65,29 @@ const CardForm = () => {
     if (column === "N" && index === 2) {
       updatedColumn[index] = "Free";
     } else {
-      // Check for duplicates
+      // Check for duplicates in the same column
       if (value !== "" && updatedColumn.includes(value)) {
         alert("This number is already used in this column!");
         return;
       }
+
+      // Check for duplicates across all columns
+      const allNumbers = [
+        ...formData.B,
+        ...formData.I,
+        ...formData.G,
+        ...formData.O,
+        ...formData.N.filter((val, idx) => idx !== 2), // Exclude 'Free' space
+      ];
+
+      if (value !== "" && allNumbers.includes(value)) {
+        alert("This number is already used in another column!");
+        return;
+      }
+
       updatedColumn[index] = value;
     }
+
     setFormData({
       ...formData,
       [column]: updatedColumn,
