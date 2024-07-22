@@ -50,7 +50,7 @@ const Header = () => {
           <Link to="/">
           <div className=" tw-flex-col tw-gap-0 tw-items-center tw-text-center">
             <h1 className=" tw-text-green-800 tw-font-extrabold tw-text-4xl ">
-             <span className=" tw-text-blue-800">Bingo</span> abush
+             <span className=" tw-text-blue-800">Bingo</span> Lottery
             </h1>
             
           </div>
