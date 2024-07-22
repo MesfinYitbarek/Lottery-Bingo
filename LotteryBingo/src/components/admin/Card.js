@@ -96,7 +96,11 @@ const CardForm = () => {
       await axios.post("/api/card/create", cardData);
       alert("Card created!!");
       setLoading(false);
-      setFormData(initialFormData); // Reset form after successful creation
+      // Reset form after successful creation, but keep the branch
+      setFormData({
+        ...initialFormData,
+        branch: formData.branch
+      });
     } catch (error) {
       setLoading(false);
       alert("Error creating card:");
