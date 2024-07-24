@@ -17,8 +17,11 @@ export const credit = async (req, res) => {
 
   try {
     const user = await User.findById(req.params.id);
+    const branch = await Agent.findById(req.params.id);
 
-    if (user.role !== 'superadmin') {
+    const validAccount = user || branch;
+
+    if (validAccount.role !== 'superadmin') {
       return res.status(401).json({ msg: 'Unauthorized' });
     }
 
@@ -33,7 +36,7 @@ export const credit = async (req, res) => {
 
     const credit = new Credit({
       amount,
-      sender: user.phone,
+      sender: validAccount.phone,
       receiver,
     });
 
