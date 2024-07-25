@@ -5,9 +5,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node Server/index.js",
+    
+   "start": "node build/Server/index.js",
     "dev": "nodemon Server/index.js",
-    "build": "npm install --force && npm install --force  --prefix LotteryBingo && npm run build --prefix LotteryBingo"
+      "build": "babel Server --out-dir build"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +24,10 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
     "nodemon": "^3.1.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.8",
+    "@babel/core": "^7.24.9",
+    "@babel/preset-env": "^7.24.8"
   }
 }
