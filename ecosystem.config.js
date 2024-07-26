@@ -1,8 +1,14 @@
 module.exports = {
-    apps : [{
-      name: "ims",
-      script: "npm",
-      args: "start"
-    }],
-    exec_mode: "fork"
-  }
+    apps : [
+      {
+        name      : 'BINGO',
+        script    : 'npm',
+        args      : 'start',
+        env: {
+          NODE_ENV: 'production'
+        },
+        autorestart: true,
+        watch: true
+      }
+    ]
+  };
