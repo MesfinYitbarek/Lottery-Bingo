@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     
-   "start": "node build/Server/index.js",
+   "start": "node Server/index.js",
     "dev": "nodemon Server/index.js",
-      "build": "babel Server --out-dir build"
+      "build": "npm install --force && npm install --force  --prefix LotteryBingo && npm run build --prefix LotteryBingo"
   },
   "keywords": [],
   "author": "",
