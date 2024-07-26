@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     
-   "start": "node Server/index.js",
-    "dev": "nodemon Server/index.js",
+   "start": "node build/index.js",
+    "dev": "nodemon build/index.js",
       "build": "npm install --force && npm install --force  --prefix LotteryBingo && npm run build --prefix LotteryBingo"
   },
   "keywords": [],
