@@ -105,7 +105,7 @@ const UserMenu = ({ currentUser, balance, openModal }) => (
     </div>
     <div className="balance-section">
       <BiShoppingBag className="shopping-icon" />
-      <div className="balance-info">Your balance is {balance}</div>
+      <div className="balance-info notranslate">Your balance is {balance}</div>
       <Link to="/casheir" className="dashboard-button">
         Dashboard
       </Link>
