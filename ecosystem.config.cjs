@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'BINGO',
-      script: 'index.js',
+      script: 'index.html',
       
       env: {
         NODE_ENV: 'development',
