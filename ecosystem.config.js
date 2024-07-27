@@ -19,7 +19,7 @@ module.exports = {
       restart_delay: 5000, // Delay between restarts (in milliseconds)
       max_restarts: 7, // Maximum number of restarts before PM2 stops trying
       instances: 'max', // Use all available CPU cores
-      exec_mode: 'cluster', // Enable clustering mode
+      exec_mode: 'fork',
     },
   ],
 };
