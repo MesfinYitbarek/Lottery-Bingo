@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'BINGO',
-      script: 'npm',
-      args:'start', 
+      script: '/var/www/Bingo/index.js',
+   
       env: {
         NODE_ENV: 'development',
       },
@@ -18,8 +18,8 @@ module.exports = {
       log_date_format: 'YYYY-MM-DD HH:mm Z',
       restart_delay: 5000,
       max_restarts: 10,
-      // instances: 'max',
-      exec_mode: 'fork',
+      instances: 'max',
+      exec_mode: 'cluster',
     },
   ],
 };
