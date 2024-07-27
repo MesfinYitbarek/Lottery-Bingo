@@ -18,7 +18,7 @@ module.exports = {
       log_date_format: 'YYYY-MM-DD HH:mm Z',
       restart_delay: 5000,
       max_restarts: 10,
-      instances: 'max',
+      // instances: 'max',
       exec_mode: 'fork',
     },
   ],
