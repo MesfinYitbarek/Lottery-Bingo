@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'BINGO',
       script: 'index.html',
-      
+      args:'start',
       env: {
         NODE_ENV: 'development',
       },
