@@ -2,8 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'BINGO',
-      script: 'index.html',
-      args:'start',
+      script: 'index.js', // No args needed
       env: {
         NODE_ENV: 'development',
       },
@@ -13,12 +12,12 @@ module.exports = {
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
-      error_file: './logs/error.log', // Log errors to a file
-      out_file: './logs/output.log',   
-      log_date_format: 'YYYY-MM-DD HH:mm Z', // Format for log timestamps
-      restart_delay: 5000, // Delay between restarts (in milliseconds)
-      max_restarts: 10, // Maximum number of restarts before PM2 stops trying
-      instances: 'max', // Use all available CPU cores
+      error_file: './logs/error.log',
+      out_file: './logs/output.log',
+      log_date_format: 'YYYY-MM-DD HH:mm Z',
+      restart_delay: 5000,
+      max_restarts: 10,
+      instances: 'max',
       exec_mode: 'cluster',
     },
   ],
