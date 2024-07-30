@@ -1282,7 +1282,7 @@ class BingoGame extends Component {
       }
 
       if (this.state.doubleCall) {
-        // this.say("Let's Play Bingo!");
+        
         let soundstartfa = new Audio(amharicfemaleplaystart);
         soundstartfa.play();
         window.setTimeout(() => {
