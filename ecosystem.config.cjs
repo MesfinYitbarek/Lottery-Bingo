@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'BINGO',
-      script: '/dist/index.js',
+      script: '/var/www/Bingo/index.js',
    
       env: {
         NODE_ENV: 'development',
