@@ -1253,7 +1253,7 @@ class BingoGame extends Component {
     if (balance < this.state.amount) {
       alert("Insufficent balance", currentUser, balance);
     } else {
-      const newBalance = balance - this.state.amount;
+      const newBalance = balance - (this.state.amount*currentUser.cut)/100;
 
       updateUserStart();
       try {
@@ -1376,6 +1376,7 @@ class BingoGame extends Component {
 
       this.state.balance =                                              
         this.state.amount - (this.state.amount * currentUser.cut) / 100;
+        
 
       this.startButton = 1;
       let x = this.state.amount / 1.3333333333333;

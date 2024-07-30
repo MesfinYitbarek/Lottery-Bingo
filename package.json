@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     
-    "dev": "nodemon dist/index.js ",
+    "dev": "nodemon Server/index.js ",
   "build": "babel Server --out-dir dist",
-  "start": "node dist/index.js "
+  "start": "node Server/index.js "
   },
   "keywords": [],
   "author": "",
