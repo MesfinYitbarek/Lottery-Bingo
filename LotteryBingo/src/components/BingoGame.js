@@ -452,6 +452,7 @@ class BingoGame extends Component {
     super(props);
     this.state = {
       showFullCallHistory: false,
+     
     };
     // -------------------------- Set properties ----- //
     // Balls display pieces
@@ -460,7 +461,7 @@ class BingoGame extends Component {
     // this.totalBalance =1000;
     this.amount = 0;
     this.cutBalance = 0;
-
+this.manualEnteredCut=0;
     this.balance = 0;
     this.startButton = 0;
     this.totalBallsCalled = 0;
@@ -544,6 +545,7 @@ class BingoGame extends Component {
       previousCallList: [],
       // displayBoardOnly: false,
       delay: 3500,
+      manualCut:false,
       running: false,
       startButton: false,
       enableCaller: true,
@@ -1242,6 +1244,7 @@ class BingoGame extends Component {
   };
 
   startNewAutoplayGame = async () => {
+   
     const {
       currentUser,
       updateUserStart,
@@ -1252,7 +1255,72 @@ class BingoGame extends Component {
 
     if (balance < this.state.amount) {
       alert("Insufficent balance", currentUser, balance);
-    } else {
+    } else if(this.state.manualCut){
+      const newBalance = balance - (this.state.amount*this.state.manualEnteredCut)/100;
+
+      updateUserStart();
+      try {
+        await axios.put(
+          `/api/user/${currentUser._id}/balance`,
+          {
+            balance: newBalance,
+          }
+        );
+        updateUserSuccess({ ...currentUser, balance: newBalance });
+
+        this.setState({
+          board: generateBingoBoard(),
+          showstartModal: false,
+        });
+      } catch (err) {
+
+        alert("Error updating balance");
+      }
+      for (let i = 1; i <= 100; i++) {
+        const isRedState = this.state.isRed[`isRed${i}`];
+
+        if (isRedState) {
+          this.selectedCards.push(i);
+        }
+      }
+
+      if (this.state.doubleCall) {
+        
+        let soundstartfa = new Audio(amharicfemaleplaystart);
+        soundstartfa.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 2000);
+      } else if (this.state.extraTalk) {
+        let soundstartfo = new Audio(oroplaystart);
+        soundstartfo.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
+      } else if (this.state.enableCaller) {
+        let soundstartma = new Audio(amharicmaleplaystart);
+        soundstartma.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 2000);
+      } else if (this.state.wolayta) {
+        let soundstartfw = new Audio(wolplaystart);
+        soundstartfw.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
+      } else if (this.state.tigrigna) {
+        let soundstartft = new Audio(tigplaystart);
+        soundstartft.play();
+        window.setTimeout(() => {
+          this.toggleGame();
+        }, 3000);
+        // this.toggleGame();
+      } else {
+        this.toggleGame();
+      }
+    }
+    else {
       const newBalance = balance - (this.state.amount*currentUser.cut)/100;
 
       updateUserStart();
@@ -1358,6 +1426,7 @@ class BingoGame extends Component {
       wildBall: null,
       running: false,
       showResetModal: false,
+      manualCut:false,
       previousCallList: [],
       balance: 0,
     });
@@ -1371,27 +1440,46 @@ class BingoGame extends Component {
 
     if (balance < this.state.amount || this.state.betAmount<10) {
       alert("Insufficent balance or minimum bet amount entered(minimum amount is 10 birr)", currentUser, balance);
-    } else {
-     // const newBalance = balance - this.state.amount;
-
-      this.state.balance =                                              
-        this.state.amount - (this.state.amount * currentUser.cut) / 100;
-        
-
+    } 
+    else{  
+      if(this.state.manualCut){
+      this.state.balance = this.state.amount - (this.state.amount * this.state.manualEnteredCut) / 100;
       this.startButton = 1;
       let x = this.state.amount / 1.3333333333333;
       this.amount = parseFloat(x.toFixed(3));
       this.setState({
         cutBalance: this.amount,
       });
-
+  
       this.setState({
         board: generateBingoBoard(),
         showstartModal: false,
-
+  
         // selectedCards:this.selectedCards,
       });
-    }
+
+  }
+
+   // const newBalance = balance - this.state.amount;
+else {
+    this.state.balance = this.state.amount - (this.state.amount * currentUser.cut) / 100;
+      
+
+    this.startButton = 1;
+    let x = this.state.amount / 1.3333333333333;
+    this.amount = parseFloat(x.toFixed(3));
+    this.setState({
+      cutBalance: this.amount,
+    });
+
+    this.setState({
+      board: generateBingoBoard(),
+      showstartModal: false,
+
+      // selectedCards:this.selectedCards,
+    });
+  }}
+
   };
   callBingoNumber = () => {
     let totalBallsCalled = this.totalBallsCalled;
@@ -1759,7 +1847,7 @@ class BingoGame extends Component {
         <div className="notranslate">
           <div className="modal">
             <div>
-              <h5>Enter bet amount</h5>{" "}
+              <h6>Enter bet amount</h6>{" "}
               <input
   type="number"
   placeholder="Bet Amount"
@@ -1769,7 +1857,30 @@ class BingoGame extends Component {
 /> 
 
             </div>{" "}
-            <label>Number of Cards:</label>
+
+            <div>
+              <h6>enter cut amount</h6>{" "}
+               <label>
+          <input
+            type="checkbox"
+            checked={this.state.manualCut} // Controlled checkbox
+             onChange={this.handleChechbx} // Event handler
+          />
+          Manual Cut
+        </label>
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+              <input
+          type="number" // Ensure this is set to "number" for numeric input
+          id="cutAmount"
+          placeholder="cut"
+          value={this.state.manualEnteredCut} // Controlled input
+          onChange={this.handleCutChange} // Event handler
+        />
+
+       
+            </div>{" "}
+            <label><h6>Number of Cards:</h6></label>
             <div className="number-input">
               <input
                 type="number"
@@ -1833,7 +1944,20 @@ class BingoGame extends Component {
       return null;
     }
   }
+  handleChechbx=(e)=>{  if (e.target.type === 'checkbox') {
+    this.setState({
+      manualCut: e.target.checked // Set state based on checkbox checked state
+    });
+  }}
+  handleCutChange = (e) => {
+  
+    const cutamount = e.target.value;
 
+    // Update state with the new cut amount
+    this.setState({
+      manualEnteredCut: cutamount
+    });
+  };
   handleBetAmountChange = (e) => {
     const betAmount = e.target.value;
     this.setState({
