@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import logoImage from "./winnerimg.jpg";
 
-const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards }) => {
+const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards ,manualEnteredCut,manualCut}) => {
   const [cartelaId, setCartelaId] = useState('');
   const [cartela, setCartela] = useState(null);
   const [matchedNumbers, setMatchedNumbers] = useState([]);
@@ -100,8 +100,11 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       alert('No winners to save');
       return;
     }
+  // console.log('manualcut is '+ manualCut);
+  const total = totalAmount;
+  let cut,won;
 
-    const total = totalAmount;
+
     const bingoData = {
       bet: betAmount,
       player: cardCount,
@@ -111,10 +114,22 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       branch: currentUser.branch,
       cashier: currentUser.username,
       date: new Date().toISOString(),
-      cut: total * (currentUser.cut / 100),
-      won: total - (total * (currentUser.cut / 100)),
+    
+      // cut: total * (currentUser.cut / 100),
+      // won: total - (total * (currentUser.cut / 100)),
     };
 
+    if (manualCut) {
+      cut = total * (manualEnteredCut / 100);
+       won = total - total * (manualEnteredCut / 100);
+       bingoData.cut = cut;
+       bingoData.won = won;
+    } else {
+      cut = total * (currentUser.cut / 100);
+      won = total - total * (currentUser.cut / 100);
+      bingoData.cut = cut;
+      bingoData.won = won;
+    }
     try {
       const response = await axios.post('/api/sales/sales', { winners: [bingoData] });
       if (response.status === 200) {

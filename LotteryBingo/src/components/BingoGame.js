@@ -1445,12 +1445,6 @@ this.manualEnteredCut=0;
       if(this.state.manualCut){
       this.state.balance = this.state.amount - (this.state.amount * this.state.manualEnteredCut) / 100;
       this.startButton = 1;
-      let x = this.state.amount / 1.3333333333333;
-      this.amount = parseFloat(x.toFixed(3));
-      this.setState({
-        cutBalance: this.amount,
-      });
-  
       this.setState({
         board: generateBingoBoard(),
         showstartModal: false,
@@ -2189,6 +2183,8 @@ else {
                   cardCount={this.state.cardCount}
                   totalAmount={this.state.amount}
                   selectedCards={this.selectedCards}
+                  manualCut={this.state.manualCut}
+                  manualEnteredCut={this.state.manualEnteredCut}
                 ></CallHistory>
                 {/* 
               <div
