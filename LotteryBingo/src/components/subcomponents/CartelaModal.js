@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import logoImage from "./winnerimg.jpg";
+import { ImExit } from "react-icons/im";
+import { FaLock } from "react-icons/fa6";
 
 const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards,manualEnteredCut,manualCut }) => {
  const [cartelaId, setCartelaId] = useState('');
@@ -183,7 +185,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     <button onClick={fetchCartela} disabled={isFetching}>
      {isFetching ? 'Checking...' : 'Check'}
     </button>
-    <button onClick={handleLockCard} disabled={!cartela || isBingo}>Lock</button>
+    <button onClick={handleLockCard} disabled={!cartela || isBingo}>Lock <FaLock /> </button>
 
     {fetchError && <div className="error">{fetchError}</div>}
     {cartela && cartela.length > 0 && cartela[0].card && (
@@ -221,8 +223,8 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
      </div>
     )}
     <p>
-     <button onClick={onClose}>Close</button>
-     <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game</button>
+     <button onClick={onClose}>exit  <ImExit /></button>
+     <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game </button>
     </p>
    </div>
    <div className="modal-backdrop" onClick={onClose}></div>
