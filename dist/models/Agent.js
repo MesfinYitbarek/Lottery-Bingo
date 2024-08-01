@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var BranchSchema = new _mongoose["default"].Schema({
+import mongoose from "mongoose";
+const BranchSchema = new mongoose.Schema({
   userRef: {
     type: String,
     required: true
@@ -25,5 +18,5 @@ var BranchSchema = new _mongoose["default"].Schema({
 }, {
   timestamps: true
 });
-var Branch = _mongoose["default"].model("Branchees", BranchSchema);
-var _default = exports["default"] = Branch;
+const Branch = mongoose.model("Branchees", BranchSchema);
+export default Branch;

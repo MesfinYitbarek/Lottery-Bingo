@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var CreditSchema = new _mongoose["default"].Schema({
+import mongoose from 'mongoose';
+const CreditSchema = new mongoose.Schema({
   sender: {
     type: String
   },
@@ -21,8 +14,8 @@ var CreditSchema = new _mongoose["default"].Schema({
   },
   createdAt: {
     type: Date,
-    "default": Date.now
+    default: Date.now
   }
 });
-var Credit = _mongoose["default"].model('Credit', CreditSchema);
-var _default = exports["default"] = Credit;
+const Credit = mongoose.model('Credit', CreditSchema);
+export default Credit;

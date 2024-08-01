@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var CounterSchema = new _mongoose["default"].Schema({
+import mongoose from 'mongoose';
+const CounterSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -16,5 +9,5 @@ var CounterSchema = new _mongoose["default"].Schema({
     required: true
   }
 });
-var Counter = _mongoose["default"].model('Counter', CounterSchema);
-var _default = exports["default"] = Counter;
+const Counter = mongoose.model('Counter', CounterSchema);
+export default Counter;

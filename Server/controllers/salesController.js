@@ -84,7 +84,7 @@ export const salesTime = async (req, res) => {
       return await Sales.aggregate([
         { $unwind: '$winners' },
         { $match: { 'winners.createdAt': { $gte: startDate } } },
-        { $group: { _id: null, total: { $sum: '$winners.total' } } }
+        { $group: { _id: null, total: { $sum: '$winners.cut' } } }
       ]);
     };
 
@@ -111,12 +111,12 @@ export const salesBranch = async (req, res) => {
   try {
     const salesByBranch = await Sales.aggregate([
       { $unwind: '$winners' },
-      { $group: { _id: '$winners.branch', total: { $sum: '$winners.total' } } }
+      { $group: { _id: '$winners.branch', total: { $sum: '$winners.cut' } } }
     ]);
 
     const salesByCashier = await Sales.aggregate([
       { $unwind: '$winners' },
-      { $group: { _id: '$winners.cashier', total: { $sum: '$winners.total' } } }
+      { $group: { _id: '$winners.cashier', total: { $sum: '$winners.cut' } } }
     ]);
 
     res.json({ salesByBranch, salesByCashier });
@@ -154,7 +154,7 @@ export const salesTimeByBranch = async (req, res) => {
       return await Sales.aggregate([
         { $unwind: '$winners' },
         getMatchStage(startDate, branch),
-        { $group: { _id: null, total: { $sum: '$winners.total' } } }
+        { $group: { _id: null, total: { $sum: '$winners.cut' } } }
       ]);
     };
 
@@ -198,7 +198,7 @@ export const salesBranchByBranch = async (req, res) => {
       return await Sales.aggregate([
         { $unwind: '$winners' },
         matchStage(branch),
-        { $group: { _id: '$winners.branch', total: { $sum: '$winners.total' } } }
+        { $group: { _id: '$winners.branch', total: { $sum: '$winners.cut' } } }
       ]);
     };
 
@@ -208,7 +208,7 @@ export const salesBranchByBranch = async (req, res) => {
       return await Sales.aggregate([
         { $unwind: '$winners' },
         matchStage(branch),
-        { $group: { _id: '$winners.cashier', total: { $sum: '$winners.total' } } }
+        { $group: { _id: '$winners.cashier', total: { $sum: '$winners.cut' } } }
       ]);
     };
 

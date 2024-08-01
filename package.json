@@ -5,11 +5,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    
-    "dev": "nodemon Server/index.js ",
-  "build": "babel Server --out-dir dist",
-  "start": "node Server/index.js "
-  },
+  "dev": "nodemon --experimental-specifier-resolution=node src/index.js",
+  "build": "cd LotteryBingo && npm run build && cd .. && babel server --out-dir dist",
+  "start": "node --experimental-specifier-resolution=node dist/index.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

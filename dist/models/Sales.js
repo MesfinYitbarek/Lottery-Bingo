@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var WinnerSchema = new _mongoose["default"].Schema({
+import mongoose from 'mongoose';
+const WinnerSchema = new mongoose.Schema({
   bet: {
     type: Number
   },
@@ -37,15 +30,15 @@ var WinnerSchema = new _mongoose["default"].Schema({
   },
   createdAt: {
     type: Date,
-    "default": Date.now
+    default: Date.now
   }
 });
-var SalesSchema = new _mongoose["default"].Schema({
+const SalesSchema = new mongoose.Schema({
   winners: [WinnerSchema],
   createdAt: {
     type: Date,
-    "default": Date.now
+    default: Date.now
   }
 });
-var Sales = _mongoose["default"].model('Sales', SalesSchema);
-var _default = exports["default"] = Sales;
+const Sales = mongoose.model('Sales', SalesSchema);
+export default Sales;

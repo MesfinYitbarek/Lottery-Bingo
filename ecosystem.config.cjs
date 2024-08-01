@@ -2,14 +2,12 @@ module.exports = {
   apps: [
     {
       name: 'BINGO',
-      script: '/var/www/Bingo/index.js',
+      script: '/var/www/Bingo/dist/index.js',
    
       env: {
-        NODE_ENV: 'development',
-      },
-      env_production: {
         NODE_ENV: 'production',
       },
+
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',

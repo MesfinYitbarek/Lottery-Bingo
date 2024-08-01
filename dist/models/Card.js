@@ -1,12 +1,5 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _mongoose = _interopRequireDefault(require("mongoose"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var cardSchema = new _mongoose["default"].Schema({
+import mongoose from 'mongoose';
+const cardSchema = new mongoose.Schema({
   id: {
     type: Number,
     required: true
@@ -18,16 +11,14 @@ var cardSchema = new _mongoose["default"].Schema({
     B: [Number],
     I: [Number],
     N: {
-      type: [_mongoose["default"].Schema.Types.Mixed],
+      type: [mongoose.Schema.Types.Mixed],
       // To handle 'Free' string and numbers
       validate: {
-        validator: function validator(v) {
+        validator: function (v) {
           // Ensure the middle cell of 'N' is 'Free'
           return v[2] === 'Free';
         },
-        message: function message(props) {
-          return "The middle cell of 'N' column must be 'Free'.";
-        }
+        message: props => `The middle cell of 'N' column must be 'Free'.`
       }
     },
     G: [Number],
@@ -35,8 +26,8 @@ var cardSchema = new _mongoose["default"].Schema({
   },
   createdAt: {
     type: Date,
-    "default": Date.now
+    default: Date.now
   }
 });
-var Card = _mongoose["default"].model('Cards', cardSchema);
-var _default = exports["default"] = Card;
+const Card = mongoose.model('Cards', cardSchema);
+export default Card;
