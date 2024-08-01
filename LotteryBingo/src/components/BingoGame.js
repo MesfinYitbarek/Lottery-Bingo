@@ -1885,7 +1885,7 @@ else {
               {/* <button onClick={this.decrementCards}>-</button> */}
             </div>
             <span className="notranslate">
-              <p>Total Amount: {this.state.amount}</p>
+              {/* <p>Total Amount: {this.state.amount}</p> */}
             </span>
             {/* <p className="red-text">
                         This action <strong>cannot</strong> be undone.
