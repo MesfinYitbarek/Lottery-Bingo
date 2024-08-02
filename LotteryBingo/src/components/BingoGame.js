@@ -1847,6 +1847,7 @@ else {
   placeholder="Bet Amount"
   required
   onChange={this.handleBetAmountChange}
+  value={this.state.betAmount}
 
 /> 
 
@@ -1895,7 +1896,7 @@ else {
               <button
                 className="primaryBtn"
                 onClick={this.confirmstartGame}
-                disabled={this.state.amount === 0 || balance <= 0}
+                disabled={this.state.amount === 0 || balance <= 0 || this.state.betAmount==''}
               >
                 Done
               </button>
