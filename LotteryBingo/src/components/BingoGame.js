@@ -452,6 +452,7 @@ class BingoGame extends Component {
     super(props);
     this.state = {
       showFullCallHistory: false,
+      
      
     };
     // -------------------------- Set properties ----- //
@@ -459,7 +460,10 @@ class BingoGame extends Component {
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
     // this.totalBalance =1000;
+    
     this.amount = 0;
+    this.betAmount=0;
+    this.showModal=false;
     this.cutBalance = 0;
 this.manualEnteredCut=0;
     this.balance = 0;
@@ -546,7 +550,10 @@ this.manualEnteredCut=0;
       // displayBoardOnly: false,
       delay: 3500,
       manualCut:false,
+      betAmount:0,
+      amount:0,
       running: false,
+      showModal: false,
       startButton: false,
       enableCaller: true,
       isRed: {
@@ -666,7 +673,7 @@ this.manualEnteredCut=0;
       blue: false,
       darkRed: false,
       cutBalance: 0,
-      amount: 0,
+    
       cardCount: 0,
 
       selectedChime: this.chimes[0],
@@ -1391,11 +1398,23 @@ this.manualEnteredCut=0;
     let running = this.state.running;
     if (running === true) {
       clearInterval(this.interval);
+      
     } else {
       this.callBingoNumber();
       this.interval = setInterval(this.callBingoNumber, this.state.delay);
     }
     this.setState({ running: !running });
+    
+  };
+  toggleModal = () => {
+    if (this.state.running||this.state.showModal===true){
+    this.setState((prevState) => ({
+      showModal: !prevState.showModal,
+    }));
+  }
+  else {
+  // do nothing
+  }
   };
 
   toggleResetModal = () => {
@@ -1896,7 +1915,7 @@ else {
               <button
                 className="primaryBtn"
                 onClick={this.confirmstartGame}
-                disabled={this.state.amount === 0 || balance <= 0 || this.state.betAmount==''}
+                disabled={this.state.amount === 0 || balance <= 0 || this.state.betAmount===''}
               >
                 Done
               </button>
@@ -2186,6 +2205,8 @@ else {
                   selectedCards={this.selectedCards}
                   manualCut={this.state.manualCut}
                   manualEnteredCut={this.state.manualEnteredCut}
+                  showModal={this.state.showModal}
+                  toggleModal={this.toggleModal}
                 ></CallHistory>
                 {/* 
               <div
@@ -2237,7 +2258,11 @@ else {
                       onClick={
                         this.totalBallsCalled === 0
                           ? this.startNewAutoplayGame
-                          : this.toggleGame
+                          : () => {
+                            this.toggleGame();
+                            this.toggleModal(); // Toggle the modal visibility
+                          }
+                          
                       }
                     >
                       {this.state.running ? (
