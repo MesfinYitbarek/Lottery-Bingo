@@ -460,7 +460,7 @@ class BingoGame extends Component {
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
     // this.totalBalance =1000;
-    
+    this.isLoading = false;
     this.amount = 0;
     this.betAmount=0;
     this.showModal=false;
@@ -556,6 +556,7 @@ this.manualEnteredCut=0;
       showModal: false,
       startButton: false,
       enableCaller: true,
+      isLoading : false,
       isRed: {
         isRed1: false,
         isRed2: false,
@@ -1251,7 +1252,11 @@ this.manualEnteredCut=0;
   };
 
   startNewAutoplayGame = async () => {
-   
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+  }, 3000);
+    
     const {
       currentUser,
       updateUserStart,
@@ -1262,6 +1267,7 @@ this.manualEnteredCut=0;
 
     if (balance < this.state.amount) {
       alert("Insufficent balance", currentUser, balance);
+      
     } else if(this.state.manualCut){
       const newBalance = balance - (this.state.amount*this.state.manualEnteredCut)/100;
 
@@ -1278,33 +1284,41 @@ this.manualEnteredCut=0;
         this.setState({
           board: generateBingoBoard(),
           showstartModal: false,
+         
         });
       } catch (err) {
 
         alert("Error updating balance");
+        this.setState({ isLoading: false });
       }
+      
+      
       for (let i = 1; i <= 100; i++) {
         const isRedState = this.state.isRed[`isRed${i}`];
 
         if (isRedState) {
           this.selectedCards.push(i);
+
         }
+       
       }
 
       if (this.state.doubleCall) {
-        
+       
         let soundstartfa = new Audio(amharicfemaleplaystart);
         soundstartfa.play();
         window.setTimeout(() => {
           this.toggleGame();
         }, 2000);
       } else if (this.state.extraTalk) {
+       
         let soundstartfo = new Audio(oroplaystart);
         soundstartfo.play();
         window.setTimeout(() => {
           this.toggleGame();
         }, 3000);
       } else if (this.state.enableCaller) {
+       
         let soundstartma = new Audio(amharicmaleplaystart);
         soundstartma.play();
         window.setTimeout(() => {
@@ -1398,7 +1412,7 @@ this.manualEnteredCut=0;
     let running = this.state.running;
     if (running === true) {
       clearInterval(this.interval);
-      
+     
     } else {
       this.callBingoNumber();
       this.interval = setInterval(this.callBingoNumber, this.state.delay);
@@ -1448,6 +1462,7 @@ this.manualEnteredCut=0;
       manualCut:false,
       previousCallList: [],
       balance: 0,
+     isLoading:false,
     });
   };
 
@@ -2248,34 +2263,35 @@ else {
                     </button>
 
                     <button
-                      data-disabled={this.state.displayBoardOnly}
-                      data-newgame={this.totalBallsCalled === 0}
-                      className={
-                        this.state.running
-                          ? "pause-button notranslate"
-                          : "play-button notranslate"
-                      }
-                      disabled={this.startButton === 0}
-                      onClick={
-                        this.totalBallsCalled === 0
-                          ? this.startNewAutoplayGame
-                          : () => {
-                            this.toggleGame();
-                            this.toggleModal(); // Toggle the modal visibility
-                          }
-                          
-                      }
-                    >
-                      {this.state.running ? (
-                        <>
-                          Pause <FaPause />
-                        </>
-                      ) : (
-                        <>
-                          Start <VscDebugStart />
-                        </>
-                      )}
-                    </button>
+  data-disabled={this.state.displayBoardOnly}
+  data-newgame={this.totalBallsCalled === 0}
+  className={
+    this.state.running
+      ? "pause-button notranslate"
+      : "play-button notranslate"
+  }
+  disabled={this.state.isLoading || this.startButton === 0} // Disable if loading
+  onClick={
+    this.totalBallsCalled === 0 && !this.state.isLoading // Prevent clicks during loading
+      ? this.startNewAutoplayGame
+      : () => {
+          this.toggleGame();
+          this.toggleModal(); // Toggle the modal visibility
+        }
+  }
+>
+  {this.state.isLoading ? (
+    <>Loading...</> // Show loading text or spinner
+  ) : this.state.running ? (
+    <>
+      Pause <FaPause />
+    </>
+  ) : (
+    <>
+      Start <VscDebugStart />
+    </>
+  )}
+</button>
                   </div>
 
                   <button

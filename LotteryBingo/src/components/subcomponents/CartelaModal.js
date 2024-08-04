@@ -243,7 +243,7 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
           </div>
         )}
         <p>
-          <button onClick={onClose}>exit  <ImExit /></button>
+          <button onClick={onClose} disabled ={isBingo} >exit  <ImExit /></button>
           <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game </button>
         </p>
       </div>
