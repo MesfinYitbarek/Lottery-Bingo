@@ -2206,6 +2206,7 @@ else {
                   manualCut={this.state.manualCut}
                   manualEnteredCut={this.state.manualEnteredCut}
                   showModal={this.state.showModal}
+                  showModal2={this.state.showModal2}
                   toggleModal={this.toggleModal}
                 ></CallHistory>
                 {/* 

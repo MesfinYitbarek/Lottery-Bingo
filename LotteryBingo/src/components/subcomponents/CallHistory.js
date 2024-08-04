@@ -75,7 +75,7 @@ class CallHistory extends React.Component {
       <div className="text-center">
         {this.renderPreviousCalls()}
         
-        <button onClick={() => this.props.toggleModal()}>Check Cartela</button>
+        {/* <button onClick={() => this.props.toggleModal()}>Check Cartela</button> */}
         {this.props.showModal  && (
           <CartelaModal
             calledBalls={this.props.calledBalls}

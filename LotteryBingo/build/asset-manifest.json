@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.1599d579.css",
-    "main.js": "/static/js/main.a1ca960a.js",
+    "main.js": "/static/js/main.f3ef157f.js",
     "static/media/shuffle.wav": "/static/media/shuffle.61b100e7a51014b7a8dc.wav",
     "static/media/12.wav": "/static/media/12.202c1ea3f230cc9cfc66.wav",
     "static/media/13.wav": "/static/media/13.704eb331408b883f2194.wav",
@@ -50,7 +50,9 @@
     "static/media/22.wav": "/static/media/22.fa9047b3194cbfe991d8.wav",
     "static/media/25.wav": "/static/media/25.4d6b94507ff0f25aa6fc.wav",
     "static/media/26.wav": "/static/media/26.fae5fbe9038218a7728c.wav",
+    "static/media/notWin.mp3": "/static/media/notWin.249224a52d52ea2ebbf1.mp3",
     "static/media/66.wav": "/static/media/66.fddcacfd1761d4b4ece8.wav",
+    "static/media/WIN.mp3": "/static/media/WIN.2d777fe49bd842f8bcb9.mp3",
     "static/media/amharicmaleplaystart.mp3": "/static/media/amharicmaleplaystart.2941364140b5b38b0c73.mp3",
     "static/media/18.wav": "/static/media/18.472d8731f634d0e4a14c.wav",
     "static/media/24.wav": "/static/media/24.a0bb024c41bd2502628a.wav",
@@ -413,10 +415,10 @@
     "static/media/digital-7.woff": "/static/media/digital-7.4eed57244bb0a0bd583d.woff",
     "index.html": "/index.html",
     "main.1599d579.css.map": "/static/css/main.1599d579.css.map",
-    "main.a1ca960a.js.map": "/static/js/main.a1ca960a.js.map"
+    "main.f3ef157f.js.map": "/static/js/main.f3ef157f.js.map"
   },
   "entrypoints": [
     "static/css/main.1599d579.css",
-    "static/js/main.a1ca960a.js"
+    "static/js/main.f3ef157f.js"
   ]
 }
