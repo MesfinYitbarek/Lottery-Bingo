@@ -1254,7 +1254,7 @@ this.manualEnteredCut=0;
   startNewAutoplayGame = async () => {
     this.setState({ isLoading: true });
     setTimeout(() => {
-      this.setState({ isLoading: false });
+                  this.setState({ isLoading: false });
   }, 3000);
     
     const {
