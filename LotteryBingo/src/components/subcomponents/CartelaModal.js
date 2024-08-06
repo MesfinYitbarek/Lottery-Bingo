@@ -237,13 +237,13 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
             </div>
             {isBingo && (
               <div className="bingo-message tw-text-4xl tw-font-bold tw-text-red-600">
-                <img src={logoImage} alt="bingo!" className='logo2' />
+                <img src={logoImage} alt="bingo!" className='logo2'/>
               </div>
             )}
           </div>
         )}
         <p>
-          <button onClick={onClose} disabled ={isBingo} >exit  <ImExit /></button>
+          <button onClick={onClose} disabled ={isBingo} > exit  <ImExit/></button>
           <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game </button>
         </p>
       </div>
