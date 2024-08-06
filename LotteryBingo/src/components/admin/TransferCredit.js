@@ -71,44 +71,8 @@ const TransferCredit = () => {
         setLoading(false);
       } catch (err) {
         setLoading(false);
-        
-        const errorMessage = 'Error transferring credit: ' + (err.response ? err.response.data : 'Unknown error');
-        
-        // Display an alert modal
-        showAlertModal(errorMessage);
+        alert('Error transferring credit');
       }
-      
-      // Function to display the alert modal
-      const showAlertModal = (message) => {
-        // Create the modal element
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-        
-        // Create the modal content
-        const modalContent = document.createElement('div');
-        modalContent.classList.add('modal-content');
-        
-        // Create the message element
-        const messageElement = document.createElement('p');
-        messageElement.textContent = message;
-        
-        // Create the close button
-        const closeButton = document.createElement('button');
-        closeButton.textContent = 'Close';
-        closeButton.addEventListener('click', () => {
-          modal.remove();
-        });
-        
-        // Append the message and close button to the modal content
-        modalContent.appendChild(messageElement);
-        modalContent.appendChild(closeButton);
-        
-        // Append the modal content to the modal
-        modal.appendChild(modalContent);
-        
-        // Append the modal to the document body
-        document.body.appendChild(modal);
-      };
     }
   };
 
