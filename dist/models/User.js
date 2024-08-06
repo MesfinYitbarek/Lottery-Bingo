@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imageUrl: {
+    type: String,
+    default: "https://firebasestorage.googleapis.com/v0/b/bingo-5a330.appspot.com/o/Images%2FlogoImagelast.jpg?alt=media&token=9551c268-8625-4dc3-8705-721a3f947c99"
+  },
   name: {
     type: String,
     required: true,

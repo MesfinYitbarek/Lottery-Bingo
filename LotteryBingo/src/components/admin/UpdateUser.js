@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 const EditUser = () => {
   const { id } = useParams();
 
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
@@ -46,9 +50,19 @@ const EditUser = () => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
 
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      if (imageFile) {
+        const userImageRef = ref(storage, `Images/${imageFile.name}`);
+        await uploadBytes(userImageRef, imageFile);
+        user.imageUrl = await getDownloadURL(userImageRef);
+      }
+
       const response = await axios.post(
         `/api/user/update/${id}`,
         user
@@ -104,14 +118,6 @@ const EditUser = () => {
           <div className="tw-mb-4">
             <label
               className="tw-block tw-text-gray-700 tw-mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-          </div>
-          <div className="tw-mb-4">
-            <label
-              className="tw-block tw-text-gray-700 tw-mb-2"
               htmlFor="username"
             >
               Phone
@@ -143,7 +149,7 @@ const EditUser = () => {
               ) : (
                 users &&
                 users.map((users) => (
-                  <option value={users.name}>{users.name}</option>
+                  <option key={users.name} value={users.name}>{users.name}</option>
                 ))
               )}
             </select>
@@ -189,14 +195,22 @@ const EditUser = () => {
               className=" tw-dark:bg-slate-100  tw-sm:w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
             >
               <option value={"employee"}>Employee</option>
-              {currentUser.role == "agent" ? (
+              {currentUser.role === "agent" && (
                 <option value={"admin"}>Admin</option>
-              ) : (
-                ""
               )}
             </select>
           </div>
-
+          <div className="tw-mb-4">
+            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="imageUrl">
+              Logo Image
+            </label>
+            <input 
+              type="file"
+              id="imageUrl"
+              onChange={handleFileChange}
+              className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
+            />
+          </div>
           <div className="tw-flex tw-justify-end tw-mt-4">
             <button
               type="submit"

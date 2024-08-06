@@ -5,7 +5,7 @@ import axios from "axios";
 import { RiFullscreenLine, RiFullscreenExitLine } from "react-icons/ri";
 import { BiShoppingBag } from "react-icons/bi";
 
-import headerlogo from "./logoImagelast.jpg";
+
 import SignOut from "../admin/SignOut";
 import ChangePassword from "../Authentication/ChangePassword";
 import "./Header.css";
@@ -52,7 +52,8 @@ const Header = () => {
             {/* <h1 className=" tw-text-green-800 tw-font-extrabold tw-text-4xl ">
              <span className=" tw-text-blue-800">Bingo</span> Lottery
             </h1> */}
-            <img src={headerlogo} className="logo"></img>
+           
+            <img src={currentUser.imageUrl} className="logo"></img>
           </div>
             
           </Link>

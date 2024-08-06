@@ -69,11 +69,6 @@ export const transfer = async (req, res) => {
         msg: 'User not found'
       });
     }
-    if (senderr.balance < parseFloat(amount)) {
-      return res.status(400).json({
-        msg: 'Insufficient balance'
-      });
-    }
     senderr.balance -= parseFloat(amount);
     recipient.balance += parseFloat(amount);
     await senderr.save();

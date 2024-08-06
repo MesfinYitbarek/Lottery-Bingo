@@ -13,10 +13,10 @@ export const test = (req, res) => {
 
 
 export const signup = async (req, res, next) => {
-  const { name,username, phone, password,balance,cut,branch,role } = req.body;
+  const { name,username,imageUrl, phone, password,balance,cut,branch,role } = req.body;
   
   // Create new User
-  const newUser = new User({ name,username, phone, password,balance,cut,branch,role,userRef: req.params.id  });
+  const newUser = new User({ name,username, imageUrl,phone, password,balance,cut,branch,role,userRef: req.params.id  });
 
   try {
     await newUser.save();
@@ -95,46 +95,49 @@ export const deleteAdmin = async (req, res, next) => {
 
 export const updateAdmin = async (req, res, next) => {
   try {
+    const updateFields = {
+      username: req.body.username,
+      phone: req.body.phone,
+      avatar: req.body.avatar,
+      role: req.body.role,
+      name: req.body.name,
+      balance: req.body.balance,
+      cut: req.body.cut,
+      branch: req.body.branch,
+      imageUrl: req.body.imageUrl, // Added imageUrl field
+    };
+
     if (req.body.password) {
-      req.body.password = bcryptjs.hashSync(req.body.password, 10);
+      updateFields.password = bcryptjs.hashSync(req.body.password, 10);
     }
+
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      {
-        $set: {
-          username: req.body.username,
-          phone: req.body.phone,
-          password: req.body.password,
-          avatar: req.body.avatar,
-          role: req.body.role,
-          name: req.body.name,
-          balance: req.body.balance,
-          cut: req.body.cut,
-          branch: req.body.branch,
-        },
-      },
+      { $set: updateFields },
       { new: true }
     );
 
-    const { passowrd, ...rest } = updatedUser._doc;
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { password, ...rest } = updatedUser._doc;
     res.status(200).json(rest);
   } catch (error) {
     next(error);
   }
-}
+};
 
 export const userEdit = async (req, res, next) => {
-  const { id } = req.params; 
-
   try {
-    const user = await User.findById(id); 
+    const user = await User.findById(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" }); 
+      return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json(user); 
+    const { password, ...userWithoutPassword } = user._doc;
+    res.status(200).json(userWithoutPassword);
   } catch (error) {
-    console.error("Error fetching User:", error);
-    res.status(500).json({ message: "Internal server error" });
+    next(error);
   }
 };
 

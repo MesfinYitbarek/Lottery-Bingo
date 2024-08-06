@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const AddUsers = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
   const navigate = useNavigate();
@@ -32,10 +35,23 @@ const AddUsers = () => {
     });
   };
 
+  const handleFileChange = (e, setImageFile) => {
+    setImageFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
+
     try {
       setLoading(true);
+      if (imageFile) {
+        const courseImageRef = ref(storage, `Images/${imageFile.name}`);
+        await uploadBytes(courseImageRef, imageFile);
+        formData.imageUrl = await getDownloadURL(courseImageRef);
+      }
+
       const res = await fetch(
         `/api/user/signup/${currentUser._id}`,
         {
@@ -110,6 +126,14 @@ const AddUsers = () => {
             required
             onChange={handleChange}
             className=" tw-dark:bg-slate-100 sm:tw-w-[450px] tw-h-10 tw-rounded-lg tw-border tw-border-slate-300 tw-p-3  tw-focus:outline-none"
+          />
+          <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="imageUrl">
+              Logo Image
+          </label>
+          <input 
+          type="file"
+          id="imageUrl"
+          onChange={(e) => handleFileChange(e, setImageFile)}
           />
           <div className=" tw-flex  tw-gap-5">
             <label htmlFor="branch" className=" tw-text-lg tw-font-bold">
