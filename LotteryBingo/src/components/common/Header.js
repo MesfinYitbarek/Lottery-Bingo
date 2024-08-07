@@ -116,32 +116,39 @@ const UserMenu = ({ currentUser, balance, openModal }) => (
 
 const LanguageSwitcher = () => {
   useEffect(() => {
-    const flags = document.getElementsByClassName("flag-link");
-
-    Array.prototype.forEach.call(flags, function (e) {
-      e.addEventListener("click", function () {
-        var lang = e.getAttribute("data-lang");
-        var languageSelect = document.querySelector("select.goog-te-combo");
-        languageSelect.value = lang;
-        languageSelect.dispatchEvent(new Event("change"));
+    const languageSelect = document.querySelector("select.goog-te-combo");
+    
+    // Set the initial value based on the current language
+    if (languageSelect) {
+      const currentLang = languageSelect.value;
+      const flags = document.querySelectorAll(".flag-link");
+      flags.forEach(flag => {
+        if (flag.getAttribute("data-lang") === currentLang) {
+          flag.classList.add("active"); // Optional: Highlight the active language
+        }
       });
-    });
+    }
   }, []);
 
   const handleLanguageChange = (event) => {
     const lang = event.target.value;
     const languageSelect = document.querySelector("select.goog-te-combo");
-    languageSelect.value = lang;
-    languageSelect.dispatchEvent(new Event("change"));
+    
+    if (languageSelect) {
+      languageSelect.value = lang;
+      languageSelect.dispatchEvent(new Event("change"));
+    }
   };
 
   return (
     <div className="language-switcher">
       <select className="language-dropdown" onChange={handleLanguageChange}>
-        <option value="am" data-lang="am">amh</option>
-        <option value="ti" data-lang="ti">tig</option>
-        <option value="om" data-lang="om">oro</option>
-        <option value="so" data-lang="so">som</option>
+
+        <option value="en" data-lang="en">english</option>
+        <option value="am" data-lang="am">amharic</option>
+        <option value="ti" data-lang="ti">tigrigna</option>
+        <option value="om" data-lang="om">oromigna</option>
+        <option value="so" data-lang="so">somali</option>
       </select>
     </div>
   );
