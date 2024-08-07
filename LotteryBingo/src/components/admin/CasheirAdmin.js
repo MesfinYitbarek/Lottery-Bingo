@@ -43,6 +43,9 @@ const CaheirContainer = () => {
                 Lottery<span>Bingo</span>
               </Link>
             </div>
+            <Link to="/" className="dashboard-button">
+    Back to Bingo Game
+  </Link>
             <div className=" tw-text-start tw-flex tw-p-2 tw-flex-col tw-gap-2">
               {navigationItems.map((item, index) => (
                 <button

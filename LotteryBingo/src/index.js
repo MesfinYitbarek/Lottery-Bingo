@@ -10,7 +10,7 @@ import "./index.css";
 
 import BingoGame from "./components/BingoGame.js";
 import CardGenerator from "./components/pages/CardGenerator.js";
-
+import Cartela from "./components/admin/Cartela.js";
 import ReleaseNotes from "./components/pages/ReleaseNotes.js";
 
 //import Patterns from "./components/pages/Patterns.js";
@@ -63,6 +63,7 @@ const App = () => (
               <Route path="/users" element={<Users />} />
 
               <Route path="/generator" element={<CardGenerator />} />
+              <Route path="/cartela" element={< Cartela/>} />
 
               {/*<Route path="/patterns" element={<Patterns />} />*/}
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BingoCard from "./BingoCard";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom"; // Import Link
 const CardFetcher = ({ selectedCards }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -79,6 +79,9 @@ const CardFetcher = ({ selectedCards }) => {
   return (
     <div className="tw-bg-gray-100 tw-min-h-screen">
       <div className="tw-pt-7 tw-items-center tw-flex-col tw-justify-center tw-text-center branch-input">
+      <Link to="/admin" className="tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800">
+        Back 
+      </Link>
         <label htmlFor="branch" className="tw-text-lg tw-font-bold">
           Branch:{" "}
         </label>
