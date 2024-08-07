@@ -157,3 +157,15 @@
     font-size: 1.5rem;
     cursor: pointer;
   }
+  .language-dropdown {
+    border: 2px solid #007bff; /* Blue border similar to your buttons */
+    padding: 10px;
+    background-color: white;
+    color: #007bff; /* Blue text */
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .language-dropdown:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+  }

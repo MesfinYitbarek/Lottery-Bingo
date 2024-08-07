@@ -128,28 +128,21 @@ const LanguageSwitcher = () => {
     });
   }, []);
 
+  const handleLanguageChange = (event) => {
+    const lang = event.target.value;
+    const languageSelect = document.querySelector("select.goog-te-combo");
+    languageSelect.value = lang;
+    languageSelect.dispatchEvent(new Event("change"));
+  };
+
   return (
     <div className="language-switcher">
-      <button className="header-button">
-        <a href="#" className="flag-link" data-lang="am">
-          amh
-        </a>
-      </button>
-      <button className="header-button">
-        <a href="#" className="flag-link" data-lang="ti">
-          tig
-        </a>
-      </button>
-      <button className="header-button">
-        <a href="#" className="flag-link" data-lang="om">
-          oro
-        </a>
-      </button>
-      <button className="header-button">
-        <a href="#" className="flag-link" data-lang="so">
-          som
-        </a>
-      </button>
+      <select className="language-dropdown" onChange={handleLanguageChange}>
+        <option value="am" data-lang="am">amh</option>
+        <option value="ti" data-lang="ti">tig</option>
+        <option value="om" data-lang="om">oro</option>
+        <option value="so" data-lang="so">som</option>
+      </select>
     </div>
   );
 };
