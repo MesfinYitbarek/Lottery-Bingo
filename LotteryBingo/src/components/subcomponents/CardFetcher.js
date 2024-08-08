@@ -93,7 +93,7 @@ const CardFetcher = ({ selectedCards }) => {
       try {
         const formData = new FormData();
         formData.append("pdf", file);
-        const response = await axios.post("/api/card/generate-qr", formData);
+        const response = await axios.post("https://lotterybingoet.com/api/card/generate-qr", formData);
         setPdfUrl(response.data.pdfUrl);
         setShowQRModal(true);
       } catch (error) {
