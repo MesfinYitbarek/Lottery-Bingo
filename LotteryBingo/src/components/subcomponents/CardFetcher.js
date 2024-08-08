@@ -1,9 +1,11 @@
 // components/CardFetcher.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import BingoCard from "./BingoCard";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
+import QRCode from "qrcode.react";
+
 const CardFetcher = ({ selectedCards }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,6 +13,10 @@ const CardFetcher = ({ selectedCards }) => {
   const [branch, setBranch] = useState("");
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
+  const [showQRModal, setShowQRModal] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
+  const [file, setFile] = useState(null);
+  const qrRef = useRef(); // Reference to the QR code component
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -27,21 +33,23 @@ const CardFetcher = ({ selectedCards }) => {
 
     fetchUsers();
   }, [currentUser.username]);
-  const [superBranch, setSuperBranch] = React.useState([]);
 
-  React.useEffect(() => {
-    const fetchUsers = async () => {
+  const [superBranch, setSuperBranch] = useState([]);
+
+  useEffect(() => {
+    const fetchBranches = async () => {
       try {
         const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
         setSuperBranch(data);
       } catch (err) {
-        setError("Error fetching User");
+        setError("Error fetching Branches");
       }
     };
 
-    fetchUsers();
-  }, [superBranch]);
+    fetchBranches();
+  }, []);
+
   const fetchCards = async (branch) => {
     setLoading(true);
     setError(null);
@@ -76,12 +84,49 @@ const CardFetcher = ({ selectedCards }) => {
     }
   };
 
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleGenerateQR = async () => {
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append("pdf", file);
+        const response = await axios.post("/api/card/generate-qr", formData);
+        setPdfUrl(response.data.pdfUrl);
+        setShowQRModal(true);
+      } catch (error) {
+        setError("Failed to generate QR code");
+      }
+    } else {
+      setError("Please upload a PDF file");
+    }
+  };
+
+  const handleCloseQRModal = () => {
+    setShowQRModal(false);
+    setFile(null); // Reset file state
+  };
+
+  const downloadQRCode = () => {
+    const canvas = qrRef.current.querySelector("canvas");
+    const pngUrl = canvas.toDataURL("image/png");
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = "QRCode.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
   return (
     <div className="tw-bg-gray-100 tw-min-h-screen">
       <div className="tw-pt-7 tw-items-center tw-flex-col tw-justify-center tw-text-center branch-input">
-      <Link to="/admin" className="tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800">
-        Back 
-      </Link>
+        <Link to="/admin" className="tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800">
+          Back 
+        </Link>
         <label htmlFor="branch" className="tw-text-lg tw-font-bold">
           Branch:{" "}
         </label>
@@ -93,7 +138,7 @@ const CardFetcher = ({ selectedCards }) => {
           <option value="">Select Branch</option>
           {["admin", "employee"].includes(currentUser.role) ? (
             <option value={currentUser.branch}>{currentUser.branch}</option>
-          ): currentUser.role == "superadmin" ? (
+          ) : currentUser.role === "superadmin" ? (
             superBranch.map((branch) => (
               <option key={branch.id} value={branch.name}>
                 {branch.name}
@@ -126,9 +171,21 @@ const CardFetcher = ({ selectedCards }) => {
                 <BingoCard card={cardData.card} color="blue" />
               </div>
             ))}
-            <button className="altBtn" onClick={() => { window.print(); return false; }}>
-              Print Cards
-            </button>
+            <input type="file" accept="application/pdf" onChange={handleFileChange} />
+            <button onClick={handleGenerateQR}>Generate QR Code</button>
+          </div>
+        </div>
+      )}
+
+      {showQRModal && (
+        <div className="modal">
+          <div className="modal-content" ref={qrRef}>
+            <span className="close" onClick={handleCloseQRModal}>
+              &times;
+            </span>
+            <h2>Scan the QR code to access the PDF</h2>
+            <QRCode value={pdfUrl} />
+            <button onClick={downloadQRCode}>Download QR Code</button>
           </div>
         </div>
       )}
