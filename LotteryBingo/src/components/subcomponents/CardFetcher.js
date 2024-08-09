@@ -11,6 +11,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 const CardFetcher = ({ selectedCards }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [error, setError] = useState(null);
   const [branch, setBranch] = useState("");
   const { currentUser } = useSelector((state) => state.user);
@@ -92,6 +93,8 @@ const CardFetcher = ({ selectedCards }) => {
 
   const handleGenerateQR = async () => {
     if (file) {
+      setLoading2(true);
+    
       try {
         const storageRef = ref(storage, `${file.name}`); // Create a reference for the file
         await uploadBytes(storageRef, file); // Upload the file to Firebase Storage
@@ -99,12 +102,15 @@ const CardFetcher = ({ selectedCards }) => {
         // Get the download URL
         const downloadURL = await getDownloadURL(storageRef);
         setPdfUrl(downloadURL); // Set the PDF URL for the QR code
-        setShowQRModal(true); // Show the QR modal
+        setShowQRModal(true);
+        setLoading2(false); // Show the QR modal
       } catch (error) {
         setError("Failed to generate QR code");
+        setLoading2(false);
       }
     } else {
       setError("Please upload a PDF file");
+      setLoading2(false);
     }
   };
 
@@ -176,7 +182,7 @@ const CardFetcher = ({ selectedCards }) => {
               </div>
             ))}
             <input type="file" accept="application/pdf" onChange={handleFileChange} />
-            <button onClick={handleGenerateQR}>Generate QR Code</button>
+            <button onClick={handleGenerateQR} >{loading2 ? "generating..." : "generate"}</button>
           </div>
         </div>
       )}
