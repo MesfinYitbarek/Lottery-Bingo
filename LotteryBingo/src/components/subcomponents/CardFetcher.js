@@ -5,6 +5,8 @@ import BingoCard from "./BingoCard";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import QRCode from "qrcode.react";
+import { storage } from '../../firebase'; // Import Firebase storage
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const CardFetcher = ({ selectedCards }) => {
   const [cards, setCards] = useState([]);
@@ -91,11 +93,13 @@ const CardFetcher = ({ selectedCards }) => {
   const handleGenerateQR = async () => {
     if (file) {
       try {
-        const formData = new FormData();
-        formData.append("pdf", file);
-        const response = await axios.post("/api/card/generate-qr", formData);
-        setPdfUrl(response.data.pdfUrl);
-        setShowQRModal(true);
+        const storageRef = ref(storage, `${file.name}`); // Create a reference for the file
+        await uploadBytes(storageRef, file); // Upload the file to Firebase Storage
+
+        // Get the download URL
+        const downloadURL = await getDownloadURL(storageRef);
+        setPdfUrl(downloadURL); // Set the PDF URL for the QR code
+        setShowQRModal(true); // Show the QR modal
       } catch (error) {
         setError("Failed to generate QR code");
       }
@@ -180,9 +184,9 @@ const CardFetcher = ({ selectedCards }) => {
       {showQRModal && (
         <div className="modal">
           <div className="modal-content" ref={qrRef}>
-            <span className="close" onClick={handleCloseQRModal}>
-              &times;
-            </span>
+            <button className="close" onClick={handleCloseQRModal}>
+              close
+            </button>
             <h2>Scan the QR code to access the PDF</h2>
             <QRCode value={pdfUrl} />
             <button onClick={downloadQRCode}>Download QR Code</button>

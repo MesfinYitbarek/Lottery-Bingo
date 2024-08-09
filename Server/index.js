@@ -9,9 +9,6 @@ import creditRouter from "./routes/credit.js";
 import salesRouter from "./routes/sales.js";
 import branchRouter from "./routes/Agent.js";
 import path from "path"
- import multer from 'multer';
-
-
 // Connect to MongoDB database
 dotenv.config();
 mongoose
@@ -24,19 +21,9 @@ mongoose
   });
 
   const __dirname = path.resolve();
-  const app = express();
-  // const multer = require("multer");
-  // const upload = multer({ dest: "uploads/" });
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Specify the directory to save uploaded files
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the original filename
-    }
-});
+const app = express();
 
-const upload = multer({ storage: storage });
+
 //mongodb+srv://mesfinyitbarek55:12348109@lotterybingo.knjysl9.mongodb.net/?retryWrites=true&w=majority&appName=LotteryBingo
 
 // Middleware
@@ -65,17 +52,7 @@ app.use((err, req, res, next) => {
     message,
   });
 });
-app.post('/api/card/generate-qr', upload.single('pdf'), (req, res) => {
-  if (!req.file) {
-      return res.status(400).json({ error: 'No PDF file uploaded' });
-  }
 
-  // Process the uploaded PDF file and generate a URL
-  const pdfUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-  res.json({ pdfUrl });
-});
-
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.listen(4000, () => {
     console.log(`App is listening on port: 4000`);
