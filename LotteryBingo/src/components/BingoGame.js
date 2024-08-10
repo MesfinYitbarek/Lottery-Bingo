@@ -1888,37 +1888,37 @@ else {
             </div>{" "}
 
             <div>
-              <h6>enter cut amount</h6>{" "}
+              <h6>enter game-type</h6>{" "}
                <label>
           <input
             type="checkbox"
             checked={this.state.manualCut} // Controlled checkbox
              onChange={this.handleChechbx} // Event handler
           />
-          Manual Cut
+          game-type
         </label>
         <span>&nbsp;</span>
         <span>&nbsp;</span>
               <input
           type="number" // Ensure this is set to "number" for numeric input
           id="cutAmount"
-          placeholder="cut"
+          placeholder="game-type"
           value={this.state.manualEnteredCut} // Controlled input
           onChange={this.handleCutChange} // Event handler
         />
 
        
             </div>{" "}
-            <label><h6>Number of Cards:</h6></label>
-            <div className="number-input">
-              <input
+           
+            {/* <div className="number-input"> */}
+              {/* <input
                 type="number"
-                value={this.state.cardCount}
+                 value={"Ahadu-virtuals"}
                 readOnly
                 onChange={this.handleCardCountChange}
-              />
+              /> */}
               {/* <button onClick={this.decrementCards}>-</button> */}
-            </div>
+            {/* </div> */}
             <span className="notranslate">
               {/* <p>Total Amount: {this.state.amount}</p> */}
             </span>
