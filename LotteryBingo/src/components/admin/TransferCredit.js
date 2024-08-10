@@ -3,11 +3,58 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 import { updateUserStart, updateUserSuccess } from '../../redux/user/userSlice';
 
+// InvoiceModal Component
+const InvoiceModal = ({ amount, onDone, onClose }) => {
+  const [cutPercentage, setCutPercentage] = useState(0);
+  const [modalAmount, setModalAmount] = useState(amount);
+  const [calculatedInvoiceAmount, setCalculatedInvoiceAmount] = useState(0);
+
+  const handleGenerate = () => {
+    const calculatedInvoice = (parseFloat(modalAmount) / (cutPercentage / 100)).toFixed(2);
+    setCalculatedInvoiceAmount(calculatedInvoice);
+  };
+
+  const handleDone = () => {
+    onDone(calculatedInvoiceAmount);
+  };
+
+  return (
+    <div className="modal">
+      <h2>Generate Invoice</h2>
+      <div>
+        <label>Cut Percentage:</label>
+        <input
+          type="number"
+          value={cutPercentage}
+          onChange={(e) => setCutPercentage(e.target.value)}
+          placeholder="Enter cut percentage"
+        />
+      </div>
+      <div>
+        <label>cash:</label>
+        <input
+          type="number"
+          value={modalAmount}
+          onChange={(e) => setModalAmount(e.target.value)}
+          placeholder="Enter amount"
+        />
+      </div>
+      <button onClick={handleGenerate}>Generate</button>
+      <button onClick={handleDone}>Done</button>
+      <button onClick={onClose}>Close</button>
+      {calculatedInvoiceAmount > 0 && (
+        <p>Calculated Invoice Amount: &#36; {calculatedInvoiceAmount}</p>
+      )}
+    </div>
+  );
+};
+
+// TransferCredit Component
 const TransferCredit = () => {
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
- 
+
   const [credit, setCredit] = useState({
     amount: '',
     receiver: '',
@@ -17,6 +64,7 @@ const TransferCredit = () => {
   const [getCredit, setGetCredit] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -31,7 +79,7 @@ const TransferCredit = () => {
     if (currentUser) {
       fetchBalance();
     }
-  }, [currentUser, balance]);
+  }, [currentUser]);
 
   useEffect(() => {
     const fetchGetCredit = async () => {
@@ -46,7 +94,7 @@ const TransferCredit = () => {
     if (currentUser) {
       fetchGetCredit();
     }
-  }, [currentUser, getCredit]);
+  }, [currentUser]);
 
   const { amount, receiver } = credit;
 
@@ -74,6 +122,11 @@ const TransferCredit = () => {
         alert('Error transferring credit');
       }
     }
+  };
+
+  const handleDoneInModal = (calculatedAmount) => {
+    setCredit({ ...credit, amount: calculatedAmount });
+    setShowModal(false);
   };
 
   const handleDeleteUser = async (userId) => {
@@ -132,9 +185,24 @@ const TransferCredit = () => {
             >
               {loading ? "Loading..." : "Transfer"}
             </button>
+            <span className="tw-mx-2">or</span>
+            <button
+              type="button" // Change to button type
+              onClick={() => setShowModal(true)}
+              className="tw-text-white tw-bg-blue-800 tw-p-0.5 tw-px-4 tw-rounded-md"
+            >
+              Generate Invoice
+            </button>
           </div>
         </form>
       </div>
+      {showModal && (
+        <InvoiceModal
+          amount={amount}
+          onDone={handleDoneInModal}
+          onClose={() => setShowModal(false)}
+        />
+      )}
       <div className='tw-mt-8'>
         <table className="tw-rounded-md tw-text-[16px] tw-text-sky-800 tw-bg-white tw-px-10 tw-py-4 tw-shadow-lg tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
           <thead>
