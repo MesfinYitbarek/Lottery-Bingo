@@ -452,14 +452,13 @@ class BingoGame extends Component {
     super(props);
     this.state = {
       showFullCallHistory: false,
-      
-     
-    };
+       };
     // -------------------------- Set properties ----- //
     // Balls display pieces
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
     // this.totalBalance =1000;
+    this.enteredCartella="";
     this.isLoading = false;
     this.amount = 0;
     this.betAmount=0;
@@ -550,6 +549,7 @@ this.manualEnteredCut=0;
       // displayBoardOnly: false,
       delay: 3500,
       manualCut:false,
+      enteredCartella: "",
       betAmount:0,
       amount:0,
       running: false,
@@ -731,6 +731,7 @@ this.manualEnteredCut=0;
       currentBall: this.currentBall,
       interval: this.interval,
       selectedCards: this.selectedCards,
+      enteredCartella:this.enteredCartella,
       //  sales:this.sales,
       //  totalBalance:this.totalBalance,
     };
@@ -1445,24 +1446,33 @@ this.manualEnteredCut=0;
     localStorage.removeItem("lpb-gameData");
     localStorage.removeItem("lpb-gameState");
     // reset everything with the board
+    const resetIsRed = {};
+  
+  for (let i = 1; i <= 100; i++) {
+    resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
+  }
     clearInterval(this.interval);
 
     this.cancelSpeech();
     this.totalBallsCalled = 0;
 
     this.selectedCards = [];
+    this.enteredCartella="";
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
     this.setState({
       board: generateBingoBoard(),
+      cardCount:0,
       wildBall: null,
       running: false,
       showResetModal: false,
       manualCut:false,
       previousCallList: [],
       balance: 0,
+      amount:0,
      isLoading:false,
+     isRed: resetIsRed,
     });
   };
 
@@ -1842,6 +1852,11 @@ else {
       return null;
     }
   }
+  handleEnterCartella = (e) => {
+    this.setState({
+      enteredCartella: e.target.value,
+    });
+  };
 
   incrementCard = (number) => {
     // const currentState2 = this.state.isRed;
@@ -1909,6 +1924,13 @@ else {
 
        
             </div>{" "}
+            <input
+  type="number"
+  placeholder="enter cartela manual"
+  value={this.state.enteredCartella}
+  onChange={this.handleEnterCartella}
+/>
+<button onClick={this.addEnteredCartella}>Add Cartella</button>
            
             {/* <div className="number-input"> */}
               {/* <input
@@ -1973,6 +1995,26 @@ else {
       return null;
     }
   }
+  addEnteredCartella = () => {
+    const enteredCartella = parseInt(this.state.enteredCartella);
+  
+    // Check if the entered cartella is a valid number
+    if (!isNaN(enteredCartella)) {
+      // Add the entered cartella to the selectedCards array
+      this.selectedCards.push(enteredCartella);
+  
+      // Increment the cardCount
+      this.setState((prevState) => ({
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+      }));
+    }
+  
+    // Clear the input field
+    this.setState({
+      enteredCartella: "",
+    });
+  };
   handleChechbx=(e)=>{  if (e.target.type === 'checkbox') {
     this.setState({
       manualCut: e.target.checked // Set state based on checkbox checked state
