@@ -58,7 +58,8 @@ const CardFetcher = ({ selectedCards }) => {
     setError(null);
     try {
       const response = await axios.get(`/api/card/getCards?branch=${branch}`);
-      setCards(response.data);
+      const sortedCards = response.data.sort((a, b) => a.id - b.id); // Sort the cards by card ID in ascending order
+      setCards(sortedCards);
     } catch (error) {
       setError("Failed to fetch cards");
     } finally {

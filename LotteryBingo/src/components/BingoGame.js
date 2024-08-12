@@ -1959,7 +1959,7 @@ else {
             </p>
             <h2>select cartela</h2>
             <span className="notranslate">
-              {Array.from({ length: 100 }, (_, index) => (
+            {Array.from({ length: 100 }, (_, index) => (
                 <button
                   key={index + 1}
                   onClick={() => {
