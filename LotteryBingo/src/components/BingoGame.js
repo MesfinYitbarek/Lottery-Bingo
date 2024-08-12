@@ -446,12 +446,18 @@ import {
 
 import Header from "./common/Header.js";
 
-import axios from "axios";
+import axios from 'axios';
+
+
 class BingoGame extends Component {
+  
   constructor(props) {
+    
     super(props);
     this.state = {
+      error: null,
       showFullCallHistory: false,
+      availableCartellas: [],
        };
     // -------------------------- Set properties ----- //
     // Balls display pieces
@@ -706,6 +712,7 @@ this.manualEnteredCut=0;
     this.loadVoices();
     // ensure the reset modal doesn't show at initial load
     this.setState({ showResetModal: false });
+    this.fetchAvailableCartellas();
     //  let running = this.state.running;
     if (this.totalBallsCalled > 0) {
       this.startButton = 1;
@@ -1852,6 +1859,7 @@ else {
       return null;
     }
   }
+
   handleEnterCartella = (e) => {
     this.setState({
       enteredCartella: e.target.value,
@@ -1885,7 +1893,7 @@ else {
   get startConfirmationModalDisplay() {
     if (this.state.showstartModal === true) {
       let balance = this.totalBalance;
-
+      const { availableCartellas } = this.state;
       return (
         <div className="notranslate">
           <div className="modal">
@@ -1944,9 +1952,7 @@ else {
             <span className="notranslate">
               {/* <p>Total Amount: {this.state.amount}</p> */}
             </span>
-            {/* <p className="red-text">
-                        This action <strong>cannot</strong> be undone.
-                    </p> */}
+           
             <p>
               <button onClick={this.togglestartModal}>Cancel</button>
               <button
@@ -1959,27 +1965,37 @@ else {
             </p>
             <h2>select cartela</h2>
             <span className="notranslate">
-            {Array.from({ length: 100 }, (_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => {
-                    const currentNumber = index + 1;
-                    const isRedState =
-                      this.state.isRed[`isRed${currentNumber}`];
+            {availableCartellas.length > 0 ? (
+            availableCartellas.map((cartella) => (
+              <button
+              key={cartella._id}
+              onClick={()=>{
+                const currentNumber = cartella.id;
+                const isRedState =
+                this.state.isRed[`isRed${currentNumber}`];
 
-                    if (isRedState) {
-                      this.decrementCard(currentNumber);
-                    } else {
-                      this.incrementCard(currentNumber);
-                    }
-                  }}
-                  className={
-                    this.state.isRed[`isRed${index + 1}`] ? "red" : "bt"
-                  }
-                >
-                  {index + 1}
-                </button>
-              ))}
+              if (isRedState) {
+                this.decrementCard(currentNumber);
+              } else {
+                this.incrementCard(currentNumber);
+              }
+            
+
+
+              }}
+              className={
+                this.state.isRed[`isRed${cartella.id}`] ? "red" : "bt"
+              }
+              
+              >
+ {cartella.id}
+
+              </button>
+            ))
+          ) : (
+            <div>Loading...</div>
+          )}
+      
             </span>
           </div>
 
@@ -1995,6 +2011,19 @@ else {
       return null;
     }
   }
+  fetchAvailableCartellas = async () => {
+    const { currentUser } = this.props;
+    const branch = currentUser.branch;
+
+    try {
+      const response = await axios.get(`/api/card/getCards?branch=${branch}`);
+      // Sort the available cartellas by id in ascending order
+      const sortedCartellas = response.data.sort((a, b) => a.id - b.id);
+      this.setState({ availableCartellas: sortedCartellas, error: null });
+    } catch (error) {
+      this.setState({ error: "An error occurred while fetching available cartellas. Please try again later." });
+    }
+  };
   addEnteredCartella = () => {
     const enteredCartella = parseInt(this.state.enteredCartella);
   
