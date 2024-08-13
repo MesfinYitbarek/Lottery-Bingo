@@ -37,3 +37,12 @@
     background-color: blue; /* Change color when selected */
     color: white; /* Change text color for visibility */
   }
+  .grid-cell.winner {
+    background-color: green; /* Change color to green when winning */
+    color: white; /* Change text color for visibility */
+  }
+  .header-cell {
+    background-color: lightblue; /* Light blue background for header */
+    padding: 10px;
+    text-align: center;
+  }

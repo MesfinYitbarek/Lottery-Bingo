@@ -1494,7 +1494,7 @@ this.manualEnteredCut=0;
     } 
     else{  
       if(this.state.manualCut){
-      this.state.balance = this.state.amount - (this.state.amount * this.state.manualEnteredCut) / 100;
+      this.state.balance = this.state.amount - (this.state.amount * this.state.manualEnteredCut) / 10;
       this.startButton = 1;
       this.setState({
         board: generateBingoBoard(),
@@ -1864,6 +1864,9 @@ else {
     this.setState({
       enteredCartella: e.target.value,
     });
+    if (e.key === 'Enter') {
+      this.addEnteredCartella(); // Call the function to add the cartella
+    }
   };
 
   incrementCard = (number) => {
@@ -1937,6 +1940,7 @@ else {
   placeholder="enter cartela manual"
   value={this.state.enteredCartella}
   onChange={this.handleEnterCartella}
+  onKeyDown={this.handleEnterCartella}
 />
 <button onClick={this.addEnteredCartella}>Add Cartella</button>
            
