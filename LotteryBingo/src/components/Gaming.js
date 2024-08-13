@@ -61,40 +61,80 @@ const Gaming = () => {
 
   // Check for completed lines
   const checkCompletedLines = (card) => {
-    const lines = [
-      // Horizontal lines
-      ...Array.from({ length: 5 }, (_, rowIndex) => ({
-        cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
-        type: 'horizontal',
-      })),
-      // Vertical lines
-      ...Array.from({ length: 5 }, (_, colIndex) => ({
-        cells: ['B', 'I', 'N', 'G', 'O'].map(row => card.card[row][colIndex]),
-        type: 'vertical',
-      })),
-      // Diagonal lines
-      {
-        cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][index]),
-        type: 'diagonal-right',
-      },
-      {
-        cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][4 - index]),
-        type: 'diagonal-left',
-      },
-    ];
+  // Check for the vertical line under 'B'
+  const bColumnCells = ['B'].map(col => card.card[col]); // Get the B column cells
 
-    lines.forEach(line => {
-      // Check if all cells are selected or green
-      if (line.cells.every(cell => cell.selected === true || cell.selected === 'green')) {
-        line.cells.forEach(cell => {
-          cell.selected = 'green'; // Mark the completed cells as green
-        });
-      }
+  // Check if all cells in the B column are selected or green
+  const allBSelectedOrGreen = bColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
+
+  if (allBSelectedOrGreen) {
+    // If all cells in the B column are selected or green, mark them as green
+    bColumnCells[0].forEach(cell => {
+      cell.selected = 'green'; // Mark the completed cells as green
     });
+  }
+  const iColumnCells = ['I'].map(col => card.card[col]); // Get the B column cells
 
-    setSelectedCard({ ...card }); // Update the selected card state to trigger re-render
-  };
+  // Check if all cells in the B column are selected or green
+  const alliSelectedOrGreen = iColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
 
+  if (alliSelectedOrGreen) {
+    // If all cells in the B column are selected or green, mark them as green
+    iColumnCells[0].forEach(cell => {
+      cell.selected = 'green'; // Mark the completed cells as green
+    });
+  }
+  const nColumnCells = ['N'].map(col => card.card[col]); // Get the B column cells
+
+  // Check if all cells in the B column are selected or green
+  const allnSelectedOrGreen = nColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
+
+  if (allnSelectedOrGreen) {
+    // If all cells in the B column are selected or green, mark them as green
+    nColumnCells[0].forEach(cell => {
+      cell.selected = 'green'; // Mark the completed cells as green
+    });
+  }
+  // Check horizontal lines
+  const horizontalLines = Array.from({ length: 5 }, (_, rowIndex) => ({
+    cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
+    type: 'horizontal',
+  }));
+
+  horizontalLines.forEach(line => {
+    // Check if all cells in the line are selected or green
+    const allSelectedOrGreen = line.cells.every(cell => cell.selected === true || cell.selected === 'green');
+    
+    if (allSelectedOrGreen) {
+      line.cells.forEach(cell => {
+        cell.selected = 'green'; // Mark the completed cells as green
+      });
+    }
+  });
+  const diagonalLines = [
+    {
+      cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][index]), // Top-left to bottom-right
+      type: 'diagonal-right',
+    },
+    {
+      cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][4 - index]), // Top-right to bottom-left
+      type: 'diagonal-left',
+    },
+  ];
+
+  diagonalLines.forEach(line => {
+    // Check if all cells in the diagonal line are selected or green
+    const allSelectedOrGreen = line.cells.every(cell => cell.selected === true || cell.selected === 'green');
+
+    if (allSelectedOrGreen) {
+      line.cells.forEach(cell => {
+        cell.selected = 'green'; // Mark the completed cells as green
+      });
+    }
+  });
+
+  setSelectedCard({ ...card }); // Update the selected card state to trigger re-render
+};
   return (
     <div className="gaming-container">
       <h1>Select a Cartela</h1>
