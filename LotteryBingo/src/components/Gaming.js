@@ -95,6 +95,29 @@ const Gaming = () => {
       cell.selected = 'green'; // Mark the completed cells as green
     });
   }
+  const gColumnCells = ['G'].map(col => card.card[col]); // Get the B column cells
+
+  // Check if all cells in the B column are selected or green
+  const allgSelectedOrGreen = gColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
+
+  if (allgSelectedOrGreen) {
+    // If all cells in the B column are selected or green, mark them as green
+    gColumnCells[0].forEach(cell => {
+      cell.selected = 'green'; // Mark the completed cells as green
+    });
+  }
+  const oColumnCells = ['O'].map(col => card.card[col]); // Get the B column cells
+
+  // Check if all cells in the B column are selected or green
+  const alloSelectedOrGreen = oColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
+
+  if (alloSelectedOrGreen) {
+    // If all cells in the B column are selected or green, mark them as green
+    oColumnCells[0].forEach(cell => {
+      cell.selected = 'green'; // Mark the completed cells as green
+    });
+  }
+  
   // Check horizontal lines
   const horizontalLines = Array.from({ length: 5 }, (_, rowIndex) => ({
     cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
