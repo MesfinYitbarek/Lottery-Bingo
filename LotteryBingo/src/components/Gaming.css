@@ -1,0 +1,39 @@
+.gaming-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .cartela-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .grid-container {
+    margin-top: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .grid-row {
+    display: contents; /* Allows the grid to behave as a single grid */
+  }
+  
+  .grid-cell {
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .grid-cell.selected {
+    background-color: blue; /* Change color when selected */
+    color: white; /* Change text color for visibility */
+  }

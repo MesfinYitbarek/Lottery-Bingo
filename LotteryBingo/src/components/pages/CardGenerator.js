@@ -1,8 +1,9 @@
-  import React, { useEffect } from "react";
+  import React, { useEffect,useState } from "react";
   import axios from "axios";
   import BingoCard from "../subcomponents/BingoCard";
   import { useSelector } from "react-redux";
   import { Link } from "react-router-dom";
+  import QRCode from 'qrcode.react';
 
   const CardGenerator = () => {
     const [generatedCards, setGeneratedCards] = React.useState([]);
@@ -13,8 +14,11 @@
     const [branch, setBranch] = React.useState(null);
     const [users, setUsers] = React.useState([]);
     const [startingPoint, setStartingPoint] = React.useState(null);
+    
+    const [qrUrl, setQrUrl] = useState('');
 
     const { currentUser } = useSelector((state) => state.user);
+   
 
     useEffect(() => {
       const fetchUsers = async () => {
@@ -173,6 +177,10 @@
         }
         return classes;
       };
+      const generateQRCode = () => {
+        const url = `https://lotterybingoet.com/bingo?branch=${branch}`;
+        setQrUrl(url);
+      };
     
       const generateButtonDisabled = () => {
         return (
@@ -182,8 +190,20 @@
           startingPoint === null
         );
       };
+      const downloadQRCode = () => {
+        const canvas = document.getElementById('qrCodeCanvas');
+        const pngUrl = canvas.toDataURL('image/png');
+    
+        const downloadLink = document.createElement('a');
+        downloadLink.href = pngUrl;
+        downloadLink.download = `QRCode_${branch}.png`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      };
     
       return (
+
         <section className={sectionClasses()}>
           <div className="container row no-print">
             <div className="col">
@@ -260,7 +280,19 @@
                 </button>
               </div>
             </div>
-
+   <input
+        type="text"
+        value={branch}
+        onChange={(e) => setBranch(e.target.value)}
+        placeholder="Enter branch name"
+      />
+      <button onClick={generateQRCode}>Generate QR Code</button>
+      {qrUrl && (
+        <div>
+          <QRCode id="qrCodeCanvas" value={qrUrl} />
+          <button onClick={downloadQRCode}>Download QR Code</button>
+        </div>
+      )}
             <div className="row justify-start align-center">
               <div className="col shrink padding-horizontal-md">
                 <div className="checkbox-container">
