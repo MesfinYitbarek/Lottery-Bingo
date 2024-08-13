@@ -31,11 +31,11 @@ const Gaming = () => {
     const newCard = {
       ...card,
       card: {
-        B: card.card.B.map((num) => ({ value: num, selected: false })),
-        I: card.card.I.map((num) => ({ value: num, selected: false })),
-        N: card.card.N.map((num) => ({ value: num, selected: false })),
-        G: card.card.G.map((num) => ({ value: num, selected: false })),
-        O: card.card.O.map((num) => ({ value: num, selected: false })),
+        B: card.card.B.map((num, index) => ({ value: num, selected: false })), // Set all cells to false
+        I: card.card.I.map((num, index) => ({ value: num, selected: false })),
+        N: card.card.N.map((num, index) => ({ value: num, selected: index === 2 ? 'green' : false })), // Set only the free cell as green
+        G: card.card.G.map((num, index) => ({ value: num, selected: false })),
+        O: card.card.O.map((num, index) => ({ value: num, selected: false })),
       },
     };
     setSelectedCard(newCard);
@@ -47,10 +47,52 @@ const Gaming = () => {
 
     // Create a copy of the selected card
     const newCard = { ...selectedCard };
-    // Toggle the selected state of the clicked cell
-    newCard.card[columnKey][index].selected = !newCard.card[columnKey][index].selected;
+    // Toggle the selected state of the clicked cell, except for the free cell
+    if (columnKey !== 'N' || index !== 2) {
+      newCard.card[columnKey][index].selected = !newCard.card[columnKey][index].selected;
+    }
 
+    // Update the selected card state
     setSelectedCard(newCard);
+    
+    // Check for completed lines
+    checkCompletedLines(newCard);
+  };
+
+  // Check for completed lines
+  const checkCompletedLines = (card) => {
+    const lines = [
+      // Horizontal lines
+      ...Array.from({ length: 5 }, (_, rowIndex) => ({
+        cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
+        type: 'horizontal',
+      })),
+      // Vertical lines
+      ...Array.from({ length: 5 }, (_, colIndex) => ({
+        cells: ['B', 'I', 'N', 'G', 'O'].map(row => card.card[row][colIndex]),
+        type: 'vertical',
+      })),
+      // Diagonal lines
+      {
+        cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][index]),
+        type: 'diagonal-right',
+      },
+      {
+        cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][4 - index]),
+        type: 'diagonal-left',
+      },
+    ];
+
+    lines.forEach(line => {
+      // Check if all cells are selected or green
+      if (line.cells.every(cell => cell.selected === true || cell.selected === 'green')) {
+        line.cells.forEach(cell => {
+          cell.selected = 'green'; // Mark the completed cells as green
+        });
+      }
+    });
+
+    setSelectedCard({ ...card }); // Update the selected card state to trigger re-render
   };
 
   return (
@@ -78,36 +120,18 @@ const Gaming = () => {
             {/* Create the grid vertically */}
             {Array.from({ length: 5 }, (_, rowIndex) => (
               <div key={rowIndex} className="grid-row">
-                <div
-                  className={`grid-cell ${selectedCard.card.B[rowIndex].selected ? 'selected' : ''}`}
-                  onClick={() => handleCellClick('B', rowIndex)}
-                >
-                  {selectedCard.card.B[rowIndex].value}
-                </div>
-                <div
-                  className={`grid-cell ${selectedCard.card.I[rowIndex].selected ? 'selected' : ''}`}
-                  onClick={() => handleCellClick('I', rowIndex)}
-                >
-                  {selectedCard.card.I[rowIndex].value}
-                </div>
-                <div
-                  className={`grid-cell ${selectedCard.card.N[rowIndex].selected ? 'selected' : ''}`}
-                  onClick={() => handleCellClick('N', rowIndex)}
-                >
-                  {selectedCard.card.N[rowIndex].value}
-                </div>
-                <div
-                  className={`grid-cell ${selectedCard.card.G[rowIndex].selected ? 'selected' : ''}`}
-                  onClick={() => handleCellClick('G', rowIndex)}
-                >
-                  {selectedCard.card.G[rowIndex].value}
-                </div>
-                <div
-                  className={`grid-cell ${selectedCard.card.O[rowIndex].selected ? 'selected' : ''}`}
-                  onClick={() => handleCellClick('O', rowIndex)}
-                >
-                  {selectedCard.card.O[rowIndex].value}
-                </div>
+                {['B', 'I', 'N', 'G', 'O'].map((columnKey, colIndex) => {
+                  const cell = selectedCard.card[columnKey][rowIndex];
+                  return (
+                    <div
+                      key={`${columnKey}-${rowIndex}`}
+                      className={`grid-cell ${cell.selected === true ? 'selected' : ''} ${cell.selected === 'green' ? 'completed' : ''}`}
+                      onClick={() => handleCellClick(columnKey, rowIndex)}
+                    >
+                      {cell.value}
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>

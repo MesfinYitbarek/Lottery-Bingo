@@ -46,3 +46,6 @@
     padding: 10px;
     text-align: center;
   }
+  .completed {
+    background-color: green !important; /* Ensure it overrides other styles */
+  }
