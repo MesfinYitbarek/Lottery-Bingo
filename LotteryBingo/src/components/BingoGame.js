@@ -1861,11 +1861,26 @@ else {
   }
 
   handleEnterCartella = (e) => {
-    this.setState({
-      enteredCartella: e.target.value,
-    });
+    const value = e.target.value;
+    const cartellaNumber = parseInt(value, 10);
+  
+    // Update the enteredCartella state
+    this.setState({ enteredCartella: value });
+  
+    // Check if Enter key is pressed
     if (e.key === 'Enter') {
-      this.addEnteredCartella(); // Call the function to add the cartella
+      // Check if the entered number is above 100
+      if (cartellaNumber <= 100) {
+        this.setState((prevState) => ({
+          isRed: {
+            ...prevState.isRed,
+            [`isRed${cartellaNumber}`]: true // Set isRed state for the entered number
+          }
+        }));
+      }
+      
+      // Call the function to add the cartella
+      this.addEnteredCartella();
     }
   };
 
