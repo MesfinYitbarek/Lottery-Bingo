@@ -178,7 +178,9 @@
         return classes;
       };
       const generateQRCode = () => {
-        const url = `https://lotterybingoet.com/bingo?branch=${branch}`;
+        // Ensure the branch variable is properly encoded
+        const encodedBranch = encodeURIComponent(branch);
+        const url = `https://lotterybingoet.com/bingo?branch=${encodedBranch}`;
         setQrUrl(url);
       };
     
