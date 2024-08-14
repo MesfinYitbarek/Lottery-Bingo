@@ -1870,14 +1870,14 @@ else {
     // Check if Enter key is pressed
     if (e.key === 'Enter') {
       // Check if the entered number is above 100
-      if (cartellaNumber <= 100) {
+     
         this.setState((prevState) => ({
           isRed: {
             ...prevState.isRed,
             [`isRed${cartellaNumber}`]: true // Set isRed state for the entered number
           }
         }));
-      }
+      
       
       // Call the function to add the cartella
       this.addEnteredCartella();
