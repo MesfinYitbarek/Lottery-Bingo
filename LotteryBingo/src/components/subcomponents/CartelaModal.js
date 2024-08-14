@@ -147,8 +147,8 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
     };
 
     if (manualCut) {
-      cut = total * (manualEnteredCut / 100);
-      won = total - total * (manualEnteredCut / 100);
+      cut = total * (manualEnteredCut / 10);
+      won = total - total * (manualEnteredCut / 10);
       bingoData.cut = cut;
       bingoData.won = won;
     } else {

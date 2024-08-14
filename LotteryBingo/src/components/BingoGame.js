@@ -1277,7 +1277,7 @@ this.manualEnteredCut=0;
       alert("Insufficent balance", currentUser, balance);
       
     } else if(this.state.manualCut){
-      const newBalance = balance - (this.state.amount*this.state.manualEnteredCut)/100;
+      const newBalance = balance - (this.state.amount*this.state.manualEnteredCut)/10;
 
       updateUserStart();
       try {
