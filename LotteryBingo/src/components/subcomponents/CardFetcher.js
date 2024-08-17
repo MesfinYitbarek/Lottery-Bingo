@@ -187,6 +187,9 @@ const CardFetcher = ({ selectedCards }) => {
           </div>
         </div>
       )}
+        <button className="altBtn" onClick={() => { window.print(); return false; }}>
+              Print Cards
+            </button>
 
       {showQRModal && (
         <div className="modal">
@@ -198,6 +201,7 @@ const CardFetcher = ({ selectedCards }) => {
             <QRCode value={pdfUrl} />
             <button onClick={downloadQRCode}>Download QR Code</button>
           </div>
+        
         </div>
       )}
     </div>
