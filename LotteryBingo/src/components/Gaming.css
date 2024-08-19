@@ -49,3 +49,8 @@
   .completed {
     background-color: green !important; /* Ensure it overrides other styles */
   }
+  @keyframes blink {
+  50% {
+    background-color: transparent;
+  }
+}

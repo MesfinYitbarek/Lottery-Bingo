@@ -86,6 +86,7 @@ class CallHistory extends React.Component {
             selectedCards={this.props.selectedCards}
             manualCut={this.props.manualCut}
             manualEnteredCut={this.props.manualEnteredCut}
+            selectedPattern={this.props.selectedPattern}
  
   
           />

@@ -26,6 +26,7 @@ import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
 import { FcMoneyTransfer, FcSpeaker } from "react-icons/fc";
 import { RiPaintBrushFill, RiSpeakFill } from "react-icons/ri";
+import { MdOutlinePattern } from "react-icons/md";
 
 // Custom Components
 import BingoBoard from "./subcomponents/BingoBoard.js";
@@ -511,11 +512,29 @@ this.manualEnteredCut=0;
       { label: "dark-red", value: "darkRed" },
       { label: "default", value: "default" },
     ];
+    this.Pattern1=[
+      { label: "defaultPattern", value: "defaultPattern" },
+
+ { label: "anydiagonal", value: "anydiagonal" },
+      { label: "Any horizontal", value: "anyhorizontal" },
+      { label: "Any vertical", value: "anyvertical" },
+      { label: "Any Two Lines", value: "anyTwoLines" },
+      { label: "Any Two Vertical", value: "anyTwoVertical" },
+      { label: "Any Two Horizontal", value: "anyTwoHorizontal" },
+      { label: "AHADU", value: "letterA" },
+      { label: "4 middle & corner square", value: "FMC" },
+      { label: "Full-House(BlackOut)", value: "FullHouse" },
+      { label: "4 corner square", value: "CS" },
+      { label: "4 middle square", value: "MS" },
+   
+
+      
+    ];
 
     this.shuffleSound = shuffle;
 
     // Patterns
-    this.patternPlaceholder = "Choose a pattern";
+    // this.patternPlaceholder = "Choose a pattern";
     // this.presets = getPresetPatterns();
 
     // Speech Synthesis
@@ -679,6 +698,18 @@ this.manualEnteredCut=0;
       darkGrey: false,
       blue: false,
       darkRed: false,
+      anydiagonal:false,
+      anyvertical:false,
+      anyhorizontal:false,
+      CS:false,
+      MS:false,
+      FullHouse:false,
+      FMC:false,
+      anyTwoHorizontal:false,
+      letterA:false,
+      anyTwoLines:false,
+      anyTwoVertical:false,
+      defaultPattern:false,
       cutBalance: 0,
     
       cardCount: 0,
@@ -686,6 +717,9 @@ this.manualEnteredCut=0;
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
       selectedColor: this.colors[0],
+      selectedPattern1:this.Pattern1[0],
+
+
       selectedPattern: {
         value: this.patternPlaceholder,
         label: this.patternPlaceholder,
@@ -2211,6 +2245,212 @@ else {
     }
   };
 
+  handlePatternChooser = (e) => {
+    this.setState({ selectedPattern1: e });
+
+    switch (e.value) {
+      case "anyTwoVertical":
+        this.setState({
+          anyhorizontal:false,
+          anyvertical:false,
+          anydiagonal:false,
+          defaultPattern:false,
+          anyTwoLines:false,
+          anyTwoVertical:true,
+          anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          FullHouse:false,
+          CS:false,
+          MS:false,
+        });
+        break;
+        case "FullHouse":
+        this.setState({
+          FullHouse:true,
+          anyhorizontal:false,
+          anyvertical:false,
+          anydiagonal:false,
+          defaultPattern:false,
+          anyTwoLines:false,
+          anyTwoVertical:false,
+          anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          CS:false,
+          MS:false,
+        });
+        break;
+        case "CS":
+          this.setState({
+            FullHouse:false,
+            anyhorizontal:false,
+            anyvertical:false,
+            anydiagonal:false,
+            defaultPattern:false,
+            anyTwoLines:false,
+            anyTwoVertical:false,
+            anyTwoHorizontal:false,
+            letterA:false,
+            FMC:false,
+            CS:true,
+           
+            MS:false,
+          });
+          break;
+          case "MS":
+            this.setState({
+              FullHouse:false,
+              CS:false,
+              anyhorizontal:false,
+              anyvertical:false,
+              anydiagonal:false,
+              defaultPattern:false,
+              anyTwoLines:false,
+              anyTwoVertical:false,
+              anyTwoHorizontal:false,
+              letterA:false,
+              FMC:false,
+              MS:true,
+            });
+            break;
+        case "anyTwoHorizontal":
+          this.setState({
+            anyhorizontal:false,
+            FullHouse:false,
+            anyvertical:false,
+            anydiagonal:false,
+            defaultPattern:false,
+            anyTwoLines:false,
+            anyTwoVertical:false,
+            anyTwoHorizontal:true,
+            FMC:false,
+            letterA:false,
+            CS:false,
+            MS:false,
+          });
+          break;
+          case "letterA":
+            this.setState({
+              anyhorizontal:false,
+              FullHouse:false,
+              anyvertical:false,
+              anydiagonal:false,
+              defaultPattern:false,
+              anyTwoLines:false,
+              anyTwoVertical:false,
+              anyTwoHorizontal:false,
+              letterA:true,
+              FMC:false,
+              CS:false,
+              MS:false,
+            });
+            break;
+        case "defaultPattern":
+        this.setState({
+          anyhorizontal:false,
+          FullHouse:false,
+          anyvertical:false,
+          anydiagonal:false,
+          defaultPattern:true,
+          anyTwoLines:false,
+          anyTwoVertical:false,
+          anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          CS:false,
+          MS:false,
+        });
+        break;
+
+      case "anyhorizontal":
+        this.setState({
+          anyhorizontal:true,
+          FullHouse:false,
+          anyvertical:false,
+          anydiagonal:false,
+          defaultPattern:false,
+          anyTwoLines:false,
+          anyTwoVertical:false,
+          anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          CS:false,
+          MS:false,
+        });
+        break;
+        case "anyvertical":
+          this.setState({
+            anyhorizontal:false,
+            FullHouse:false,
+            anyvertical:true,
+            anydiagonal:false,
+            defaultPattern:false,
+            anyTwoLines:false,
+            anyTwoVertical:false,
+            anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          CS:false,
+          MS:false,
+          });
+          break;
+     
+          case "anydiagonal":
+            this.setState({
+              defaultPattern:false,
+              FullHouse:false,
+              anyhorizontal:false,
+              anyvertical:false,
+              anydiagonal:true,
+              anyTwoLines:false,
+              anyTwoVertical:false,
+              anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          CS:false,
+          MS:false,
+            });
+            break;
+            case "anyTwoLines":
+              this.setState({
+                defaultPattern:false,
+                FullHouse:false,
+                anyhorizontal:false,
+                anyvertical:false,
+                anydiagonal:false,
+                anyTwoLines:true,
+                anyTwoVertical:false,
+                anyTwoHorizontal:false,
+          letterA:false,
+          FMC:false,
+          CS:false,
+          MS:false,
+              });
+              break;
+
+              case "FMC":
+                this.setState({
+                  defaultPattern:false,
+                  FullHouse:false,
+                  anyhorizontal:false,
+                  anyvertical:false,
+                  anydiagonal:false,
+                  anyTwoLines:false,
+                  anyTwoVertical:false,
+                  anyTwoHorizontal:false,
+            letterA:false,
+            FMC:true,
+            CS:false,
+            MS:false,
+                });
+                break;
+     
+      default:
+        break;
+    }
+  };
+
   /**
    * Choose Chime Function
    * Sets the selected chime audible
@@ -2279,10 +2519,8 @@ else {
                 </div>
 
                 {/* -------- Pattern --------- */}
-                <Pattern
-                  pattern={this.state.selectedPattern}
-                  update={this.handleUpdatePattern}
-                />
+               
+                <Pattern selectedPattern={this.state.selectedPattern1.value}/>
               </div>
 
               <div className="col board-side">
@@ -2308,6 +2546,7 @@ else {
                   cardCount={this.state.cardCount}
                   totalAmount={this.state.amount}
                   selectedCards={this.selectedCards}
+                  selectedPattern={this.state.selectedPattern1}
                   manualCut={this.state.manualCut}
                   manualEnteredCut={this.state.manualEnteredCut}
                   showModal={this.state.showModal}
@@ -2501,6 +2740,24 @@ else {
                           options={this.colors}
                         />
                       </div>
+                      <div className="row align-start justify-start">
+                      <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
+                        <h6>
+                          {" "}
+                         pattern: <MdOutlinePattern />{" "}
+                        </h6>
+                      </div>
+                      <div className="col grow padding-horizontal-lg">
+                        <Select
+                          className="select-input"
+                          placeholder="Choose pattern"
+                          menuPlacement="auto"
+                          value={this.state.selectedPattern1}
+                          onChange={this.handlePatternChooser}
+                          options={this.Pattern1}
+                        />
+                      </div>
+                    </div>
                     </div>
                     {/* ----------- Chime ----------- */}
                     <div className="row no-wrap align-start justify-start">

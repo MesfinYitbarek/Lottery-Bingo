@@ -5,9 +5,9 @@ import logoImage from "./winnerimg.jpg";
 import { ImExit } from "react-icons/im";
 import { FaLock } from "react-icons/fa6";
 import { winsound } from '../../chimes';
-import { notwinsound } from '../../chimes'; // Import your losing sound
+import { notwinsound } from '../../chimes';
 
-const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards, manualEnteredCut, manualCut }) => {
+const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards, manualEnteredCut, manualCut, selectedPattern }) => {
   const [cartelaId, setCartelaId] = useState('');
   const [cartela, setCartela] = useState(null);
   const [matchedNumbers, setMatchedNumbers] = useState([]);
@@ -18,28 +18,24 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
   const [winnerCards, setWinnerCards] = useState([]);
   const [lockedCards, setLockedCards] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
-  const audioRef = useRef(new Audio(winsound)); // Winning sound
-  const loseAudioRef = useRef(new Audio(notwinsound)); // Losing sound
+  const audioRef = useRef(new Audio(winsound));
+  const loseAudioRef = useRef(new Audio(notwinsound));
 
   useEffect(() => {
-    // Load locked cards from localStorage when component mounts
     const storedLockedCards = JSON.parse(localStorage.getItem('lockedCards')) || [];
     setLockedCards(storedLockedCards);
   }, []);
 
   const fetchCartela = async () => {
     const cartelaIdNumber = Number(cartelaId);
-
     if (!selectedCards.includes(cartelaIdNumber)) {
       alert('Cartela ID is not in the selected cards');
       return;
     }
-
     if (lockedCards.includes(cartelaIdNumber)) {
       alert('This card is locked and cannot be checked again 😭😭.');
       return;
     }
-
     setIsFetching(true);
     setFetchError(null);
     try {
@@ -67,36 +63,506 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
   const checkCartelaNumbers = (cartela) => {
     if (cartela && cartela.card) {
       const allNumbers = Object.values(cartela.card).flat();
-      const matched = calledBalls.filter((call) =>
-        allNumbers.includes(call.number)
-      );
-
+      const matched = calledBalls.filter((call) => allNumbers.includes(call.number));
       const freeSpace = { number: "Free", column: "N", index: 2 };
       matched.push(freeSpace);
-
       setMatchedNumbers(matched);
       checkBingo(cartela.card, matched);
     }
   };
 
+ 
   const checkBingo = (card, matched) => {
     const rows = [...Array(5)].map((_, i) => Object.keys(card).map(col => card[col][i]));
     const columns = Object.values(card);
     const diagonals = [
-      [card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-      [card.O[0], card.G[1], "Free", card.I[3], card.B[4]]
+      [card.B[0], card.I[1], "Free", card.G[3], card.O[4]], // Main diagonal
+      [card.O[0], card.G[1], "Free", card.I[3], card.B[4]]  // Secondary diagonal
     ];
-
+  
     const lines = [...rows, ...columns, ...diagonals];
-
     let bingoLine = null;
-    for (const line of lines) {
-      if (line.every(num => matched.some(call => call.number === num || num === "Free"))) {
-        bingoLine = line;
+  
+    const isWinningPattern = (line) => {
+      return line.every(num => matched.some(call => call.number === num || num === "Free"));
+    };
+    const letterA = [
+      [card.B[0],card.B[1], card.B[2],card.B[3],card.B[4],card.I[2],  card.B[4], 
+      card.O[0], card.I[0],card.N[0],  card.G[0], card.O[3], card.O[2], card.O[1],  card.O[4],card.N[2],card.G[2],   ], //a
+  
+      [card.B[0], card.B[1],  card.B[4], card.B[3],card.B[2],
+      card.O[0],  card.O[3], card.O[2], card.O[1],  card.O[4],card.I[2],card.N[2],card.G[2],   ], //H
+  
+      [card.B[0], card.B[1],  card.B[4], card.B[3],card.B[2],
+       card.I[0],card.N[0],  card.G[0], card.O[3], card.O[2], card.O[1],  card.I[4],card.N[4],card.G[4]], //D
+      
+       [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+       card.O[0],  card.O[3], card.O[2], card.O[1],  card.O[4],card.I[4],card.N[4],card.G[4],   ], //U
+      
+  ];
+
+  const FMCC = [
+    [card.B[0], card.I[1],  card.B[4], card.I[3],card.G[1],
+    card.O[0], card.G[3],  card.O[4]], 
+    
+];
+
+const MS4 = [
+  [ card.I[1],   card.I[3],card.G[1],
+  card.G[3]], 
+  
+];
+
+const CS4 = [
+  [card.B[0],  card.B[4], 
+  card.O[0],   card.O[4]], 
+  
+];
+const FH = [
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4],
+  card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4],], 
+  
+];
+  const ATH = [
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
+
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
+
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+
+    [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+    card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
+
+    [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+    card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+
+    [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+    card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+
+
+];
+
+const ATV = [
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4]], 
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]], 
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]], 
+  
+  [ card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4], 
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+  
+  [  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4], 
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+
+  [ card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+
+  [ card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4], 
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4],], 
+
+  [ card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4], 
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]], 
+
+  [ card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4], 
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]], 
+];
+
+const ATL = [
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4]], 
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4], 
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]], 
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]], 
+  
+  [ card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4], 
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+  
+  [  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4], 
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+
+  [ card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]], 
+
+  [ card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4], 
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4],], 
+
+  [ card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4], 
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]], 
+
+  [ card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4], 
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]], 
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
+
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
+
+    [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+    card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+
+    [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+    card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+
+    [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+    card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
+
+    [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+    card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+
+    [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+    card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+
+    [card.B[0], card.I[1], "Free", card.G[3], card.O[4],
+  card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
+
+  [card.N[0], card.N[1], "Free", card.N[3], card.N[4],
+  card.O[2], card.G[2], "Free", card.I[2], card.B[2]],
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
+
+  [card.B[0], card.I[1],  card.N[2], card.G[3],card.O[4],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.N[0], card.N[1],  card.N[2], card.N[3],card.N[4],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+  card.B[4], card.I[3], "Free", card.G[1], card.O[0]],
+
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+  card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.N[0], card.N[1], "Free", card.N[3], card.N[4]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+  card.N[0], card.N[1], "Free", card.N[3], card.N[4]],
+
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
+
+
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
+
+  
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]],
+
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]],
+  
+
+];
+    switch (selectedPattern.value) {
+      case "defaultPattern":
+        // Check if any line matches the default winning pattern
+        for (const line of lines) {
+          if (isWinningPattern(line)) {
+            bingoLine = line;
+            break;
+          }
+        }
+        break;
+  
+      case "anyhorizontal":
+        // Check only horizontal lines
+        for (const row of rows) {
+          if (isWinningPattern(row)) {
+            bingoLine = row;
+            break;
+          }
+        }
+        break;
+
+        
+      case "MS":
+        // Check only horizontal lines
+        for (const ms4 of MS4) {
+          if (isWinningPattern(ms4)) {
+            bingoLine = ms4;
+            break;
+          }
+        }
+        break;
+
+        case "CS":
+          // Check only horizontal lines
+          for (const cs4 of CS4) {
+            if (isWinningPattern(cs4)) {
+              bingoLine = cs4;
+              break;
+            }
+          }
+          break;
+  
+      case "anyvertical":
+        // Check only vertical lines
+        for (const column of columns) {
+          if (isWinningPattern(column)) {
+            bingoLine = column;
+            break;
+          }
+        }
+        break;
+  
+      case "anydiagonal":
+        // Check only diagonal lines
+        for (const diagonal of diagonals) {
+          if (isWinningPattern(diagonal)) {
+            bingoLine = diagonal;
+            break;
+          }
+        }
+        break;
+  
+      case "anyTwoLines":
+        for (const atl of ATL) {
+          if (isWinningPattern(atl)) {
+            bingoLine = atl;
+            break;
+          }}
+        // Check for specific combinations of two lines
+        // Check two horizontal lines
+        // for (let i = 0; i < rows.length; i++) {
+        //   for (let j = i + 1; j < rows.length; j++) {
+        //     if (isWinningPattern(rows[i]) && isWinningPattern(rows[j])) {
+        //       bingoLine = [rows[i], rows[j]];
+        //       break;
+        //     }
+        //   }
+        //   if (bingoLine) break;
+        // }
+  
+        // // Check two vertical lines
+        // if (!bingoLine) {
+        //   for (let i = 0; i < columns.length; i++) {
+        //     for (let j = i + 1; j < columns.length; j++) {
+        //       if (isWinningPattern(columns[i]) && isWinningPattern(columns[j])) {
+        //         bingoLine = [columns[i], columns[j]];
+        //         break;
+        //       }
+        //     }
+        //     if (bingoLine) break;
+        //   }
+        // }
+  
+        // // Check for "X" pattern (both diagonals)
+        // if (!bingoLine && isWinningPattern(diagonals[0]) && isWinningPattern(diagonals[1])) {
+        //   bingoLine = [diagonals[0], diagonals[1]];
+        // }
+  
+        // // Check for one horizontal and one vertical line
+        // if (!bingoLine) {
+        //   for (const row of rows) {
+        //     for (const column of columns) {
+        //       if (isWinningPattern(row) && isWinningPattern(column)) {
+        //         bingoLine = [row, column];
+        //         break;
+        //       }
+        //     }
+        //     if (bingoLine) break;
+        //   }
+        // }
+  
+        // // Check for one diagonal and one vertical line
+        // if (!bingoLine) {
+        //   for (const diagonal of diagonals) {
+        //     for (const column of columns) {
+        //       if (isWinningPattern(diagonal) && isWinningPattern(column)) {
+        //         bingoLine = [diagonal, column];
+        //         break;
+        //       }
+        //     }
+        //     if (bingoLine) break;
+        //   }
+        // }
+  
+        // // Check for one diagonal and one horizontal line
+        // if (!bingoLine) {
+        //   for (const diagonal of diagonals) {
+        //     for (const row of rows) {
+        //       if (isWinningPattern(diagonal) && isWinningPattern(row)) {
+        //         bingoLine = [diagonal, row];
+        //         break;
+        //       }
+        //     }
+        //     if (bingoLine) break;
+        //   }
+        // }
+        break;
+        case "anyTwoVertical": // New case for any two vertical lines
+        for (const atv of ATV) {
+          if (isWinningPattern(atv)) {
+            bingoLine = atv;
+            break;
+          }}
+       
+        break;
+
+        case "FMC": // New case for any two vertical lines
+        for (const fmc of FMCC) {
+          if (isWinningPattern(fmc)) {
+            bingoLine = fmc;
+            break;
+          }}
+       
+        break;
+
+        case "FullHouse": // New case for any two vertical lines
+        for (const fh of FH) {
+          if (isWinningPattern(fh)) {
+            bingoLine = fh;
+            break;
+          }}
+       
+        break;
+         // for (let i = 0; i < columns.length; i++) {
+        //     for (let j = i + 1; j < columns.length; j++) {
+        //         if (isWinningPattern(columns[i]) && isWinningPattern(columns[j])) {
+        //             bingoLine = [columns[i], columns[j]];
+        //             break;
+        //         }
+        //     }
+        //     if (bingoLine) break;
+        // }
+        case "anyTwoHorizontal": // New case for any two horizontal lines
+        for (const ath of ATH) {
+          if (isWinningPattern(ath)) {
+            bingoLine = ath;
+            break;
+          }}
+
+    // for (let i = 0; i < rows.length; i++) {
+    //     for (let j = i + 1; j < rows.length; j++) {
+    //         if (isWinningPattern(rows[i]) && isWinningPattern(rows[j])) {
+    //             bingoLine = [rows[i], rows[j]];
+    //             break;
+    //         }
+    //     }
+    //     if (bingoLine) break;
+    // }
+    break;
+    case "letterA": // New case for letter A pattern
+    for (const letterr of letterA) {
+      if (isWinningPattern(letterr)) {
+        bingoLine = letterr;
         break;
       }
     }
-
+    
+    // if (isWinningPattern(letterA[0]) && isWinningPattern(letterA[1])  
+    //    ) {
+    //     bingoLine = letterA;
+    // }
+    break;
+  
+      default:
+        break;
+    }
+  
     if (bingoLine) {
       saveBingoData();
       setIsBingo(true); // Set isBingo to true when a bingo is found
@@ -105,20 +571,19 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       setIsBingo(false); // Reset isBingo if no bingo is found
       playLoseAudio(); // Play losing audio
     }
-
     setBingoNumbers(bingoLine || []);
   };
 
   const playAudio = () => {
     if (audioRef.current) {
-      audioRef.current.currentTime = 0; // Reset to the beginning
+      audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
   };
 
   const playLoseAudio = () => {
     if (loseAudioRef.current) {
-      loseAudioRef.current.currentTime = 0; // Reset to the beginning
+      loseAudioRef.current.currentTime = 0;
       loseAudioRef.current.play();
     }
   };
@@ -132,7 +597,6 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       alert('No winners to save');
       return;
     }
-
     const total = totalAmount;
     let cut, won;
     const bingoData = {
@@ -145,7 +609,6 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       cashier: currentUser.username,
       date: new Date().toISOString(),
     };
-
     if (manualCut) {
       cut = total * (manualEnteredCut / 10);
       won = total - total * (manualEnteredCut / 10);
@@ -157,14 +620,13 @@ const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount,
       bingoData.cut = cut;
       bingoData.won = won;
     }
-
     try {
       const response = await axios.post('/api/sales/sales', { winners: [bingoData] });
       if (response.status === 200) {
         alert('Sales data saved successfully');
-        setWinnerCards([]); // Clear winner cards after saving
-        resetLockedCards(); // Reset locked cards
-        onClose(); // Close the modal
+        setWinnerCards([]);
+        resetLockedCards();
+        onClose();
       } else {
         alert('Failed to save bingo data');
       }
