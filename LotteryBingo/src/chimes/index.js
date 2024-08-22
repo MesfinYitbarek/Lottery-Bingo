@@ -330,6 +330,16 @@ import oroplaystart from './oroPlayStart.mp3';
 import pssound from './pssound.mp3';
 import winsound from './WIN.mp3';
 import notwinsound from './notWin.mp3';
+import verticalLine from './verticalLine.mp3';
+import any2horizontalLine from './2horizontalLine.mp3';
+import any2verticalLine from './2verticalLine.mp3';
+import a4cornerSquare from './4cornerSquare.mp3';
+import a4middleCornerSquare from './4middle&CornerSquare.mp3';
+import a4middleSquare from './4middleSquare.mp3';
+import anytwoLine from './anytwoLine.mp3';
+import diagonalLine from './diagonalLine.mp3';
+import fullHouse from './fullHouse.mp3';
+
 
 
 import onefo from './B1O.mp3'; 
@@ -409,13 +419,99 @@ import seventyfourfo from './O74O.mp3';
 import seventyfivefo from './O75O.mp3';
 
 
+import onemo from './B1MO.mp3'; 
+import twomo from './B2MO.mp3';
+import threemo from './B3MO.mp3';
+import fourmo from './B4MO.mp3';
+import fivemo from './B5MO.mp3';
+import sixmo from './B6MO.mp3';
+import sevenmo from './B7MO.mp3';
+import eightmo from './B8MO.mp3';
+import ninemo from './B9MO.mp3';
+import tenmo from './B10MO.mp3';
+import elevenmo from './B11MO.mp3';
+import twelvemo from './B12MO.mp3';
+import thirteenmo from './B13MO.mp3';
+import fourteenmo from './B14MO.mp3';
+import fifteenmo from './B15MO.mp3';
+import sixteenmo from './I16MO.mp3';
+import seventeenmo from './I17MO.mp3';
+import eighteenmo from './I18MO.mp3';
+import nineteenmo from './I19MO.mp3';
+import twentymo from './I20MO.mp3';
+import twentyonemo from './I21MO.mp3';
+import twentytwomo from './I22MO.mp3';
+import twentythreemo from './I23MO.mp3';
+import twentyfourmo from './I24MO.mp3';
+import twentyfivemo from './I25MO.mp3';
+import twentysixmo from './I26MO.mp3';
+import twentysevenmo from './I27MO.mp3';
+import twentyeightmo from './I28MO.mp3';
+import twentyninemo from './I29MO.mp3';
+import thirtymo from './I30MO.mp3';
+import thirtyonemo from './N31MO.mp3';
+import thirtytwomo from './N32MO.mp3';
+import thirtythreemo from './N33MO.mp3';
+import thirtyfourmo from './N34MO.mp3';
+import thirtyfivemo from './N35MO.mp3';
+import thirtysixmo from './N36MO.mp3';
+import thirtysevenmo from './N37MO.mp3';
+import thirtyeightmo from './N38MO.mp3';
+import thirtyninemo from './N39MO.mp3';
+import fortymo from './N40MO.mp3';
+import fortyonemo from './N41MO.mp3';
+import fortytwomo from './N42MO.mp3';
+import fortythreemo from './N43MO.mp3';
+import fortyfourmo from './N44MO.mp3';
+import fortyfivemo from './N45MO.mp3';
+import fortysixmo from './G46MO.mp3';
+import fortysevenmo from './G47MO.mp3';
+import fortyeightmo from './G48MO.mp3';
+import fortyninemo from './G49MO.mp3';
+import fiftymo from './G50MO.mp3';
+import fiftyonemo from './G51MO.mp3';
+import fiftytwomo from './G52MO.mp3';
+import fiftythreemo from './G53MO.mp3';
+import fiftyfourmo from './G54MO.mp3';
+import fiftyfivemo from './G55MO.mp3';
+import fiftysixmo from './G56MO.mp3';
+import fiftysevenmo from './G57MO.mp3';
+import fiftyeightmo from './G58MO.mp3';
+import fiftyninemo from './G59MO.mp3';
+import sixtymo from './G60MO.mp3';
+import sixtyonemo from './O61MO.mp3';
+import sixtytwomo from './O62MO.mp3';
+import sixtythreemo from './O63MO.mp3';
+import sixtyfourmo from './O64MO.mp3';
+import sixtyfivemo from './O65MO.mp3';
+import sixtysixmo from './O66MO.mp3';
+import sixtysevenmo from './O67MO.mp3';
+import sixtyeightmo from './O68MO.mp3';
+import sixtyninemo from './O69MO.mp3';
+import seventymo from './O70MO.mp3';
+import seventyonemo from './O71MO.mp3';
+import seventytwomo from './O72MO.mp3';
+import seventythreemo from './O73MO.mp3';
+import seventyfourmo from './O74MO.mp3';
+import seventyfivemo from './O75MO.mp3';
+
+
 
 
 
 //export{one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven, sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive};
 
 
-export {winsound,notwinsound, pssound,tigplaystart,oroplaystart,amharicfemaleplaystart,amharicmaleplaystart, wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
+export {  verticalLine,
+  any2horizontalLine ,
+  any2verticalLine,
+  a4cornerSquare ,
+  a4middleCornerSquare ,
+  a4middleSquare,
+  anytwoLine,
+  diagonalLine,
+  fullHouse ,            
+  winsound,notwinsound, pssound,tigplaystart,oroplaystart,amharicfemaleplaystart,amharicmaleplaystart, wolplaystart,one, two,  three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, 
   thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix, fiftyseven, fiftyeight, fiftynine, sixty, sixtyone, sixtytwo, sixtythree, sixtyfour, sixtyfive, sixtysix, sixtyseven,
    sixtyeight, sixtynine, seventy, seventyone, seventytwo, seventythree, seventyfour, seventyfive,chime1, chime2, chime3, 
   chime4, chime5, chime6, chime7, chime8, chime9, chime10, chime11, chime12, pop1, pop2, pop3, pop4, shuffle,
@@ -431,6 +527,15 @@ export {winsound,notwinsound, pssound,tigplaystart,oroplaystart,amharicfemalepla
   oneft,twoft,threeft,fourft,fiveft,sixft,sevenft,eightft,nineft,tenft,elevenft,twelveft,thirteenft,fourteenft,fifteenft,sixteenft,seventeenft,eighteenft,nineteenft,twentyft,twentyoneft,twentytwoft,twentythreeft,twentyfourft,twentyfiveft,twentysixtft,twentysevenft,twentyeightft,twentynineft,thirtyft,thirtyoneft,thirtytwoft,thirtythreeft,thirtyfourft,thirtyfiveft,thirtysixtft,thirtysevenft,thirtyeightft,thirtynineft,fortyft,
   fortyoneft,fortytwoft,fortythreeft,fortyfourft,fortyfiveft,fortysixtft,fortysevenft,fortyeightft,fortynineft,fiftyft,fiftyoneft,fiftytwoft,fiftythreeft,fiftyfourft,fiftyfiveft,fiftysixtft,fiftysevenft,fiftyeightft,fiftynineft,sixtyft,sixtyoneft,sixtytwoft,sixtythreeft,sixtyfourft,sixtyfiveft,sixtysixtft,sixtysevenft,sixtyeightft,sixtynineft,seventyft,seventyoneft,seventytwoft,seventythreeft,seventyfourft,seventyfiveft,onefo, 
   twofo, threefo, fourfo, fivefo, sixfo, sevenfo, eightfo, ninefo, tenfo, elevenfo, twelvefo, thirteenfo, fourteenfo, fifteenfo, sixteenfo, seventeenfo, eighteenfo, nineteenfo, twentyfo, twentyonefo, twentytwofo, twentythreefo, twentyfourfo, twentyfivefo, twentysixfo, twentysevenfo, twentyeightfo, twentyninefo, thirtyfo, thirtyonefo, thirtytwofo, thirtythreefo, thirtyfourfo, thirtyfivefo, thirtysixfo, thirtysevenfo, thirtyeightfo,
-   thirtyninefo, fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo, fortysevenfo, fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo, fiftyfourfo, fiftyfivefo, fiftysixfo, fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo, sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo, sixtysixfo, sixtysevenfo, sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, seventyfourfo, seventyfivefo
+   thirtyninefo, fortyfo, fortyonefo, fortytwofo, fortythreefo, fortyfourfo, fortyfivefo, fortysixfo, fortysevenfo, fortyeightfo, fortyninefo, fiftyfo, fiftyonefo, fiftytwofo, fiftythreefo, fiftyfourfo, fiftyfivefo, fiftysixfo, fiftysevenfo, fiftyeightfo, fiftyninefo, sixtyfo, sixtyonefo, sixtytwofo, sixtythreefo, sixtyfourfo, sixtyfivefo, sixtysixfo, sixtysevenfo, sixtyeightfo, sixtyninefo, seventyfo, seventyonefo, seventytwofo, seventythreefo, seventyfourfo, seventyfivefo,
+
+
+
+
+   onemo, 
+  twomo, threemo, fourmo, fivemo, sixmo, sevenmo, eightmo, ninemo, tenmo, elevenmo, twelvemo, thirteenmo, fourteenmo, fifteenmo, sixteenmo, seventeenmo, eighteenmo, nineteenmo, twentymo, twentyonemo, twentytwomo, twentythreemo,
+   twentyfourmo, twentyfivemo, twentysixmo, twentysevenmo, twentyeightmo, twentyninemo, thirtymo, thirtyonemo, thirtytwomo, thirtythreemo, thirtyfourmo, thirtyfivemo, thirtysixmo, thirtysevenmo, thirtyeightmo,
+   thirtyninemo, fortymo, fortyonemo, fortytwomo, fortythreemo, fortyfourmo, fortyfivemo, fortysixmo, fortysevenmo, fortyeightmo, fortyninemo, fiftymo, fiftyonemo, fiftytwomo, fiftythreemo, fiftyfourmo, fiftyfivemo,
+    fiftysixmo, fiftysevenmo, fiftyeightmo, fiftyninemo, sixtymo, sixtyonemo, sixtytwomo, sixtythreemo, sixtyfourmo, sixtyfivemo, sixtysixmo, sixtysevenmo, sixtyeightmo, sixtyninemo, seventymo, seventyonemo, seventytwomo, seventythreemo, seventyfourmo, seventyfivemo,
 
 };

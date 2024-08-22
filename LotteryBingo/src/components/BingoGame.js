@@ -12,7 +12,6 @@ import {
   updateUserFailure,
 } from "../redux/user/userSlice";
 import {
-
   FaBell,
   FaRunning,
   FaSearch,
@@ -443,35 +442,116 @@ import {
   tigplaystart,
   oroplaystart,
   amharicfemaleplaystart,
+  verticalLine,
+  any2horizontalLine ,
+  any2verticalLine,
+  a4cornerSquare ,
+  a4middleCornerSquare ,
+  a4middleSquare,
+  anytwoLine,
+  diagonalLine,
+  fullHouse , 
+  onemo,
+  twomo,
+  threemo,
+  fourmo,
+  fivemo,
+  sixmo,
+  sevenmo,
+  eightmo,
+  ninemo,
+  tenmo,
+  elevenmo,
+  twelvemo,
+  thirteenmo,
+  fourteenmo,
+  fifteenmo,
+  sixteenmo,
+  seventeenmo,
+  eighteenmo,
+  nineteenmo,
+  twentymo,
+  twentyonemo,
+  twentytwomo,
+  twentythreemo,
+  twentyfourmo,
+  twentyfivemo,
+  twentysixmo,
+  twentysevenmo,
+  twentyeightmo,
+  twentyninemo,
+  thirtymo,
+  thirtyonemo,
+  thirtytwomo,
+  thirtythreemo,
+  thirtyfourmo,
+  thirtyfivemo,
+  thirtysixmo,
+  thirtysevenmo,
+  thirtyeightmo,
+  thirtyninemo,
+  fortymo,
+  fortyonemo,
+  fortytwomo,
+  fortythreemo,
+  fortyfourmo,
+  fortyfivemo,
+  fortysixmo,
+  fortysevenmo,
+  fortyeightmo,
+  fortyninemo,
+  fiftymo,
+  fiftyonemo,
+  fiftytwomo,
+  fiftythreemo,
+  fiftyfourmo,
+  fiftyfivemo,
+  fiftysixmo,
+  fiftysevenmo,
+  fiftyeightmo,
+  fiftyninemo,
+  sixtymo,
+  sixtyonemo,
+  sixtytwomo,
+  sixtythreemo,
+  sixtyfourmo,
+  sixtyfivemo,
+  sixtysixmo,
+  sixtysevenmo,
+  sixtyeightmo,
+  sixtyninemo,
+  seventymo,
+  seventyonemo,
+  seventytwomo,
+  seventythreemo,
+  seventyfourmo,
+  seventyfivemo,
 } from "../chimes";
 
 import Header from "./common/Header.js";
 
-import axios from 'axios';
-
+import axios from "axios";
 
 class BingoGame extends Component {
-  
   constructor(props) {
-    
     super(props);
     this.state = {
       error: null,
       showFullCallHistory: false,
       availableCartellas: [],
-       };
+    };
     // -------------------------- Set properties ----- //
     // Balls display pieces
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
     // this.totalBalance =1000;
-    this.enteredCartella="";
+    this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
-    this.betAmount=0;
-    this.showModal=false;
+    this.betAmount = 0;
+    this.showModal = false;
     this.cutBalance = 0;
-this.manualEnteredCut=0;
+    this.manualEnteredCut = 0;
     this.balance = 0;
     this.startButton = 0;
     this.totalBallsCalled = 0;
@@ -503,6 +583,8 @@ this.manualEnteredCut=0;
       { label: "oromigna-female", value: "oro-fem" },
       { label: "wolaytgna-female", value: "wol-fem" },
       { label: "tigrigna-female", value: "tig-fem" },
+      { label: "oromigna-male", value: "maleOromic" },
+
     ];
 
     this.colors = [
@@ -512,10 +594,10 @@ this.manualEnteredCut=0;
       { label: "dark-red", value: "darkRed" },
       { label: "default", value: "default" },
     ];
-    this.Pattern1=[
+    this.Pattern1 = [
       { label: "defaultPattern", value: "defaultPattern" },
 
- { label: "anydiagonal", value: "anydiagonal" },
+      { label: "anydiagonal", value: "anydiagonal" },
       { label: "Any horizontal", value: "anyhorizontal" },
       { label: "Any vertical", value: "anyvertical" },
       { label: "Any Two Lines", value: "anyTwoLines" },
@@ -526,9 +608,6 @@ this.manualEnteredCut=0;
       { label: "Full-House(BlackOut)", value: "FullHouse" },
       { label: "4 corner square", value: "CS" },
       { label: "4 middle square", value: "MS" },
-   
-
-      
     ];
 
     this.shuffleSound = shuffle;
@@ -573,15 +652,15 @@ this.manualEnteredCut=0;
       previousCallList: [],
       // displayBoardOnly: false,
       delay: 3500,
-      manualCut:false,
+      manualCut: false,
       enteredCartella: "",
-      betAmount:0,
-      amount:0,
+      betAmount: 0,
+      amount: 0,
       running: false,
       showModal: false,
       startButton: false,
       enableCaller: true,
-      isLoading : false,
+      isLoading: false,
       isRed: {
         isRed1: false,
         isRed2: false,
@@ -687,9 +766,9 @@ this.manualEnteredCut=0;
 
       skipUnused: false,
       wildBingo: false,
-
+maleOromic:false,
       tigrigna: false,
-      evensOdds: false,
+      wolayta:false,
       doubleCall: false,
       extraTalk: false,
       chime: false,
@@ -698,27 +777,26 @@ this.manualEnteredCut=0;
       darkGrey: false,
       blue: false,
       darkRed: false,
-      anydiagonal:false,
-      anyvertical:false,
-      anyhorizontal:false,
-      CS:false,
-      MS:false,
-      FullHouse:false,
-      FMC:false,
-      anyTwoHorizontal:false,
-      letterA:false,
-      anyTwoLines:false,
-      anyTwoVertical:false,
-      defaultPattern:false,
+      anydiagonal: false,
+      anyvertical: false,
+      anyhorizontal: false,
+      CS: false,
+      MS: false,
+      FullHouse: false,
+      FMC: false,
+      anyTwoHorizontal: false,
+      letterA: false,
+      anyTwoLines: false,
+      anyTwoVertical: false,
+      defaultPattern: false,
       cutBalance: 0,
-    
+
       cardCount: 0,
 
       selectedChime: this.chimes[0],
       selectedCaller: this.callers[0],
       selectedColor: this.colors[0],
-      selectedPattern1:this.Pattern1[0],
-
+      selectedPattern1: this.Pattern1[0],
 
       selectedPattern: {
         value: this.patternPlaceholder,
@@ -772,7 +850,7 @@ this.manualEnteredCut=0;
       currentBall: this.currentBall,
       interval: this.interval,
       selectedCards: this.selectedCards,
-      enteredCartella:this.enteredCartella,
+      enteredCartella: this.enteredCartella,
       //  sales:this.sales,
       //  totalBalance:this.totalBalance,
     };
@@ -867,11 +945,7 @@ this.manualEnteredCut=0;
    * @param   {Object}  ball  Object representing a ball
    */
   voiceCall = (ball) => {
-    // call the new ball, first call it all together, then call each character individually
-    // let ballstring = ball.number.toString();
-    if (this.state.wildBall) {
-      alert("hi");
-    } else if (this.state.doubleCall) {
+    if (this.state.doubleCall) {
       const femaleamharic = [
         chime1,
         onefa,
@@ -1036,6 +1110,89 @@ this.manualEnteredCut=0;
       if (ball.number >= 0 && ball.number <= 75) {
         let sound2 = new Audio(femaleoromic[ball.number]);
         sound2.play();
+      }
+    } else if (this.state.maleOromic) {
+      const maleoromic = [
+        chime1,
+        onemo,
+        twomo,
+        threemo,
+        fourmo,
+        fivemo,
+        sixmo,
+        sevenmo,
+        eightmo,
+        ninemo,
+        tenmo,
+        elevenmo,
+        twelvemo,
+        thirteenmo,
+        fourteenmo,
+        fifteenmo,
+        sixteenmo,
+        seventeenmo,
+        eighteenmo,
+        nineteenmo,
+        twentymo,
+        twentyonemo,
+        twentytwomo,
+        twentythreemo,
+        twentyfourmo,
+        twentyfivemo,
+        twentysixmo,
+        twentysevenmo,
+        twentyeightmo,
+        twentyninemo,
+        thirtymo,
+        thirtyonemo,
+        thirtytwomo,
+        thirtythreemo,
+        thirtyfourmo,
+        thirtyfivemo,
+        thirtysixmo,
+        thirtysevenmo,
+        thirtyeightmo,
+        thirtyninemo,
+        fortymo,
+        fortyonemo,
+        fortytwomo,
+        fortythreemo,
+        fortyfourmo,
+        fortyfivemo,
+        fortysixmo,
+        fortysevenmo,
+        fortyeightmo,
+        fortyninemo,
+        fiftymo,
+        fiftyonemo,
+        fiftytwomo,
+        fiftythreemo,
+        fiftyfourmo,
+        fiftyfivemo,
+        fiftysixmo,
+        fiftysevenmo,
+        fiftyeightmo,
+        fiftyninemo,
+        sixtymo,
+        sixtyonemo,
+        sixtytwomo,
+        sixtythreemo,
+        sixtyfourmo,
+        sixtyfivemo,
+        sixtysixmo,
+        sixtysevenmo,
+        sixtyeightmo,
+        sixtyninemo,
+        seventymo,
+        seventyonemo,
+        seventytwomo,
+        seventythreemo,
+        seventyfourmo,
+        seventyfivemo,
+      ];
+      if (ball.number >= 0 && ball.number <= 75) {
+        let soundmo = new Audio(maleoromic[ball.number]);
+        soundmo.play();
       }
     } else if (this.state.wolayta) {
       const femalewolayta = [
@@ -1295,105 +1452,372 @@ this.manualEnteredCut=0;
 
   startNewAutoplayGame = async () => {
     this.setState({ isLoading: true });
-    setTimeout(() => {
-                  this.setState({ isLoading: false });
-  }, 3000);
-    
-    const {
-      currentUser,
-      updateUserStart,
-      updateUserSuccess,
-     
-    } = this.props;
+
+    const { currentUser, updateUserStart, updateUserSuccess } = this.props;
     const { balance } = this.props;
 
     if (balance < this.state.amount) {
       alert("Insufficent balance", currentUser, balance);
-      
-    } else if(this.state.manualCut){
-      const newBalance = balance - (this.state.amount*this.state.manualEnteredCut)/10;
+    } else if (this.state.manualCut) {
+      const newBalance =
+        balance - (this.state.amount * this.state.manualEnteredCut) / 10;
 
       updateUserStart();
       try {
-        await axios.put(
-          `/api/user/${currentUser._id}/balance`,
-          {
-            balance: newBalance,
-          }
-        );
+        await axios.put(`/api/user/${currentUser._id}/balance`, {
+          balance: newBalance,
+        });
         updateUserSuccess({ ...currentUser, balance: newBalance });
 
         this.setState({
           board: generateBingoBoard(),
           showstartModal: false,
-         
         });
       } catch (err) {
-
         alert("Error updating balance");
         this.setState({ isLoading: false });
       }
-      
-      
+
       for (let i = 1; i <= 100; i++) {
         const isRedState = this.state.isRed[`isRed${i}`];
 
         if (isRedState) {
           this.selectedCards.push(i);
-
         }
-       
       }
 
       if (this.state.doubleCall) {
-       
-        let soundstartfa = new Audio(amharicfemaleplaystart);
-        soundstartfa.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 2000);
+        // First sound
+        let firstSound = new Audio(amharicfemaleplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+         if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else if (this.state.extraTalk) {
-       
-        let soundstartfo = new Audio(oroplaystart);
-        soundstartfo.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 3000);
+        let firstSound = new Audio(oroplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else if (this.state.enableCaller) {
-       
-        let soundstartma = new Audio(amharicmaleplaystart);
-        soundstartma.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 2000);
+        let firstSound = new Audio(amharicmaleplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else if (this.state.wolayta) {
-        let soundstartfw = new Audio(wolplaystart);
-        soundstartfw.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 3000);
-      } else if (this.state.tigrigna) {
-        let soundstartft = new Audio(tigplaystart);
-        soundstartft.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 3000);
-        // this.toggleGame();
+        let firstSound = new Audio(wolplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      else if (this.state.maleOromic) {
+        let firstSound = new Audio(oroplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      else if (this.state.tigrigna) {
+        let firstSound = new Audio(tigplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else {
         this.toggleGame();
       }
-    }
-    else {
-      const newBalance = balance - (this.state.amount*currentUser.cut)/100;
+    } else {
+      const newBalance = balance - (this.state.amount * currentUser.cut) / 100;
 
       updateUserStart();
       try {
-        await axios.put(
-          `/api/user/${currentUser._id}/balance`,
-          {
-            balance: newBalance,
-          }
-        );
+        await axios.put(`/api/user/${currentUser._id}/balance`, {
+          balance: newBalance,
+        });
         updateUserSuccess({ ...currentUser, balance: newBalance });
 
         this.setState({
@@ -1401,7 +1825,6 @@ this.manualEnteredCut=0;
           showstartModal: false,
         });
       } catch (err) {
-
         alert("Error updating balance");
       }
       for (let i = 1; i <= 100; i++) {
@@ -1411,42 +1834,331 @@ this.manualEnteredCut=0;
           this.selectedCards.push(i);
         }
       }
+if (this.state.doubleCall) {
+        // First sound
+        let firstSound = new Audio(amharicfemaleplaystart);
 
-      if (this.state.doubleCall) {
-        
-        let soundstartfa = new Audio(amharicfemaleplaystart);
-        soundstartfa.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 2000);
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+         if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else if (this.state.extraTalk) {
-        let soundstartfo = new Audio(oroplaystart);
-        soundstartfo.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 3000);
+        let firstSound = new Audio(oroplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else if (this.state.enableCaller) {
-        let soundstartma = new Audio(amharicmaleplaystart);
-        soundstartma.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 2000);
+        let firstSound = new Audio(amharicmaleplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else if (this.state.wolayta) {
-        let soundstartfw = new Audio(wolplaystart);
-        soundstartfw.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 3000);
-      } else if (this.state.tigrigna) {
-        let soundstartft = new Audio(tigplaystart);
-        soundstartft.play();
-        window.setTimeout(() => {
-          this.toggleGame();
-        }, 3000);
-        // this.toggleGame();
+        let firstSound = new Audio(wolplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      else if (this.state.maleOromic) {
+        let firstSound = new Audio(oroplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      else if (this.state.tigrigna) {
+        let firstSound = new Audio(tigplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare); 
+          }
+          else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare,); // Sound for other pattern
+          }
+          else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          }
+          else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          }
+          else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          }
+          else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          }
+          else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          }
+          else  {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
       } else {
         this.toggleGame();
       }
+      
     }
   };
 
@@ -1454,23 +2166,20 @@ this.manualEnteredCut=0;
     let running = this.state.running;
     if (running === true) {
       clearInterval(this.interval);
-     
     } else {
       this.callBingoNumber();
       this.interval = setInterval(this.callBingoNumber, this.state.delay);
     }
     this.setState({ running: !running });
-    
   };
   toggleModal = () => {
-    if (this.state.running||this.state.showModal===true){
-    this.setState((prevState) => ({
-      showModal: !prevState.showModal,
-    }));
-  }
-  else {
-  // do nothing
-  }
+    if (this.state.running || this.state.showModal === true) {
+      this.setState((prevState) => ({
+        showModal: !prevState.showModal,
+      }));
+    } else {
+      // do nothing
+    }
   };
 
   toggleResetModal = () => {
@@ -1488,77 +2197,69 @@ this.manualEnteredCut=0;
     localStorage.removeItem("lpb-gameState");
     // reset everything with the board
     const resetIsRed = {};
-  
-  for (let i = 1; i <= 100; i++) {
-    resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
-  }
+
+    for (let i = 1; i <= 100; i++) {
+      resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
+    }
     clearInterval(this.interval);
 
     this.cancelSpeech();
     this.totalBallsCalled = 0;
 
     this.selectedCards = [];
-    this.enteredCartella="";
+    this.enteredCartella = "";
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
     this.setState({
       board: generateBingoBoard(),
-      cardCount:0,
+      cardCount: 0,
       wildBall: null,
       running: false,
       showResetModal: false,
-      manualCut:false,
+      manualCut: false,
       previousCallList: [],
       balance: 0,
-      amount:0,
-     isLoading:false,
-     isRed: resetIsRed,
+      amount: 0,
+      isLoading: false,
+      isRed: resetIsRed,
     });
   };
 
   confirmstartGame = async () => {
-    const {
-      currentUser,
-    } = this.props;
+    const { currentUser } = this.props;
     const { balance } = this.props;
 
-    if (balance < this.state.amount || this.state.betAmount<10) {
-      alert("Insufficent balance or minimum bet amount entered(minimum amount is 10 birr)", currentUser, balance);
-    } 
-    else{  
-      if(this.state.manualCut){
-      this.state.balance = this.state.amount - (this.state.amount * this.state.manualEnteredCut) / 10;
-      this.startButton = 1;
-      this.setState({
-        board: generateBingoBoard(),
-        showstartModal: false,
-  
-        // selectedCards:this.selectedCards,
-      });
+    if (balance < this.state.amount || this.state.betAmount < 10) {
+      alert(
+        "Insufficent balance or minimum bet amount entered(minimum amount is 10 birr)",
+        currentUser,
+        balance
+      );
+    } else {
+      if (this.state.manualCut) {
+        this.state.balance =
+          this.state.amount -
+          (this.state.amount * this.state.manualEnteredCut) / 10;
+        this.startButton = 1;
+        this.setState({
+          board: generateBingoBoard(),
+          showstartModal: false,
+        });
+      } else {
+        this.state.balance =
+          this.state.amount - (this.state.amount * currentUser.cut) / 100;
 
-  }
+        this.startButton = 1;
 
-   // const newBalance = balance - this.state.amount;
-else {
-    this.state.balance = this.state.amount - (this.state.amount * currentUser.cut) / 100;
-      
+        this.setState({
+          board: generateBingoBoard(),
+          showstartModal: false,
 
-    this.startButton = 1;
-    let x = this.state.amount / 1.3333333333333;
-    this.amount = parseFloat(x.toFixed(3));
-    this.setState({
-      cutBalance: this.amount,
-    });
-
-    this.setState({
-      board: generateBingoBoard(),
-      showstartModal: false,
-
-      // selectedCards:this.selectedCards,
-    });
-  }}
-
+          // selectedCards:this.selectedCards,
+        });
+      }
+    }
   };
   callBingoNumber = () => {
     let totalBallsCalled = this.totalBallsCalled;
@@ -1646,21 +2347,12 @@ else {
     } else {
       clearInterval(this.interval);
       this.totalBallsCalled = totalPossibleBalls;
-      // this.confirmResetGame();
-      //  let finishSound= new Audio(pssound);
-      //  setTimeout(() => {
-      //   finishSound.play();
-      // }, 3000);
+
       this.previousBall = this.currentBall;
       this.currentBall = null;
     }
   };
-  winnerCheck = () => {
-    <div className="modal">
-      <h1>enter cardId</h1>
-      <button>check</button>
-    </div>;
-  };
+
   shuffleBalls = () => {
     let balls = generateBingoBoard();
     let letters = ["B", "I", "N", "G", "O"];
@@ -1868,7 +2560,7 @@ else {
     if (this.state.showResetModal === true) {
       return (
         <div>
-          <div className="modal">
+          <div className='modal'>
             <h4>Reset Game</h4>
             <p>Are you sure you want to reset the game?</p>
             {/* <p className="red-text">
@@ -1876,13 +2568,13 @@ else {
             </p> */}
             <p>
               <button onClick={this.toggleResetModal}>Cancel</button>
-              <button className="primaryBtn" onClick={this.confirmResetGame}>
+              <button className='primaryBtn' onClick={this.confirmResetGame}>
                 yes
               </button>
             </p>
           </div>
           <div
-            className="modal-backdrop"
+            className='modal-backdrop'
             onClick={(e) => {
               e.preventDefault();
             }}
@@ -1897,22 +2589,21 @@ else {
   handleEnterCartella = (e) => {
     const value = e.target.value;
     const cartellaNumber = parseInt(value, 10);
-  
+
     // Update the enteredCartella state
     this.setState({ enteredCartella: value });
-  
+
     // Check if Enter key is pressed
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       // Check if the entered number is above 100
-     
-        this.setState((prevState) => ({
-          isRed: {
-            ...prevState.isRed,
-            [`isRed${cartellaNumber}`]: true // Set isRed state for the entered number
-          }
-        }));
-      
-      
+
+      this.setState((prevState) => ({
+        isRed: {
+          ...prevState.isRed,
+          [`isRed${cartellaNumber}`]: true, // Set isRed state for the entered number
+        },
+      }));
+
       // Call the function to add the cartella
       this.addEnteredCartella();
     }
@@ -1947,113 +2638,104 @@ else {
       let balance = this.totalBalance;
       const { availableCartellas } = this.state;
       return (
-        <div className="notranslate">
-          <div className="modal">
+        <div className='notranslate'>
+          <div className='modal'>
             <div>
               <h6>Enter bet amount</h6>{" "}
               <input
-  type="number"
-  placeholder="Bet Amount"
-  required
-  onChange={this.handleBetAmountChange}
-  value={this.state.betAmount}
-
-/> 
-
+                type='number'
+                placeholder='Bet Amount'
+                required
+                onChange={this.handleBetAmountChange}
+                value={this.state.betAmount}
+              />
             </div>{" "}
-
             <div>
               <h6>enter game-type</h6>{" "}
-               <label>
-          <input
-            type="checkbox"
-            checked={this.state.manualCut} // Controlled checkbox
-             onChange={this.handleChechbx} // Event handler
-          />
-          game-type
-        </label>
-        <span>&nbsp;</span>
-        <span>&nbsp;</span>
+              <label>
+                <input
+                  type='checkbox'
+                  checked={this.state.manualCut} // Controlled checkbox
+                  onChange={this.handleChechbx} // Event handler
+                />
+                game-type
+              </label>
+              <span>&nbsp;</span>
+              <span>&nbsp;</span>
               <input
-          type="number" // Ensure this is set to "number" for numeric input
-          id="cutAmount"
-          placeholder="game-type"
-          value={this.state.manualEnteredCut} // Controlled input
-          onChange={this.handleCutChange} // Event handler
-        />
-
-       
+                type='number' // Ensure this is set to "number" for numeric input
+                id='cutAmount'
+                placeholder='game-type'
+                value={this.state.manualEnteredCut} // Controlled input
+                onChange={this.handleCutChange} // Event handler
+              />
             </div>{" "}
             <input
-  type="number"
-  placeholder="enter cartela manual"
-  value={this.state.enteredCartella}
-  onChange={this.handleEnterCartella}
-  onKeyDown={this.handleEnterCartella}
-/>
-<button onClick={this.addEnteredCartella}>Add Cartella</button>
-           
+              type='number'
+              placeholder='enter cartela manual'
+              value={this.state.enteredCartella}
+              onChange={this.handleEnterCartella}
+              onKeyDown={this.handleEnterCartella}
+            />
+            <button onClick={this.addEnteredCartella}>Add Cartella</button>
             {/* <div className="number-input"> */}
-              {/* <input
+            {/* <input
                 type="number"
                  value={"Ahadu-virtuals"}
                 readOnly
                 onChange={this.handleCardCountChange}
               /> */}
-              {/* <button onClick={this.decrementCards}>-</button> */}
+            {/* <button onClick={this.decrementCards}>-</button> */}
             {/* </div> */}
-            <span className="notranslate">
+            <span className='notranslate'>
               {/* <p>Total Amount: {this.state.amount}</p> */}
             </span>
-           
             <p>
               <button onClick={this.togglestartModal}>Cancel</button>
               <button
-                className="primaryBtn"
+                className='primaryBtn'
                 onClick={this.confirmstartGame}
-                disabled={this.state.amount === 0 || balance <= 0 || this.state.betAmount===''}
+                disabled={
+                  this.state.amount === 0 ||
+                  balance <= 0 ||
+                  this.state.betAmount === ""
+                }
               >
                 Done
               </button>
             </p>
             <h2>select cartela</h2>
-            <span className="notranslate">
-            {availableCartellas.length > 0 ? (
-            availableCartellas.map((cartella) => (
-              <button
-              key={cartella._id}
-              onClick={()=>{
-                const currentNumber = cartella.id;
-                const isRedState =
-                this.state.isRed[`isRed${currentNumber}`];
+            <span className='notranslate'>
+              {availableCartellas.length > 0 ? (
+                availableCartellas.map((cartella) => (
+                  <button
+                    key={cartella._id}
+                    onClick={() => {
+                      const currentNumber = cartella.id;
+                      const isRedState =
+                        this.state.isRed[`isRed${currentNumber}`];
 
-              if (isRedState) {
-                this.decrementCard(currentNumber);
-              } else {
-                this.incrementCard(currentNumber);
-              }
-            
-
-
-              }}
-              className={
-                this.state.isRed[`isRed${cartella.id}`] ? "red" : "bt"
-              }
-              
-              >
- {cartella.id}
-
-              </button>
-            ))
-          ) : (
-            <div>Loading...</div>
-          )}
-      
+                      if (isRedState) {
+                        this.decrementCard(currentNumber);
+                      } else {
+                        this.incrementCard(currentNumber);
+                      }
+                    }}
+                    className={
+                      this.state.isRed[`isRed${cartella.id}`] ? "red" : "bt"
+                    }
+                  >
+                    {cartella.id}
+                  </button>
+                ))
+              ) : (
+                <div>Loading...</div>
+              )}
             </span>
           </div>
 
           <div
-            className="modal-backdrop2"
+            className='modal-backdrop2'
             onClick={(e) => {
               e.preventDefault();
             }}
@@ -2074,41 +2756,45 @@ else {
       const sortedCartellas = response.data.sort((a, b) => a.id - b.id);
       this.setState({ availableCartellas: sortedCartellas, error: null });
     } catch (error) {
-      this.setState({ error: "An error occurred while fetching available cartellas. Please try again later." });
+      this.setState({
+        error:
+          "An error occurred while fetching available cartellas. Please try again later.",
+      });
     }
   };
   addEnteredCartella = () => {
     const enteredCartella = parseInt(this.state.enteredCartella);
-  
+
     // Check if the entered cartella is a valid number
     if (!isNaN(enteredCartella)) {
       // Add the entered cartella to the selectedCards array
       this.selectedCards.push(enteredCartella);
-  
+
       // Increment the cardCount
       this.setState((prevState) => ({
         cardCount: prevState.cardCount + 1,
         amount: prevState.betAmount * (prevState.cardCount + 1),
       }));
     }
-  
+
     // Clear the input field
     this.setState({
       enteredCartella: "",
     });
   };
-  handleChechbx=(e)=>{  if (e.target.type === 'checkbox') {
-    this.setState({
-      manualCut: e.target.checked // Set state based on checkbox checked state
-    });
-  }}
+  handleChechbx = (e) => {
+    if (e.target.type === "checkbox") {
+      this.setState({
+        manualCut: e.target.checked, // Set state based on checkbox checked state
+      });
+    }
+  };
   handleCutChange = (e) => {
-  
     const cutamount = e.target.value;
 
     // Update state with the new cut amount
     this.setState({
-      manualEnteredCut: cutamount
+      manualEnteredCut: cutamount,
     });
   };
   handleBetAmountChange = (e) => {
@@ -2138,7 +2824,7 @@ else {
       case "amh-male":
         this.setState({
           enableCaller: true,
-
+          maleOromic:false,
           doubleCall: false,
           tigrigna: false,
           wolayta: false,
@@ -2152,6 +2838,7 @@ else {
           tigrigna: false,
           wolayta: false,
           extraTalk: false,
+          maleOromic:false,
         });
         break;
       case "oro-fem":
@@ -2161,6 +2848,7 @@ else {
           doubleCall: false,
           tigrigna: false,
           wolayta: false,
+          maleOromic:false,
         });
         break;
       case "wol-fem":
@@ -2170,6 +2858,7 @@ else {
           doubleCall: false,
           extraTalk: false,
           tigrigna: false,
+          maleOromic:false,
         });
         break;
       case "tig-fem":
@@ -2179,8 +2868,20 @@ else {
           enableCaller: false,
           doubleCall: false,
           extraTalk: false,
+          maleOromic:false,
         });
         break;
+
+        case "maleOromic":
+          this.setState({
+            tigrigna: false,
+            wolayta: false,
+            enableCaller: false,
+            doubleCall: false,
+            extraTalk: false,
+            maleOromic:true,
+          });
+          break;
 
       default:
         break;
@@ -2251,201 +2952,201 @@ else {
     switch (e.value) {
       case "anyTwoVertical":
         this.setState({
-          anyhorizontal:false,
-          anyvertical:false,
-          anydiagonal:false,
-          defaultPattern:false,
-          anyTwoLines:false,
-          anyTwoVertical:true,
-          anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          FullHouse:false,
-          CS:false,
-          MS:false,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: true,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          FullHouse: false,
+          CS: false,
+          MS: false,
         });
         break;
-        case "FullHouse":
+      case "FullHouse":
         this.setState({
-          FullHouse:true,
-          anyhorizontal:false,
-          anyvertical:false,
-          anydiagonal:false,
-          defaultPattern:false,
-          anyTwoLines:false,
-          anyTwoVertical:false,
-          anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          CS:false,
-          MS:false,
+          FullHouse: true,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: false,
+          MS: false,
         });
         break;
-        case "CS":
-          this.setState({
-            FullHouse:false,
-            anyhorizontal:false,
-            anyvertical:false,
-            anydiagonal:false,
-            defaultPattern:false,
-            anyTwoLines:false,
-            anyTwoVertical:false,
-            anyTwoHorizontal:false,
-            letterA:false,
-            FMC:false,
-            CS:true,
-           
-            MS:false,
-          });
-          break;
-          case "MS":
-            this.setState({
-              FullHouse:false,
-              CS:false,
-              anyhorizontal:false,
-              anyvertical:false,
-              anydiagonal:false,
-              defaultPattern:false,
-              anyTwoLines:false,
-              anyTwoVertical:false,
-              anyTwoHorizontal:false,
-              letterA:false,
-              FMC:false,
-              MS:true,
-            });
-            break;
-        case "anyTwoHorizontal":
-          this.setState({
-            anyhorizontal:false,
-            FullHouse:false,
-            anyvertical:false,
-            anydiagonal:false,
-            defaultPattern:false,
-            anyTwoLines:false,
-            anyTwoVertical:false,
-            anyTwoHorizontal:true,
-            FMC:false,
-            letterA:false,
-            CS:false,
-            MS:false,
-          });
-          break;
-          case "letterA":
-            this.setState({
-              anyhorizontal:false,
-              FullHouse:false,
-              anyvertical:false,
-              anydiagonal:false,
-              defaultPattern:false,
-              anyTwoLines:false,
-              anyTwoVertical:false,
-              anyTwoHorizontal:false,
-              letterA:true,
-              FMC:false,
-              CS:false,
-              MS:false,
-            });
-            break;
-        case "defaultPattern":
+      case "CS":
         this.setState({
-          anyhorizontal:false,
-          FullHouse:false,
-          anyvertical:false,
-          anydiagonal:false,
-          defaultPattern:true,
-          anyTwoLines:false,
-          anyTwoVertical:false,
-          anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          CS:false,
-          MS:false,
+          FullHouse: false,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: true,
+
+          MS: false,
+        });
+        break;
+      case "MS":
+        this.setState({
+          FullHouse: false,
+          CS: false,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          MS: true,
+        });
+        break;
+      case "anyTwoHorizontal":
+        this.setState({
+          anyhorizontal: false,
+          FullHouse: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: true,
+          FMC: false,
+          letterA: false,
+          CS: false,
+          MS: false,
+        });
+        break;
+      case "letterA":
+        this.setState({
+          anyhorizontal: false,
+          FullHouse: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: true,
+          FMC: false,
+          CS: false,
+          MS: false,
+        });
+        break;
+      case "defaultPattern":
+        this.setState({
+          anyhorizontal: false,
+          FullHouse: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: true,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: false,
+          MS: false,
         });
         break;
 
       case "anyhorizontal":
         this.setState({
-          anyhorizontal:true,
-          FullHouse:false,
-          anyvertical:false,
-          anydiagonal:false,
-          defaultPattern:false,
-          anyTwoLines:false,
-          anyTwoVertical:false,
-          anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          CS:false,
-          MS:false,
+          anyhorizontal: true,
+          FullHouse: false,
+          anyvertical: false,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: false,
+          MS: false,
         });
         break;
-        case "anyvertical":
-          this.setState({
-            anyhorizontal:false,
-            FullHouse:false,
-            anyvertical:true,
-            anydiagonal:false,
-            defaultPattern:false,
-            anyTwoLines:false,
-            anyTwoVertical:false,
-            anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          CS:false,
-          MS:false,
-          });
-          break;
-     
-          case "anydiagonal":
-            this.setState({
-              defaultPattern:false,
-              FullHouse:false,
-              anyhorizontal:false,
-              anyvertical:false,
-              anydiagonal:true,
-              anyTwoLines:false,
-              anyTwoVertical:false,
-              anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          CS:false,
-          MS:false,
-            });
-            break;
-            case "anyTwoLines":
-              this.setState({
-                defaultPattern:false,
-                FullHouse:false,
-                anyhorizontal:false,
-                anyvertical:false,
-                anydiagonal:false,
-                anyTwoLines:true,
-                anyTwoVertical:false,
-                anyTwoHorizontal:false,
-          letterA:false,
-          FMC:false,
-          CS:false,
-          MS:false,
-              });
-              break;
+      case "anyvertical":
+        this.setState({
+          anyhorizontal: false,
+          FullHouse: false,
+          anyvertical: true,
+          anydiagonal: false,
+          defaultPattern: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: false,
+          MS: false,
+        });
+        break;
 
-              case "FMC":
-                this.setState({
-                  defaultPattern:false,
-                  FullHouse:false,
-                  anyhorizontal:false,
-                  anyvertical:false,
-                  anydiagonal:false,
-                  anyTwoLines:false,
-                  anyTwoVertical:false,
-                  anyTwoHorizontal:false,
-            letterA:false,
-            FMC:true,
-            CS:false,
-            MS:false,
-                });
-                break;
-     
+      case "anydiagonal":
+        this.setState({
+          defaultPattern: false,
+          FullHouse: false,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: true,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: false,
+          MS: false,
+        });
+        break;
+      case "anyTwoLines":
+        this.setState({
+          defaultPattern: false,
+          FullHouse: false,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: false,
+          anyTwoLines: true,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: false,
+          CS: false,
+          MS: false,
+        });
+        break;
+
+      case "FMC":
+        this.setState({
+          defaultPattern: false,
+          FullHouse: false,
+          anyhorizontal: false,
+          anyvertical: false,
+          anydiagonal: false,
+          anyTwoLines: false,
+          anyTwoVertical: false,
+          anyTwoHorizontal: false,
+          letterA: false,
+          FMC: true,
+          CS: false,
+          MS: false,
+        });
+        break;
+
       default:
         break;
     }
@@ -2496,34 +3197,34 @@ else {
         </div>
         <div className={colorClasses}>
           {/* ----------- Bingo Board ------------- */}
-          <section className="board-block">
-            <div className="container row no-wrap align-stretch">
+          <section className='board-block'>
+            <div className='container row no-wrap align-stretch'>
               {/* ------ Board ------- */}
-              <div className="col pattern-side shrink padding-xlg">
+              <div className='col pattern-side shrink padding-xlg'>
                 {/* -------- Digital Displays --------- */}
-                <div className="row no-wrap margin-bottom-lg justify-space-between white-text">
-                  <div className="col text-center margin-sm">
-                    <div className="callNumber notranslate">
+                <div className='row no-wrap margin-bottom-lg justify-space-between white-text'>
+                  <div className='col text-center margin-sm'>
+                    <div className='callNumber notranslate'>
                       {this.numberDisplay}
                     </div>
-                    <div className="callNumber-text uppercase">Total Calls</div>
+                    <div className='callNumber-text uppercase'>Total Calls</div>
                   </div>
-                  <div className="col text-center margin-sm">
-                    <div className="callNumber notranslate">
+                  <div className='col text-center margin-sm'>
+                    <div className='callNumber notranslate'>
                       {this.previousCallDisplay}
                     </div>
-                    <div className="callNumber-text uppercase">
+                    <div className='callNumber-text uppercase'>
                       Previous Call
                     </div>
                   </div>
                 </div>
 
                 {/* -------- Pattern --------- */}
-               
-                <Pattern selectedPattern={this.state.selectedPattern1.value}/>
+
+                <Pattern selectedPattern={this.state.selectedPattern1.value} />
               </div>
 
-              <div className="col board-side">
+              <div className='col board-side'>
                 <BingoBoard
                   board={this.state.board}
                   // manualMode={this.state.displayBoardOnly}
@@ -2534,10 +3235,10 @@ else {
           </section>
 
           {/* ----------- BOTTOM SECTION ------------- */}
-          <section className="game-controls new-bg">
-            <div className="container row justify-start align-start">
+          <section className='game-controls new-bg'>
+            <div className='container row justify-start align-start'>
               {/* ----------- Current Ball Display ------------- */}
-              <div className="col min-size-250 padding-vertical-xxlg padding-horizontal-md notranslate">
+              <div className='col min-size-250 padding-vertical-xxlg padding-horizontal-md notranslate'>
                 {this.currentBallDisplay}
 
                 <CallHistory
@@ -2563,8 +3264,8 @@ else {
               </div>
 
               {/* ----------- Gameplay Controls ------------- */}
-              <div className="col shrink padding-vertical-xxlg padding-horizontal-md">
-                <section className="gameplay-controls">
+              <div className='col shrink padding-vertical-xxlg padding-horizontal-md'>
+                <section className='gameplay-controls'>
                   <div data-disabled={this.totalBallsCalled >= 75}>
                     <button
                       data-disabled={this.state.displayBoardOnly}
@@ -2574,7 +3275,7 @@ else {
                             this.togglestartModal
                           : this.callBingoNumber
                       }
-                      className="notranslate"
+                      className='notranslate'
                       disabled={this.state.running || balance <= 0}
                     >
                       {this.totalBallsCalled === 0 ? (
@@ -2592,35 +3293,35 @@ else {
                     </button>
 
                     <button
-  data-disabled={this.state.displayBoardOnly}
-  data-newgame={this.totalBallsCalled === 0}
-  className={
-    this.state.running
-      ? "pause-button notranslate"
-      : "play-button notranslate"
-  }
-  disabled={this.state.isLoading || this.startButton === 0} // Disable if loading
-  onClick={
-    this.totalBallsCalled === 0 && !this.state.isLoading // Prevent clicks during loading
-      ? this.startNewAutoplayGame
-      : () => {
-          this.toggleGame();
-          this.toggleModal(); // Toggle the modal visibility
-        }
-  }
->
-  {this.state.isLoading ? (
-    <>Loading...</> // Show loading text or spinner
-  ) : this.state.running ? (
-    <>
-      Pause <FaPause />
-    </>
-  ) : (
-    <>
-      Start <VscDebugStart />
-    </>
-  )}
-</button>
+                      data-disabled={this.state.displayBoardOnly}
+                      data-newgame={this.totalBallsCalled === 0}
+                      className={
+                        this.state.running
+                          ? "pause-button notranslate"
+                          : "play-button notranslate"
+                      }
+                      disabled={this.state.isLoading || this.startButton === 0} // Disable if loading
+                      onClick={
+                        this.totalBallsCalled === 0 && !this.state.isLoading // Prevent clicks during loading
+                          ? this.startNewAutoplayGame
+                          : () => {
+                              this.toggleGame();
+                              this.toggleModal(); // Toggle the modal visibility
+                            }
+                      }
+                    >
+                      {this.state.isLoading ? (
+                        <>Loading...</> // Show loading text or spinner
+                      ) : this.state.running ? (
+                        <>
+                          Pause <FaPause />
+                        </>
+                      ) : (
+                        <>
+                          Start <VscDebugStart />
+                        </>
+                      )}
+                    </button>
                   </div>
 
                   <button
@@ -2642,8 +3343,8 @@ else {
               </div>
 
               {/* ----------- Game Settings ------------- */}
-              <div className="col grow no-wrap padding-vertical-xxlg padding-horizontal-md white-text">
-                <section className="game-settings">
+              <div className='col grow no-wrap padding-vertical-xxlg padding-horizontal-md white-text'>
+                <section className='game-settings'>
                   {/* ----------- Settings when using generation ---------- */}
                   <div
                   // data-visibility={
@@ -2651,23 +3352,23 @@ else {
                   // }
                   >
                     {/* ----------- Autoplay Settings ---------- */}
-                    <div className="row no-wrap align-center justify-start">
-                      <div className="col shrink min-size-80 padding-horizontal-lg">
+                    <div className='row no-wrap align-center justify-start'>
+                      <div className='col shrink min-size-80 padding-horizontal-lg'>
                         <h6>
                           Speed: <SiFastapi />{" "}
                         </h6>
                       </div>
-                      <div className="col shrink text-center padding-vertical-lg padding-horizontal-lg">
+                      <div className='col shrink text-center padding-vertical-lg padding-horizontal-lg'>
                         <div
-                          className="row no-wrap align-center slider"
+                          className='row no-wrap align-center slider'
                           data-disabled={this.state.displayBoardOnly}
                         >
-                          <div className="col shrink padding-right-lg white-text">
+                          <div className='col shrink padding-right-lg white-text'>
                             Slow
                             <span>&nbsp;</span>
                             <MdOutlineAssistWalker />
                           </div>
-                          <div className="col">
+                          <div className='col'>
                             <Slider
                               min={2500}
                               max={6500}
@@ -2677,7 +3378,7 @@ else {
                               reverse={true}
                             />
                           </div>
-                          <div className="col shrink padding-left-lg white-text">
+                          <div className='col shrink padding-left-lg white-text'>
                             Fast <span>&nbsp;</span>
                             <FaRunning />
                           </div>
@@ -2686,26 +3387,26 @@ else {
                     </div>
 
                     {/* ----------- Caller ---------- */}
-                    <div className="row align-start justify-start">
-                      <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                    <div className='row align-start justify-start'>
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           {" "}
                           speaker: <RiSpeakFill /> <FcSpeaker />{" "}
                         </h6>
                       </div>
-                      <div className="col grow min-size-80 padding-horizontal-lg">
+                      <div className='col grow min-size-80 padding-horizontal-lg'>
                         {/* Disabled if manual calling mode is on */}
                         <div
-                          className="row no-wrap justify-start"
+                          className='row no-wrap justify-start'
                           data-visibility={
                             this.speechEnabled === true ? "show" : "hide"
                           }
                         >
-                          <div className="col grow padding-horizontal-lg">
+                          <div className='col grow padding-horizontal-lg'>
                             <Select
-                              className="select-input"
-                              placeholder="Choose callers"
-                              menuPlacement="auto"
+                              className='select-input'
+                              placeholder='Choose callers'
+                              menuPlacement='auto'
                               value={this.state.selectedCaller}
                               onChange={this.handleChooseCaller}
                               options={this.callers}
@@ -2715,7 +3416,7 @@ else {
 
                         {/* Only shown if speech is DISABLED by the browser */}
                         <div
-                          className="row no-wrap"
+                          className='row no-wrap'
                           data-visibility={
                             this.speechEnabled === true ? "hide" : "show"
                           }
@@ -2723,61 +3424,61 @@ else {
                       </div>
                     </div>
 
-                    <div className="row align-start justify-start">
-                      <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
+                    <div className='row align-start justify-start'>
+                      <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           {" "}
                           color: <RiPaintBrushFill />{" "}
                         </h6>
                       </div>
-                      <div className="col grow padding-horizontal-lg">
+                      <div className='col grow padding-horizontal-lg'>
                         <Select
-                          className="select-input"
-                          placeholder="Choose colors"
-                          menuPlacement="auto"
+                          className='select-input'
+                          placeholder='Choose colors'
+                          menuPlacement='auto'
                           value={this.state.selectedColor}
                           onChange={this.handleColorchooser}
                           options={this.colors}
                         />
                       </div>
-                      <div className="row align-start justify-start">
-                      <div className="col shrink min-size-100 padding-vertical-md padding-horizontal-lg">
-                        <h6>
-                          {" "}
-                         pattern: <MdOutlinePattern />{" "}
-                        </h6>
+                      <div className='row align-start justify-start'>
+                        <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
+                          <h6>
+                            {" "}
+                            pattern: <MdOutlinePattern />{" "}
+                          </h6>
+                        </div>
+                        <div className='col grow padding-horizontal-lg'>
+                          <Select
+                            className='select-input'
+                            placeholder='Choose pattern'
+                            menuPlacement='auto'
+                            value={this.state.selectedPattern1}
+                            onChange={this.handlePatternChooser}
+                            options={this.Pattern1}
+                          />
+                        </div>
                       </div>
-                      <div className="col grow padding-horizontal-lg">
-                        <Select
-                          className="select-input"
-                          placeholder="Choose pattern"
-                          menuPlacement="auto"
-                          value={this.state.selectedPattern1}
-                          onChange={this.handlePatternChooser}
-                          options={this.Pattern1}
-                        />
-                      </div>
-                    </div>
                     </div>
                     {/* ----------- Chime ----------- */}
-                    <div className="row no-wrap align-start justify-start">
-                      <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                    <div className='row no-wrap align-start justify-start'>
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           bell: <FaBell />
                         </h6>
                       </div>
 
-                      <div className="col grow padding-horizontal-lg">
+                      <div className='col grow padding-horizontal-lg'>
                         <label
                           className={
                             this.state.chime ? "toggle checked" : "toggle"
                           }
                         >
-                          <span className="toggle-span"></span>
+                          <span className='toggle-span'></span>
                           <span>enable</span>
                           <input
-                            type="checkbox"
-                            data-gamemode="enable-chime"
+                            type='checkbox'
+                            data-gamemode='enable-chime'
                             onChange={this.handleCheckbox}
                             checked={this.state.chime}
                           ></input>
@@ -2787,20 +3488,20 @@ else {
 
                     {/* ----------- Chime Selection ----------- */}
                     <div
-                      className="row no-wrap align-start justify-start"
+                      className='row no-wrap align-start justify-start'
                       data-visibility={this.state.chime ? "show" : "hide"}
                     >
-                      <div className="col shrink min-size-80 padding-vertical-md padding-horizontal-lg">
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           bell Selection: <FaSearch />
                         </h6>
                       </div>
 
-                      <div className="col grow padding-horizontal-lg">
+                      <div className='col grow padding-horizontal-lg'>
                         <Select
-                          className="select-input"
-                          placeholder="Choose Chime"
-                          menuPlacement="auto"
+                          className='select-input'
+                          placeholder='Choose Chime'
+                          menuPlacement='auto'
                           value={this.state.selectedChime}
                           onChange={this.handleChooseChime}
                           options={this.chimes}
@@ -2811,12 +3512,12 @@ else {
                 </section>
               </div>
 
-              <div className="col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text">
+              <div className='col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text'>
                 <h2>
                   {" "}
                   win amount <FcMoneyTransfer /> :{" "}
                 </h2>{" "}
-                <div className="win-amount-box notranslate">
+                <div className='win-amount-box notranslate'>
                   <h1>{this.state.balance}Birr</h1>{" "}
                 </div>
               </div>

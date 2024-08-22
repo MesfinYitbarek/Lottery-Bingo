@@ -44,6 +44,7 @@ const CardFetcher = ({ selectedCards }) => {
       try {
         const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
+        
         setSuperBranch(data);
       } catch (err) {
         setError("Error fetching Branches");
