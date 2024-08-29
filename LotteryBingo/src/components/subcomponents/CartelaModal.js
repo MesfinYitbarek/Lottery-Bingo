@@ -591,6 +591,48 @@ const ATL = [
   const saveBingoData = () => {
     setWinnerCards((prevWinnerCards) => [...prevWinnerCards, cartelaId]);
   };
+  // const handleRefund=()=>{
+  //   if(manualCut){
+  //     alert('you have refunded '+totalAmount * (manualEnteredCut / 10)+'birr')
+  //   }
+  //   else{
+  //     alert('you have refunded '+totalAmount * (manualEnteredCut / 100)+'birr')
+  //   }
+    
+  // }
+
+
+
+const handleRefund = async () => {
+  // Calculate the refund amount
+  const cutValue = manualEnteredCut ? Number(manualEnteredCut) : 0; // Default to 0 if undefined
+  const amountRefunded = manualCut ? totalAmount * (cutValue / 10) : totalAmount * (cutValue / 100);
+
+  // Check if the calculated amount is valid
+  if (!isNaN(amountRefunded) && amountRefunded > 0) {
+    alert('this match doesnot count and is cancelled due to ' + cardCount + ' players salva!!!,You have refunded ' + amountRefunded + ' birr' );
+
+    // Calculate the new balance
+    const newBalance = currentUser.balance + amountRefunded; // Assuming balance is stored in currentUser
+
+    // Update the balance in the database
+    try {
+      await axios.put(`/api/user/${currentUser._id}/balance`, {
+        balance: newBalance,
+      });
+
+      // Optionally, update the currentUser state with the new balance
+      // setCurrentUser({ ...currentUser, balance: newBalance });
+
+      alert(`Balance updated successfully! New balance: ${newBalance} birr`);
+    } catch  {
+      
+      alert('There was an error updating the balance. Please try again.');
+    }
+  } else {
+    alert('Invalid refund amount.');
+  }
+};
 
   const handleEndGame = async () => {
     if (winnerCards.length === 0) {
@@ -637,16 +679,18 @@ const ATL = [
 
   const handleLockCard = () => {
     const cartelaIdNumber = Number(cartelaId);
-    if (!lockedCards.includes(cartelaIdNumber) && !isBingo) {
-      const newLockedCards = [...lockedCards, cartelaIdNumber];
-      setLockedCards(newLockedCards);
-      localStorage.setItem('lockedCards', JSON.stringify(newLockedCards));
-      alert(`Card ${cartelaIdNumber} has been locked.`);
-    } else if (isBingo) {
-      alert("Cannot lock a winning card!");
-    } else {
+    
+    // Check if the card is already locked
+    if (lockedCards.includes(cartelaIdNumber)) {
       alert("This card is already locked.");
+      return;
     }
+  
+    // Allow locking of the card if it's not already locked
+    const newLockedCards = [...lockedCards, cartelaIdNumber];
+    setLockedCards(newLockedCards);
+    localStorage.setItem('lockedCards', JSON.stringify(newLockedCards));
+    alert(`Card ${cartelaIdNumber} has been locked.`);
   };
 
   const resetLockedCards = () => {
@@ -667,7 +711,7 @@ const ATL = [
         <button onClick={fetchCartela} disabled={isFetching}>
           {isFetching ? 'Checking...' : 'Check'}
         </button>
-        <button onClick={handleLockCard} disabled={!cartela || isBingo}>Lock <FaLock /> </button>
+        <button onClick={handleLockCard} disabled={!cartela }>Lock <FaLock /> </button>
 
         {fetchError && <div className="error">{fetchError}</div>}
         {cartela && cartela.length > 0 && cartela[0].card && (
@@ -705,8 +749,9 @@ const ATL = [
           </div>
         )}
         <p>
-          <button onClick={onClose} disabled ={isBingo} > exit  <ImExit/></button>
+          <button onClick={onClose} > back  <ImExit/></button>
           <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game </button>
+          <button onClick={handleRefund} disabled={winnerCards.length <3}>Refund </button>
         </p>
       </div>
       <div className="modal-backdrop" onClick={onClose}></div>

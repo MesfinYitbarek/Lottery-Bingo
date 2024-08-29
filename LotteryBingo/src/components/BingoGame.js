@@ -548,11 +548,13 @@ class BingoGame extends Component {
     this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
+    
     this.betAmount = 0;
     this.showModal = false;
     this.cutBalance = 0;
     this.manualEnteredCut = 0;
     this.balance = 0;
+    this.balanceNew=0;
     this.startButton = 0;
     this.totalBallsCalled = 0;
     this.previousBall = null;
@@ -656,6 +658,7 @@ class BingoGame extends Component {
       enteredCartella: "",
       betAmount: 0,
       amount: 0,
+    balanceNew:0,
       running: false,
       showModal: false,
       startButton: false,
@@ -1454,20 +1457,20 @@ maleOromic:false,
     this.setState({ isLoading: true });
 
     const { currentUser, updateUserStart, updateUserSuccess } = this.props;
-    const { balance } = this.props;
+    // const { balance } = this.props;
 
-    if (balance < this.state.amount) {
-      alert("Insufficent balance", currentUser, balance);
+    if (this.state.balanceNew < this.state.amount) {
+      alert("Insufficent balance", currentUser, this.state.balanceNew);
     } else if (this.state.manualCut) {
       const newBalance =
-        balance - (this.state.amount * this.state.manualEnteredCut) / 10;
+        this.state.balanceNew - (this.state.amount * this.state.manualEnteredCut) / 10;
 
       updateUserStart();
       try {
         await axios.put(`/api/user/${currentUser._id}/balance`, {
           balance: newBalance,
         });
-        updateUserSuccess({ ...currentUser, balance: newBalance });
+        updateUserSuccess({ ...currentUser,  balance: newBalance });
 
         this.setState({
           board: generateBingoBoard(),
@@ -1811,14 +1814,14 @@ maleOromic:false,
         this.toggleGame();
       }
     } else {
-      const newBalance = balance - (this.state.amount * currentUser.cut) / 100;
+      const newBalance = this.state.balanceNew - (this.state.amount * currentUser.cut) / 100;
 
       updateUserStart();
       try {
         await axios.put(`/api/user/${currentUser._id}/balance`, {
           balance: newBalance,
         });
-        updateUserSuccess({ ...currentUser, balance: newBalance });
+        updateUserSuccess({ ...currentUser,  balance: newBalance });
 
         this.setState({
           board: generateBingoBoard(),
@@ -2186,9 +2189,16 @@ if (this.state.doubleCall) {
     const currentState = this.state.showResetModal;
     this.setState({ showResetModal: !currentState });
   };
-  togglestartModal = () => {
+  togglestartModal = async () => {
+    const { currentUser } = this.props;
+    
     const currentState1 = this.state.showstartModal;
     this.setState({ showstartModal: !currentState1 });
+   
+      const res = await axios.get( `/api/credit/${currentUser._id}/balance`);
+      const balanceNeww=res.data.balance;
+    
+    this.setState({balanceNew:balanceNeww});
   };
 
   confirmResetGame = () => {
@@ -2764,19 +2774,27 @@ if (this.state.doubleCall) {
   };
   addEnteredCartella = () => {
     const enteredCartella = parseInt(this.state.enteredCartella);
-
+  
     // Check if the entered cartella is a valid number
     if (!isNaN(enteredCartella)) {
+      // Check if the entered cartella is already in the selectedCards array
+      if (this.selectedCards.includes(enteredCartella)) {
+        alert('Duplicate cartella number not allowed.');
+        return; // Exit the function if it's a duplicate
+      }
+  
       // Add the entered cartella to the selectedCards array
       this.selectedCards.push(enteredCartella);
-
+  
       // Increment the cardCount
       this.setState((prevState) => ({
         cardCount: prevState.cardCount + 1,
         amount: prevState.betAmount * (prevState.cardCount + 1),
       }));
+    } else {
+      alert('Please enter a valid number.'); // Optional: Alert for invalid input
     }
-
+  
     // Clear the input field
     this.setState({
       enteredCartella: "",

@@ -57,16 +57,20 @@ const EditUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      // Check if the password field has been updated
+      const updatedFields = { ...user };
+      if (!updatedFields.password) {
+        // If password is empty, remove it from the updatedFields object
+        delete updatedFields.password;
+      }
+  
       if (imageFile) {
         const userImageRef = ref(storage, `Images/${imageFile.name}`);
         await uploadBytes(userImageRef, imageFile);
-        user.imageUrl = await getDownloadURL(userImageRef);
+        updatedFields.imageUrl = await getDownloadURL(userImageRef);
       }
-
-      const response = await axios.post(
-        `/api/user/update/${id}`,
-        user
-      );
+  
+      const response = await axios.post(`/api/user/update/${id}`, updatedFields);
       if (response.data) {
         setError(response.data.message || "Update successfully.");
       } else {
@@ -76,7 +80,6 @@ const EditUser = () => {
       setError("Error updating user. Please try again.");
     }
   };
-
   return (
     <div className=" tw-bg-slate-100 tw-flex tw-justify-center tw-items-center tw-min-h-screen">
       <div className="tw-w-full tw-max-w-md tw-p-8 tw-rounded-md tw-shadow-md tw-border-l-8 tw-border-l-blue-600 tw-bg-white">

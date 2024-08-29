@@ -24,7 +24,7 @@ const DashboardHeader = () => {
     const fetchBalance = async () => {
       try {
         const res = await axios.get(`/api/credit/${currentUser._id}/balance`);
-        setBalance(res.data.balance);
+        setBalance(res.data.balance );
       } catch (err) {
         alert("Error fetching balance");
       }
