@@ -605,7 +605,7 @@ const ATL = [
 
 const handleRefund = async () => {
   // Calculate the refund amount
-  const cutValue = manualEnteredCut ? Number(manualEnteredCut) : 0; // Default to 0 if undefined
+  const cutValue = manualCut ? Number(manualEnteredCut) :Number(currentUser.cut); // Default to 0 if undefined
   const amountRefunded = manualCut ? totalAmount * (cutValue / 10) : totalAmount * (cutValue / 100);
 
   // Check if the calculated amount is valid

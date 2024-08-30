@@ -148,7 +148,7 @@ const CardForm = () => {
       <div style={{ marginBottom: "15px" }}>
         <label style={{ marginRight: "10px" }}>ID:</label>
         <input
-          type="number"
+          type="number3"
           name="id"
           value={formData.id}
           onChange={handleChange}
