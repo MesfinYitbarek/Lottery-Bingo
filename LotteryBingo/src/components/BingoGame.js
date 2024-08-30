@@ -2688,15 +2688,7 @@ if (this.state.doubleCall) {
               onKeyDown={this.handleEnterCartella}
             />
             <button onClick={this.addEnteredCartella}>Add Cartella</button>
-            {/* <div className="number-input"> */}
-            {/* <input
-                type="number"
-                 value={"Ahadu-virtuals"}
-                readOnly
-                onChange={this.handleCardCountChange}
-              /> */}
-            {/* <button onClick={this.decrementCards}>-</button> */}
-            {/* </div> */}
+            
             <span className='notranslate'>
               {/* <p>Total Amount: {this.state.amount}</p> */}
             </span>
@@ -2728,7 +2720,9 @@ if (this.state.doubleCall) {
                       if (isRedState) {
                         this.decrementCard(currentNumber);
                       } else {
+                      
                         this.incrementCard(currentNumber);
+
                       }
                     }}
                     className={
@@ -2778,7 +2772,7 @@ if (this.state.doubleCall) {
     // Check if the entered cartella is a valid number
     if (!isNaN(enteredCartella)) {
       // Check if the entered cartella is already in the selectedCards array
-      if (this.selectedCards.includes(enteredCartella)) {
+      if (this.selectedCards.includes(enteredCartella)||this.state.isRed[`isRed${enteredCartella}`] ) {
         alert('Duplicate cartella number not allowed.');
         return; // Exit the function if it's a duplicate
       }
