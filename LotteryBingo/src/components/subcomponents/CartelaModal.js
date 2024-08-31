@@ -262,6 +262,9 @@ const ATL = [
   [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
   card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
 
+  [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
+  
   [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
   card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
 
@@ -353,13 +356,57 @@ const ATL = [
   [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
   card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
 
-  
+   
+  [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],
+  card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4]],
+
+
+  [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]],
+
   [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]],
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]],
+
+  [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+  card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
   card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4]],
 
   [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
   card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]],
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]],
+
+  [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]],
   
+  [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+  card.I[0], card.I[1],  card.I[2], card.I[3],card.I[4]],
+
+
+
+  [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
+
+  [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
+
+  [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
+  
+  [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
+
+  [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+  card.B[0], card.B[1],  card.B[2], card.B[3],card.B[4]],
 
 ];
     switch (selectedPattern.value) {
