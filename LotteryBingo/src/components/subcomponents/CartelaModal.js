@@ -7,7 +7,7 @@ import { FaLock } from "react-icons/fa6";
 import { winsound } from '../../chimes';
 import { notwinsound } from '../../chimes';
 
-const CartelaModal = ({ calledBalls, onClose, betAmount, cardCount, totalAmount, selectedCards, manualEnteredCut, manualCut, selectedPattern }) => {
+const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, totalAmount, selectedCards, manualEnteredCut, manualCut, selectedPattern }) => {
   const [cartelaId, setCartelaId] = useState('');
   const [cartela, setCartela] = useState(null);
   const [matchedNumbers, setMatchedNumbers] = useState([]);
@@ -721,6 +721,7 @@ const handleRefund = async () => {
         alert('Sales data saved successfully');
         setWinnerCards([]);
         resetLockedCards();
+        onReset();
         onClose();
       } else {
         alert('Failed to save bingo data');
@@ -802,7 +803,7 @@ const handleRefund = async () => {
           </div>
         )}
         <p>
-          <button onClick={onClose} > back  <ImExit/></button>
+          <button onClick={onClose} > continue <ImExit/></button>
           <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game </button>
           <button onClick={handleRefund} disabled={winnerCards.length <3}>Refund </button>
         </p>

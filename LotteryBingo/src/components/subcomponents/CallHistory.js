@@ -80,6 +80,7 @@ class CallHistory extends React.Component {
           <CartelaModal
             calledBalls={this.props.calledBalls}
             onClose={() => this.props.toggleModal()} 
+            onReset={()=>this.props.toggleEnd()}
             betAmount={this.props.betAmount}
             cardCount={this.props.cardCount}
             totalAmount={this.props.totalAmount}

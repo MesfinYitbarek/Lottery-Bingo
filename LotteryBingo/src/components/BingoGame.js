@@ -551,6 +551,7 @@ class BingoGame extends Component {
     
     this.betAmount = 0;
     this.showModal = false;
+    this.disableReset =false;
     this.cutBalance = 0;
     this.manualEnteredCut = 0;
     this.balance = 0;
@@ -661,6 +662,7 @@ class BingoGame extends Component {
     balanceNew:0,
       running: false,
       showModal: false,
+      disableReset:false,
       startButton: false,
       enableCaller: true,
       isLoading: false,
@@ -2185,6 +2187,14 @@ if (this.state.doubleCall) {
     }
   };
 
+  toggleEnd = () => {
+    
+      this.setState((prevState) => ({
+        disableReset: !prevState.disableReset,
+      }));
+  
+  };
+
   toggleResetModal = () => {
     const currentState = this.state.showResetModal;
     this.setState({ showResetModal: !currentState });
@@ -2228,6 +2238,7 @@ if (this.state.doubleCall) {
       running: false,
       showResetModal: false,
       manualCut: false,
+      disableReset:false,
       previousCallList: [],
       balance: 0,
       amount: 0,
@@ -3265,6 +3276,8 @@ if (this.state.doubleCall) {
                   showModal={this.state.showModal}
                   showModal2={this.state.showModal2}
                   toggleModal={this.toggleModal}
+                  disableReset={this.state.disableReset}
+                  toggleEnd={this.toggleEnd}
                 ></CallHistory>
                 {/* 
               <div
@@ -3338,7 +3351,7 @@ if (this.state.doubleCall) {
 
                   <button
                     onClick={this.toggleResetModal}
-                    disabled={this.totalBallsCalled === 0}
+                    disabled={this.totalBallsCalled === 0 || this.state.disableReset === false}
                   >
                     Reset Board <BiReset />
                   </button>
