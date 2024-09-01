@@ -12,6 +12,7 @@ const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, tota
   const [cartela, setCartela] = useState(null);
   const [matchedNumbers, setMatchedNumbers] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [isBingo, setIsBingo] = useState(false);
   const [bingoNumbers, setBingoNumbers] = useState([]);
@@ -692,6 +693,7 @@ const handleRefund = async () => {
       alert('No winners to save');
       return;
     }
+    setIsSaving(true);
     const total = totalAmount;
     let cut, won;
     const bingoData = {
@@ -718,6 +720,7 @@ const handleRefund = async () => {
     try {
       const response = await axios.post('/api/sales/sales', { winners: [bingoData] });
       if (response.status === 200) {
+       
         alert('Sales data saved successfully');
         setWinnerCards([]);
         resetLockedCards();
@@ -728,6 +731,9 @@ const handleRefund = async () => {
       }
     } catch (error) {
       alert('Error saving bingo data:', error);
+    }
+    finally {
+      setIsSaving(false);
     }
   };
 
@@ -804,7 +810,7 @@ const handleRefund = async () => {
         )}
         <p>
           <button onClick={onClose} > continue <ImExit/></button>
-          <button onClick={handleEndGame} disabled={winnerCards.length === 0}>End Game </button>
+          <button onClick={handleEndGame} disabled={winnerCards.length === 0 || isSaving}>{isSaving? 'saving data...' : 'EndGame'} </button>
           <button onClick={handleRefund} disabled={winnerCards.length <3}>Refund </button>
         </p>
       </div>
