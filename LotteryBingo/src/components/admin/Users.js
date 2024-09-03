@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { BiPlus } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import AddUsers from "./AddUsers";
@@ -36,18 +36,18 @@ const Users = () => {
     fetchUsers();
   }, [currentUser._id, users]);
 
-  const handleDeleteUser = async (userId) => {
-    try {
-      const response = await axios.delete(`/api/user/delete/${userId}`);
-      if (response.data) {
-        setUsers(users.filter((user) => user._id !== userId));
-      } else {
-        setError("Error filtering User");
-      }
-    } catch (err) {
-      setError("Error deleting User");
-    }
-  };
+  // const handleDeleteUser = async (userId) => {
+  //   try {
+  //     const response = await axios.delete(`/api/user/delete/${userId}`);
+  //     if (response.data) {
+  //       setUsers(users.filter((user) => user._id !== userId));
+  //     } else {
+  //       setError("Error filtering User");
+  //     }
+  //   } catch (err) {
+  //     setError("Error deleting User");
+  //   }
+  // };
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -100,12 +100,12 @@ const Users = () => {
                 <td className="tw-p-2 tw-px-4">{data.role}</td>
                 <td className="tw-p-2 tw-px-4">{data.branch}</td>
                 <td className="tw-p-2 tw-px-4 tw-text-center">
-                  <button
+                  {/* <button
                     onClick={() => handleDeleteUser(data._id)}
                     className="tw-border-red-600 tw-px-2 tw-rounded-md tw-text-red-600"
                   >
                     Delete
-                  </button>
+                  </button> */}
                   <Link
                     to={`/update-user/${data._id}`}
                     className="tw-text-purple-600 tw-ml-4"

@@ -54,16 +54,16 @@ const CreateCredit = () => {
     }
   }, [currentUser]);
 
-  const handleDeleteUser = async (userId) => {
-    try {
-      await axios.delete(`/api/credit/deletecredit/${userId}`);
-      // Refetch credits after deleting
-      const res = await axios.get(`/api/credit/getCredit/${currentUser.phone}`);
-      setCreditget(res.data);
-    } catch (err) {
-      alert("Error deleting User");
-    }
-  };
+  // const handleDeleteUser = async (userId) => {
+  //   try {
+  //     await axios.delete(`/api/credit/deletecredit/${userId}`);
+  //     // Refetch credits after deleting
+  //     const res = await axios.get(`/api/credit/getCredit/${currentUser.phone}`);
+  //     setCreditget(res.data);
+  //   } catch (err) {
+  //     alert("Error deleting User");
+  //   }
+  // };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -113,7 +113,7 @@ const CreateCredit = () => {
               <td className="tw-p-2 tw-px-4">Receiver</td>
               <td className="tw-p-2 tw-px-4">Amount in Credit</td>
               <td className="tw-p-2 tw-px-4">Date</td>
-              <td className="tw-p-2 tw-px-4">Actions</td>
+              {/* <td className="tw-p-2 tw-px-4">Actions</td> */}
             </tr>
           </thead>
           <tbody>
@@ -124,12 +124,12 @@ const CreateCredit = () => {
                 <td className="tw-p-2 tw-px-4">{credit.amount}</td>
                 <td className="tw-p-2 tw-px-4">{new Date(credit.createdAt).toLocaleDateString()}</td>
                 <td className="tw-p-2 tw-px-4 tw-text-red-600 tw-text-center">
-                  <button
+                  {/* <button
                     onClick={() => handleDeleteUser(credit._id)}
                     className="tw-border-red-600 tw-px-1 tw-rounded-none"
                   >
                     Delete
-                  </button>
+                  </button> */}
                 </td>
               </tr>
             )) : (

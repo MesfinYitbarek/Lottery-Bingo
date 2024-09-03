@@ -121,45 +121,57 @@ const Sales = () => {
     fetchCashiersByBranch();
   }, [selectedBranch]);
 
+  const clearSelections = () => {
+    setSelectedBranch("");
+    setSelectedCashier("");
+    setStartDate("");
+    setEndDate("");
+    // setFilteredSales(sales); // Reset to show all sales
+};
+
   const handleFilter = () => {
     let filtered = sales;
+    
 
-    // Check if all the filters are applied
-    const isAllFilterApplied =
-      startDate && endDate && selectedBranch && selectedCashier;
+    // Initialize the filter to check if at least the date is specified
+    const isDateSpecified = startDate || endDate;
 
-    if (!isAllFilterApplied) {
-      setFilteredSales([]);
-      setIsFiltered(false);
-      return;
+    if (isDateSpecified) {
+        if (startDate) {
+            filtered = filtered.filter(
+                (sale) => new Date(sale.createdAt) >= new Date(startDate)
+            );
+        }
+
+        if (endDate) {
+            const filterEndDate = new Date(endDate);
+            filterEndDate.setHours(23, 59, 59, 999);
+            filtered = filtered.filter(
+                (sale) => new Date(sale.createdAt) <= filterEndDate
+            );
+        }
     }
 
-    if (startDate) {
-      filtered = filtered.filter(
-        (sale) => new Date(sale.createdAt) >= new Date(startDate)
-      );
-    }
-
-    if (endDate) {
-      const filterEndDate = new Date(endDate);
-      filterEndDate.setHours(23, 59, 59, 999);
-      filtered = filtered.filter(
-        (sale) => new Date(sale.createdAt) <= filterEndDate
-      );
-    }
-
+    // Apply branch filter if selected
     if (selectedBranch) {
-      filtered = filtered.filter((sale) => sale.branch === selectedBranch);
+        filtered = filtered.filter((sale) => sale.branch === selectedBranch);
     }
 
+    // Apply cashier filter if selected
     if (selectedCashier) {
-      filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
+        filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
     }
 
-    setFilteredSales(filtered);
-    setCurrentPage(1);
+    // If no filters are applied, reset filteredSales
+    if (!isDateSpecified && !selectedBranch && !selectedCashier) {
+        setFilteredSales(sales); // Show all sales if no filters are applied
+    } else {
+        setFilteredSales(filtered);
+    }
+
+    setCurrentPage(1); // Reset to the first page
     setIsFiltered(true);
-  };
+};
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -245,6 +257,11 @@ const Sales = () => {
         >
           Find
         </button>
+
+    
+
+
+<button onClick={clearSelections}>Clear</button>
       </div>
 
       {isFiltered && filteredSales.length > 0 && (

@@ -129,14 +129,14 @@ const TransferCredit = () => {
     setShowModal(false);
   };
 
-  const handleDeleteUser = async (userId) => {
-    try {
-      await axios.delete(`/api/credit/delete/${userId}`);
-      setGetCredit(getCredit.filter((credit) => credit._id !== userId));
-    } catch (err) {
-      alert("Error deleting User");
-    }
-  };
+  // const handleDeleteUser = async (userId) => {
+  //   try {
+  //     await axios.delete(`/api/credit/delete/${userId}`);
+  //     setGetCredit(getCredit.filter((credit) => credit._id !== userId));
+  //   } catch (err) {
+  //     alert("Error deleting User");
+  //   }
+  // };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -211,7 +211,7 @@ const TransferCredit = () => {
               <th className="tw-p-2 tw-px-4">Receiver</th>
               <th className="tw-p-2 tw-px-4">Amount in Credit</th>
               <th className="tw-p-2 tw-px-4">Date</th>
-              <th className="tw-p-2 tw-px-4">Actions</th>
+              {/* <th className="tw-p-2 tw-px-4">Actions</th> */}
             </tr>
           </thead>
           <tbody>
@@ -223,12 +223,12 @@ const TransferCredit = () => {
                   <td className="tw-p-2 tw-px-4">{credit.amount}</td>
                   <td className="tw-p-2 tw-px-4">{new Date(credit.createdAt).toLocaleString()}</td>
                   <td className="tw-p-2 tw-px-4 tw-text-center">
-                    <button
+                    {/* <button
                       onClick={() => handleDeleteUser(credit._id)}
                       className="tw-border-red-600 tw-px-1 tw-rounded-none tw-text-red-600"
                     >
                       Delete
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))

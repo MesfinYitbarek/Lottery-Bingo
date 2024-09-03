@@ -29,7 +29,7 @@ const EditUser = () => {
     };
 
     fetchUsers();
-  }, [users]);
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -143,6 +143,7 @@ const EditUser = () => {
             </label>
             <select
               id="branch"
+              name="branch"
               onChange={handleChange}
               className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
             >
