@@ -663,7 +663,7 @@ class BingoGame extends Component {
       running: false,
       showModal: false,
       disableReset:false,
-      startButton: false,
+      startButton: 0,
       enableCaller: true,
       isLoading: false,
       isRed: {
@@ -3291,7 +3291,7 @@ if (this.state.doubleCall) {
               {/* ----------- Gameplay Controls ------------- */}
               <div className='col shrink padding-vertical-xxlg padding-horizontal-md'>
                 <section className='gameplay-controls'>
-                  <div data-disabled={this.totalBallsCalled >= 75}>
+                  <div >
                     <button
                       data-disabled={this.state.displayBoardOnly}
                       onClick={

@@ -102,28 +102,48 @@ const TransferCredit = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    
+    // Convert currentUser.phone to a string for comparison
+    const senderPhone = String(currentUser.phone);
+    
+   
+
+    // Check if the receiver is the same as the sender
+    if (senderPhone === receiver.trim()) {
+        alert('You cannot send credit to yourself');
+        return; // Exit the function if the sender and receiver are the same
+    }
+
+    // Check if the amount is greater than the balance
     if (parseFloat(amount) > balance) {
-      alert('Insufficient balance');
-    } else {
-      dispatch(updateUserStart());
-      setLoading(true);
-      try {
+        alert('Insufficient balance');
+        return; // Exit the function if the balance is insufficient
+    }
+
+    dispatch(updateUserStart());
+    setLoading(true);
+
+    try {
+        // Proceed to send the credit
         await axios.post("/api/credit/transfer", {
-          amount,
-          receiver: receiver,
-          sender: currentUser.phone,
+            amount,
+            receiver: receiver.trim(), // Ensure receiver is trimmed here as well
+            sender: senderPhone, // Use the string version of the sender's phone
         });
+        
+        // Update the user's balance in the state
         dispatch(updateUserSuccess({ ...currentUser, balance: balance - amount }));
         alert('Credit transferred successfully');
+        
+        // Reset the credit form
         setCredit({ amount: '', receiver: '' });
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        alert('Error transferring credit');
-      }
+    } catch (err) {
+        // Log the error for debugging
+        alert('Error transferring credit: ' + (err.response?.data?.message || 'Unknown error'));
+    } finally {
+        setLoading(false); // Ensure loading state is reset in both success and error cases
     }
-  };
-
+};
   const handleDoneInModal = (calculatedAmount) => {
     setCredit({ ...credit, amount: calculatedAmount });
     setShowModal(false);
