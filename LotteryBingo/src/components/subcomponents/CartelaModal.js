@@ -21,10 +21,14 @@ const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, tota
   const { currentUser } = useSelector((state) => state.user);
   const audioRef = useRef(new Audio(winsound));
   const loseAudioRef = useRef(new Audio(notwinsound));
-
+  const inputRef = useRef(null);
   useEffect(() => {
     const storedLockedCards = JSON.parse(localStorage.getItem('lockedCards')) || [];
     setLockedCards(storedLockedCards);
+  }, []);
+  useEffect(() => {
+    // Focus on the input field when the component mounts
+    inputRef.current.focus();
   }, []);
 
   const fetchCartela = async () => {
@@ -758,6 +762,17 @@ const handleRefund = async () => {
     localStorage.removeItem('lockedCards');
   };
 
+  const handleCartelaIdChange = (event) => {
+    setCartelaId(event.target.value);
+  };
+
+  // Handle key down events
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      fetchCartela();
+    }
+  };
+
   return (
     <div>
       <div className="modal">
@@ -766,7 +781,9 @@ const handleRefund = async () => {
           type="text"
           placeholder="Enter cartela id"
           value={cartelaId}
-          onChange={(e) => setCartelaId(e.target.value)}
+          onChange={handleCartelaIdChange} // This updates the cartelaId state
+          onKeyDown={handleKeyDown}
+          ref={inputRef}
         />
         <button onClick={fetchCartela} disabled={isFetching}>
           {isFetching ? 'Checking...' : 'Check'}
