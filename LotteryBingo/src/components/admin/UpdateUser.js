@@ -29,7 +29,7 @@ const EditUser = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [users]);
 
   useEffect(() => {
     const fetchUser = async () => {
