@@ -98,7 +98,9 @@ button {
 		border-radius: 50%;
 		border:1px solid #fff;
 		animation: blink-and-grow1 3s infinite;
-
+		font-family: var(--digital-font);
+		font-size: 3.5rem;
+padding: 19px 40px;
 	}
 	@keyframes blink-and-grow1 {
 		0% {
@@ -116,6 +118,10 @@ button {
 	  }
 	&.red {
 		background-color: var(--secondary-color);
+		font-size: 19px;
+		font-family: var(--digital-font);
+		font-size: 3.5rem;
+padding: 19px 40px;
 	  }
 	&.play-button {
 		background-color: green;

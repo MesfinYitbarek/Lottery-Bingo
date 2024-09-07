@@ -32,7 +32,7 @@ const Sales = () => {
     };
 
     fetchUsers();
-  }, [superBranch]);
+  }, []);
 
   useEffect(() => {
     const fetchgetBranches = async () => {

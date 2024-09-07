@@ -1,2 +1,5 @@
 .env
 
+*.map
+*.min.*
+.sass-cache

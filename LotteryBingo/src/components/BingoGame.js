@@ -1,7 +1,7 @@
 // Dependencies
 import React, { Component } from "react";
 import { useBalance } from "./BalanceContext.js";
-
+import './Gaming.css';
 import { connect } from "react-redux";
 import withBalance from "./WithBalance.js";
 import Slider from "rc-slider";
@@ -2660,62 +2660,83 @@ if (this.state.doubleCall) {
       const { availableCartellas } = this.state;
       return (
         <div className='notranslate'>
-          <div className='modal'>
-            <div>
-              <h6>Enter bet amount</h6>{" "}
-              <input
-                type='number'
-                placeholder='Bet Amount'
-                required
-                onChange={this.handleBetAmountChange}
-                value={this.state.betAmount}
-              />
-            </div>{" "}
-            <div>
-              <h6>enter game-type</h6>{" "}
-              <label>
-                <input
-                  type='checkbox'
-                  checked={this.state.manualCut} // Controlled checkbox
-                  onChange={this.handleChechbx} // Event handler
-                />
-                game-type
-              </label>
-              <span>&nbsp;</span>
-              <span>&nbsp;</span>
-              <input
-                type='number' // Ensure this is set to "number" for numeric input
-                id='cutAmount'
-                placeholder='game-type'
-                value={this.state.manualEnteredCut} // Controlled input
-                onChange={this.handleCutChange} // Event handler
-              />
-            </div>{" "}
+  <div className='modal'>
+    <h2>Place Your Bet</h2>
+
+    <div className='input-container'>
+      <div className='input-group'>
+        <fieldset className='input-group-fieldset'>
+          <legend className='input-group-legend'>Bet Amount</legend>
+          <div className='form-group'>
             <input
               type='number'
-              placeholder='enter cartela manual'
+              id='betAmount'
+              placeholder='Bet Amount'
+              required
+              onChange={this.handleBetAmountChange}
+              value={this.state.betAmount}
+              className='input-box'
+            />
+          </div>
+        </fieldset>
+      </div>
+      <div className='input-group'>
+        <fieldset className='input-group-fieldset'>
+          <legend className='input-group-legend'>Game Type</legend>
+          <div className='form-group'>
+            <input
+              type='checkbox'
+              checked={this.state.manualCut} // Controlled checkbox
+              onChange={this.handleChechbx} // Event handler
+            />
+            <label>Game Type</label>
+            <input
+              type='number'
+              id='cutAmount'
+              placeholder='Game Type'
+              value={this.state.manualEnteredCut} // Controlled input
+              onChange={this.handleCutChange} // Event handler
+              className='input-box'
+            />
+          </div>
+        </fieldset>
+      </div>
+      <div className='input-group'>
+        <fieldset className='input-group-fieldset'>
+          <legend className='input-group-legend'>Enter Cartella Manual</legend>
+          <div className='form-group'>
+            <input
+              type='number'
+              id='cartellaManual'
+              placeholder='Enter Cartella'
               value={this.state.enteredCartella}
               onChange={this.handleEnterCartella}
               onKeyDown={this.handleEnterCartella}
+              className='input-box'
             />
-            <button onClick={this.addEnteredCartella}>Add Cartella</button>
-            
-            <span className='notranslate'>
-              {/* <p>Total Amount: {this.state.amount}</p> */}
-            </span>
-            <p>
-              <button onClick={this.togglestartModal}>Cancel</button>
-              <button
-                className='primaryBtn'
-                onClick={this.confirmstartGame}
-                disabled={
-                  this.state.amount === 0 ||
-                  balance <= 0 ||
-                  this.state.betAmount === ""
-                }
-              >
-                Done
-              </button>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <span className='notranslate'>
+      {/* <p>Total Amount: {this.state.amount}</p> */}
+    </span>
+    <p>
+      <button onClick={this.togglestartModal}>Cancel</button>
+      <button
+        className='primaryBtn'
+        onClick={this.confirmstartGame}
+        disabled={
+          this.state.amount === 0 ||
+          balance <= 0 ||
+          this.state.betAmount === ""
+        }
+      >
+        Done
+      </button>
+   
+        
             </p>
             <h2>select cartela</h2>
             <span className='notranslate'>
