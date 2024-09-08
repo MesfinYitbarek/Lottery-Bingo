@@ -129,48 +129,51 @@ const Sales = () => {
     // setFilteredSales(sales); // Reset to show all sales
 };
 
-  const handleFilter = () => {
-    let filtered = sales;
-    
+const handleFilter = () => {
+  // Check if a branch is selected
+  if (!selectedBranch) {
+    setError("Please select a branch."); // Set an error message
+    return; // Prevent further processing if no branch is selected
+  }
 
-    // Initialize the filter to check if at least the date is specified
-    const isDateSpecified = startDate || endDate;
+  let filtered = sales;
 
-    if (isDateSpecified) {
-        if (startDate) {
-            filtered = filtered.filter(
-                (sale) => new Date(sale.createdAt) >= new Date(startDate)
-            );
-        }
+  // Initialize the filter to check if at least the date is specified
+  const isDateSpecified = startDate || endDate;
 
-        if (endDate) {
-            const filterEndDate = new Date(endDate);
-            filterEndDate.setHours(23, 59, 59, 999);
-            filtered = filtered.filter(
-                (sale) => new Date(sale.createdAt) <= filterEndDate
-            );
-        }
+  if (isDateSpecified) {
+    if (startDate) {
+      filtered = filtered.filter(
+        (sale) => new Date(sale.createdAt) >= new Date(startDate)
+      );
     }
-
-    // Apply branch filter if selected
-    if (selectedBranch) {
-        filtered = filtered.filter((sale) => sale.branch === selectedBranch);
+    if (endDate) {
+      const filterEndDate = new Date(endDate);
+      filterEndDate.setHours(23, 59, 59, 999);
+      filtered = filtered.filter(
+        (sale) => new Date(sale.createdAt) <= filterEndDate
+      );
     }
+  }
 
-    // Apply cashier filter if selected
-    if (selectedCashier) {
-        filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
-    }
+  // Apply branch filter
+  filtered = filtered.filter((sale) => sale.branch === selectedBranch);
 
-    // If no filters are applied, reset filteredSales
-    if (!isDateSpecified && !selectedBranch && !selectedCashier) {
-        setFilteredSales(sales); // Show all sales if no filters are applied
-    } else {
-        setFilteredSales(filtered);
-    }
+  // Apply cashier filter if selected
+  if (selectedCashier) {
+    filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
+  }
 
-    setCurrentPage(1); // Reset to the first page
-    setIsFiltered(true);
+  // If no filters are applied, reset filteredSales if branch is selected
+  if (!isDateSpecified && selectedBranch && !selectedCashier) {
+    setFilteredSales(sales); // Show all sales if no filters are applied
+  } else {
+    setFilteredSales(filtered);
+  }
+
+  setCurrentPage(1); // Reset to the first page
+  setIsFiltered(true);
+  setError(null);
 };
 
   const indexOfLastRow = currentPage * rowsPerPage;
@@ -264,7 +267,9 @@ const Sales = () => {
 <button onClick={clearSelections}>Clear</button>
       </div>
 
-      {isFiltered && filteredSales.length > 0 && (
+      {isFiltered && filteredSales.length === 0 ?  (
+      <p>No sales found for the selected filters.</p>
+    ): (
         <>
           <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
             <thead>

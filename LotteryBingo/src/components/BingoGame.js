@@ -2228,6 +2228,7 @@ if (this.state.doubleCall) {
 
     this.selectedCards = [];
     this.enteredCartella = "";
+  
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
@@ -2238,6 +2239,7 @@ if (this.state.doubleCall) {
       running: false,
       showResetModal: false,
       manualCut: false,
+      manualEnteredCut:'',
       disableReset:false,
       previousCallList: [],
       balance: 0,
@@ -2390,7 +2392,7 @@ if (this.state.doubleCall) {
         }
         if (i === duration) {
           sound.pause();
-          this.confirmResetGame();
+          // this.confirmResetGame();
         }
       }, duration);
     }
@@ -2681,7 +2683,7 @@ if (this.state.doubleCall) {
         </fieldset>
       </div>
       <div className='input-group'>
-        <fieldset className='input-group-fieldset'>
+      <fieldset className='input-group-fieldset'>
           <legend className='input-group-legend'>Game Type</legend>
           <div className='form-group'>
             <input
@@ -2799,15 +2801,21 @@ if (this.state.doubleCall) {
     }
   };
   addEnteredCartella = () => {
-    const enteredCartella = parseInt(this.state.enteredCartella);
+    
+    // const enteredCartella = parseInt(this.state.enteredCartella);
+    const enteredCartella = Number(this.state.enteredCartella);
+    
   
     // Check if the entered cartella is a valid number
     if (!isNaN(enteredCartella)) {
+      
       // Check if the entered cartella is already in the selectedCards array
-      if (this.selectedCards.includes(enteredCartella)||this.state.isRed[`isRed${enteredCartella}`] ) {
-        alert('Duplicate cartella number not allowed.');
+      if (this.selectedCards.includes(enteredCartella)||this.state.isRed[`isRed${enteredCartella}`]
+     ) {
+        alert('Duplicate cartella number not allowed.' );
         return; // Exit the function if it's a duplicate
       }
+    
   
       // Add the entered cartella to the selectedCards array
       this.selectedCards.push(enteredCartella);
@@ -2837,9 +2845,10 @@ if (this.state.doubleCall) {
     const cutamount = e.target.value;
 
     // Update state with the new cut amount
-    this.setState({
+    this.setState((prevState) => ({
       manualEnteredCut: cutamount,
-    });
+      manualCut: cutamount !== '' // Automatically check the box if input is not empty
+    }));
   };
   handleBetAmountChange = (e) => {
     const betAmount = e.target.value;
