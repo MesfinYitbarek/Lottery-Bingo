@@ -16,7 +16,7 @@ const Sales = () => {
   const [branch, setBranch] = useState([]);
   const [getbranch, setgetBranch] = useState([]);
   const [branchCashiers, setBranchCashiers] = useState([]);
-  const [isFiltered, setIsFiltered] = useState(false);
+  // const [isFiltered, setIsFiltered] = useState(false);
 
   const [superBranch, setSuperBranch] = React.useState([]);
 
@@ -165,14 +165,14 @@ const handleFilter = () => {
   }
 
   // If no filters are applied, reset filteredSales if branch is selected
-  if (!isDateSpecified && selectedBranch && !selectedCashier) {
+  if (!isDateSpecified && !selectedBranch && !selectedCashier) {
     setFilteredSales(sales); // Show all sales if no filters are applied
   } else {
     setFilteredSales(filtered);
   }
 
   setCurrentPage(1); // Reset to the first page
-  setIsFiltered(true);
+  // setIsFiltered(true);
   setError(null);
 };
 
@@ -267,7 +267,7 @@ const handleFilter = () => {
 <button onClick={clearSelections}>Clear</button>
       </div>
 
-      {isFiltered && filteredSales.length === 0 ?  (
+      {filteredSales.length === 0 ?  (
       <p>No sales found for the selected filters.</p>
     ): (
         <>

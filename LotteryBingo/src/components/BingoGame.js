@@ -548,7 +548,7 @@ class BingoGame extends Component {
     this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
-    
+    this.doubleTalk= false;
     this.betAmount = 0;
     this.showModal = false;
     this.disableReset =false;
@@ -598,19 +598,39 @@ class BingoGame extends Component {
       { label: "default", value: "default" },
     ];
     this.Pattern1 = [
-      { label: "defaultPattern", value: "defaultPattern" },
+      
 
       { label: "anydiagonal", value: "anydiagonal" },
       { label: "Any horizontal", value: "anyhorizontal" },
       { label: "Any vertical", value: "anyvertical" },
-      { label: "Any Two Lines", value: "anyTwoLines" },
+      
       { label: "Any Two Vertical", value: "anyTwoVertical" },
       { label: "Any Two Horizontal", value: "anyTwoHorizontal" },
-      { label: "AHADU", value: "letterA" },
+      
       { label: "4 middle & corner square", value: "FMC" },
-      { label: "Full-House(BlackOut)", value: "FullHouse" },
+     
       { label: "4 corner square", value: "CS" },
       { label: "4 middle square", value: "MS" },
+
+
+    ];
+
+    this.Pattern2 = [
+     
+
+      { label: "anydiagonal", value: "anydiagonal2" },
+      { label: "Any horizontal", value: "anyhorizontal2" },
+      { label: "Any vertical", value: "anyvertical2" },
+      { label: "Any Two Lines", value: "anyTwoLines2" },
+      { label: "Any Two Vertical", value: "anyTwoVertical2" },
+      { label: "Any Two Horizontal", value: "anyTwoHorizontal2" },
+    
+      { label: "4 middle & corner square", value: "FMC2" },
+      
+      { label: "4 corner square", value: "CS2" },
+      { label: "4 middle square", value: "MS2" },
+
+
     ];
 
     this.shuffleSound = shuffle;
@@ -776,6 +796,7 @@ maleOromic:false,
       wolayta:false,
       doubleCall: false,
       extraTalk: false,
+      doubleTalk: false,
       chime: false,
       red: false,
       default: true,
@@ -793,7 +814,20 @@ maleOromic:false,
       letterA: false,
       anyTwoLines: false,
       anyTwoVertical: false,
-      defaultPattern: false,
+
+
+      anydiagonal2: false,
+      anyvertical2: false,
+      anyhorizontal2: false,
+      CS2: false,
+      MS2: false,
+     
+      FMC2: false,
+      anyTwoHorizontal2: false,
+     
+    
+      anyTwoVertical2: false,
+     
       cutBalance: 0,
 
       cardCount: 0,
@@ -802,6 +836,7 @@ maleOromic:false,
       selectedCaller: this.callers[0],
       selectedColor: this.colors[0],
       selectedPattern1: this.Pattern1[0],
+      selectedPattern2: this.Pattern2[0],
 
       selectedPattern: {
         value: this.patternPlaceholder,
@@ -937,7 +972,14 @@ maleOromic:false,
   /**
    * Cancel speech function
    * Will cancel any existing speech
+   * 
+   * 
    */
+
+  handleDoubleTalkChange = (event) => {
+    this.setState({ doubleTalk: event.target.checked });
+};
+
   cancelSpeech = () => {
     if (window.speechSynthesis.speaking) {
       window.speechSynthesis.cancel();
@@ -1032,7 +1074,15 @@ maleOromic:false,
       if (ball.number >= 0 && ball.number <= 75) {
         let sound = new Audio(femaleamharic[ball.number]);
         sound.play();
-      }
+      
+
+      if (this.state.doubleTalk) {
+        // Play the sound again
+        setTimeout(() => {
+            let sound3Again = new Audio(femaleamharic[ball.number]);
+            sound3Again.play();
+        }, 2000); // Delay before playing the sound again
+    }}
     } else if (this.state.extraTalk) {
       const femaleoromic = [
         chime1,
@@ -1115,7 +1165,15 @@ maleOromic:false,
       if (ball.number >= 0 && ball.number <= 75) {
         let sound2 = new Audio(femaleoromic[ball.number]);
         sound2.play();
-      }
+      
+
+      if (this.state.doubleTalk) {
+        // Play the sound again
+        setTimeout(() => {
+            let sound3Again = new Audio(femaleoromic[ball.number]);
+            sound3Again.play();
+        }, 2000); // Delay before playing the sound again
+    }}
     } else if (this.state.maleOromic) {
       const maleoromic = [
         chime1,
@@ -1198,91 +1256,109 @@ maleOromic:false,
       if (ball.number >= 0 && ball.number <= 75) {
         let soundmo = new Audio(maleoromic[ball.number]);
         soundmo.play();
+
+        if (this.state.doubleTalk) {
+          // Play the sound again
+          setTimeout(() => {
+              let sound3Again = new Audio(maleoromic[ball.number]);
+              sound3Again.play();
+          }, 2000); // Delay before playing the sound again
+      }
       }
     } else if (this.state.wolayta) {
       const femalewolayta = [
-        chime1,
-        onefw,
-        twofw,
-        threefw,
-        fourfw,
-        fivefw,
-        sixfw,
-        sevenfw,
-        eightfw,
-        ninefw,
-        tenfw,
-        elevenfw,
-        twelvefw,
-        thirteenfw,
-        fourteenfw,
-        fifteenfw,
-        sixteenfw,
-        seventeenfw,
-        eighteenfw,
-        nineteenfw,
-        twentyfw,
-        twentyonefw,
-        twentytwofw,
-        twentythreefw,
-        twentyfourfw,
-        twentyfivefw,
-        twentysixfw,
-        twentysevenfw,
-        twentyeightfw,
-        twentyninefw,
-        thirtyfw,
-        thirtyonefw,
-        thirtytwofw,
-        thirtythreefw,
-        thirtyfourfw,
-        thirtyfivefw,
-        thirtysixfw,
-        thirtysevenfw,
-        thirtyeightfw,
-        thirtyninefw,
-        fortyfw,
-        fortyonefw,
-        fortytwofw,
-        fortythreefw,
-        fortyfourfw,
-        fortyfivefw,
-        fortysixfw,
-        fortysevenfw,
-        fortyeightfw,
-        fortyninefw,
-        fiftyfw,
-        fiftyonefw,
-        fiftytwofw,
-        fiftythreefw,
-        fiftyfourfw,
-        fiftyfivefw,
-        fiftysixfw,
-        fiftysevenfw,
-        fiftyeightfw,
-        fiftyninefw,
-        sixtyfw,
-        sixtyonefw,
-        sixtytwofw,
-        sixtythreefw,
-        sixtyfourfw,
-        sixtyfivefw,
-        sixtysixfw,
-        sixtysevenfw,
-        sixtyeightfw,
-        sixtyninefw,
-        seventyfw,
-        seventyonefw,
-        seventytwofw,
-        seventythreefw,
-        seventyfourfw,
-        seventyfivefw,
+          chime1,
+          onefw,
+          twofw,
+          threefw,
+          fourfw,
+          fivefw,
+          sixfw,
+          sevenfw,
+          eightfw,
+          ninefw,
+          tenfw,
+          elevenfw,
+          twelvefw,
+          thirteenfw,
+          fourteenfw,
+          fifteenfw,
+          sixteenfw,
+          seventeenfw,
+          eighteenfw,
+          nineteenfw,
+          twentyfw,
+          twentyonefw,
+          twentytwofw,
+          twentythreefw,
+          twentyfourfw,
+          twentyfivefw,
+          twentysixfw,
+          twentysevenfw,
+          twentyeightfw,
+          twentyninefw,
+          thirtyfw,
+          thirtyonefw,
+          thirtytwofw,
+          thirtythreefw,
+          thirtyfourfw,
+          thirtyfivefw,
+          thirtysixfw,
+          thirtysevenfw,
+          thirtyeightfw,
+          thirtyninefw,
+          fortyfw,
+          fortyonefw,
+          fortytwofw,
+          fortythreefw,
+          fortyfourfw,
+          fortyfivefw,
+          fortysixfw,
+          fortysevenfw,
+          fortyeightfw,
+          fortyninefw,
+          fiftyfw,
+          fiftyonefw,
+          fiftytwofw,
+          fiftythreefw,
+          fiftyfourfw,
+          fiftyfivefw,
+          fiftysixfw,
+          fiftysevenfw,
+          fiftyeightfw,
+          fiftyninefw,
+          sixtyfw,
+          sixtyonefw,
+          sixtytwofw,
+          sixtythreefw,
+          sixtyfourfw,
+          sixtyfivefw,
+          sixtysixfw,
+          sixtysevenfw,
+          sixtyeightfw,
+          sixtyninefw,
+          seventyfw,
+          seventyonefw,
+          seventytwofw,
+          seventythreefw,
+          seventyfourfw,
+          seventyfivefw,
       ];
+      
       if (ball.number >= 0 && ball.number <= 75) {
-        let sound3 = new Audio(femalewolayta[ball.number]);
-        sound3.play();
+          let sound3 = new Audio(femalewolayta[ball.number]);
+          sound3.play();
+  
+          // Check if double talk is enabled
+          if (this.state.doubleTalk) {
+              // Play the sound again
+              setTimeout(() => {
+                  let sound3Again = new Audio(femalewolayta[ball.number]);
+                  sound3Again.play();
+              }, 2000); // Delay before playing the sound again
+          }
       }
-    } else if (this.state.tigrigna) {
+  } else if (this.state.tigrigna) {
       const femaletigrigna = [
         chime1,
         oneft,
@@ -1364,6 +1440,13 @@ maleOromic:false,
       if (ball.number >= 0 && ball.number <= 75) {
         let sound4 = new Audio(femaletigrigna[ball.number]);
         sound4.play();
+        if (this.state.doubleTalk) {
+          // Play the sound again
+          setTimeout(() => {
+              let sound3Again = new Audio(femaletigrigna[ball.number]);
+              sound3Again.play();
+          }, 2000); // Delay before playing the sound again
+      }
       }
     } else if (this.state.enableCaller) {
       //   let sound2 = new Audio(two);
@@ -1449,6 +1532,13 @@ maleOromic:false,
       if (ball.number >= 0 && ball.number <= 75) {
         let sound1 = new Audio(maleamharic[ball.number]);
         sound1.play();
+        if (this.state.doubleTalk) {
+          // Play the sound again
+          setTimeout(() => {
+              let sound3Again = new Audio(maleamharic[ball.number]);
+              sound3Again.play();
+          }, 2000); // Delay before playing the sound again
+      }
       }
     } else {
       this.say([ball.letter, " ", ball.number]);
@@ -2265,9 +2355,11 @@ if (this.state.doubleCall) {
           this.state.amount -
           (this.state.amount * this.state.manualEnteredCut) / 10;
         this.startButton = 1;
+       
         this.setState({
           board: generateBingoBoard(),
           showstartModal: false,
+          isLoading: false,
         });
       } else {
         this.state.balance =
@@ -2278,6 +2370,7 @@ if (this.state.doubleCall) {
         this.setState({
           board: generateBingoBoard(),
           showstartModal: false,
+          isLoading: false
 
           // selectedCards:this.selectedCards,
         });
@@ -2434,6 +2527,29 @@ if (this.state.doubleCall) {
     }
   };
 
+  handleCheckboxPat = (e) => {
+    let gamemode = e.currentTarget.dataset.gamemode;
+    const isChecked = e.currentTarget.checked;
+  
+    switch (gamemode) {
+      case '2nd patt':
+        this.setState((prevState) => ({
+          showPat: isChecked,
+          anyhorizontal2: isChecked ? prevState.anyhorizontal2 : false,
+          anyvertical2: isChecked ? prevState.anyvertical2 : false,
+          anydiagonal2: isChecked ? prevState.anydiagonal2 : false,
+          anyTwoVertical2: isChecked ? prevState.anyTwoVertical2 : false,
+          anyTwoHorizontal2: isChecked ? prevState.anyTwoHorizontal2 : false,
+          FMC2: isChecked ? prevState.FMC2 : false,
+          CS2: isChecked ? prevState.CS2 : false,
+          MS2: isChecked ? prevState.MS2 : false,
+          selectedPattern2: isChecked ? prevState.selectedPattern2 : null
+        }));
+        break;
+      default:
+        break;
+    }
+  }
   handleUpdatePattern = (pattern, letter, index, slot) => {
     pattern[letter][index] = !slot;
     let unusedLetters = [];
@@ -3200,6 +3316,213 @@ if (this.state.doubleCall) {
         });
         break;
 
+        default:
+          break;
+      }
+    };
+
+        handlePatternChooser2 = (e) => {
+          this.setState({ selectedPattern2: e });
+      
+          switch (e.value) {
+
+        case "anyTwoVertical2":
+          this.setState({
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: true,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            FullHouse2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+        case "FullHouse2":
+          this.setState({
+            FullHouse2: true,
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+        case "CS2":
+          this.setState({
+            FullHouse2: false,
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: true,
+  
+            MS2: false,
+          });
+          break;
+        case "MS2":
+          this.setState({
+            FullHouse2: false,
+            CS2: false,
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            MS2: true,
+          });
+          break;
+        case "anyTwoHorizontal2":
+          this.setState({
+            anyhorizontal2: false,
+            FullHouse2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: true,
+            FMC2: false,
+            letterA2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+        case "letterA2":
+          this.setState({
+            anyhorizontal2: false,
+            FullHouse2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: true,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+        case "defaultPattern2":
+          this.setState({
+            anyhorizontal2: false,
+            FullHouse2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: true,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+  
+        case "anyhorizontal2":
+          this.setState({
+            anyhorizontal2: true,
+            FullHouse2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+        case "anyvertical2":
+          this.setState({
+            anyhorizontal2: false,
+            FullHouse2: false,
+            anyvertical2: true,
+            anydiagonal2: false,
+            defaultPattern2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+  
+        case "anydiagonal2":
+          this.setState({
+            defaultPattern2: false,
+            FullHouse2: false,
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: true,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+        case "anyTwoLines2":
+          this.setState({
+            defaultPattern2: false,
+            FullHouse2: false,
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            anyTwoLines2: true,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: false,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+  
+        case "FMC2":
+          this.setState({
+            defaultPattern2: false,
+            FullHouse2: false,
+            anyhorizontal2: false,
+            anyvertical2: false,
+            anydiagonal2: false,
+            anyTwoLines2: false,
+            anyTwoVertical2: false,
+            anyTwoHorizontal2: false,
+            letterA2: false,
+            FMC2: true,
+            CS2: false,
+            MS2: false,
+          });
+          break;
+
       default:
         break;
     }
@@ -3274,7 +3597,13 @@ if (this.state.doubleCall) {
 
                 {/* -------- Pattern --------- */}
 
-                <Pattern selectedPattern={this.state.selectedPattern1.value} />
+              
+                <Pattern selectedPattern={this.state.selectedPattern1?.value}
+                selectedPattern2={this.state.selectedPattern2?.value} 
+                
+                />
+                {/* <Pattern selectedPattern2={this.state.selectedPattern2.value}  /> */}
+              
               </div>
 
               <div className='col board-side'>
@@ -3301,6 +3630,7 @@ if (this.state.doubleCall) {
                   totalAmount={this.state.amount}
                   selectedCards={this.selectedCards}
                   selectedPattern={this.state.selectedPattern1}
+                  selectedPattern2={this.state.selectedPattern2}
                   manualCut={this.state.manualCut}
                   manualEnteredCut={this.state.manualEnteredCut}
                   showModal={this.state.showModal}
@@ -3468,7 +3798,14 @@ if (this.state.doubleCall) {
                             />
                           </div>
                         </div>
-
+                        <label>
+                <input
+                    type="checkbox"
+                    checked={this.state.doubleTalk}
+                    onChange={this.handleDoubleTalkChange}
+                />
+                Double Talk
+            </label>
                         {/* Only shown if speech is DISABLED by the browser */}
                         <div
                           className='row no-wrap'
@@ -3515,6 +3852,61 @@ if (this.state.doubleCall) {
                         </div>
                       </div>
                     </div>
+
+
+
+
+
+                    <div className='row no-wrap align-start justify-start'>
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
+                        <h6>
+                          Secondary Pattern: <MdOutlinePattern />
+                        </h6>
+                      </div>
+
+                      <div className='col grow padding-horizontal-lg'>
+                        <label
+                          className={
+                            this.state.showPat ? "toggle checked" : "toggle"
+                          }
+                        >
+                          <span className='toggle-span'></span>
+                          <span>Add</span>
+                          <input
+                            type='checkbox'
+                            data-gamemode='2nd patt'
+                            onChange={this.handleCheckboxPat}
+                            checked={this.state.showpat}
+                          ></input>
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* ----------- Chime Selection ----------- */}
+                    <div
+                      className='row no-wrap align-start justify-start'
+                      data-visibility={this.state.showPat ? "show" : "hide"}
+                    >
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
+                        <h6>
+                          Secondary Pattern: <MdOutlinePattern />
+                        </h6>
+                      </div>
+
+                      <div className='col grow padding-horizontal-lg'>
+                      <Select
+                            className='select-input'
+                            placeholder='Choose secondary pattern'
+                            menuPlacement='auto'
+                            value={this.state.selectedPattern2}
+                            onChange={this.handlePatternChooser2}
+                            options={this.Pattern2}
+                          />
+                      </div>
+                    </div>
+                 
+
+
                     {/* ----------- Chime ----------- */}
                     <div className='row no-wrap align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
@@ -3570,7 +3962,13 @@ if (this.state.doubleCall) {
               <div className='col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text'>
                 <h2>
                   {" "}
-                  win amount <FcMoneyTransfer /> :{" "}
+                  Win Amount: 
+                <span className="money-icon">
+                    <FcMoneyTransfer size={24} /> {/* Adjust the size as needed */}
+                    <span className="tooltip">
+                        players: {this.state.cardCount}
+                    </span>
+                </span>
                 </h2>{" "}
                 <div className='win-amount-box notranslate'>
                   <h1>{this.state.balance}Birr</h1>{" "}

@@ -128,3 +128,35 @@
   background-color: #f0f0f0; /* Change background color on focus */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
 }
+
+
+
+/* BingoGame.css */
+.money-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.money-icon .tooltip {
+  visibility: hidden;
+  width: 130px; /* Adjust tooltip width */
+  background-color:#1396d3; ; /* Tooltip background color */
+  color: #fff; /* Tooltip text color */
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the icon */
+  left: 50%;
+  margin-left: -75px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 12px;
+}
+
+.money-icon:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
