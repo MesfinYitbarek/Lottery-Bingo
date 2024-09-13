@@ -598,17 +598,17 @@ class BingoGame extends Component {
       { label: "default", value: "default" },
     ];
     this.Pattern1 = [
-      
+      { label: "defaultPattern", value: "defaultPattern" },
 
       { label: "anydiagonal", value: "anydiagonal" },
       { label: "Any horizontal", value: "anyhorizontal" },
       { label: "Any vertical", value: "anyvertical" },
-      
+      { label: "Any Two Lines", value: "anyTwoLines" },
       { label: "Any Two Vertical", value: "anyTwoVertical" },
       { label: "Any Two Horizontal", value: "anyTwoHorizontal" },
-      
+      { label: "AHADU", value: "letterA" },
       { label: "4 middle & corner square", value: "FMC" },
-     
+      { label: "Full-House(BlackOut)", value: "FullHouse" },
       { label: "4 corner square", value: "CS" },
       { label: "4 middle square", value: "MS" },
 
@@ -815,7 +815,7 @@ maleOromic:false,
       anyTwoLines: false,
       anyTwoVertical: false,
 
-
+      defaultPattern: false,
       anydiagonal2: false,
       anyvertical2: false,
       anyhorizontal2: false,
