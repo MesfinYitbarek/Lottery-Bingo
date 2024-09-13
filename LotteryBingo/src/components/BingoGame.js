@@ -621,7 +621,7 @@ class BingoGame extends Component {
       { label: "anydiagonal", value: "anydiagonal2" },
       { label: "Any horizontal", value: "anyhorizontal2" },
       { label: "Any vertical", value: "anyvertical2" },
-      { label: "Any Two Lines", value: "anyTwoLines2" },
+     
       { label: "Any Two Vertical", value: "anyTwoVertical2" },
       { label: "Any Two Horizontal", value: "anyTwoHorizontal2" },
     

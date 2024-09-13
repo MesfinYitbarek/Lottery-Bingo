@@ -89,6 +89,48 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
         }
 
 
+
+
+
+        else if( (selectedPattern === 'anyvertical' && selectedPattern2 === 'anydiagonal2')|| (selectedPattern === 'anydiagonal' && selectedPattern2 === 'anyvertical2')) {
+          if (currentIndex === 0) {
+            for (let i = 0; i < 5; i++) {
+              newGridState[i*5] = true;
+              newGridState[(1 + i) * 4] = true;
+            }
+          } else if (currentIndex === 1) {
+            for (let i = 0; i < 5; i++) {
+              newGridState[(5 * i)+1] = true;
+              newGridState[i * 6] = true;
+            }
+          }
+          else if (currentIndex === 2) {
+            for (let i = 0; i < 5; i++) {
+              newGridState[(5 * i)+2] = true;
+              newGridState[i * 6] = true;
+            }
+          }
+          else if (currentIndex === 3) {
+            for (let i = 0; i < 5; i++) {
+              newGridState[(5 * i)+3] = true;
+              newGridState[i * 6] = true;
+            }
+          }
+          else if (currentIndex === 4) {
+            for (let i = 0; i < 5; i++) {
+              newGridState[(5 * i)+4] = true;
+              newGridState[i * 6] = true;
+            }
+          }
+        }
+
+
+
+
+
+
+
+
         else if( (selectedPattern === 'anyhorizontal' && selectedPattern2 === 'anyTwoVertical2')|| (selectedPattern === 'anyTwoVertical' && selectedPattern2 === 'anyhorizontal2')) {
           if (currentIndex === 0) {
             for (let i = 0; i < 5; i++) {
