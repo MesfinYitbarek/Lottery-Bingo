@@ -52,7 +52,7 @@ export const generateBingoBoard = () => {
  * @var  {Integer}
  */
 export const getRandomBingoNumber = () => {
-  return Math.floor(Math.random() * 75) + 1;
+  return Math.floor(Math.random() * 75) + 1; // Now generates a number between 1 and 80
 }
 
 /**

@@ -2306,18 +2306,18 @@ if (this.state.doubleCall) {
     localStorage.removeItem("lpb-gameData");
     localStorage.removeItem("lpb-gameState");
     // reset everything with the board
-    const resetIsRed = {};
+    // const resetIsRed = {};
 
-    for (let i = 1; i <= 100; i++) {
-      resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
-    }
+    // for (let i = 1; i <= 100; i++) {
+    //   resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
+    // }
     clearInterval(this.interval);
 
     this.cancelSpeech();
     this.totalBallsCalled = 0;
 
-    this.selectedCards = [];
-    this.enteredCartella = "";
+    // this.selectedCards = [];
+    // this.enteredCartella = "";
   
     this.previousBall = null;
     this.currentBall = null;
@@ -2333,9 +2333,9 @@ if (this.state.doubleCall) {
       disableReset:false,
       previousCallList: [],
       balance: 0,
-      amount: 0,
+      // amount: 0,
       isLoading: false,
-      isRed: resetIsRed,
+      // isRed: resetIsRed,
     });
   };
 
