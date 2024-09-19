@@ -87,6 +87,7 @@ const Users = () => {
             <th className="tw-p-2 tw-px-4">Winners</th>
             <th className="tw-p-2 tw-px-4">Branch</th>
             <th className="tw-p-2 tw-px-4">Cashier</th>
+            <th className="tw-p-2 tw-px-4">Bonus</th>
           </tr>
         </thead>
         <tbody>
@@ -111,6 +112,7 @@ const Users = () => {
                   </td>
                   <td className="tw-p-2 tw-px-4">{data.winners[0]?.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.winners[0]?.cashier}</td>
+                  <td className="tw-p-2 tw-px-4">{data.winners[0]?.bonus} Birr </td>
                 </tr>
               ))}
             

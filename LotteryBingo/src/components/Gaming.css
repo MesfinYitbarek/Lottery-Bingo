@@ -160,3 +160,7 @@
   visibility: visible;
   opacity: 1;
 }
+
+.invisible-checkbox {
+  display: none;
+}

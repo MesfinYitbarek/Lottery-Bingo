@@ -2779,6 +2779,8 @@ if (this.state.doubleCall) {
       return (
         <div className='notranslate'>
   <div className='modal'>
+
+   <h4> <marquee direction="right " > win additional 50% of won amount by winning 500 birr and higher with minumum of 20 players !!</marquee></h4>
     <h2>Place Your Bet</h2>
 
     <div className='input-container'>
@@ -2803,7 +2805,7 @@ if (this.state.doubleCall) {
           <legend className='input-group-legend'>Game Type</legend>
           <div className='form-group'>
             <input
-              type='checkbox'
+            type="checkbox" id="myCheckbox" class="invisible-checkbox"
               checked={this.state.manualCut} // Controlled checkbox
               onChange={this.handleChechbx} // Event handler
             />
