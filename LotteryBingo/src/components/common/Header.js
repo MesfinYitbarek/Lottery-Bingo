@@ -4,13 +4,15 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { RiFullscreenLine, RiFullscreenExitLine } from "react-icons/ri";
 import { BiShoppingBag } from "react-icons/bi";
+// import { FcMoneyTransfer} from "react-icons/fc";
+
 
 
 import SignOut from "../admin/SignOut";
 import ChangePassword from "../Authentication/ChangePassword";
 import "./Header.css";
 
-const Header = () => {
+const Header =({ balancewon, cardCount }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [balance, setBalance] = useState(0);
@@ -58,6 +60,23 @@ const Header = () => {
             
           </Link>
         </div>
+
+        
+          < div className="pose">
+            <h2>
+                Win Amount:
+                <span className="money-icon">
+                   
+                    <span className="tooltip">
+                        players: {cardCount}  
+                    </span>
+                    <h1>{balancewon} ETB</h1>
+                </span>
+            </h2>
+            </div>
+                
+          
+   
 
         <div className="right-section">
           <button onClick={toggleFullScreen} className="fullscreen-button">

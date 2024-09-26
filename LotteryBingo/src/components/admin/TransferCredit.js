@@ -103,16 +103,16 @@ const TransferCredit = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     
-    // // Convert currentUser.phone to a string for comparison
-    // const senderPhone = String(currentUser.phone);
+    // Convert currentUser.phone to a string for comparison
+    const senderPhone = String(currentUser.phone);
     
    
 
-    // // Check if the receiver is the same as the sender
-    // if (senderPhone === receiver.trim()) {
-    //     alert('You cannot send credit to yourself');
-    //     return; // Exit the function if the sender and receiver are the same
-    // }
+    // Check if the receiver is the same as the sender
+    if (senderPhone === receiver.trim()) {
+        alert('You cannot send credit to yourself');
+        return; // Exit the function if the sender and receiver are the same
+    }
 
     // // Check if the amount is greater than the balance
     if (parseFloat(amount) > balance) {

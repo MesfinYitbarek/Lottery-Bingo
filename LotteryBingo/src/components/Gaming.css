@@ -136,21 +136,23 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+  margin-bottom: 15px;
+  padding-bottom: 20px;
 }
 
 .money-icon .tooltip {
   visibility: hidden;
   width: 130px; /* Adjust tooltip width */
-  background-color:#1396d3; ; /* Tooltip background color */
+  background-color:#1396d3;  /* Tooltip background color */
   color: #fff; /* Tooltip text color */
   text-align: center;
   border-radius: 5px;
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position above the icon */
+  bottom: 40%; /* Position above the icon */
   left: 50%;
-  margin-left: -75px; /* Center the tooltip */
+  margin-left: 100px; /* Center the tooltip */
   opacity: 0;
   transition: opacity 0.3s;
   font-size: 12px;

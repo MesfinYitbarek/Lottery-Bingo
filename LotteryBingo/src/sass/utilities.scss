@@ -30,17 +30,26 @@
 }
 
 
+// .win-amount-box {
+//   // background-color: #f0f0f0; /* Light gray background */
+//   border: 2px solid var(--secondary-color);
+//   border-radius: 10px; /* Light gray border */
+//   padding: 5px 5px; /* Padding for spacing */
+//   // border-radius: 5px; /* Rounded corners */
+//   // margin-left: 5px;
+//   // padding-bottom: 10px;
+//   /* Space between text and box */
+// }
 .win-amount-box {
-  // background-color: #f0f0f0; /* Light gray background */
+  background-color: #f0f0f0; /* Light gray background */
   border: 2px solid var(--secondary-color);
-  border-radius: 10px; /* Light gray border */
-  padding: 5px 5px; /* Padding for spacing */
-  // border-radius: 5px; /* Rounded corners */
-  // margin-left: 5px;
-  padding-bottom: 10px;
-  /* Space between text and box */
+  border-radius: 10px; /* Rounded corners */
+  padding: 8px 3px  ; /* Increased padding for better spacing */
+  min-width: 350px; /* Set a minimum width */
+  text-align: center; /* Center align text */
+  margin-left: 5px; /* Add left margin for spacing from other elements */
+  max-height: 100px;
 }
-
 
 
 /* Back to Top */

@@ -23,7 +23,7 @@ import { SlGameController } from "react-icons/sl";
 import { BiReset } from "react-icons/bi";
 import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
-import { FcMoneyTransfer, FcSpeaker } from "react-icons/fc";
+import { FcSpeaker } from "react-icons/fc";
 import { RiPaintBrushFill, RiSpeakFill } from "react-icons/ri";
 import { MdOutlinePattern } from "react-icons/md";
 
@@ -3571,7 +3571,7 @@ if (this.state.doubleCall) {
     return (
       <div>
         <div>
-          <Header />{" "}
+        <Header balancewon={this.state.balance} cardCount={this.state.cardCount} />{" "}
         </div>
         <div className={colorClasses}>
           {/* ----------- Bingo Board ------------- */}
@@ -3734,9 +3734,10 @@ if (this.state.doubleCall) {
                 <section className='game-settings'>
                   {/* ----------- Settings when using generation ---------- */}
                   <div
-                  // data-visibility={
+                  //  data-visibility={
                   //   this.state.displayBoardOnly === false ? "show" : "hide"
                   // }
+                  
                   >
                     {/* ----------- Autoplay Settings ---------- */}
                     <div className='row no-wrap align-center justify-start'>
@@ -3771,9 +3772,131 @@ if (this.state.doubleCall) {
                           </div>
                         </div>
                       </div>
+
+
+
+
+
+                      <span>  &nbsp;</span>
+                      <span>  &nbsp;</span>
+                      <span>  &nbsp;</span>
+
+
+                      <div className='row no-wrap align-start justify-start'>
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
+                        <h6>
+                          Secondary Pattern: <MdOutlinePattern />
+                        </h6>
+                      </div>
+
+                      <div className='col grow padding-horizontal-lg'>
+                        <label
+                          className={
+                            this.state.showPat ? "toggle checked" : "toggle"
+                          }
+                        >
+                          <span className='toggle-span'></span>
+                          <span>Add</span>
+                          <input
+                            type='checkbox'
+                            data-gamemode='2nd patt'
+                            onChange={this.handleCheckboxPat}
+                            checked={this.state.showpat}
+                          ></input>
+                        </label>
+                      </div>
                     </div>
 
+
+
+
+
+
+
+<span>  &nbsp;</span>
+<span>  &nbsp;</span>
+<span>  &nbsp;</span>
+
+
+
+
+                    <div className='row no-wrap align-start justify-start'>
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
+                        <h6>
+                          bell: <FaBell />
+                        </h6>
+                      </div>
+
+                      <div className='col grow padding-horizontal-lg'>
+                        <label
+                          className={
+                            this.state.chime ? "toggle checked" : "toggle"
+                          }
+                        >
+                          <span className='toggle-span'></span>
+                          <span>enable</span>
+                          <input
+                            type='checkbox'
+                            data-gamemode='enable-chime'
+                            onChange={this.handleCheckbox}
+                            checked={this.state.chime}
+                          ></input>
+                        </label>
+                      </div>
+                    </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+
                     {/* ----------- Caller ---------- */}
+                    
+
+                    <div className='row align-start justify-start'>
+                      <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
+                        <h6>
+                          {" "}
+                          color: <RiPaintBrushFill />{" "}
+                        </h6>
+                      </div>
+                      <div className='col grow padding-horizontal-lg'>
+                        <Select
+                          className='select-input'
+                          placeholder='Choose colors'
+                          menuPlacement='auto'
+                          value={this.state.selectedColor}
+                          onChange={this.handleColorchooser}
+                          options={this.colors}
+                        />
+                      </div>
+                      <div className='row align-start justify-start'>
+                       
+                    </div>
+
+
+
+
+
+
+
+
                     <div className='row align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -3818,25 +3941,27 @@ if (this.state.doubleCall) {
                       </div>
                     </div>
 
-                    <div className='row align-start justify-start'>
-                      <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
-                        <h6>
-                          {" "}
-                          color: <RiPaintBrushFill />{" "}
-                        </h6>
-                      </div>
-                      <div className='col grow padding-horizontal-lg'>
-                        <Select
-                          className='select-input'
-                          placeholder='Choose colors'
-                          menuPlacement='auto'
-                          value={this.state.selectedColor}
-                          onChange={this.handleColorchooser}
-                          options={this.colors}
-                        />
-                      </div>
-                      <div className='row align-start justify-start'>
-                        <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
                           <h6>
                             {" "}
                             pattern: <MdOutlinePattern />{" "}
@@ -3853,36 +3978,10 @@ if (this.state.doubleCall) {
                           />
                         </div>
                       </div>
-                    </div>
 
 
 
-
-
-                    <div className='row no-wrap align-start justify-start'>
-                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
-                        <h6>
-                          Secondary Pattern: <MdOutlinePattern />
-                        </h6>
-                      </div>
-
-                      <div className='col grow padding-horizontal-lg'>
-                        <label
-                          className={
-                            this.state.showPat ? "toggle checked" : "toggle"
-                          }
-                        >
-                          <span className='toggle-span'></span>
-                          <span>Add</span>
-                          <input
-                            type='checkbox'
-                            data-gamemode='2nd patt'
-                            onChange={this.handleCheckboxPat}
-                            checked={this.state.showpat}
-                          ></input>
-                        </label>
-                      </div>
-                    </div>
+                  
 
                     {/* ----------- Chime Selection ----------- */}
                     <div
@@ -3905,38 +4004,12 @@ if (this.state.doubleCall) {
                             options={this.Pattern2}
                           />
                       </div>
-                    </div>
-                 
 
 
-                    {/* ----------- Chime ----------- */}
-                    <div className='row no-wrap align-start justify-start'>
-                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
-                        <h6>
-                          bell: <FaBell />
-                        </h6>
-                      </div>
 
-                      <div className='col grow padding-horizontal-lg'>
-                        <label
-                          className={
-                            this.state.chime ? "toggle checked" : "toggle"
-                          }
-                        >
-                          <span className='toggle-span'></span>
-                          <span>enable</span>
-                          <input
-                            type='checkbox'
-                            data-gamemode='enable-chime'
-                            onChange={this.handleCheckbox}
-                            checked={this.state.chime}
-                          ></input>
-                        </label>
-                      </div>
-                    </div>
 
-                    {/* ----------- Chime Selection ----------- */}
-                    <div
+
+                      <div
                       className='row no-wrap align-start justify-start'
                       data-visibility={this.state.chime ? "show" : "hide"}
                     >
@@ -3957,25 +4030,23 @@ if (this.state.doubleCall) {
                         />
                       </div>
                     </div>
+
+
+
+                    </div>
+                 
+
+
+                    {/* ----------- Chime ----------- */}
+                    
+
+                    {/* ----------- Chime Selection ----------- */}
+                   
                   </div>
                 </section>
               </div>
 
-              <div className='col grow min-size-350 padding-vertical-xxlg padding-horizontal-xxlg white-text'>
-                <h2>
-                  {" "}
-                  Win Amount: 
-                <span className="money-icon">
-                    <FcMoneyTransfer size={24} /> {/* Adjust the size as needed */}
-                    <span className="tooltip">
-                        players: {this.state.cardCount}
-                    </span>
-                </span>
-                </h2>{" "}
-                <div className='win-amount-box notranslate'>
-                  <h1>{this.state.balance}Birr</h1>{" "}
-                </div>
-              </div>
+              
             </div>
           </section>
         </div>

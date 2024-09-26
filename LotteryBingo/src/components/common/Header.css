@@ -169,3 +169,45 @@
   .language-dropdown:hover {
     background-color: #f0f0f0; /* Light gray on hover */
   }
+
+  .money-icon {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+  }
+  
+  .money-icon .tooltip {
+    visibility: hidden;
+    width: 130px; /* Adjust tooltip width */
+    background-color:#1396d3;  /* Tooltip background color */
+    color: #fff; /* Tooltip text color */
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 40%; /* Position above the icon */
+    left: 50%;
+    margin-left: 100px; /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+  }
+  
+  .money-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .invisible-checkbox {
+    display: none;
+  }
+  .pose {
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Align items in a column */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    height: 100px; /* Set a height for the container */
+}
