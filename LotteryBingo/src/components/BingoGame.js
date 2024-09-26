@@ -619,6 +619,7 @@ class BingoGame extends Component {
      
 
       { label: "anydiagonal", value: "anydiagonal2" },
+      { label: "default 2", value: "defaultpattern2" },
       { label: "Any horizontal", value: "anyhorizontal2" },
       { label: "Any vertical", value: "anyvertical2" },
      
@@ -3330,6 +3331,7 @@ if (this.state.doubleCall) {
 
         case "anyTwoVertical2":
           this.setState({
+           
             anyhorizontal2: false,
             anyvertical2: false,
             anydiagonal2: false,
@@ -3346,6 +3348,7 @@ if (this.state.doubleCall) {
           break;
         case "FullHouse2":
           this.setState({
+          
             FullHouse2: true,
             anyhorizontal2: false,
             anyvertical2: false,
@@ -3360,8 +3363,37 @@ if (this.state.doubleCall) {
             MS2: false,
           });
           break;
+
+
+
+
+
+          case "defaultpattern2":
+            this.setState({
+            
+              FullHouse2: false,
+              anyhorizontal2: false,
+              anyvertical2: false,
+              anydiagonal2: false,
+              defaultPattern2: true,
+              anyTwoLines2: false,
+              anyTwoVertical2: false,
+              anyTwoHorizontal2: false,
+              letterA2: false,
+              FMC2: false,
+              CS2: false,
+              MS2: false,
+            });
+            break;
+
+
+
+
+
+
         case "CS2":
           this.setState({
+            
             FullHouse2: false,
             anyhorizontal2: false,
             anyvertical2: false,
@@ -3379,6 +3411,7 @@ if (this.state.doubleCall) {
           break;
         case "MS2":
           this.setState({
+            
             FullHouse2: false,
             CS2: false,
             anyhorizontal2: false,
@@ -3395,6 +3428,7 @@ if (this.state.doubleCall) {
           break;
         case "anyTwoHorizontal2":
           this.setState({
+           
             anyhorizontal2: false,
             FullHouse2: false,
             anyvertical2: false,
@@ -3411,6 +3445,7 @@ if (this.state.doubleCall) {
           break;
         case "letterA2":
           this.setState({
+         
             anyhorizontal2: false,
             FullHouse2: false,
             anyvertical2: false,
@@ -3427,6 +3462,7 @@ if (this.state.doubleCall) {
           break;
         case "defaultPattern2":
           this.setState({
+            
             anyhorizontal2: false,
             FullHouse2: false,
             anyvertical2: false,
@@ -3444,6 +3480,7 @@ if (this.state.doubleCall) {
   
         case "anyhorizontal2":
           this.setState({
+           
             anyhorizontal2: true,
             FullHouse2: false,
             anyvertical2: false,
@@ -3460,6 +3497,7 @@ if (this.state.doubleCall) {
           break;
         case "anyvertical2":
           this.setState({
+            
             anyhorizontal2: false,
             FullHouse2: false,
             anyvertical2: true,
@@ -3477,6 +3515,7 @@ if (this.state.doubleCall) {
   
         case "anydiagonal2":
           this.setState({
+            
             defaultPattern2: false,
             FullHouse2: false,
             anyhorizontal2: false,
@@ -3493,6 +3532,7 @@ if (this.state.doubleCall) {
           break;
         case "anyTwoLines2":
           this.setState({
+           
             defaultPattern2: false,
             FullHouse2: false,
             anyhorizontal2: false,

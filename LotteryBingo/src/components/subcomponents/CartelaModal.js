@@ -84,8 +84,57 @@ const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, tota
       [card.B[0], card.I[1], "Free", card.G[3], card.O[4]], // Main diagonal
       [card.O[0], card.G[1], "Free", card.I[3], card.B[4]]  // Secondary diagonal
     ];
+    const MS42 = [
+      [ card.I[1],   card.I[3],card.G[1],
+      card.G[3]], 
+      
+    ];
+    
+    const CS42 = [
+      [card.B[0],  card.B[4], 
+      card.O[0],   card.O[4]], 
+      
+    ];
+
+
+
+    const ATH2 = [
+      [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+      card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
+  
+      [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+      card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+  
+      [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+      card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
+  
+      [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
+      card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+  
+      [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+      card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+  
+      [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+      card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+  
+      [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],
+      card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
+  
+      [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+      card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
+  
+      [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],
+      card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+  
+      [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],
+      card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
+  
+  
+  ];
+  
   
     const lines = [...rows, ...columns, ...diagonals];
+    const lines2 = [...rows, ...columns, ...diagonals,...MS42,...CS42,...ATH2];
     let bingoLine = null;
   
     const isWinningPattern = (line) => {
@@ -2475,6 +2524,22 @@ else{
           }
         }
         break;
+
+
+
+
+        case "defaultPattern2":
+          // Check if any line matches the default winning pattern
+          for (const line2 of lines2) {
+            if (isWinningPattern(line2)) {
+              bingoLine = line2;
+              break;
+            }
+          }
+          break;
+
+
+
   
       case "anyhorizontal":
         // Check only horizontal lines

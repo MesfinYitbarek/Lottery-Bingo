@@ -917,7 +917,80 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
                     }
 
       }
-      else if(selectedPattern==='anyhorizontal'){
+
+
+
+
+
+
+
+      else if(selectedPattern === 'defaultPattern'  && selectedPattern2 === 'defaultpattern2'  ) 
+        {
+        if (currentIndex ===0) {
+                    // Activate rows
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[ i] = true; // Activate row
+                      
+                    }
+                  } 
+                  
+                  else if (currentIndex ===1) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                                 
+                      newGridState[0] = true;
+                               
+                      newGridState[20] = true; 
+                     
+                      newGridState[24] = true; 
+                      
+                      newGridState[4] = true;
+          
+                    }
+                  } 
+                  
+                  else if (currentIndex ===2) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                                               
+  newGridState[6] = true;
+                                                         
+    newGridState[8] = true; 
+  newGridState[16] = true; 
+                                                
+      newGridState[18] = true;
+                                    
+  }
+                  } 
+                  
+                  else if (currentIndex ===3) {
+                    // Activate columns
+                     for (let i = 0; i < 5; i++) {
+                  newGridState[( i * 5)] = true; 
+                  
+                }
+                  }
+                  
+                  else if (currentIndex === 4) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[i*5] = true;
+                      newGridState[(i *5)+2] = true; 
+                    }
+                  }
+
+                  else if (currentIndex === 5) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                    
+                      newGridState[i * 6] = true;
+
+                    }
+                  }
+      }
+
+
+ else if(selectedPattern==='anyhorizontal'){
         if (currentIndex === 0) {
           for (let i = 0; i < 5; i++) {
             newGridState[i] = true;
@@ -1101,6 +1174,13 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
 
       }
 
+
+
+
+
+
+
+     
      else if(selectedPattern==='anyTwoLines') {
 
    
