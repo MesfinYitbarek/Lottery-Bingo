@@ -188,8 +188,8 @@
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: 40%; /* Position above the icon */
-    left: 50%;
+    bottom: 5%; /* Position above the icon */
+    left: 1%;
     margin-left: 100px; /* Center the tooltip */
     opacity: 0;
     transition: opacity 0.3s;
@@ -210,4 +210,42 @@
     justify-content: center; /* Center items vertically */
     align-items: center; /* Center items horizontally */
     height: 100px; /* Set a height for the container */
+}
+
+.win-amount-fieldset {
+  border: 3px solid #1396d3; /* Customize border color */
+  
+  display: flex; /* Use flexbox for horizontal alignment */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space out items horizontally */
+  width: 100%; /* Set width to 100% or a specific value */
+  max-height:95px;
+  min-width: 270px;
+}
+
+legend {
+  font-weight: bold; /* Make the legend text bold */
+ color: #1396d3;
+ border-radius: 20px;
+}
+
+
+.money-icon {
+  display: flex; /* Ensure contents inside money-icon are aligned properly */
+  align-items: center; /* Center items vertically within money-icon */
+  justify-content: center; /* Center items horizontally within money-icon */
+  flex-direction: column; /* Stack items vertically */
+}
+
+.money-icon h1 {
+  margin: 0; /* Remove default margin from h1 */
+}
+.balance-text {
+  font-size: 48px; /* Change this value to adjust the size */
+  font-weight:bold; /* Make text bold (optional) */
+  text-align: center; /* Center align the text */
+  margin: 0; /* Remove default margin */
+  color: #1396d3;
+  left:50%;
+  top:50%;
 }

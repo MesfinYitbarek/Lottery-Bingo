@@ -974,8 +974,7 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
                   else if (currentIndex === 4) {
                     // Main diagonal
                     for (let i = 0; i < 5; i++) {
-                      newGridState[i*5] = true;
-                      newGridState[(i *5)+2] = true; 
+                      newGridState[( i * 5)+2] = true; 
                     }
                   }
 

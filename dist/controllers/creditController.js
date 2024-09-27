@@ -56,32 +56,79 @@ export const transfer = async (req, res) => {
     sender
   } = req.body;
   try {
-    const senderr = (await User.findOne({
+    // Find sender and receiver users
+    const senderUser = (await User.findOne({
       phone: sender
     })) || (await Agent.findOne({
       phone: sender
     }));
-    const recipient = await User.findOne({
+    const recipientUser = await User.findOne({
       phone: receiver
     });
-    if (!senderr || !recipient) {
+
+    // Check if both users exist
+    if (!senderUser || !recipientUser) {
       return res.status(404).json({
         msg: 'User not found'
       });
     }
-    senderr.balance -= parseFloat(amount);
-    recipient.balance += parseFloat(amount);
-    await senderr.save();
-    await recipient.save();
+
+    // Check if sender has sufficient balance
+    if (senderUser.balance < parseFloat(amount)) {
+      return res.status(400).json({
+        msg: 'Insufficient balance'
+      });
+    }
+
+    // Perform the transfer
+    senderUser.balance -= parseFloat(amount);
+
+    // Save the sender's new balance first
+    await senderUser.save();
+
+    // Update the recipient's balance
+    recipientUser.balance += parseFloat(amount);
+
+    // Save the recipient's new balance
+    await recipientUser.save();
+
+    // Verify that the receiver's balance is updated correctly
+    const updatedRecipient = await User.findOne({
+      phone: receiver
+    });
+    if (updatedRecipient.balance !== recipientUser.balance) {
+      // If the balance does not match, rollback the sender's balance
+      senderUser.balance += parseFloat(amount);
+      await senderUser.save();
+      return res.status(500).json({
+        msg: 'Error: Receiver balance did not update correctly. Transaction rolled back.'
+      });
+    }
+
+    // Create a new credit record
     const credit = new Credit({
       amount,
       sender,
       receiver
     });
     await credit.save();
-    res.json(credit);
+    res.json({
+      success: true,
+      credit,
+      message: 'Credit transferred successfully',
+      data: {
+        senderBalance: senderUser.balance,
+        receiverBalance: updatedRecipient.balance
+      }
+    });
   } catch (err) {
     console.error(err.message);
+
+    // Rollback in case of any error during transfer
+    if (senderUser) {
+      senderUser.balance += parseFloat(amount); // Restore original balance
+      await senderUser.save();
+    }
     res.status(500).send('Server Error');
   }
 };

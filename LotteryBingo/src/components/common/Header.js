@@ -62,18 +62,19 @@ const Header =({ balancewon, cardCount }) => {
         </div>
 
         
-          < div className="pose">
-            <h2>
-                Win Amount:
-                <span className="money-icon">
-                   
-                    <span className="tooltip">
-                        players: {cardCount}  
-                    </span>
-                    <h1>{balancewon} ETB</h1>
+        <div className="pose">
+    <fieldset className="win-amount-fieldset">
+        <legend>Win Amount</legend>
+      
+            <span className="money-icon">
+                <span className="tooltip">
+                    players: {cardCount}  
                 </span>
-            </h2>
-            </div>
+                <p className="balance-text">{balancewon} ETB</p>
+            </span>
+       
+    </fieldset>
+</div>
                 
           
    

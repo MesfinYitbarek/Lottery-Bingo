@@ -106,53 +106,53 @@ const TransferCredit = () => {
     // Convert currentUser.phone to a string for comparison
     const senderPhone = String(currentUser.phone);
     
-   
-
     // Check if the receiver is the same as the sender
     if (senderPhone === receiver.trim()) {
-        alert('You cannot send credit to yourself');
-        return; // Exit the function if the sender and receiver are the same
+      alert('You cannot send credit to yourself');
+      return; // Exit if sender and receiver are the same
     }
 
-    // // Check if the amount is greater than the balance
-    if (parseFloat(amount) > balance) {
+    // Check if amount is valid
+    if (parseFloat(amount) <= 0) {
+      alert('Please enter a valid amount');
+      return;
+    }
+
+    // Check if amount exceeds balance
+    if (parseFloat(amount) > currentUser.balance) {
       alert('Insufficient balance');
-    } else {
-      dispatch(updateUserStart());
-      setLoading(true);
-      try {
-    //     alert('Insufficient balance');
-    //     return; // Exit the function if the balance is insufficient
-    // }
+      return;
+    }
 
-    // dispatch(updateUserStart());
-    // setLoading(true);
+    dispatch(updateUserStart());
+    setLoading(true);
+    
+    try {
+      const response = await axios.post("/api/credit/transfer", {
+        amount,
+        receiver: receiver.trim(),
+        sender: senderPhone,
+      });
 
-    // try {
-        // Proceed to send the credit
-        await axios.post("/api/credit/transfer", {
-          amount,
-          receiver: receiver,
-          sender: currentUser.phone,
-        });
-        // Update the user's balance in the state
-        dispatch(updateUserSuccess({ ...currentUser, balance: balance - amount }));
+      // Check if transfer was successful
+      if (response.data.success) {
+        // Update user's balance in state
+        dispatch(updateUserSuccess({ ...currentUser, balance: response.data.data.senderBalance }));
         alert('Credit transferred successfully');
         
-        // Reset the credit form
+        // Reset form fields
         setCredit({ amount: '', receiver: '' });
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        alert('Error transferring credit');
+      } else {
+        alert(response.data.msg || 'Error transferring credit');
       }
-    // } catch (err) {
-    //     // Log the error for debugging
-    //     alert('Error transferring credit: ' + (err.response?.data?.message || 'Unknown error'));
-    // } finally {
-    //     setLoading(false); // Ensure loading state is reset in both success and error cases
+      
+    } catch (err) {
+      
+      alert('Error transferring credit');
+    } finally {
+      setLoading(false);
     }
-};
+  };
   const handleDoneInModal = (calculatedAmount) => {
     setCredit({ ...credit, amount: calculatedAmount });
     setShowModal(false);
