@@ -55,14 +55,17 @@ export const transfer = async (req, res) => {
     receiver,
     sender
   } = req.body;
+  let senderUser = null; // Initialize senderUser
+  let recipientUser = null; // Initialize recipientUser
+
   try {
     // Find sender and receiver users
-    const senderUser = (await User.findOne({
+    senderUser = (await User.findOne({
       phone: sender
     })) || (await Agent.findOne({
       phone: sender
     }));
-    const recipientUser = await User.findOne({
+    recipientUser = await User.findOne({
       phone: receiver
     });
 
@@ -80,29 +83,23 @@ export const transfer = async (req, res) => {
       });
     }
 
+    // Store initial balance of recipient before transfer
+    const initialRecipientBalance = recipientUser.balance;
+
     // Perform the transfer
     senderUser.balance -= parseFloat(amount);
-
-    // Save the sender's new balance first
-    await senderUser.save();
-
-    // Update the recipient's balance
     recipientUser.balance += parseFloat(amount);
 
-    // Save the recipient's new balance
+    // Save both users' new balances
+    await senderUser.save();
     await recipientUser.save();
 
     // Verify that the receiver's balance is updated correctly
     const updatedRecipient = await User.findOne({
       phone: receiver
     });
-    if (updatedRecipient.balance !== recipientUser.balance) {
-      // If the balance does not match, rollback the sender's balance
-      senderUser.balance += parseFloat(amount);
-      await senderUser.save();
-      return res.status(500).json({
-        msg: 'Error: Receiver balance did not update correctly. Transaction rolled back.'
-      });
+    if (updatedRecipient.balance !== initialRecipientBalance + parseFloat(amount)) {
+      throw new Error('Receiver balance did not update correctly'); // Trigger rollback
     }
 
     // Create a new credit record
@@ -126,10 +123,20 @@ export const transfer = async (req, res) => {
 
     // Rollback in case of any error during transfer
     if (senderUser) {
-      senderUser.balance += parseFloat(amount); // Restore original balance
-      await senderUser.save();
+      try {
+        // Restore original balance to the sender
+        senderUser.balance += parseFloat(amount);
+        await senderUser.save();
+      } catch (rollbackError) {
+        console.error('Rollback failed:', rollbackError.message);
+        return res.status(500).json({
+          msg: 'Transaction failed, and rollback also failed.'
+        });
+      }
     }
-    res.status(500).send('Server Error');
+    res.status(500).json({
+      msg: 'Server Error: ' + err.message
+    });
   }
 };
 export const balance = async (req, res) => {
