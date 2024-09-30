@@ -86,12 +86,10 @@ export const transfer = async (req, res) => {
     // Store initial balance of recipient before transfer
     const initialRecipientBalance = recipientUser.balance;
 
-    // Perform the transfer
-    senderUser.balance -= parseFloat(amount);
+    // Update recipient's balance
     recipientUser.balance += parseFloat(amount);
 
-    // Save both users' new balances
-    await senderUser.save();
+    // Save recipient's new balance
     await recipientUser.save();
 
     // Verify that the receiver's balance is updated correctly
@@ -101,6 +99,12 @@ export const transfer = async (req, res) => {
     if (updatedRecipient.balance !== initialRecipientBalance + parseFloat(amount)) {
       throw new Error('Receiver balance did not update correctly'); // Trigger rollback
     }
+
+    // Now that we are sure the recipient's balance is correct, deduct from sender
+    senderUser.balance -= parseFloat(amount);
+
+    // Save both users' new balances
+    await senderUser.save();
 
     // Create a new credit record
     const credit = new Credit({
