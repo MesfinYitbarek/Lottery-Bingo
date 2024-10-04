@@ -989,6 +989,242 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
       }
 
 
+
+
+      else if(selectedPattern === 'anyhorizontal'  && selectedPattern2 === 'defaultpattern2'  ) 
+        {
+        if (currentIndex ===0) {
+                    // Activate rows
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[ i] = true; // Activate row
+                      
+                    }
+                  } 
+                  
+                  else if (currentIndex ===1) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[i+10] = true;
+                                 
+                      newGridState[0] = true;
+                               
+                      newGridState[20] = true; 
+                     
+                      newGridState[24] = true; 
+                      
+                      newGridState[4] = true;
+          
+                    }
+                  } 
+                  
+                  else if (currentIndex ===2) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[i] = true;
+                                               
+  newGridState[6] = true;                                                       
+    newGridState[8] = true; 
+  newGridState[16] = true;                                             
+      newGridState[18] = true;
+                                    
+  }
+                  } 
+                  
+                  else if (currentIndex ===3) {
+                    // Activate columns
+                     for (let i = 0; i < 5; i++) {
+                  newGridState[( i * 5)] = true; 
+                  newGridState[i+5] = true;
+                  
+                }
+                  }
+                  
+                  else if (currentIndex === 4) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[( i * 5)+2] = true; 
+                      newGridState[i+10] = true;
+                    }
+                  }
+
+                  else if (currentIndex === 5) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                    
+                      newGridState[i * 6] = true;
+                      newGridState[i+10] = true;
+
+
+                    }
+                  }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      else if(selectedPattern === 'anyvertical'  && selectedPattern2 === 'defaultpattern2'  ) 
+        {
+        if (currentIndex ===0) {
+                    // Activate rows
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[ i] = true; // Activate row
+              newGridState[(i *5)+3] = true;
+
+                      
+                    }
+                  } 
+                  
+                  else if (currentIndex ===1) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[(i *5)+2] = true;
+
+                                 
+                      newGridState[0] = true;
+                               
+                      newGridState[20] = true; 
+                     
+                      newGridState[24] = true; 
+                      
+                      newGridState[4] = true;
+          
+                    }
+                  } 
+                  
+                  else if (currentIndex ===2) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[(i *5)+4] = true;
+
+                                               
+  newGridState[6] = true;                                                       
+    newGridState[8] = true; 
+  newGridState[16] = true;                                             
+      newGridState[18] = true;
+                                    
+  }
+                  } 
+                  
+                  else if (currentIndex ===3) {
+                    // Activate columns
+                     for (let i = 0; i < 5; i++) {
+                  newGridState[( i * 5)] = true; 
+                 
+                  
+                }
+                  }
+                  
+                  else if (currentIndex === 4) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[( i * 5)+2] = true; 
+                     
+
+                    }
+                  }
+
+                  else if (currentIndex === 5) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                    
+                      newGridState[i * 6] = true;
+                      newGridState[i+10] = true;
+
+
+                    }
+                  }
+      }
+
+
+
+
+      else if(selectedPattern === 'anydiagonal'  && selectedPattern2 === 'defaultpattern2'  ) 
+        {
+        if (currentIndex ===0) {
+                    // Activate rows
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[ i] = true; // Activate row
+              
+                      newGridState[i * 4 + 4] = true;
+
+                    }
+                  } 
+                  
+                  else if (currentIndex ===1) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                      
+              newGridState[i * 4 + 4] = true;
+
+                                 
+                      newGridState[0] = true;
+                               
+                      newGridState[20] = true; 
+                     
+                      newGridState[24] = true; 
+                      
+                      newGridState[4] = true;
+          
+                    }
+                  } 
+                  
+                  else if (currentIndex ===2) {
+                    // Activate columns
+                    for (let i = 0; i < 5; i++) {
+                    
+              newGridState[i * 6] = true;
+
+                                               
+  newGridState[6] = true;                                                       
+    newGridState[8] = true; 
+  newGridState[16] = true;                                             
+      newGridState[18] = true;
+                                    
+  }
+                  } 
+                  
+                  else if (currentIndex ===3) {
+                    // Activate columns
+                     for (let i = 0; i < 5; i++) {
+                  newGridState[( i * 5)] = true; 
+                  
+              newGridState[i * 4 + 4] = true;
+                  
+                }
+                  }
+                  
+                  else if (currentIndex === 4) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                      newGridState[( i * 5)+2] = true; 
+                      
+              newGridState[i *6] = true;
+
+                    }
+                  }
+
+                  else if (currentIndex === 5) {
+                    // Main diagonal
+                    for (let i = 0; i < 5; i++) {
+                    
+                      newGridState[i * 6] = true;
+                       
+              newGridState[i * 4 + 4] = true;
+
+
+                    }
+                  }
+      }
  else if(selectedPattern==='anyhorizontal'){
         if (currentIndex === 0) {
           for (let i = 0; i < 5; i++) {
@@ -1014,14 +1250,14 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
           else if(currentIndex === 4){
             for (let i = 0; i < 5; i++) {
               
-              newGridState[i +10] = true;
+              newGridState[i +15] = true;
             }
 
           }
           else if(currentIndex === 5){
             for (let i = 0; i < 5; i++) {
               
-              newGridState[i +10] = true;
+              newGridState[i +5] = true;
             }
 
           }
@@ -1048,7 +1284,7 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
           else if(currentIndex === 2){
             for (let i = 0; i < 5; i++) {
               
-              newGridState[(i *5)+2] = true;
+              newGridState[(i *5)+3] = true;
             }
 
           }
@@ -1056,7 +1292,7 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
           else if(currentIndex === 3){
             for (let i = 0; i < 5; i++) {
               
-              newGridState[(i *5)+2] = true;
+              newGridState[(i *5)+4] = true;
             }
 
           }
@@ -1064,7 +1300,7 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
           else if(currentIndex === 4){
             for (let i = 0; i < 5; i++) {
               
-              newGridState[(i *5)+2] = true;
+              newGridState[(i *5)+1] = true;
             }
 
           }
@@ -1617,7 +1853,107 @@ const Pattern = ({ selectedPattern,selectedPattern2 }) => {
                    
                   }
 
+
     }
+
+    else if(selectedPattern==='aos'){
+      if(currentIndex===0){
+        newGridState[1] = true;
+        newGridState[0] = true; 
+        newGridState[6] = true; 
+        newGridState[5] = true;
+
+      }
+     else if(currentIndex===1){
+      newGridState[15] = true;
+      newGridState[20] = true; 
+      newGridState[16] = true; 
+      newGridState[21] = true;
+     }
+     else if(currentIndex===2){
+      newGridState[3] = true;
+      newGridState[4] = true; 
+      newGridState[8] = true; 
+      newGridState[9] = true;
+     }
+       else if(currentIndex===3){
+        newGridState[18] = true;
+        newGridState[19] = true; 
+        newGridState[23] = true; 
+        newGridState[24] = true;
+       }
+    }
+
+
+    else if(selectedPattern==='ats'){
+      if(currentIndex===0){
+        newGridState[1] = true;
+        newGridState[0] = true; 
+        newGridState[6] = true; 
+        newGridState[5] = true;
+        newGridState[15] = true;
+        newGridState[20] = true; 
+        newGridState[16] = true; 
+        newGridState[21] = true;
+
+      }
+
+      else if(currentIndex===1){
+        newGridState[1] = true;
+        newGridState[0] = true; 
+        newGridState[6] = true; 
+        newGridState[5] = true;
+        newGridState[3] = true;
+        newGridState[4] = true; 
+        newGridState[8] = true; 
+        newGridState[9] = true;
+
+      }
+
+      else if(currentIndex===2){
+        newGridState[1] = true;
+        newGridState[0] = true; 
+        newGridState[6] = true; 
+        newGridState[5] = true;
+        newGridState[18] = true;
+        newGridState[19] = true; 
+        newGridState[23] = true; 
+        newGridState[24] = true;
+
+      }
+     else if(currentIndex===3){
+      newGridState[15] = true;
+      newGridState[20] = true; 
+      newGridState[16] = true; 
+      newGridState[21] = true;
+      newGridState[18] = true;
+      newGridState[19] = true; 
+      newGridState[23] = true; 
+      newGridState[24] = true;
+     }
+     else if(currentIndex===4){
+      newGridState[3] = true;
+      newGridState[4] = true; 
+      newGridState[8] = true; 
+      newGridState[9] = true;
+      newGridState[18] = true;
+      newGridState[19] = true; 
+      newGridState[23] = true; 
+      newGridState[24] = true;
+     }
+     else if(currentIndex===5){
+      newGridState[3] = true;
+      newGridState[4] = true; 
+      newGridState[8] = true; 
+      newGridState[9] = true;
+      newGridState[15] = true;
+      newGridState[20] = true; 
+      newGridState[16] = true; 
+      newGridState[21] = true;
+     }
+     
+    }
+
     else if(selectedPattern==='FullHouse'){
       if (currentIndex === 0) {
                   
