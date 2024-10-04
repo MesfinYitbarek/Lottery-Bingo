@@ -609,8 +609,10 @@ class BingoGame extends Component {
       { label: "AHADU", value: "letterA" },
       { label: "4 middle & corner square", value: "FMC" },
       { label: "Full-House(BlackOut)", value: "FullHouse" },
-      { label: "4 corner square", value: "CS" },
+      { label: "4 corner square(single)", value: "CS" },
       { label: "4 middle square", value: "MS" },
+      { label: "Any one corner square ", value: "aos" },
+      { label: "Any two corner square ", value: "ats" },
 
 
     ];
@@ -679,7 +681,7 @@ class BingoGame extends Component {
       manualCut: false,
       enteredCartella: "",
       betAmount: 0,
-      amount: 0,
+      amount: "",
     balanceNew:0,
       running: false,
       showModal: false,
@@ -813,6 +815,8 @@ maleOromic:false,
       FMC: false,
       anyTwoHorizontal: false,
       letterA: false,
+      aos:false,
+      ats:false,
       anyTwoLines: false,
       anyTwoVertical: false,
 
@@ -2292,9 +2296,46 @@ if (this.state.doubleCall) {
   };
   togglestartModal = async () => {
     const { currentUser } = this.props;
-    
+    const resetIsRed = {};
+    const { availableCartellas } = this.state;
+
+    // Set all isRed states to false
+    availableCartellas.forEach(cartella => {
+        resetIsRed[`isRed${cartella.id}`] = false;
+    });
+
+    // Update state with the new isRed values
+   
     const currentState1 = this.state.showstartModal;
-    this.setState({ showstartModal: !currentState1 });
+    this.setState({showstartModal: !currentState1,
+      isRed: resetIsRed,
+      cardCount: 0, // Reset card count
+      selectedCards: [],
+      amount:0,
+  
+  });
+   
+      const res = await axios.get( `/api/credit/${currentUser._id}/balance`);
+      const balanceNeww=res.data.balance;
+    
+    this.setState({balanceNew:balanceNeww});
+  };
+
+
+  togglestartModal2 = async () => {
+    const { currentUser } = this.props;
+
+
+    // Set all isRed states to false
+    
+
+    // Update state with the new isRed values
+   
+    const currentState1 = this.state.showstartModal;
+    this.setState({showstartModal: !currentState1,
+      
+  
+  });
    
       const res = await axios.get( `/api/credit/${currentUser._id}/balance`);
       const balanceNeww=res.data.balance;
@@ -2307,25 +2348,25 @@ if (this.state.doubleCall) {
     localStorage.removeItem("lpb-gameData");
     localStorage.removeItem("lpb-gameState");
     // reset everything with the board
-    const resetIsRed = {};
+    // const resetIsRed = {};
 
-    for (let i = 1; i <= 100; i++) {
-      resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
-    }
+    // for (let i = 1; i <= 100; i++) {
+    //   resetIsRed[`isRed${i}`] = false; // Set each isRed property to false
+    // }
     clearInterval(this.interval);
 
     this.cancelSpeech();
     this.totalBallsCalled = 0;
 
-    this.selectedCards = [];
-    this.enteredCartella = "";
+    // this.selectedCards = [];
+     this.enteredCartella = "";
   
     this.previousBall = null;
     this.currentBall = null;
     this.startButton = 0;
     this.setState({
       board: generateBingoBoard(),
-      cardCount: 0,
+      // cardCount: 0,
       wildBall: null,
       running: false,
       showResetModal: false,
@@ -2334,9 +2375,9 @@ if (this.state.doubleCall) {
       disableReset:false,
       previousCallList: [],
       balance: 0,
-      amount: 0,
+      // amount: 0,
       isLoading: false,
-      isRed: resetIsRed,
+      // isRed: resetIsRed,
     });
   };
 
@@ -2857,7 +2898,12 @@ if (this.state.doubleCall) {
         Done
       </button>
    
-        
+      <button
+    className='clearBtn'
+    onClick={this.resetButtonStates}
+>
+    Clear
+</button>
             </p>
             <h2>select cartela</h2>
             <span className='notranslate'>
@@ -2903,6 +2949,25 @@ if (this.state.doubleCall) {
       return null;
     }
   }
+
+  resetButtonStates = () => {
+    const resetIsRed = {};
+    const { availableCartellas } = this.state;
+
+    // Set all isRed states to false
+    availableCartellas.forEach(cartella => {
+        resetIsRed[`isRed${cartella.id}`] = false;
+    });
+
+    // Update state with the new isRed values
+    this.setState({
+        isRed: resetIsRed,
+        cardCount: 0, // Reset card count
+        selectedCards: [],
+        amount:0,
+    
+    });
+};
   fetchAvailableCartellas = async () => {
     const { currentUser } = this.props;
     const branch = currentUser.branch;
@@ -3136,6 +3201,8 @@ if (this.state.doubleCall) {
           FullHouse: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
       case "FullHouse":
@@ -3152,6 +3219,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
       case "CS":
@@ -3167,7 +3236,8 @@ if (this.state.doubleCall) {
           letterA: false,
           FMC: false,
           CS: true,
-
+          aos:false,
+          ats:false,
           MS: false,
         });
         break;
@@ -3185,6 +3255,8 @@ if (this.state.doubleCall) {
           letterA: false,
           FMC: false,
           MS: true,
+          aos:false,
+          ats:false,
         });
         break;
       case "anyTwoHorizontal":
@@ -3201,6 +3273,8 @@ if (this.state.doubleCall) {
           letterA: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
       case "letterA":
@@ -3217,6 +3291,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
       case "defaultPattern":
@@ -3233,6 +3309,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
 
@@ -3250,6 +3328,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
       case "anyvertical":
@@ -3266,6 +3346,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
 
@@ -3283,6 +3365,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
       case "anyTwoLines":
@@ -3299,6 +3383,8 @@ if (this.state.doubleCall) {
           FMC: false,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
 
@@ -3316,8 +3402,48 @@ if (this.state.doubleCall) {
           FMC: true,
           CS: false,
           MS: false,
+          aos:false,
+          ats:false,
         });
         break;
+
+        case "aos":
+          this.setState({
+            defaultPattern: false,
+            FullHouse: false,
+            anyhorizontal: false,
+            anyvertical: false,
+            anydiagonal: false,
+            anyTwoLines: false,
+            anyTwoVertical: false,
+            anyTwoHorizontal: false,
+            letterA: false,
+            FMC:false,
+            CS: false,
+            MS: false,
+            aos:true,
+            ats:false,
+          });
+          break;
+
+          case "ats":
+            this.setState({
+              defaultPattern: false,
+              FullHouse: false,
+              anyhorizontal: false,
+              anyvertical: false,
+              anydiagonal: false,
+              anyTwoLines: false,
+              anyTwoVertical: false,
+              anyTwoHorizontal: false,
+              letterA: false,
+              FMC: false,
+              CS: false,
+              MS: false,
+              ats:true,
+              aos:false,
+            });
+            break;
 
         default:
           break;
@@ -3565,6 +3691,10 @@ if (this.state.doubleCall) {
           });
           break;
 
+         
+
+            
+
       default:
         break;
     }
@@ -3699,7 +3829,7 @@ if (this.state.doubleCall) {
                       onClick={
                         this.totalBallsCalled === 0
                           ? // ? this.startNewGame
-                            this.togglestartModal
+                            this.togglestartModal2
                           : this.callBingoNumber
                       }
                       className='notranslate'
