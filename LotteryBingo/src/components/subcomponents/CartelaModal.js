@@ -83,14 +83,18 @@ const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, tota
     const diagonals = [
       [card.B[0], card.I[1], "Free", card.G[3], card.O[4]], // Main diagonal
       [card.O[0], card.G[1], "Free", card.I[3], card.B[4]] ,
-
-    
+      [ card.I[1],   card.I[3],card.G[1],card.G[3]],  
+      [card.B[0],  card.B[4], card.O[0],   card.O[4]],
     ];
    
-    
 
-    const lines = [...rows, ...columns, ...diagonals]; 
- 
+
+
+   
+  
+  
+    const lines = [...rows, ...columns, ...diagonals];
+    const lines2 = [...rows, ...columns, ...diagonals, ];
     let bingoLine = null;
   
     const isWinningPattern = (line) => {
@@ -110,203 +114,6 @@ const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, tota
        card.O[0],  card.O[3], card.O[2], card.O[1],  card.O[4],card.I[4],card.N[4],card.G[4],   ], //U
       
   ];
-
-  const lines2 = [   
-    [card.B[0], card.I[1], "Free", card.G[3], card.O[4]], 
- [card.O[0], card.G[1], "Free", card.I[3], card.B[4]] ,
- [ card.I[1],card.I[3], card.G[1], card.G[3]],  
- [card.B[0],  card.B[4], card.O[0],   card.O[4]],
-
- [card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
- [card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
- [card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
- [card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
- [card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-
- [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
- [card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
- [card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
- [card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
- [card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-];
-
-
-//anydia
-const lines3 = [   
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4]
-,card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-
-
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],  
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],  
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4],],
-
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-
-
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.O[0], card.G[1], "Free", card.I[3], card.B[4]],
-
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.B[0], card.I[1], "Free", card.G[3], card.O[4]],
-
-];
-
-
-
-//anyver
-const lines4 = [   
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]], 
-
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]], 
-
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]], 
-
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],  
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],  
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],  
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],  
-[card.B[0],  card.B[4], card.O[0],   card.O[4],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],  
-
-
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.B[0],card.B[1],card.B[2],card.B[3],card.B[4]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.I[0],card.I[1],card.I[2],card.I[3],card.I[4]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.N[0],card.N[1],card.N[2],card.N[3],card.N[4]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.G[0],card.G[1],card.G[2],card.G[3],card.G[4]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4],card.O[0],card.O[1],card.O[2],card.O[3],card.O[4]],
-
-];
-
-//anyhor
-const lines5 = [   
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
-  [card.B[0], card.I[1], "Free", card.G[3], card.O[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]], 
-  [card.O[0], card.G[1], "Free", card.I[3], card.B[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]], 
-
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],  
-[ card.I[1],card.I[3], card.G[1], card.G[3],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-[ card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],  
-[ card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],  
-[ card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],  
-[ card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],  
-[ card.B[0],  card.B[4], card.O[0],   card.O[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],  
-
-
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
-[card.B[0],card.B[1],card.B[2],card.B[3],card.B[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
-[card.I[0],card.I[1],card.I[2],card.I[3],card.I[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
-[card.N[0],card.N[1],card.N[2],card.N[3],card.N[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
-[card.G[0],card.G[1],card.G[2],card.G[3],card.G[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
-[card.O[0],card.O[1],card.O[2],card.O[3],card.O[4],card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-
-[card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0]],
-[card.B[1], card.I[1],  card.N[1], card.G[1],card.O[1]],
-[card.B[2], card.I[2],  card.N[2], card.G[2],card.O[2]],
-[card.B[3], card.I[3],  card.N[3], card.G[3],card.O[3]],
-[card.B[4], card.I[4],  card.N[4], card.G[4],card.O[4]],
-
-];
 
   const FMCC = [
     [card.B[0], card.I[1],  card.B[4], card.I[3],card.G[1],
@@ -332,49 +139,6 @@ const FH = [
   card.G[0], card.G[1],  card.G[2], card.G[3],card.G[4],
   card.O[0], card.O[1],  card.O[2], card.O[3],card.O[4],], 
   
-];
-
-const AOS=[
-  [card.B[0],  card.B[1], 
-  card.I[0],   card.I[1]], 
-
-  [card.B[3],  card.B[4], 
-  card.I[3],   card.I[4]], 
-
-  [card.G[0],  card.G[1], 
-  card.O[0],   card.O[1]], 
-
-  [card.G[3],  card.G[4], 
-  card.O[3],   card.O[4]], 
- 
-  
-];
-const ATS=[
-  [card.B[0],  card.B[1], 
-  card.I[0],   card.I[1],card.B[3],  card.B[4], 
-  card.I[3],   card.I[4]], 
-
-  [card.B[0],  card.B[1], 
-  card.I[0],   card.I[1],card.G[0],  card.G[1], 
-  card.O[0],   card.O[1]], 
-
-  [card.B[0],  card.B[1], 
-  card.I[0],   card.I[1],card.G[3],  card.G[4], 
-  card.O[3],   card.O[4]], 
-
-  [card.B[3],  card.B[4], 
-  card.I[3],   card.I[4],card.G[0],  card.G[1], 
-  card.O[0],   card.O[1]],
-
-  [card.B[3],  card.B[4], 
-  card.I[3],   card.I[4],card.G[3],  card.G[4], 
-  card.O[3],   card.O[4]], 
-
-  [card.G[0],  card.G[1], 
-  card.O[0],   card.O[1],card.G[3],  card.G[4], 
-  card.O[3],   card.O[4]], 
-
- 
 ];
   const ATH = [
     [card.B[0], card.I[0],  card.N[0], card.G[0],card.O[0],
@@ -2706,62 +2470,7 @@ else if ((selectedPattern.value === 'anyTwoHorizontal'  && selectedPattern2.valu
   }
 
 }
-else if (selectedPattern.value === 'defaultPattern'  && selectedPattern2.value ==='defaultpattern2'){
- 
-  
-    for (const line2 of lines2) {
-      if (isWinningPattern(line2)) {
-        bingoLine = line2;
-        break;
-      }
-    }
 
-
-}
-
-
-
-else if (selectedPattern.value === 'anydiagonal'  && selectedPattern2.value ==='defaultpattern2'){
- 
-  
-  for (const line3 of lines3) {
-    if (isWinningPattern(line3)) {
-      bingoLine = line3;
-      break;
-    }
-  }
-
-
-}
-
-
-
-else if (selectedPattern.value === 'anyvertical'  && selectedPattern2.value ==='defaultpattern2'){
- 
-  
-  for (const line4 of lines4) {
-    if (isWinningPattern(line4)) {
-      bingoLine = line4;
-      break;
-    }
-  }
-
-
-}
-
-
-else if (selectedPattern.value === 'anyhorizontal'  && selectedPattern2.value ==='defaultpattern2'){
- 
-  
-  for (const line5 of lines5) {
-    if (isWinningPattern(line5)) {
-      bingoLine = line5;
-      break;
-    }
-  }
-
-
-}
 
 
 else{
@@ -2778,26 +2487,16 @@ else{
 
 
 
-        case "aos":
+
+        case "defaultPattern2":
           // Check if any line matches the default winning pattern
-          for (const aos of AOS) {
-            if (isWinningPattern(aos)) {
-              bingoLine = aos;
+          for (const line2 of lines2) {
+            if (isWinningPattern(line2)) {
+              bingoLine = line2;
               break;
             }
           }
           break;
-
-          case "ats":
-            // Check if any line matches the default winning pattern
-            for (const ats of ATS) {
-              if (isWinningPattern(ats)) {
-                bingoLine = ats;
-                break;
-              }
-            }
-            break;
-    
 
 
 
