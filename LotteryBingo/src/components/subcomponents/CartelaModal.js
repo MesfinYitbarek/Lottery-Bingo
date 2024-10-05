@@ -3042,7 +3042,7 @@ function showBonusModal(bonusAmount, wonAmount) {
 
   // Title and message
   title.innerText = "Congratulations!";
-  message.innerHTML = `The winner has won a bonus of <strong>${bonusAmount.toFixed(2)}</strong> (50% of <strong>${wonAmount.toFixed(2)}</strong>)`;
+  message.innerHTML = `The winner has won a bonus of <strong>${bonusAmount.toFixed(2)}</strong> (15% of <strong>${wonAmount.toFixed(2)}</strong>)`;
 
   // Append elements
   closeButton.onclick = function() {
@@ -3175,7 +3175,7 @@ const handleEndGame = async () => {
   }
 
   // Calculate the bonus amount
-  const bonusPercentage = 0.5; // Bonus percentage of winning amount
+  const bonusPercentage = 0.15; // Bonus percentage of winning amount
 
 
   if (won >= 500 && cardCount>=20) {
