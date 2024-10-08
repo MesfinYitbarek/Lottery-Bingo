@@ -2358,7 +2358,7 @@ if (this.state.doubleCall) {
     this.cancelSpeech();
     this.totalBallsCalled = 0;
 
-    // this.selectedCards = [];
+    this.selectedCards = [];
      this.enteredCartella = "";
   
     this.previousBall = null;
@@ -2965,6 +2965,7 @@ if (this.state.doubleCall) {
         cardCount: 0, // Reset card count
         selectedCards: [],
         amount:0,
+        enteredCartella :"",
     
     });
 };
