@@ -36,6 +36,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Maintain a grid of 5 columns */
   gap: 10px; /* Space between cells */
+  max-width: 300px; /* Set a max width for each grid */
 }
 
 .grid-row {
@@ -44,7 +45,7 @@
 
 .grid-cell {
   border: 1px solid #ddd;
-  padding: 20px;
+  padding: 20px; /* Standard padding for larger screens */
   text-align: center;
   cursor: pointer;
 }
@@ -56,10 +57,26 @@
 
 .grid-cell.completed {
   background-color: green; /* Change color to green when completed */
+  color: white; /* Change text color for visibility */
 }
 
 .header-cell {
   background-color: lightblue; /* Light blue background for header */
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 600px) {
+  .grid {
+      max-width: 100%; /* Allow full width on smaller screens */
+      gap: 5px; /* Reduce gap between cells on mobile */
+  }
+
+  .grid-cell {
+      padding: 10px; /* Adjust padding for smaller screens */
+      font-size: 14px; /* Adjust font size for readability */
+      min-width: 50px; /* Set a minimum width to maintain size */
+      min-height: 50px; /* Set a minimum height to maintain size */
+  }
 }
 
 .completed {
