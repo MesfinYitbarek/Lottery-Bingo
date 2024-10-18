@@ -10,19 +10,32 @@
   gap: 10px;
 }
 
+.gaming-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.cartela-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .grid-container {
   display: flex;
   flex-wrap: wrap; /* Allow grids to wrap */
   justify-content: center; /* Center the grids */
-  margin-top: 20px;
+}
+
+.grid-wrapper {
+  margin: 10px; /* Space between grids */
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  justify-content: center;
-  max-width: 500px; /* Set a max width for better visibility */
+  grid-template-columns: repeat(5, 1fr); /* Maintain a grid of 5 columns */
+  gap: 10px; /* Space between cells */
 }
 
 .grid-row {
@@ -34,7 +47,6 @@
   padding: 20px;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .grid-cell.selected {
@@ -42,15 +54,12 @@
   color: white; /* Change text color for visibility */
 }
 
-.grid-cell.winner {
-  background-color: green; /* Change color to green when winning */
-  color: white; /* Change text color for visibility */
+.grid-cell.completed {
+  background-color: green; /* Change color to green when completed */
 }
 
 .header-cell {
   background-color: lightblue; /* Light blue background for header */
-  padding: 10px;
-  text-align: center;
 }
 
 .completed {

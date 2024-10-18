@@ -68,7 +68,6 @@ const Gaming = () => {
 
   // Check for completed lines
   const checkCompletedLines = (card) => {
-    // Check vertical lines
     ['B', 'I', 'N', 'G', 'O'].forEach(col => {
       const allSelectedOrGreen = card.card[col].every(cell => cell.selected === true || cell.selected === 'green');
       if (allSelectedOrGreen) {
@@ -76,7 +75,6 @@ const Gaming = () => {
       }
     });
 
-    // Check horizontal lines
     Array.from({ length: 5 }, (_, rowIndex) => ({
       cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
       type: 'horizontal',
@@ -87,7 +85,6 @@ const Gaming = () => {
       }
     });
 
-    // Check diagonal lines
     [
       ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][index]), // Top-left to bottom-right
       ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][4 - index]), // Top-right to bottom-left
@@ -119,7 +116,7 @@ const Gaming = () => {
       {selectedCards.length > 0 && (
         <div className="grid-container">
           {selectedCards.map(selectedCard => (
-            <div key={selectedCard._id}>
+            <div key={selectedCard._id} className="grid-wrapper">
               <h2>Selected Cartela: {selectedCard.id}</h2>
               <div className="grid">
                 <div className="grid-row grid-header">
