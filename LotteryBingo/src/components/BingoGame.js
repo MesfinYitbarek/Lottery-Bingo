@@ -1558,26 +1558,32 @@ maleOromic:false,
 
     if (this.state.balanceNew < this.state.amount) {
       alert("Insufficent balance", currentUser, this.state.balanceNew);
-    } else if (this.state.manualCut) {
-      const newBalance =
-        this.state.balanceNew - (this.state.amount * this.state.manualEnteredCut) / 10;
+    } else if (this.state.manualCut) {updateUserStart();
+    
+try {
+  // Fetch current balance before updating
+  const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
+  const currentBalance = response.data.balance; // Adjust based on your API response structure
+  
+  // Calculate the new balance based on the fetched current balance
+  const newBalance =
+    currentBalance - (this.state.amount * this.state.manualEnteredCut) / 10;
 
-      updateUserStart();
-      try {
-        await axios.put(`/api/user/${currentUser._id}/balance`, {
-          balance: newBalance,
-        });
-        updateUserSuccess({ ...currentUser,  balance: newBalance });
+  // Update the balance in the database
+  await axios.put(`/api/user/${currentUser._id}/balance`, {
+    balance: newBalance,
+  });
 
-        this.setState({
-          board: generateBingoBoard(),
-          showstartModal: false,
-        });
-      } catch (err) {
-        alert("Error updating balance");
-        this.setState({ isLoading: false });
-      }
+  updateUserSuccess({ ...currentUser, balance: newBalance });
 
+  this.setState({
+    board: generateBingoBoard(),
+    showstartModal: false,
+  });
+} catch (err) {
+  alert("Error updating balance");
+  this.setState({ isLoading: false });
+}
       for (let i = 1; i <= 100; i++) {
         const isRedState = this.state.isRed[`isRed${i}`];
 
@@ -1911,22 +1917,32 @@ maleOromic:false,
         this.toggleGame();
       }
     } else {
-      const newBalance = this.state.balanceNew - (this.state.amount * currentUser.cut) / 100;
-
+     
       updateUserStart();
-      try {
-        await axios.put(`/api/user/${currentUser._id}/balance`, {
-          balance: newBalance,
-        });
-        updateUserSuccess({ ...currentUser,  balance: newBalance });
+try {
+  // Fetch current balance before updating
+  const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
+  const currentBalance = response.data.balance; // Adjust based on your API response structure
 
-        this.setState({
-          board: generateBingoBoard(),
-          showstartModal: false,
-        });
-      } catch (err) {
-        alert("Error updating balance");
-      }
+  // Calculate the new balance based on the fetched current balance
+  const newBalance =
+    currentBalance - (this.state.amount * currentUser.cut) / 100;
+
+  // Update the balance in the database
+  await axios.put(`/api/user/${currentUser._id}/balance`, {
+    balance: newBalance,
+  });
+
+  updateUserSuccess({ ...currentUser, balance: newBalance });
+
+  this.setState({
+    board: generateBingoBoard(),
+    showstartModal: false,
+  });
+} catch (err) {
+  alert("Error updating balance");
+  this.setState({ isLoading: false });
+}
       for (let i = 1; i <= 100; i++) {
         const isRedState = this.state.isRed[`isRed${i}`];
 

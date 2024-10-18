@@ -1,59 +1,73 @@
 .gaming-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .cartela-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .grid-container {
-    margin-top: 20px;
-  }
-  
+  padding: 20px;
+  text-align: center;
+}
+
+.cartela-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow grids to wrap */
+  justify-content: center; /* Center the grids */
+  margin-top: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  justify-content: center;
+  max-width: 500px; /* Set a max width for better visibility */
+}
+
+.grid-row {
+  display: contents; /* Allows the grid to behave as a single grid */
+}
+
+.grid-cell {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.grid-cell.selected {
+  background-color: blue; /* Change color when selected */
+  color: white; /* Change text color for visibility */
+}
+
+.grid-cell.winner {
+  background-color: green; /* Change color to green when winning */
+  color: white; /* Change text color for visibility */
+}
+
+.header-cell {
+  background-color: lightblue; /* Light blue background for header */
+  padding: 10px;
+  text-align: center;
+}
+
+.completed {
+  background-color: green !important; /* Ensure it overrides other styles */
+}
+
+@media (max-width: 600px) {
   .grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    justify-content: center;
+      grid-template-columns: repeat(3, 1fr); /* Fewer columns on smaller screens */
   }
-  
-  .grid-row {
-    display: contents; /* Allows the grid to behave as a single grid */
-  }
-  
+
   .grid-cell {
-    border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .grid-cell.selected {
-    background-color: blue; /* Change color when selected */
-    color: white; /* Change text color for visibility */
-  }
-  .grid-cell.winner {
-    background-color: green; /* Change color to green when winning */
-    color: white; /* Change text color for visibility */
-  }
-  .header-cell {
-    background-color: lightblue; /* Light blue background for header */
-    padding: 10px;
-    text-align: center;
-  }
-  .completed {
-    background-color: green !important; /* Ensure it overrides other styles */
-  }
-  @keyframes blink {
-  50% {
-    background-color: transparent;
+      padding: 15px; /* Reduce padding on smaller screens */
+      font-size: 14px; /* Adjust font size for readability */
   }
 }
+
 .input-container {
   display: flex;
   justify-content: space-between;
@@ -96,73 +110,70 @@
 }
 
 .primaryBtn:hover {
-  background-color: #0056b3;
+ background-color: #0056b3; 
 }
+
 .input-group-fieldset {
-  border: 2px solid #007BFF; /* Change to your desired border color */
-  border-radius: 8px;
-  padding: 1rem; /* Padding inside the fieldset */
-  margin-bottom: 20px; /* Space below each input group fieldset */
-  background-color: #fff; /* Optional: background color for better visibility */
+ border: 2px solid #007BFF; /* Change to your desired border color */
+ border-radius: 8px;
+ padding: 1rem; /* Padding inside the fieldset */
+ margin-bottom: 20px; /* Space below each input group fieldset */
+ background-color: #fff; /* Optional background color for better visibility */
 }
 
 .input-group-legend {
-  font-size: 1rem; /* Adjust font size as needed */
-  color: #007BFF; /* Change to your desired color */
-  font-weight: bold; /* Make it bold */
-  padding: 0 5px; /* Padding around the legend text */
+ font-size: 1rem; /* Adjust font size as needed */
+ color: #007BFF; /* Change to your desired color */
+ font-weight: bold; /* Make it bold */
+ padding: 0 5px; /* Padding around the legend text */
 }
 
 .input-box {
-  width: 100%; /* Full width for the input */
-  height: 80px; /* Adjust height as needed */
-  border: none; /* Remove the border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 0 10px; /* Padding inside the input */
-  margin-top: 0.5rem; /* Space between the legend and input */
-  box-sizing: border-box; /* Include padding in width calculation */
-  background-color: transparent; /* Optional: Set background to transparent */
-  outline: none; /* Remove default outline on focus */
+ width: 100%; /* Full width for the input */
+ height: 80px; /* Adjust height as needed */
+ border-radius: 4px; /* Rounded corners */
+ padding-left :10px ; 
+ margin-top :0.5rem ; 
+ box-sizing :border-box ; 
+ background-color :transparent ; 
+ outline:none ;
 }
-.input-box:focus {
-  background-color: #f0f0f0; /* Change background color on focus */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+.input-box::placeholder{
+ color:#aaa ; 
 }
-
-
-
-/* BingoGame.css */
-.money-icon {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin-bottom: 15px;
-  padding-bottom: 20px;
+.input-box:hover{
+ background-color:#f0f0f0 ; 
 }
-
-.money-icon .tooltip {
-  visibility: hidden;
-  width: 130px; /* Adjust tooltip width */
-  background-color:#1396d3;  /* Tooltip background color */
-  color: #fff; /* Tooltip text color */
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 40%; /* Position above the icon */
-  left: 50%;
-  margin-left: 100px; /* Center the tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 12px;
-}
-
-.money-icon:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
 .invisible-checkbox {
-  display: none;
+ display:none ;
+}
+
+/* Tooltip styles... */
+
+.money-icon {
+ position: relative;
+ display:inline-block ;
+ cursor:pointer ;
+ margin-bottom :15px ;
+ padding-bottom :20px ;
+}
+.money-icon .tooltip {
+ visibility:hidden ;
+ width :130px ; 
+ background-color:#1396d3 ;  
+ color:#fff ; 
+ text-align:center ;
+ border-radius :5px ;
+ padding :5px ;
+ position:absolute ;
+ z-index :1 ;
+ bottom :40% ; 
+ left :50% ;
+ margin-left :100px ; 
+ opacity :0 ;
+ transition :opacity .3s ;
+}
+.money-icon:hover .tooltip {
+ visibility :visible ;
+ opacity :1 ;
 }

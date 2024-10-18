@@ -3109,21 +3109,24 @@ document.head.appendChild(styleSheet);
 
 
 
-
 const handleRefund = async () => {
   // Calculate the refund amount
-  const cutValue = manualCut ? Number(manualEnteredCut) :Number(currentUser.cut); // Default to 0 if undefined
+  const cutValue = manualCut ? Number(manualEnteredCut) : Number(currentUser.cut); // Default to 0 if undefined
   const amountRefunded = manualCut ? totalAmount * (cutValue / 10) : totalAmount * (cutValue / 100);
 
   // Check if the calculated amount is valid
   if (!isNaN(amountRefunded) && amountRefunded > 0) {
-    alert('this match doesnot count and is cancelled due to ' + cardCount + ' players salva!!!,You have refunded ' + amountRefunded + ' birr' );
+    alert('This match does not count and is cancelled due to ' + cardCount + ' players salva!!! You have refunded ' + amountRefunded + ' birr');
 
-    // Calculate the new balance
-    const newBalance = currentUser.balance + amountRefunded; // Assuming balance is stored in currentUser
-
-    // Update the balance in the database
+    // Fetch current balance before updating
     try {
+      const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
+      const currentBalance = response.data.balance; // Adjust based on your API response structure
+
+      // Calculate the new balance
+      const newBalance = currentBalance + amountRefunded; // Assuming balance is stored in currentUser
+
+      // Update the balance in the database
       await axios.put(`/api/user/${currentUser._id}/balance`, {
         balance: newBalance,
       });
@@ -3132,9 +3135,8 @@ const handleRefund = async () => {
       // setCurrentUser({ ...currentUser, balance: newBalance });
 
       alert(`Balance updated successfully! New balance: ${newBalance} birr`);
-    } catch  {
-      
-      alert('There was an error updating the balance. Please try again.');
+    } catch (error) {
+      alert('There was an error fetching or updating the balance. Please try again.');
     }
   } else {
     alert('Invalid refund amount.');

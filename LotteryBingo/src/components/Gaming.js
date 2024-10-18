@@ -5,7 +5,7 @@ import './Gaming.css';
 const Gaming = () => {
   const [searchParams] = useSearchParams();
   const [cartelas, setCartelas] = useState([]);
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   // Fetch available cartelas from the API
   useEffect(() => {
@@ -28,139 +28,86 @@ const Gaming = () => {
 
   // Handle card selection
   const handleCardSelect = (card) => {
-    const newCard = {
-      ...card,
-      card: {
-        B: card.card.B.map((num, index) => ({ value: num, selected: false })), // Set all cells to false
-        I: card.card.I.map((num, index) => ({ value: num, selected: false })),
-        N: card.card.N.map((num, index) => ({ value: num, selected: index === 2 ? 'green' : false })), // Set only the free cell as green
-        G: card.card.G.map((num, index) => ({ value: num, selected: false })),
-        O: card.card.O.map((num, index) => ({ value: num, selected: false })),
-      },
-    };
-    setSelectedCard(newCard);
+    if (selectedCards.some(selectedCard => selectedCard._id === card._id)) {
+      // If already selected, remove it
+      setSelectedCards(selectedCards.filter(selectedCard => selectedCard._id !== card._id));
+    } else {
+      // Otherwise, add it to the selection
+      const newCard = {
+        ...card,
+        card: {
+          B: card.card.B.map(num => ({ value: num, selected: false })),
+          I: card.card.I.map(num => ({ value: num, selected: false })),
+          N: card.card.N.map((num, index) => ({ value: num, selected: index === 2 ? 'green' : false })),
+          G: card.card.G.map(num => ({ value: num, selected: false })),
+          O: card.card.O.map(num => ({ value: num, selected: false })),
+        },
+      };
+      setSelectedCards([...selectedCards, newCard]);
+    }
   };
 
   // Handle cell click
-  const handleCellClick = (columnKey, index) => {
-    if (!selectedCard) return;
+  const handleCellClick = (columnKey, index, cardId) => {
+    const newCards = selectedCards.map(card => {
+      if (card._id === cardId) {
+        const newCard = { ...card };
+        if (columnKey !== 'N' || index !== 2) {
+          newCard.card[columnKey][index].selected = !newCard.card[columnKey][index].selected;
+        }
+        return newCard;
+      }
+      return card;
+    });
 
-    // Create a copy of the selected card
-    const newCard = { ...selectedCard };
-    // Toggle the selected state of the clicked cell, except for the free cell
-    if (columnKey !== 'N' || index !== 2) {
-      newCard.card[columnKey][index].selected = !newCard.card[columnKey][index].selected;
-    }
-
-    // Update the selected card state
-    setSelectedCard(newCard);
+    setSelectedCards(newCards);
     
-    // Check for completed lines
-    checkCompletedLines(newCard);
+    // Check for completed lines for this specific card
+    checkCompletedLines(newCards.find(card => card._id === cardId));
   };
 
   // Check for completed lines
   const checkCompletedLines = (card) => {
-  // Check for the vertical line under 'B'
-  const bColumnCells = ['B'].map(col => card.card[col]); // Get the B column cells
-
-  // Check if all cells in the B column are selected or green
-  const allBSelectedOrGreen = bColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
-
-  if (allBSelectedOrGreen) {
-    // If all cells in the B column are selected or green, mark them as green
-    bColumnCells[0].forEach(cell => {
-      cell.selected = 'green'; // Mark the completed cells as green
+    // Check vertical lines
+    ['B', 'I', 'N', 'G', 'O'].forEach(col => {
+      const allSelectedOrGreen = card.card[col].every(cell => cell.selected === true || cell.selected === 'green');
+      if (allSelectedOrGreen) {
+        card.card[col].forEach(cell => cell.selected = 'green'); // Mark as completed
+      }
     });
-  }
-  const iColumnCells = ['I'].map(col => card.card[col]); // Get the B column cells
 
-  // Check if all cells in the B column are selected or green
-  const alliSelectedOrGreen = iColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
-
-  if (alliSelectedOrGreen) {
-    // If all cells in the B column are selected or green, mark them as green
-    iColumnCells[0].forEach(cell => {
-      cell.selected = 'green'; // Mark the completed cells as green
+    // Check horizontal lines
+    Array.from({ length: 5 }, (_, rowIndex) => ({
+      cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
+      type: 'horizontal',
+    })).forEach(line => {
+      const allSelectedOrGreen = line.cells.every(cell => cell.selected === true || cell.selected === 'green');
+      if (allSelectedOrGreen) {
+        line.cells.forEach(cell => cell.selected = 'green'); // Mark as completed
+      }
     });
-  }
-  const nColumnCells = ['N'].map(col => card.card[col]); // Get the B column cells
 
-  // Check if all cells in the B column are selected or green
-  const allnSelectedOrGreen = nColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
-
-  if (allnSelectedOrGreen) {
-    // If all cells in the B column are selected or green, mark them as green
-    nColumnCells[0].forEach(cell => {
-      cell.selected = 'green'; // Mark the completed cells as green
+    // Check diagonal lines
+    [
+      ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][index]), // Top-left to bottom-right
+      ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][4 - index]), // Top-right to bottom-left
+    ].forEach(diagonalLine => {
+      const allSelectedOrGreen = diagonalLine.every(cell => cell.selected === true || cell.selected === 'green');
+      if (allSelectedOrGreen) {
+        diagonalLine.forEach(cell => cell.selected = 'green'); // Mark as completed
+      }
     });
-  }
-  const gColumnCells = ['G'].map(col => card.card[col]); // Get the B column cells
 
-  // Check if all cells in the B column are selected or green
-  const allgSelectedOrGreen = gColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
+    setSelectedCards(prevCards =>
+      prevCards.map(prevCard =>
+        prevCard._id === card._id ? { ...card } : prevCard
+      )
+    );
+  };
 
-  if (allgSelectedOrGreen) {
-    // If all cells in the B column are selected or green, mark them as green
-    gColumnCells[0].forEach(cell => {
-      cell.selected = 'green'; // Mark the completed cells as green
-    });
-  }
-  const oColumnCells = ['O'].map(col => card.card[col]); // Get the B column cells
-
-  // Check if all cells in the B column are selected or green
-  const alloSelectedOrGreen = oColumnCells[0].every(cell => cell.selected === true || cell.selected === 'green');
-
-  if (alloSelectedOrGreen) {
-    // If all cells in the B column are selected or green, mark them as green
-    oColumnCells[0].forEach(cell => {
-      cell.selected = 'green'; // Mark the completed cells as green
-    });
-  }
-  
-  // Check horizontal lines
-  const horizontalLines = Array.from({ length: 5 }, (_, rowIndex) => ({
-    cells: ['B', 'I', 'N', 'G', 'O'].map(col => card.card[col][rowIndex]),
-    type: 'horizontal',
-  }));
-
-  horizontalLines.forEach(line => {
-    // Check if all cells in the line are selected or green
-    const allSelectedOrGreen = line.cells.every(cell => cell.selected === true || cell.selected === 'green');
-    
-    if (allSelectedOrGreen) {
-      line.cells.forEach(cell => {
-        cell.selected = 'green'; // Mark the completed cells as green
-      });
-    }
-  });
-  const diagonalLines = [
-    {
-      cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][index]), // Top-left to bottom-right
-      type: 'diagonal-right',
-    },
-    {
-      cells: ['B', 'I', 'N', 'G', 'O'].map((col, index) => card.card[col][4 - index]), // Top-right to bottom-left
-      type: 'diagonal-left',
-    },
-  ];
-
-  diagonalLines.forEach(line => {
-    // Check if all cells in the diagonal line are selected or green
-    const allSelectedOrGreen = line.cells.every(cell => cell.selected === true || cell.selected === 'green');
-
-    if (allSelectedOrGreen) {
-      line.cells.forEach(cell => {
-        cell.selected = 'green'; // Mark the completed cells as green
-      });
-    }
-  });
-
-  setSelectedCard({ ...card }); // Update the selected card state to trigger re-render
-};
   return (
     <div className="gaming-container">
-      <h1>Select a Cartela</h1>
+      <h1>Select Cartelas</h1>
       <div className="cartela-buttons">
         {cartelas.map((cartela) => (
           <button key={cartela._id} onClick={() => handleCardSelect(cartela)}>
@@ -169,35 +116,39 @@ const Gaming = () => {
         ))}
       </div>
 
-      {selectedCard && (
+      {selectedCards.length > 0 && (
         <div className="grid-container">
-          <h2>Selected Cartela: {selectedCard.id}</h2>
-          <div className="grid">
-            <div className="grid-row grid-header">
-              <div className="grid-cell header-cell">B</div>
-              <div className="grid-cell header-cell">I</div>
-              <div className="grid-cell header-cell">N</div>
-              <div className="grid-cell header-cell">G</div>
-              <div className="grid-cell header-cell">O</div>
-            </div>
-            {/* Create the grid vertically */}
-            {Array.from({ length: 5 }, (_, rowIndex) => (
-              <div key={rowIndex} className="grid-row">
-                {['B', 'I', 'N', 'G', 'O'].map((columnKey, colIndex) => {
-                  const cell = selectedCard.card[columnKey][rowIndex];
-                  return (
-                    <div
-                      key={`${columnKey}-${rowIndex}`}
-                      className={`grid-cell ${cell.selected === true ? 'selected' : ''} ${cell.selected === 'green' ? 'completed' : ''}`}
-                      onClick={() => handleCellClick(columnKey, rowIndex)}
-                    >
-                      {cell.value}
-                    </div>
-                  );
-                })}
+          {selectedCards.map(selectedCard => (
+            <div key={selectedCard._id}>
+              <h2>Selected Cartela: {selectedCard.id}</h2>
+              <div className="grid">
+                <div className="grid-row grid-header">
+                  <div className="grid-cell header-cell">B</div>
+                  <div className="grid-cell header-cell">I</div>
+                  <div className="grid-cell header-cell">N</div>
+                  <div className="grid-cell header-cell">G</div>
+                  <div className="grid-cell header-cell">O</div>
+                </div>
+                {/* Create the grid vertically */}
+                {Array.from({ length: 5 }, (_, rowIndex) => (
+                  <div key={rowIndex} className="grid-row">
+                    {['B', 'I', 'N', 'G', 'O'].map((columnKey) => {
+                      const cell = selectedCard.card[columnKey][rowIndex];
+                      return (
+                        <div
+                          key={`${columnKey}-${rowIndex}`}
+                          className={`grid-cell ${cell.selected ? 'selected' : ''} ${cell.selected === 'green' ? 'completed' : ''}`}
+                          onClick={() => handleCellClick(columnKey, rowIndex, selectedCard._id)}
+                        >
+                          {cell.value}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
