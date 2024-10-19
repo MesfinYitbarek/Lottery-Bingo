@@ -28,7 +28,7 @@
 
 @media (max-width: 600px) {
   .grid-container {
-    grid-template-columns: repeat(2, minmax(40px, 1fr)); /* Two columns with a minimum width of cells */
+    grid-template-columns: repeat(2, minmax(20px, 1fr)); /* Two columns with a minimum width of cells */
     gap: 5px; /* Adjust gap between cartelas */
   }
 
@@ -55,8 +55,8 @@
 @media (max-width: 400px) {
    .grid-cell{
      height:auto;
-     padding :1px;
-     font-size :8px;
+     padding : 1px;
+     font-size : 8px;
    }
 
    .header-cell{
