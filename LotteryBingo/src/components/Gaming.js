@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import './Gaming.css';
+import { FaTrash, FaMoon, FaSun } from 'react-icons/fa'; // Importing icons
 
 const Gaming = () => {
   const [searchParams] = useSearchParams();
   const [cartelas, setCartelas] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
+  const [isNightMode, setIsNightMode] = useState(false); // State for night mode
 
   // Fetch available cartelas from the API
   useEffect(() => {
@@ -105,9 +107,25 @@ const Gaming = () => {
     );
   };
 
+  // Toggle Night Mode
+  const toggleNightMode = () => {
+    setIsNightMode(prevMode => !prevMode);
+    document.body.classList.toggle('night-mode', !isNightMode); // Toggle class on body
+  };
+
   return (
-    <div className="gaming-container">
+    <div className={`gaming-container ${isNightMode ? 'night-mode' : ''}`}>
       <h1>Select Cartelas</h1>
+      
+      <div className="clear-button-container">
+        <button onClick={() => setSelectedCards([])} className="clear-button">
+          <FaTrash /> Clear Selection {/* Using the trash icon */}
+        </button>
+        <button onClick={toggleNightMode} className="night-mode-button">
+          {isNightMode ? <FaSun /> : <FaMoon />} {/* Toggle between Sun and Moon icons */}
+        </button>
+      </div>
+
       <div className="cartela-buttons">
         {cartelas.map((cartela) => (
           <button key={cartela._id} onClick={() => handleCardSelect(cartela)}>

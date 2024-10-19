@@ -34,7 +34,7 @@
   }
 
   .grid-cell {
-    width: 5vw; /* Set width relative to viewport width */
+    width: 3vw; /* Set width relative to viewport width */
     height: 5vw; /* Set height relative to viewport width to maintain aspect ratio */
     padding: 2px; /* Adjust padding for smaller screens */
     font-size: 9px; /* Smaller font size */
@@ -56,7 +56,7 @@
 
 @media (max-width: 400px) {
   .grid-cell {
-    width: 5vw; /* Adjust width for even smaller screens */
+    width: 3vw; /* Adjust width for even smaller screens */
     height: 5vw; /* Adjust height to maintain aspect ratio */
     padding: 3px; /* Further reduce padding */
     font-size: 9px; /* Even smaller font size */
@@ -220,4 +220,43 @@
 
 .invisible-checkbox {
   display: none;
+}
+
+
+
+
+body.night-mode {
+  background-color: #121212; /* Dark background */
+  color: #ffffff; /* Light text */
+}
+
+.gaming-container.night-mode {
+  background-color: #121212; /* Dark background */
+}
+
+.clear-button,
+.night-mode-button {
+  margin-right: 10px; /* Space between buttons */
+}
+
+.clear-button {
+  padding: 10px;
+  background-color: red; /* Change color as desired */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.clear-button:hover {
+  background-color: darkred; /* Darker shade on hover */
+}
+
+.night-mode-button {
+  background-color: transparent; /* No background */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor */
+}
+
+.night-mode-button:hover {
+  opacity: 0.7; /* Slightly transparent on hover */
 }
