@@ -34,9 +34,8 @@
   }
 
   .grid-cell {
-    width: auto; /* Set width relative to viewport width */
-    height: auto; /* Set height relative to viewport width to maintain aspect ratio */
-    /* padding: 1px; Adjust padding for smaller screens */
+    width: 15px; /* Set a fixed width for smaller circles */
+    height: 15px;
     font-size: 9px; /* Smaller font size */
     display: flex; /* Center text inside */
     align-items: center; /* Center vertically */
@@ -57,8 +56,8 @@
 
 @media (max-width: 400px) {
   .grid-cell {
-    width: auto; /* Adjust width for even smaller screens */
-    height: auto; /* Adjust height to maintain aspect ratio */
+    width: 10px; /* Set a fixed width for smaller circles */
+    height: 10px;
     /* padding: 2px; Further reduce padding */
     font-size: 9px; /* Even smaller font size */
     display: flex;
