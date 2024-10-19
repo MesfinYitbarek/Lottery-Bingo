@@ -52,7 +52,7 @@
     display: flex;
      align-items: center;
      padding: 2px; 
-    /* justify-content: center;  */
+    justify-content: center; 
   }
 }
 
@@ -60,7 +60,7 @@
   .grid-cell {
     width: 7px; /* Set a fixed width for smaller circles */
     height: 15px;
-      
+    padding: 2px; 
      
      /* Further reduce padding   */
     font-size: 10px; /* Even smaller font size */
@@ -73,7 +73,8 @@
   .header-cell {
     width:7px; /* Allow header width to be flexible */
     height: 15px; /* Allow header height to adjust automatically */
-    /* padding: 2px; Further reduce header cell padding */
+    padding: 2px; 
+    /* Further reduce header cell padding */
     font-size: 10px; /* Smaller font size for header */
     display: flex;
     align-items: center;
