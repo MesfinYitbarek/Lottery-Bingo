@@ -14,36 +14,6 @@
 
 
 /* Responsive adjustments */
-@media (max-width: 600px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
-    gap: 3px; /* Reduce gap between cartelas */
-  }
-
-  .grid-cell {
-    padding: 6px; /* Adjust padding for smaller screens */
-    font-size: 6px; /* Smaller font size */
-    height: 15px; /* Fixed height to maintain aspect ratio */
-  }
-
-  .header-cell {
-    padding: 3px; /* Smaller header cell padding */
-    font-size: 7px; /* Smaller font size for header */
-  }
-}
-
-@media (max-width: 400px) {
-  .grid-cell {
-    padding: 3px; /* Further reduce padding */
-    font-size: 5px; /* Even smaller font size */
-    height: 10px; /* Further reduce height */
-  }
-
-  .header-cell {
-    padding: 2px; /* Further reduce header cell padding */
-    font-size: 7px; /* Smaller font size for header */
-  }
-}
 .grid-container {
   margin-top: 20px;
   display: grid; /* Use grid for the container */
@@ -54,6 +24,56 @@
 .grid {
   display: grid; /* Keep the inner grid for cells */
   grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    gap: 3px; /* Reduce gap between cartelas */
+  }
+
+  .grid-cell {
+    width: 15vw; /* Set width relative to viewport width */
+    height: 15vw; /* Set height relative to viewport width to maintain aspect ratio */
+    padding: 4px; /* Adjust padding for smaller screens */
+    font-size: 9px; /* Smaller font size */
+    display: flex; /* Center text inside */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+
+  .header-cell {
+    width: 15vw; /* Set width for header cells too */
+    height: auto; /* Allow header height to adjust automatically */
+    padding: 3px; /* Smaller header cell padding */
+    font-size: 10px; /* Smaller font size for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid-cell {
+    width: 20vw; /* Adjust width for even smaller screens */
+    height: 20vw; /* Adjust height to maintain aspect ratio */
+    padding: 3px; /* Further reduce padding */
+    font-size: 9px; /* Even smaller font size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-cell {
+    width: auto; /* Allow header width to be flexible */
+    height: auto; /* Allow header height to adjust automatically */
+    padding: 2px; /* Further reduce header cell padding */
+    font-size: 9px; /* Smaller font size for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
   
   .grid-row {
