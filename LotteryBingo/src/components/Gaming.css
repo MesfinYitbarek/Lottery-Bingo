@@ -26,45 +26,54 @@
   grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
 }
 
+/* Responsive adjustments */
 @media (max-width: 600px) {
   .grid-container {
-    grid-template-columns: repeat(2, minmax(20px, 1fr)); /* Two columns with a minimum width of cells */
-    gap: 5px; /* Adjust gap between cartelas */
+    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    gap: 1px; /* Reduce gap between cartelas */
   }
 
   .grid-cell {
-    height: auto; /* Allow height to adjust automatically based on content */
-    padding: 2px; /* Adjust padding for smaller screens */
+    width: 1vw; /* Set width relative to viewport width */
+    height: 2vw; /* Set height relative to viewport width to maintain aspect ratio */
+    padding: 1px; /* Adjust padding for smaller screens */
     font-size: 9px; /* Smaller font size */
     display: flex; /* Center text inside */
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */
-    
-   }
+  }
 
-   .header-cell {
-     height:auto;
-     padding :2px;
-     font-size :10px;
-     display:flex;
-     align-items:center;
-     justify-content:center;
-   }
+  .header-cell {
+    width: 1vw; /* Set width for header cells too */
+    height: auto; /* Allow header height to adjust automatically */
+    padding: 2px; /* Smaller header cell padding */
+    font-size: 10px; /* Smaller font size for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 400px) {
-   .grid-cell{
-     height:auto;
-     padding : 1px;
-     font-size : 8px;
-   }
+  .grid-cell {
+    width: 2vw; /* Adjust width for even smaller screens */
+    height: 4vw; /* Adjust height to maintain aspect ratio */
+    padding: 2px; /* Further reduce padding */
+    font-size: 9px; /* Even smaller font size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-   .header-cell{
-     height:auto;
-     padding :1px;
-     font-size :8px;
-
-   }
+  .header-cell {
+    width: auto; /* Allow header width to be flexible */
+    height: auto; /* Allow header height to adjust automatically */
+    padding: 2px; /* Further reduce header cell padding */
+    font-size: 9px; /* Smaller font size for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
   
   .grid-row {
