@@ -12,15 +12,12 @@
   
  /* Existing styles remain unchanged... */
 
-.grid-container {
-  margin-top: 20px;
-}
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
-    gap: 5px; /* Reduce gap between cells */
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    gap: 5px; /* Reduce gap between cartelas */
   }
 
   .grid-cell {
@@ -47,12 +44,17 @@
     font-size: 12px; /* Smaller font size for header */
   }
 }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    justify-content: center;
-  }
+.grid-container {
+  margin-top: 20px;
+  display: grid; /* Use grid for the container */
+  grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+  gap: 10px; /* Space between cartelas */
+}
+
+.grid {
+  display: grid; /* Keep the inner grid for cells */
+  grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
+}
   
   .grid-row {
     display: contents; /* Allows the grid to behave as a single grid */
