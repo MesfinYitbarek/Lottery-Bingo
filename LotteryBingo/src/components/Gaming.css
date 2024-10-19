@@ -18,7 +18,7 @@
   margin-top: 20px;
   display: grid; /* Use grid for the container */
   grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
-  /* gap: 10px; Space between cartelas */
+  gap: 5px; 
 }
 
 .grid {
@@ -34,8 +34,8 @@
   }
 
   .grid-cell {
-    width: 3px; /* Set a fixed width for smaller circles */
-    height: 3px;
+    width: 7px; /* Set a fixed width for smaller circles */
+    height: 7px;
     font-size: 9px; /* Smaller font size */
     display: flex; /* Center text inside */
     align-items: center; /* Center vertically */
@@ -44,8 +44,8 @@
   }
 
   .header-cell {
-    width: 3px; /* Set width for header cells too */
-    height:3px; /* Allow header height to adjust automatically */
+    width: 7px; /* Set width for header cells too */
+    height:7px; /* Allow header height to adjust automatically */
     /* padding: 2px; Smaller header cell padding */
     font-size: 10px; /* Smaller font size for header */
     display: flex;
@@ -56,8 +56,8 @@
 
 @media (max-width: 400px) {
   .grid-cell {
-    width: 2px; /* Set a fixed width for smaller circles */
-    height: 2px;
+    width: 7px; /* Set a fixed width for smaller circles */
+    height: 7px;
     /* padding: 2px; Further reduce padding */
     font-size: 9px; /* Even smaller font size */
     display: flex;
@@ -67,8 +67,8 @@
   }
 
   .header-cell {
-    width:3px; /* Allow header width to be flexible */
-    height: 3px; /* Allow header height to adjust automatically */
+    width:7px; /* Allow header width to be flexible */
+    height: 7px; /* Allow header height to adjust automatically */
     /* padding: 2px; Further reduce header cell padding */
     font-size: 9px; /* Smaller font size for header */
     display: flex;
