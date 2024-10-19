@@ -35,7 +35,7 @@
 
   .grid-cell {
     width: 7px; /* Set a fixed width for smaller circles */
-    height: 7px;
+    height: 15px;
     font-size: 9px; /* Smaller font size */
     display: flex; /* Center text inside */
     align-items: center; /* Center vertically */
@@ -45,7 +45,7 @@
 
   .header-cell {
     width: 7px; /* Set width for header cells too */
-    height:7px; /* Allow header height to adjust automatically */
+    height:15px; /* Allow header height to adjust automatically */
     /* padding: 2px; Smaller header cell padding */
     font-size: 10px; /* Smaller font size for header */
     display: flex;
@@ -57,7 +57,7 @@
 @media (max-width: 400px) {
   .grid-cell {
     width: 7px; /* Set a fixed width for smaller circles */
-    height: 7px;
+    height: 15px;
     /* padding: 2px; Further reduce padding */
     font-size: 9px; /* Even smaller font size */
     display: flex;
@@ -68,7 +68,7 @@
 
   .header-cell {
     width:7px; /* Allow header width to be flexible */
-    height: 7px; /* Allow header height to adjust automatically */
+    height: 15px; /* Allow header height to adjust automatically */
     /* padding: 2px; Further reduce header cell padding */
     font-size: 9px; /* Smaller font size for header */
     display: flex;
