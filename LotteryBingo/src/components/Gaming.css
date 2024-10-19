@@ -34,8 +34,8 @@
   }
 
   .grid-cell {
-    width: 7px; /* Set a fixed width for smaller circles */
-    height: 15px;
+    width: 10px; /* Set a fixed width for smaller circles */
+    height: 20px;
     font-size: 10px; /* Smaller font size */
     display: flex; /* Center text inside */
     align-items: center; /* Center vertically */
@@ -86,7 +86,7 @@
   
   .grid-cell {
     border: 1px solid #ddd;
-    /* padding: 20px; */
+    padding: 20px;
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s;
