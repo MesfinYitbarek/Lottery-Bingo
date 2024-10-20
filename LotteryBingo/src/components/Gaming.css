@@ -222,6 +222,9 @@ body.night-mode {
       width: 14px; /* Adjust width for smaller screens */
       height: 14px; /* Adjust height for smaller screens */
       font-size: 8px; /* Adjust font size */
+      display: flex; /* Center text inside */
+      align-items: center; /* Center vertically */
+      justify-content: center;
   }
     .header-cell {
     width: 5vw; /* Set width for header cells too */
@@ -255,5 +258,8 @@ body.night-mode {
       width: 14px; /* Further adjust width for very small screens */
       height: 14px; /* Further adjust height for very small screens */
       font-size: 7px; /* Smaller font size */
+      display: flex; /* Center text inside */
+      align-items: center; /* Center vertically */
+      justify-content: center;
   }
 }
