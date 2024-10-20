@@ -187,8 +187,10 @@ body.night-mode {
 .night-mode-button:hover {
   opacity: 0.7; /* Slightly transparent on hover */
 }
-
-
+.grid {
+  display: grid; /* Keep the inner grid for cells */
+  grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
+}
 .grid-cell {
   border: 1px solid #ddd; /* Light gray border */
   padding: 0; /* No padding to minimize size */
@@ -202,9 +204,20 @@ body.night-mode {
   justify-content: center; /* Center content horizontally */
   border-radius: 50%; /* Make cells circular */
 }
+.grid-container {
+  margin-top: 20px;
+  display: grid; /* Use grid for the container */
+  grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+  gap: 10px; /* Space between cartelas */
+}
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    gap: 3px; /* Reduce gap between cartelas */
+  }
+
   .grid-cell {
       width: 8px; /* Adjust width for smaller screens */
       height: 8px; /* Adjust height for smaller screens */
@@ -213,6 +226,13 @@ body.night-mode {
 }
 
 @media (max-width: 400px) {
+
+  .grid-container {
+  
+    display: grid; /* Use grid for the container */
+    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    gap: 3px; /* Space between cartelas */
+  }
   .grid-cell {
       width: 7px; /* Further adjust width for very small screens */
       height: 7px; /* Further adjust height for very small screens */
