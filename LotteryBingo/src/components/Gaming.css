@@ -30,17 +30,17 @@
 @media (max-width: 600px) {
   .grid-container {
     grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
-    gap: 3px; /* Reduce gap between cartelas */
+    gap: 7px; /* Reduce gap between cartelas */
   }
 
   .grid-cell {
-    width: 20px; /* Set width relative to viewport width */
-    height: 20px; /* Set height relative to viewport width to maintain aspect ratio */
+    width: 23px; /* Set width relative to viewport width */
+    height: 23px; /* Set height relative to viewport width to maintain aspect ratio */
     /* padding: 2px;  */
     /* Adjust padding for smaller screens */
     border: 1px solid #ddd;
     font-size: 13px; /* Smaller font size */
-    font-weight: bolder;
+    font-weight: bold;
     display: flex; /* Center text inside */
     align-items: center; /* Center vertically */
     justify-content: center;
@@ -60,13 +60,17 @@
 }
 
 @media (max-width: 400px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    gap: 7px; /* Reduce gap between cartelas */
+  }
   .grid-cell {
-    width: 20px; /* Adjust width for even smaller screens */
-    height: 20px; /* Adjust height to maintain aspect ratio */
+    width: 23px; /* Adjust width for even smaller screens */
+    height: 23px; /* Adjust height to maintain aspect ratio */
     border: 1px solid #ddd;
     font-size: 13px; /* Even smaller font size */
     display: flex;
-    font-weight: bolder;
+    font-weight: bold;
     align-items: center;
     border-radius: 50%;
 
@@ -107,7 +111,7 @@
     color: white; /* Change text color for visibility */
   }
   .header-cell {
-    background-color: lightblue; /* Light blue background for header */
+    background-color: #007BFF; /* Light blue background for header */
     padding: 10px;
     text-align: center;
   }
