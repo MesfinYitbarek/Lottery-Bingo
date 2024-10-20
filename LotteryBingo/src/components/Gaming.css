@@ -34,8 +34,8 @@
   }
 
   .grid-cell {
-    width: 14px; /* Set width relative to viewport width */
-    height: 14px; /* Set height relative to viewport width to maintain aspect ratio */
+    width: 20px; /* Set width relative to viewport width */
+    height: 20px; /* Set height relative to viewport width to maintain aspect ratio */
     /* padding: 2px;  */
     /* Adjust padding for smaller screens */
     border: 1px solid #ddd;
@@ -61,8 +61,8 @@
 
 @media (max-width: 400px) {
   .grid-cell {
-    width: 14px; /* Adjust width for even smaller screens */
-    height: 14px; /* Adjust height to maintain aspect ratio */
+    width: 20px; /* Adjust width for even smaller screens */
+    height: 20px; /* Adjust height to maintain aspect ratio */
     border: 1px solid #ddd;
     font-size: 13px; /* Even smaller font size */
     display: flex;
