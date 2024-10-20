@@ -79,7 +79,7 @@
   }
 
   .header-cell {
-    background-color: #007BFF;
+    background-color: #1396d3;
     width: auto; /* Allow header width to be flexible */
     height: auto; /* Allow header height to adjust automatically */
    /* Further reduce header cell padding */
@@ -113,7 +113,7 @@
     color: white; /* Change text color for visibility */
   }
   .header-cell {
-    background-color: #007BFF; /* Light blue background for header */
+    background-color: #1396d3; /* Light blue background for header */
     padding: 10px;
     text-align: center;
   }
@@ -271,7 +271,7 @@ body.night-mode {
   background-color: transparent; /* No background */
   border: none; /* No border */
   cursor: pointer; /* Pointer cursor */
-  color: #ffffff; /* Change icon color to white in night mode */
+   /* Change icon color to white in night mode */
 }
 
 .night-mode-button:hover {
