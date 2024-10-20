@@ -49,6 +49,7 @@
   }
 
   .header-cell {
+    background-color: #007BFF;
     width: 5vw; /* Set width for header cells too */
     height: auto; /* Allow header height to adjust automatically */
     padding: 3px; /* Smaller header cell padding */
@@ -78,6 +79,7 @@
   }
 
   .header-cell {
+    background-color: #007BFF;
     width: auto; /* Allow header width to be flexible */
     height: auto; /* Allow header height to adjust automatically */
    /* Further reduce header cell padding */
@@ -269,6 +271,7 @@ body.night-mode {
   background-color: transparent; /* No background */
   border: none; /* No border */
   cursor: pointer; /* Pointer cursor */
+  color: #ffffff; /* Change icon color to white in night mode */
 }
 
 .night-mode-button:hover {
