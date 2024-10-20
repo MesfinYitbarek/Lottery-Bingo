@@ -219,8 +219,8 @@ body.night-mode {
   }
 
   .grid-cell {
-      width: 8px; /* Adjust width for smaller screens */
-      height: 8px; /* Adjust height for smaller screens */
+      width: 14px; /* Adjust width for smaller screens */
+      height: 14px; /* Adjust height for smaller screens */
       font-size: 8px; /* Adjust font size */
   }
 }
@@ -234,8 +234,8 @@ body.night-mode {
     gap: 3px; /* Space between cartelas */
   }
   .grid-cell {
-      width: 7px; /* Further adjust width for very small screens */
-      height: 7px; /* Further adjust height for very small screens */
+      width: 14px; /* Further adjust width for very small screens */
+      height: 14px; /* Further adjust height for very small screens */
       font-size: 7px; /* Smaller font size */
   }
 }
