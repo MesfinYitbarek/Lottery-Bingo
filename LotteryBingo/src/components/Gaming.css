@@ -14,6 +14,18 @@
 
 
 /* Responsive adjustments */
+.grid-container {
+  margin-top: 20px;
+  display: grid; /* Use grid for the container */
+  grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+  gap: 10px; /* Space between cartelas */
+}
+
+.grid {
+  display: grid; /* Keep the inner grid for cells */
+  grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
+}
+
 .grid-container.large-grid .grid-cell {
   width: 60px; /* Larger size for one cartela */
   height: 60px; /* Maintain aspect ratio */
@@ -23,9 +35,6 @@
   width: 30px; /* Smaller size for two cartelas */
   height: 30px; /* Maintain aspect ratio */
 }
-
-/* Other existing styles */
-
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
