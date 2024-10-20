@@ -187,3 +187,35 @@ body.night-mode {
 .night-mode-button:hover {
   opacity: 0.7; /* Slightly transparent on hover */
 }
+
+
+.grid-cell {
+  border: 1px solid #ddd; /* Light gray border */
+  padding: 0; /* No padding to minimize size */
+  text-align: center; /* Center text horizontally */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color transition */
+  width: 9px; /* Set desired width */
+  height: 9px; /* Set desired height */
+  display: flex; /* Use flexbox for centering content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  border-radius: 50%; /* Make cells circular */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .grid-cell {
+      width: 8px; /* Adjust width for smaller screens */
+      height: 8px; /* Adjust height for smaller screens */
+      font-size: 8px; /* Adjust font size */
+  }
+}
+
+@media (max-width: 400px) {
+  .grid-cell {
+      width: 7px; /* Further adjust width for very small screens */
+      height: 7px; /* Further adjust height for very small screens */
+      font-size: 7px; /* Smaller font size */
+  }
+}
