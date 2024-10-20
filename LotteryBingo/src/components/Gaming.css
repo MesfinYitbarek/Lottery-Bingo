@@ -92,8 +92,8 @@
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s;
-    width:9px;
-    height:9px;
+    width:14px;
+    height:14px;
   }
   
   .grid-cell.selected {
