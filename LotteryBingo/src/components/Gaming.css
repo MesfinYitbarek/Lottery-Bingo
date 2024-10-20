@@ -14,32 +14,7 @@
 
 
 /* Responsive adjustments */
-.grid-cell {
-  border: 1px solid #ddd;
-  padding: 0; /* Remove padding to minimize size */
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 9px; /* Set desired width */
-  height: 9px; /* Set desired height */
-}
 
-@media (max-width: 600px) {
-  .grid-cell {
-      width: 8px; /* Adjust width for smaller screens */
-      height: 8px; /* Adjust height for smaller screens */
-      padding: 0; /* Ensure no extra padding */
-      font-size: 8px; /* Adjust font size */
-  }
-}
-
-@media (max-width: 400px) {
-  .grid-cell {
-      width: 7px; /* Further adjust width */
-      height: 7px; /* Further adjust height */
-      font-size: 7px; /* Smaller font size */
-  }
-}
   .grid-cell.selected {
     background-color: blue; /* Change color when selected */
     color: white; /* Change text color for visibility */
