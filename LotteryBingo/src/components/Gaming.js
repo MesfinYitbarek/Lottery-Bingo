@@ -122,7 +122,7 @@ const Gaming = () => {
           <FaTrash /> Clear Selection {/* Using the trash icon */}
         </button>
         <button onClick={toggleNightMode} className="night-mode-button">
-          {isNightMode ? <FaSun style={{ color: '#ffffff' }} /> : <FaMoon />} {/* Toggle between Sun and Moon icons */}
+          {isNightMode ? <FaSun style={{ color: '#ffffff' }} /> : <FaMoon style={{ color: 'black' }}/>} {/* Toggle between Sun and Moon icons */}
         </button>
       </div>
 

@@ -49,7 +49,7 @@
   }
 
   .header-cell {
-    background-color: #007BFF;
+    background-color: #1396d3;
     width: 5vw; /* Set width for header cells too */
     height: auto; /* Allow header height to adjust automatically */
     padding: 3px; /* Smaller header cell padding */
