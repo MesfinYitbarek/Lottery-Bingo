@@ -251,9 +251,7 @@ body.night-mode {
 }
 
 .clear-button,
-.night-mode-button {
-  margin-right: 10px; /* Space between buttons */
-}
+
 
 .clear-button {
   padding: 10px;
@@ -272,6 +270,7 @@ body.night-mode {
   border: none; /* No border */
   cursor: pointer; /* Pointer cursor */
    /* Change icon color to white in night mode */
+   color: #ffffff;
 }
 
 .night-mode-button:hover {
