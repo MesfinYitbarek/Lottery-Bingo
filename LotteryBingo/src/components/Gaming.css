@@ -38,7 +38,7 @@
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .grid-container {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    grid-template-columns: repeat(5, 1fr); /* Two columns for cartelas */
     gap: 7px; /* Reduce gap between cartelas */
   }
 
@@ -71,7 +71,7 @@
 
 @media (max-width: 400px) {
   .grid-container {
-    grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
+    grid-template-columns: repeat(5, 1fr); /* Two columns for cartelas */
     gap: 7px; /* Reduce gap between cartelas */
   }
   .grid-cell {
