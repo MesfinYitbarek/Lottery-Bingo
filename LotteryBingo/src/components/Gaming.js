@@ -122,8 +122,12 @@ const Gaming = () => {
           <FaTrash /> Clear Selection {/* Using the trash icon */}
         </button>
         <button onClick={toggleNightMode} className="night-mode-button">
-          {isNightMode ? <FaSun  /> : <FaMoon style={{ color: 'black' }}/>} {/* Toggle between Sun and Moon icons */}
-        </button>
+  {isNightMode ? (
+    <FaSun style={{ color: '#ffffff' }} /> // White sun icon in night mode
+  ) : (
+    <FaMoon style={{ color: '#000000' }} /> // Black moon icon in light mode
+  )}
+</button>
       </div>
 
       <div className="cartela-buttons">
