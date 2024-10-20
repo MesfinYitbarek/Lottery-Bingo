@@ -122,12 +122,12 @@ const Gaming = () => {
           <FaTrash /> Clear Selection {/* Using the trash icon */}
         </button>
         <button onClick={toggleNightMode} className="night-mode-button">
-  {isNightMode ? (
-    <FaSun style={{ color: '#ffffff' }} /> // White sun icon in night mode
-  ) : (
-    <FaMoon style={{ color: '#000000' }} /> // Black moon icon in light mode
-  )}
-</button>
+          {isNightMode ? (
+            <FaSun style={{ color: '#ffffff' }} /> // White sun icon in night mode
+          ) : (
+            <FaMoon style={{ color: '#000000' }} /> // Black moon icon in light mode
+          )}
+        </button>
       </div>
 
       <div className="cartela-buttons">
@@ -139,7 +139,7 @@ const Gaming = () => {
       </div>
 
       {selectedCards.length > 0 && (
-        <div className="grid-container">
+        <div className={`grid-container ${selectedCards.length === 1 ? "large-grid" : "small-grid"}`}>
           {selectedCards.map(selectedCard => (
             <div key={selectedCard._id}>
               <h2>Selected Cartela: {selectedCard.id}</h2>
