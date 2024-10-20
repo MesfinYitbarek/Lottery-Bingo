@@ -267,16 +267,18 @@ body.night-mode {
 
 .night-mode-button {
   background-color: transparent; /* No background */
-  border: none; /* No border */
+  border: 2px dotted white; /* No border */
   cursor: pointer; /* Pointer cursor */
    /* Change icon color to white in night mode */
-
+border-radius: 50%;
 }
 
 .night-mode-button:hover {
   opacity: 0.7; /* Slightly transparent on hover */
 }
-
+.night-mode-button svg {
+  color: inherit; /* Inherit color from parent */
+}
 .cartela-buttons button {
   color: black; /* Default text color for buttons in light mode */
 }
