@@ -223,6 +223,15 @@ body.night-mode {
       height: 14px; /* Adjust height for smaller screens */
       font-size: 8px; /* Adjust font size */
   }
+  .header-cell {
+    width: 14px; /* Set width for header cells too */
+    height: auto; /* Allow header height to adjust automatically */
+    padding: 3px; /* Smaller header cell padding */
+    font-size: 10px; /* Smaller font size for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 400px) {
@@ -232,6 +241,15 @@ body.night-mode {
     display: grid; /* Use grid for the container */
     grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
     gap: 3px; /* Space between cartelas */
+  }
+  .header-cell {
+    width: 14px; /* Set width for header cells too */
+    height: 14px; /* Allow header height to adjust automatically */
+    padding: 3px; /* Smaller header cell padding */
+    font-size: 10px; /* Smaller font size for header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .grid-cell {
       width: 14px; /* Further adjust width for very small screens */
