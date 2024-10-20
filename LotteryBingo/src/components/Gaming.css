@@ -10,21 +10,20 @@
     gap: 10px;
   }
   
- /* Existing styles remain unchanged... */
+ /*
 
-
-/* Responsive adjustments */
+ .grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+}
+ */
 .grid-container {
-  margin-top: 20px;
-  display: grid; /* Use grid for the container */
-  grid-template-columns: repeat(2, 1fr); /* Two columns for cartelas */
-  gap: 10px; /* Space between cartelas */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Always maintain 5 columns */
+  gap: 5px; /* Space between cells */
 }
 
-.grid {
-  display: grid; /* Keep the inner grid for cells */
-  grid-template-columns: repeat(5, 1fr); /* Maintain 5 columns */
-}
+
 
 .grid-container.large-grid .grid-cell {
   width: 60px; /* Larger size for one cartela */
