@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transition: background-color 0.3s ease;
+}
+
+.dark {
+    background-color: #333; /* Dark background */
+    color: white; /* White text */
+}
+
+.button-container {
+    margin-bottom: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.yeab-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.other-girls-button {
+    background-color: #F44336; /* Red */
+    color: white;
+}
+
+.go-button {
+    background-color: #2196F3; /* Blue */
+    color: white;
+}
+
+.heart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart {
+    width: 200px; /* Adjust size as needed */
+}
+
+.heart-path {
+    fill: red; /* Heart color */
+    
+    animation: draw-heart 20s forwards; /* Animation for drawing the heart */
+}
+
+@keyframes draw-heart {
+    from {
+        stroke-dasharray: 1000; /* Total length of the path */
+        stroke-dashoffset: 1000; /* Start offset to hide the path */
+        fill-opacity: 0; /* Initially hidden fill */
+        stroke-opacity: 1; /* Show stroke */
+        stroke-width: 1; /* Stroke width */
+        stroke: red; /* Stroke color */
+    }
+    
+    to {
+        stroke-dashoffset: 0; /* End offset to show the path */
+        fill-opacity: 1; /* Fill color appears at the end of the animation */
+        stroke-opacity: 0; /* Hide stroke at the end */
+        stroke-width: 0; /* Remove stroke at the end */
+    }
+}
+
+.heart-text {
+    position: absolute;
+    top: calc(50% - 12px); /* Center vertically */
+    left: calc(50% - 30px); /* Center horizontally */
+    color: white; /* Text color */
+    font-size: 24px; /* Text size */
+}

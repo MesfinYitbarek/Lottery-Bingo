@@ -13,6 +13,7 @@ import CardGenerator from "./components/pages/CardGenerator.js";
 import Cartela from "./components/admin/Cartela.js";
 import ReleaseNotes from "./components/pages/ReleaseNotes.js";
 import Gaming from "./components/Gaming.js";
+import HeartComponent from"./components/HeartComponent.js";
 
 //import Patterns from "./components/pages/Patterns.js";
 import AddUsers from "./components/admin/AddUsers.js";
@@ -83,6 +84,7 @@ const App = () => (
 
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/bingo" element={<Gaming />} />
+            <Route path="/mylove" element={<HeartComponent />} />
           </Routes>
         </BrowserRouter>
       </PersistGate>
