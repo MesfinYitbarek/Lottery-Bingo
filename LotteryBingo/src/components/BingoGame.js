@@ -2787,24 +2787,29 @@ if (this.state.doubleCall) {
     const value = e.target.value;
     const cartellaNumber = parseInt(value, 10);
 
+    // Prevent updating if the entered value is '0'
+    if (value === '0') {
+        e.preventDefault(); // Prevent default behavior
+        return; // Exit if value is '0'
+    }
+
     // Update the enteredCartella state
     this.setState({ enteredCartella: value });
 
     // Check if Enter key is pressed
     if (e.key === "Enter") {
-      // Check if the entered number is above 100
+        // Update isRed state for the entered number
+        this.setState((prevState) => ({
+            isRed: {
+                ...prevState.isRed,
+                [`isRed${cartellaNumber}`]: true, // Set isRed state for the entered number
+            },
+        }));
 
-      this.setState((prevState) => ({
-        isRed: {
-          ...prevState.isRed,
-          [`isRed${cartellaNumber}`]: true, // Set isRed state for the entered number
-        },
-      }));
-
-      // Call the function to add the cartella
-      this.addEnteredCartella();
+        // Call the function to add the cartella
+        this.addEnteredCartella();
     }
-  };
+};
 
   incrementCard = (number) => {
     // const currentState2 = this.state.isRed;
@@ -2891,6 +2896,7 @@ if (this.state.doubleCall) {
               onChange={this.handleEnterCartella}
               onKeyDown={this.handleEnterCartella}
               className='input-box'
+              
             />
           </div>
         </fieldset>

@@ -9,6 +9,8 @@ const Branch = () => {
   const [users, setUsers] = useState([]);
   const [branch, setBranch] = useState([]);
   const [error, setError] = useState(null);
+  const [modal, setModal] = useState(false);
+  const [id, setId] = useState(null);
   const [userPage, setUserPage] = useState(1);
   const [branchPage, setBranchPage] = useState(1);
 
@@ -47,6 +49,7 @@ const Branch = () => {
       const response = await axios.delete(`/api/user/deletebranch/${userId}`);
       if (response.data.success) {
         setUsers(users.filter((user) => user._id !== userId));
+        setModal(false);
       } else {
         setError("Error deleting User");
       }
@@ -55,11 +58,20 @@ const Branch = () => {
     }
   };
 
+  const handleModal= async(userId)=>{
+
+
+   setModal(true);
+
+setId(userId);
+  }
+
   const handleDeleteBranch = async (userId) => {
     try {
       const response = await axios.delete(`/api/branch/deletebranch/${userId}`);
       if (response.data) {
         setBranch(branch.filter((branch) => branch._id !== userId));
+        handleDeletecancel();
       } else {
         setError("Error deleting Branch");
       }
@@ -67,7 +79,14 @@ const Branch = () => {
       setError("Error deleting Branch");
     }
   };
+  const handleDeletecancel=async()=>{
 
+    setModal(false)
+  }
+  const handleButtonClick = () => {
+    handleDeleteUser(id);
+    handleDeletecancel();
+};
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalBranchOpen, setIsModalBranchOpen] = useState(false);
 
@@ -129,7 +148,7 @@ const Branch = () => {
                 <td className="tw-p-2">{data.role}</td>
                 <td className="tw-p-2 tw-text-center">
                   <button
-                    onClick={() => handleDeleteUser(data._id)}
+                    onClick={() => handleModal(data._id)}
                     className="tw-text-red-600"
                   >
                     Delete
@@ -252,6 +271,19 @@ const Branch = () => {
           </div>
         </div>
       )}
+{modal &&( 
+   <div className="modal">
+  <h4>are u sure to delete? </h4>
+  <button
+    className="tw-px-3 tw-py-1 tw-border tw-border-blue-800 tw-text-blue-800"
+    onClick={handleButtonClick}
+>
+    Delete User
+</button>
+  <button     className="tw-px-3 tw-py-1 tw-border tw-border-blue-800 tw-text-blue-800"
+  onClick ={handleDeletecancel}>cancel</button>
+  </div>
+    )}
     </div>
   );
 };

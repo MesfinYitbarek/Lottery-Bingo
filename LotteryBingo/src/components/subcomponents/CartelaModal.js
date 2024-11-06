@@ -3184,7 +3184,27 @@ const handleEndGame = async () => {
       bonusAmount = won * bonusPercentage;
       showBonusModal(bonusAmount, won); 
       bingoData.bonus=bonusAmount;
+
        // Show the bonus modal instead of alert
+
+       try {
+        const resp = await axios.get(`/api/credit/${currentUser._id}/balance`);
+        const currentBalance = resp.data.balance; // Adjust based on your API response structure
+  
+        // Calculate the new balance
+        const newBalance = currentBalance - bonusAmount ; // Assuming balance is stored in currentUser
+  
+        // Update the balance in the database
+        await axios.put(`/api/user/${currentUser._id}/balance`, {
+          balance: newBalance,
+        });
+  
+        
+  
+        alert(`balance updated due to bonus! New balance: ${newBalance} birr`);
+      } catch (error) {
+        alert('There was an error fetching or updating the balance. Please try again.');
+      }
   }
 
   try {
