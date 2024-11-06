@@ -1,3 +1,4 @@
+// User Schema (models/User.js)
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema({
@@ -35,8 +36,19 @@ const userSchema = new mongoose.Schema({
   cut: {
     type: String
   },
+  // String type - will store multiple branches as comma-separated for admin
   branch: {
-    type: String
+    type: String,
+    required: true,
+    get: function (data) {
+      return data ? data.split(',') : [];
+    },
+    set: function (data) {
+      if (Array.isArray(data)) {
+        return data.join(',');
+      }
+      return data;
+    }
   },
   avatar: {
     type: String,
@@ -47,14 +59,20 @@ const userSchema = new mongoose.Schema({
     default: "employee"
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  toJSON: {
+    getters: true
+  },
+  // Enable getters when converting to JSON
+  toObject: {
+    getters: true
+  } // Enable getters when converting to object
 });
-// Hash password before saving the user
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
     return next();
   }
-  const salt = await bcrypt.genSalt(10); // Adjust cost factor as needed
+  const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });

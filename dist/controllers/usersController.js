@@ -3,7 +3,7 @@ import Agent from "../models/Branch.js";
 import Branch from "../models/Branch.js";
 import User from "../models/User.js";
 import bcryptjs from "bcryptjs";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 //import errorHandler from "../Utils/error.js";
 export const test = (req, res) => {
   res.json({
@@ -22,23 +22,25 @@ export const signup = async (req, res, next) => {
     branch,
     role
   } = req.body;
-
-  // Create new User
-  const newUser = new User({
-    name,
-    username,
-    imageUrl,
-    phone,
-    password,
-    balance,
-    cut,
-    branch,
-    role,
-    userRef: req.params.id
-  });
   try {
+    const newUser = new User({
+      name,
+      username,
+      imageUrl,
+      phone,
+      password,
+      balance,
+      cut,
+      branch,
+      // The schema setter will handle the conversion
+      role,
+      userRef: req.params.id
+    });
     await newUser.save();
-    res.status(201).json("User created successfull");
+    res.status(201).json({
+      success: true,
+      message: "User created successfully"
+    });
   } catch (error) {
     next(error);
   }
@@ -59,25 +61,25 @@ export const signin = async (req, res, next) => {
 
     // Check if either user or branch exists
     const validAccount = user || branch;
-    if (!validAccount) return next(errorHandler(404, 'User or Branch not found!'));
+    if (!validAccount) return next(errorHandler(404, "User or Branch not found!"));
 
     // Validate Password
     const validPassword = bcryptjs.compareSync(password, validAccount.password);
-    if (!validPassword) return next(errorHandler(401, 'Invalid password!'));
+    if (!validPassword) return next(errorHandler(401, "Invalid password!"));
 
     // Generate JWT token
     const token = jwt.sign({
       id: validAccount._id
     }, process.env.JWT_SECRET, {
-      expiresIn: '1h'
+      expiresIn: "1h"
     });
     const {
       password: pass,
       ...rest
     } = validAccount._doc;
-    res.cookie('access_token', token, {
+    res.cookie("access_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
+      secure: process.env.NODE_ENV === "production"
     }).status(200).json(rest);
   } catch (error) {
     next(error);
@@ -99,7 +101,7 @@ export const users = async (req, res) => {
     res.json(users);
   } catch (error) {
     res.status(500).json({
-      error: 'Failed to fetch users'
+      error: "Failed to fetch users"
     });
   }
 };
@@ -112,7 +114,7 @@ export const getusers = async (req, res) => {
     res.json(users);
   } catch (error) {
     res.status(500).json({
-      error: 'Failed to fetch users'
+      error: "Failed to fetch users"
     });
   }
 };
@@ -189,31 +191,31 @@ export const changePassword = async (req, res) => {
   const userId = req.params.userId;
   if (newPassword !== confirmPassword) {
     return res.status(400).json({
-      message: 'New Password and Confirm Password do not match'
+      message: "New Password and Confirm Password do not match"
     });
   }
   try {
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({
-        message: 'User not found'
+        message: "User not found"
       });
     }
     const isMatch = await bcryptjs.compare(oldPassword, user.password);
     if (!isMatch) {
       return res.status(400).json({
-        message: 'Old Password is incorrect'
+        message: "Old Password is incorrect"
       });
     }
     const salt = await bcryptjs.genSalt(10);
     user.password = newPassword;
     await user.save();
     res.status(200).json({
-      message: 'Password changed successfully'
+      message: "Password changed successfully"
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Server Error'
+      message: "Server Error"
     });
   }
 };
@@ -336,7 +338,7 @@ export const cutBalance = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({
-        msg: 'User not found'
+        msg: "User not found"
       });
     }
     user.balance = balance;
@@ -346,6 +348,6 @@ export const cutBalance = async (req, res) => {
     });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 };
