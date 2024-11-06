@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -67,9 +66,7 @@ const Sales = () => {
   useEffect(() => {
     const fetchSales = async () => {
       try {
-        const response = await fetch(
-          "/api/sales/getSales"
-        );
+        const response = await fetch("/api/sales/getSales");
         const data = await response.json();
         const expandedSales = data.flatMap((sale) => sale.winners);
         setSales(expandedSales);
@@ -81,33 +78,31 @@ const Sales = () => {
     fetchSales();
   }, []);
 
- 
-
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(
-          `/api/user/users/${currentUser._id}`
-        );
-        const data = await response.json();
-        setUsers(data);
-      } catch (err) {
-        setError("Error fetching users");
-      }
-    };
+  useEffect(
+    () => {
+      const fetchUsers = async () => {
+        try {
+          const response = await fetch(`/api/user/users/${currentUser._id}`);
+          const data = await response.json();
+          setUsers(data);
+        } catch (err) {
+          setError("Error fetching users");
+        }
+      };
 
-    fetchUsers();
-  }, [currentUser._id],users);
+      fetchUsers();
+    },
+    [currentUser._id],
+    users
+  );
 
   useEffect(() => {
     const fetchCashiersByBranch = async () => {
       if (selectedBranch) {
         try {
-          const response = await fetch(
-            `/api/user/getusers/${selectedBranch}`
-          );
+          const response = await fetch(`/api/user/getusers/${selectedBranch}`);
           const data = await response.json();
           setBranchCashiers(data);
         } catch (err) {
@@ -127,54 +122,54 @@ const Sales = () => {
     setStartDate("");
     setEndDate("");
     // setFilteredSales(sales); // Reset to show all sales
-};
+  };
 
-const handleFilter = () => {
-  // Check if a branch is selected
-  if (!selectedBranch) {
-    setError("Please select a branch."); // Set an error message
-    return; // Prevent further processing if no branch is selected
-  }
-
-  let filtered = sales;
-
-  // Initialize the filter to check if at least the date is specified
-  const isDateSpecified = startDate || endDate;
-
-  if (isDateSpecified) {
-    if (startDate) {
-      filtered = filtered.filter(
-        (sale) => new Date(sale.createdAt) >= new Date(startDate)
-      );
+  const handleFilter = () => {
+    // Check if a branch is selected
+    if (!selectedBranch) {
+      setError("Please select a branch."); // Set an error message
+      return; // Prevent further processing if no branch is selected
     }
-    if (endDate) {
-      const filterEndDate = new Date(endDate);
-      filterEndDate.setHours(23, 59, 59, 999);
-      filtered = filtered.filter(
-        (sale) => new Date(sale.createdAt) <= filterEndDate
-      );
+
+    let filtered = sales;
+
+    // Initialize the filter to check if at least the date is specified
+    const isDateSpecified = startDate || endDate;
+
+    if (isDateSpecified) {
+      if (startDate) {
+        filtered = filtered.filter(
+          (sale) => new Date(sale.createdAt) >= new Date(startDate)
+        );
+      }
+      if (endDate) {
+        const filterEndDate = new Date(endDate);
+        filterEndDate.setHours(23, 59, 59, 999);
+        filtered = filtered.filter(
+          (sale) => new Date(sale.createdAt) <= filterEndDate
+        );
+      }
     }
-  }
 
-  // Apply branch filter
-  filtered = filtered.filter((sale) => sale.branch === selectedBranch);
+    // Apply branch filter
+    filtered = filtered.filter((sale) => sale.branch === selectedBranch);
 
-  // Apply cashier filter if selected
-  if (selectedCashier) {
-    filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
-  }
+    // Apply cashier filter if selected
+    if (selectedCashier) {
+      filtered = filtered.filter((sale) => sale.cashier === selectedCashier);
+    }
 
-  // If no filters are applied, reset filteredSales if branch is selected
-  if (!isDateSpecified && !selectedBranch && !selectedCashier) {
-    setFilteredSales(sales); // Show all sales if no filters are applied
-  } else {
-    setFilteredSales(filtered);
-  }
+    // If no filters are applied, reset filteredSales if branch is selected
+    if (!isDateSpecified && !selectedBranch && !selectedCashier) {
+      setFilteredSales(sales); // Show all sales if no filters are applied
+    } else {
+      setFilteredSales(filtered);
+    }
 
-  setCurrentPage(1); // Reset to the first page
-  // setIsFiltered(true);
-  setError(null);
-};
+    setCurrentPage(1); // Reset to the first page
+    // setIsFiltered(true);
+    setError(null);
+  };
 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
@@ -191,10 +186,19 @@ const handleFilter = () => {
   const totalCut = filteredSales.reduce((sum, sale) => sum + sale.cut, 0);
   const totalTransactions = filteredSales.length;
 
+  const renderBranchOptions = (branchString) => {
+    return branchString.split(",").map((branch, index) => (
+      <option key={index} value={branch}>
+        {branch}
+      </option>
+    ));
+  };
+
   return (
     <div className="tw-mt-10">
       <div className="tw-text-green-700 tw-pl-10 tw-font-bold tw-text-3xl">
-       Balance <span className="tw-text-pink-600">(${currentUser.balance})</span>
+        Balance{" "}
+        <span className="tw-text-pink-600">(${currentUser.balance})</span>
       </div>
 
       <div className="tw-mb-5 tw-text-end tw-font-bold tw-text-xl tw-text-purple-600 tw-pr-12">
@@ -225,21 +229,19 @@ const handleFilter = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
         >
           <option value="">Select Branch</option>
-          {["admin", "employee"].includes(currentUser.role) ? (
-            <option value={currentUser.branch}>{currentUser.branch}</option>
-          ) : currentUser.role == "superadmin" ? (
-            superBranch.map((branch) => (
-              <option key={branch.id} value={branch.name}>
-                {branch.name}
-              </option>
-            ))
-          ) : (
-            getbranch.map((branch) => (
-              <option key={branch.id} value={branch.name}>
-                {branch.name}
-              </option>
-            ))
-          )}
+          {["admin", "employee"].includes(currentUser.role)
+            ? renderBranchOptions(currentUser.branch)
+            : currentUser.role === "superadmin"
+            ? superBranch.map((branch) => (
+                <option key={branch.id} value={branch.name}>
+                  {branch.name}
+                </option>
+              ))
+            : getbranch.map((branch) => (
+                <option key={branch.id} value={branch.name}>
+                  {branch.name}
+                </option>
+              ))}
         </select>
 
         <select
@@ -261,15 +263,12 @@ const handleFilter = () => {
           Find
         </button>
 
-    
-
-
-<button onClick={clearSelections}>Clear</button>
+        <button onClick={clearSelections}>Clear</button>
       </div>
 
-      {filteredSales.length === 0 ?  (
-      <p>No sales found for the selected filters.</p>
-    ): (
+      {filteredSales.length === 0 ? (
+        <p>No sales found for the selected filters.</p>
+      ) : (
         <>
           <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
             <thead>
@@ -285,7 +284,6 @@ const handleFilter = () => {
                 <th className="tw-p-2 tw-px-4">Branch</th>
                 <th className="tw-p-2 tw-px-4">Cashier</th>
                 <th className="tw-p-2 tw-px-4">Bonus</th>
-               
               </tr>
             </thead>
             <tbody>
@@ -304,7 +302,6 @@ const handleFilter = () => {
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
                   <td className="tw-p-2 tw-px-4">{data.bonus} Birr</td>
-                 
                 </tr>
               ))}
             </tbody>

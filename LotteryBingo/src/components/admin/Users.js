@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import axios from "axios";
 import { BiPlus } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import AddUsers from "./AddUsers";
@@ -10,17 +9,11 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -36,25 +29,10 @@ const Users = () => {
     fetchUsers();
   }, [currentUser._id]);
 
-  // const handleDeleteUser = async (userId) => {
-  //   try {
-  //     const response = await axios.delete(`/api/user/delete/${userId}`);
-  //     if (response.data) {
-  //       setUsers(users.filter((user) => user._id !== userId));
-  //     } else {
-  //       setError("Error filtering User");
-  //     }
-  //   } catch (err) {
-  //     setError("Error deleting User");
-  //   }
-  // };
-
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
-
   const totalPages = Math.ceil(users.length / usersPerPage);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -68,22 +46,22 @@ const Users = () => {
           <BiPlus className="tw-mr-2" /> Add User
         </button>
       </div>
-      <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] tw-w-full">
-        <thead>
-          <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
-            <th className="tw-p-2 tw-px-4">Name</th>
-            <th className="tw-p-2 tw-px-4">Username</th>
-            <th className="tw-p-2 tw-px-4">Phone</th>
-            <th className="tw-p-2 tw-px-4">Balance</th>
-            <th className="tw-p-2 tw-px-4">Cut</th>
-            <th className="tw-p-2 tw-px-4">Role</th>
-            <th className="tw-p-2 tw-px-4">Branch</th>
-            <th className="tw-p-2 tw-px-4">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers &&
-            currentUsers.map((data) => (
+      <div className="tw-overflow-x-auto">
+        <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] tw-w-full">
+          <thead>
+            <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
+              <th className="tw-p-2 tw-px-4">Name</th>
+              <th className="tw-p-2 tw-px-4">Username</th>
+              <th className="tw-p-2 tw-px-4">Phone</th>
+              <th className="tw-p-2 tw-px-4">Balance</th>
+              <th className="tw-p-2 tw-px-4">Cut</th>
+              <th className="tw-p-2 tw-px-4">Role</th>
+              <th className="tw-p-2 tw-px-4">Branch</th>
+              <th className="tw-p-2 tw-px-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentUsers.map((data) => (
               <tr key={data._id} className="tw-hover:bg-slate-100">
                 <td className="tw-flex tw-gap-3 tw-items-center tw-p-2 tw-px-4">
                   <img
@@ -98,25 +76,22 @@ const Users = () => {
                 <td className="tw-p-2 tw-px-4">{data.balance}</td>
                 <td className="tw-p-2 tw-px-4">{data.cut}%</td>
                 <td className="tw-p-2 tw-px-4">{data.role}</td>
-                <td className="tw-p-2 tw-px-4">{data.branch}</td>
+                <td className="tw-p-2 tw-px-4">
+                  {Array.isArray(data.branch) ? data.branch.join(", ") : data.branch}
+                </td>
                 <td className="tw-p-2 tw-px-4 tw-text-center">
-                  {/* <button
-                    onClick={() => handleDeleteUser(data._id)}
-                    className="tw-border-red-600 tw-px-2 tw-rounded-md tw-text-red-600"
-                  >
-                    Delete
-                  </button> */}
                   <Link
                     to={`/update-user/${data._id}`}
-                    className="tw-text-purple-600 tw-ml-4"
+                    className="tw-text-purple-600"
                   >
                     Edit
                   </Link>
                 </td>
               </tr>
             ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
       {error && <p className="tw-text-red-500 tw-mt-4">{error}</p>}
       <div className="tw-flex tw-justify-center tw-items-center tw-my-4">
         {[...Array(totalPages)].map((_, index) => (
@@ -132,8 +107,8 @@ const Users = () => {
         ))}
       </div>
       {isModalOpen && (
-        <div className="tw-absolute tw-top-0 tw-left-0 tw-right-0 tw-bottom-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50">
-          <div className="tw-bg-white tw-p-6 tw-rounded-md tw-shadow-lg tw-relative">
+        <div className="tw-fixed tw-inset-0 tw-flex tw-justify-center tw-items-center tw-bg-gray-800 tw-bg-opacity-50 tw-z-50">
+          <div className="tw-bg-white tw-p-6 tw-rounded-md tw-shadow-lg tw-relative tw-max-h-[90vh] tw-overflow-y-auto">
             <button
               className="tw-absolute tw-top-2 tw-right-2 tw-text-gray-800"
               onClick={closeModal}

@@ -34,9 +34,7 @@ const EditUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          `/api/user/userEdit/${id}`
-        );
+        const response = await axios.get(`/api/user/userEdit/${id}`);
         setUser(response.data);
       } catch (err) {
         setError("Error fetching user details");
@@ -63,14 +61,17 @@ const EditUser = () => {
         // If password is empty, remove it from the updatedFields object
         delete updatedFields.password;
       }
-  
+
       if (imageFile) {
         const userImageRef = ref(storage, `Images/${imageFile.name}`);
         await uploadBytes(userImageRef, imageFile);
         updatedFields.imageUrl = await getDownloadURL(userImageRef);
       }
-  
-      const response = await axios.post(`/api/user/update/${id}`, updatedFields);
+
+      const response = await axios.post(
+        `/api/user/update/${id}`,
+        updatedFields
+      );
       if (response.data) {
         setError(response.data.message || "Update successfully.");
       } else {
@@ -80,6 +81,15 @@ const EditUser = () => {
       setError("Error updating user. Please try again.");
     }
   };
+
+  const renderBranchOptions = (branchString) => {
+    return branchString.split(",").map((branch, index) => (
+      <option key={index} value={branch}>
+        {branch}
+      </option>
+    ));
+  };
+
   return (
     <div className=" tw-bg-slate-100 tw-flex tw-justify-center tw-items-center tw-min-h-screen">
       <div className="tw-w-full tw-max-w-md tw-p-8 tw-rounded-md tw-shadow-md tw-border-l-8 tw-border-l-blue-600 tw-bg-white">
@@ -145,17 +155,17 @@ const EditUser = () => {
               id="branch"
               name="branch"
               onChange={handleChange}
-              className=" tw-dark:bg-slate-100  sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5 "
+              className="tw-dark:bg-slate-100 sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5"
             >
               <option value="">Select Branch</option>
-              {["admin", "employee"].includes(currentUser.role) ? (
-                <option value={currentUser.branch}>{currentUser.branch}</option>
-              ) : (
-                users &&
-                users.map((users) => (
-                  <option key={users.name} value={users.name}>{users.name}</option>
-                ))
-              )}
+              {["admin", "employee"].includes(currentUser.role)
+                ? renderBranchOptions(currentUser.branch)
+                : users &&
+                  users.map((user) => (
+                    <option key={user.name} value={user.name}>
+                      {user.name}
+                    </option>
+                  ))}
             </select>
           </div>
           <div className="tw-mb-4">
@@ -205,10 +215,13 @@ const EditUser = () => {
             </select>
           </div>
           <div className="tw-mb-4">
-            <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="imageUrl">
+            <label
+              className="tw-block tw-text-gray-700 tw-mb-2"
+              htmlFor="imageUrl"
+            >
               Logo Image
             </label>
-            <input 
+            <input
               type="file"
               id="imageUrl"
               onChange={handleFileChange}

@@ -5,7 +5,7 @@ import BingoCard from "./BingoCard";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import QRCode from "qrcode.react";
-import { storage } from '../../firebase'; // Import Firebase storage
+import { storage } from "../../firebase"; // Import Firebase storage
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const CardFetcher = ({ selectedCards }) => {
@@ -44,7 +44,7 @@ const CardFetcher = ({ selectedCards }) => {
       try {
         const response = await fetch(`/api/branch/branch`);
         const data = await response.json();
-        
+
         setSuperBranch(data);
       } catch (err) {
         setError("Error fetching Branches");
@@ -96,7 +96,7 @@ const CardFetcher = ({ selectedCards }) => {
   const handleGenerateQR = async () => {
     if (file) {
       setLoading2(true);
-    
+
       try {
         const storageRef = ref(storage, `${file.name}`); // Create a reference for the file
         await uploadBytes(storageRef, file); // Upload the file to Firebase Storage
@@ -133,11 +133,22 @@ const CardFetcher = ({ selectedCards }) => {
     document.body.removeChild(downloadLink);
   };
 
+  const renderBranchOptions = (branchString) => {
+    return branchString.split(",").map((branch, index) => (
+      <option key={index} value={branch}>
+        {branch}
+      </option>
+    ));
+  };
+
   return (
     <div className="tw-bg-gray-100 tw-min-h-screen">
       <div className="tw-pt-7 tw-items-center tw-flex-col tw-justify-center tw-text-center branch-input">
-        <Link to="/admin" className="tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800">
-          Back 
+        <Link
+          to="/admin"
+          className="tw-border-2 tw-p-1 tw-px-4 tw-border-blue-800 tw-text-blue-800"
+        >
+          Back
         </Link>
         <label htmlFor="branch" className="tw-text-lg tw-font-bold">
           Branch:{" "}
@@ -148,20 +159,19 @@ const CardFetcher = ({ selectedCards }) => {
           className="tw-dark:bg-slate-100 sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5"
         >
           <option value="">Select Branch</option>
-          {["admin", "employee"].includes(currentUser.role) ? (
-            <option value={currentUser.branch}>{currentUser.branch}</option>
-          ) : currentUser.role === "superadmin" ? (
-            superBranch.map((branch) => (
-              <option key={branch.id} value={branch.name}>
-                {branch.name}
-              </option>
-            ))
-          ) : (
-            users &&
-            users.map((user) => (
-              <option key={user.id} value={user.name}>{user.name}</option>
-            ))
-          )}
+          {["admin", "employee"].includes(currentUser.role)
+            ? renderBranchOptions(currentUser.branch)
+            : currentUser.role === "superadmin"
+            ? superBranch.map((branch) => (
+                <option key={branch.id} value={branch.name}>
+                  {branch.name}
+                </option>
+              ))
+            : users.map((user) => (
+                <option key={user.id} value={user.name}>
+                  {user.name}
+                </option>
+              ))}
         </select>
         <button onClick={handleSearch}>Search</button>
       </div>
@@ -183,14 +193,26 @@ const CardFetcher = ({ selectedCards }) => {
                 <BingoCard card={cardData.card} color="blue" />
               </div>
             ))}
-            <input type="file" accept="application/pdf" onChange={handleFileChange} />
-            <button onClick={handleGenerateQR} >{loading2 ? "generating..." : "generate"}</button>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+            />
+            <button onClick={handleGenerateQR}>
+              {loading2 ? "generating..." : "generate"}
+            </button>
           </div>
         </div>
       )}
-        <button className="altBtn" onClick={() => { window.print(); return false; }}>
-              Print Cards
-            </button>
+      <button
+        className="altBtn"
+        onClick={() => {
+          window.print();
+          return false;
+        }}
+      >
+        Print Cards
+      </button>
 
       {showQRModal && (
         <div className="modal">
@@ -202,7 +224,6 @@ const CardFetcher = ({ selectedCards }) => {
             <QRCode value={pdfUrl} />
             <button onClick={downloadQRCode}>Download QR Code</button>
           </div>
-        
         </div>
       )}
     </div>

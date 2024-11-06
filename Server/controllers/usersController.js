@@ -2,25 +2,48 @@ import errorHandler from "../Utils/error.js";
 import Agent from "../models/Branch.js";
 import Branch from "../models/Branch.js";
 import User from "../models/User.js";
-import bcryptjs from "bcryptjs"
-import jwt from 'jsonwebtoken'
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 //import errorHandler from "../Utils/error.js";
 export const test = (req, res) => {
-    res.json({
-      message: "Hello World!",
-    });
-  };
-
+  res.json({
+    message: "Hello World!",
+  });
+};
 
 export const signup = async (req, res, next) => {
-  const { name,username,imageUrl, phone, password,balance,cut,branch,role } = req.body;
-  
-  // Create new User
-  const newUser = new User({ name,username, imageUrl,phone, password,balance,cut,branch,role,userRef: req.params.id  });
+  const {
+    name,
+    username,
+    imageUrl,
+    phone,
+    password,
+    balance,
+    cut,
+    branch,
+    role,
+  } = req.body;
 
   try {
+    const newUser = new User({
+      name,
+      username,
+      imageUrl,
+      phone,
+      password,
+      balance,
+      cut,
+      branch, // The schema setter will handle the conversion
+      role,
+      userRef: req.params.id,
+    });
+
     await newUser.save();
-    res.status(201).json("User created successfull");
+
+    res.status(201).json({
+      success: true,
+      message: "User created successfully",
+    });
   } catch (error) {
     next(error);
   }
@@ -34,18 +57,24 @@ export const signin = async (req, res, next) => {
 
     // Check if either user or branch exists
     const validAccount = user || branch;
-    if (!validAccount) return next(errorHandler(404, 'User or Branch not found!'));
+    if (!validAccount)
+      return next(errorHandler(404, "User or Branch not found!"));
 
     // Validate Password
     const validPassword = bcryptjs.compareSync(password, validAccount.password);
-    if (!validPassword) return next(errorHandler(401, 'Invalid password!'));
+    if (!validPassword) return next(errorHandler(401, "Invalid password!"));
 
     // Generate JWT token
-    const token = jwt.sign({ id: validAccount._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: validAccount._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     const { password: pass, ...rest } = validAccount._doc;
     res
-      .cookie('access_token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      })
       .status(200)
       .json(rest);
   } catch (error) {
@@ -55,26 +84,26 @@ export const signin = async (req, res, next) => {
 export const signout = async (req, res, next) => {
   try {
     res.clearCookie("access_token");
-    res.status(200).json("User has been logged out!"); 
+    res.status(200).json("User has been logged out!");
   } catch (error) {
     next(error);
   }
 };
 export const users = async (req, res) => {
   try {
-    const users = await User.find({userRef: req.params.id});
+    const users = await User.find({ userRef: req.params.id });
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch users' });
+    res.status(500).json({ error: "Failed to fetch users" });
   }
 };
 
 export const getusers = async (req, res) => {
   try {
-    const users = await User.find({branch: req.params.id,  role: "employee"});
+    const users = await User.find({ branch: req.params.id, role: "employee" });
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch users' });
+    res.status(500).json({ error: "Failed to fetch users" });
   }
 };
 
@@ -91,7 +120,7 @@ export const deleteAdmin = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 export const updateAdmin = async (req, res, next) => {
   try {
@@ -146,20 +175,22 @@ export const changePassword = async (req, res) => {
   const userId = req.params.userId;
 
   if (newPassword !== confirmPassword) {
-    return res.status(400).json({ message: 'New Password and Confirm Password do not match' });
+    return res
+      .status(400)
+      .json({ message: "New Password and Confirm Password do not match" });
   }
 
   try {
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const isMatch = await bcryptjs.compare(oldPassword, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ message: 'Old Password is incorrect' });
+      return res.status(400).json({ message: "Old Password is incorrect" });
     }
 
     const salt = await bcryptjs.genSalt(10);
@@ -167,9 +198,9 @@ export const changePassword = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: 'Password changed successfully' });
+    res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -186,14 +217,14 @@ export const branch = async (req, res, next) => {
 
 // catagory display for edit
 export const branchEdit = async (req, res, next) => {
-  const { id } = req.params; 
+  const { id } = req.params;
 
   try {
-    const user = await Agent.findById(id); 
+    const user = await Agent.findById(id);
     if (!user) {
-      return res.status(404).json({ message: "Branch not found" }); 
+      return res.status(404).json({ message: "Branch not found" });
     }
-    res.status(200).json(user); 
+    res.status(200).json(user);
   } catch (error) {
     console.error("Error fetching Branch:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -202,10 +233,17 @@ export const branchEdit = async (req, res, next) => {
 
 //catagory creation
 export const createBranch = async (req, res, next) => {
-  const { name,username, phone, password,balance,cut,role } = req.body;
-  const {userRef} = req.params.id;
+  const { name, username, phone, password, balance, cut, role } = req.body;
+  const { userRef } = req.params.id;
   const newCatagory = new Agent({
-    name,username, phone, password,balance,cut,role,userRef: req.params.id
+    name,
+    username,
+    phone,
+    password,
+    balance,
+    cut,
+    role,
+    userRef: req.params.id,
   });
   try {
     await newCatagory.save();
@@ -249,7 +287,6 @@ export const updateBranch = async (req, res, next) => {
           name: req.body.name,
           balance: req.body.balance,
           cut: req.body.cut,
-         
         },
       },
       { new: true }
@@ -269,7 +306,7 @@ export const cutBalance = async (req, res) => {
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     user.balance = balance;
@@ -278,6 +315,6 @@ export const cutBalance = async (req, res) => {
     res.json({ balance: user.balance });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
-}
+};

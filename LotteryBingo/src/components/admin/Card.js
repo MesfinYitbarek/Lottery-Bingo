@@ -6,6 +6,7 @@ const CardForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+
   const initialFormData = {
     id: "",
     branch: "",
@@ -33,7 +34,9 @@ const CardForm = () => {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`/api/branch/getbranch/${currentUser.username}`);
+        const response = await fetch(
+          `/api/branch/getbranch/${currentUser.username}`
+        );
         const data = await response.json();
         setUsers(data);
       } catch (err) {
@@ -55,7 +58,7 @@ const CardForm = () => {
 
   const handleArrayChange = (e, column, index) => {
     const { value } = e.target;
-    
+
     // Allow empty string or numbers between 1 and 99
     if (value !== "" && (isNaN(value) || value < 1 || value > 99)) {
       return;
@@ -81,29 +84,28 @@ const CardForm = () => {
       ...formData.G,
       ...formData.O,
       ...formData.N.filter((val, idx) => idx !== 2), // Exclude 'Free' space
-    ].filter(num => num !== ""); // Remove empty strings
+    ].filter((num) => num !== ""); // Remove empty strings
 
     const uniqueNumbers = new Set(allNumbers);
-    
+
     if (uniqueNumbers.size !== allNumbers.length) {
       return "There are repeated numbers in the card. Please check and ensure all numbers are unique.";
     }
 
     // Check if each column has the correct range of numbers
-    
 
     return null; // No errors found
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const repeatedNumbersError = checkForRepeatedNumbers();
     if (repeatedNumbersError) {
       alert(repeatedNumbersError);
       return;
     }
-    
+
     const cardData = {
       id: formData.id,
       branch: formData.branch,
@@ -123,14 +125,20 @@ const CardForm = () => {
       // Reset form after successful creation, but keep the branch
       setFormData({
         ...initialFormData,
-        branch: formData.branch
+        branch: formData.branch,
       });
     } catch (error) {
       setLoading(false);
       alert("Error creating card:");
     }
   };
-
+  const renderBranchOptions = (branchString) => {
+    return branchString.split(",").map((branch, index) => (
+      <option key={index} value={branch}>
+        {branch}
+      </option>
+    ));
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -172,22 +180,19 @@ const CardForm = () => {
           className="tw-dark:bg-slate-100 sm:tw-w-[390px] tw-rounded-lg tw-border tw-border-slate-300 tw-p-2.5"
         >
           <option value="">Select Branch</option>
-          {["admin", "employee"].includes(currentUser.role) ? (
-            <option value={currentUser.branch}>{currentUser.branch}</option>
-          ) : currentUser.role === "superadmin" ? (
-            superBranch.map((branch) => (
-              <option key={branch.id} value={branch.name}>
-                {branch.name}
-              </option>
-            ))
-          ) : (
-            users &&
-            users.map((user) => (
-              <option key={user.name} value={user.name}>
-                {user.name}
-              </option>
-            ))
-          )}
+          {["admin", "employee"].includes(currentUser.role)
+            ? renderBranchOptions(currentUser.branch)
+            : currentUser.role === "superadmin"
+            ? superBranch.map((branch) => (
+                <option key={branch.id} value={branch.name}>
+                  {branch.name}
+                </option>
+              ))
+            : users.map((user) => (
+                <option key={user.name} value={user.name}>
+                  {user.name}
+                </option>
+              ))}
         </select>
       </div>
       <div
