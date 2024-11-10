@@ -31,9 +31,6 @@ const WinnerSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  bonus: {
-    type: Number
   }
 });
 const SalesSchema = new mongoose.Schema({

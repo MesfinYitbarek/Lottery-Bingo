@@ -3004,107 +3004,107 @@ else{
   // }
 
 // Function to create and show the bonus modal
-function showBonusModal(bonusAmount, wonAmount) {
-  // Create modal elements
-  const modal = document.createElement('div');
-  const modalContent = document.createElement('div');
-  const closeButton = document.createElement('span');
-  const title = document.createElement('h2');
-  const message = document.createElement('p');
+// function showBonusModal(bonusAmount, wonAmount) {
+//   // Create modal elements
+//   const modal = document.createElement('div');
+//   const modalContent = document.createElement('div');
+//   const closeButton = document.createElement('span');
+//   const title = document.createElement('h2');
+//   const message = document.createElement('p');
 
-  // Set up modal styles
-  modal.style.display = 'flex';
-  modal.style.justifyContent = 'center';
-  modal.style.alignItems = 'center';
-  modal.style.position = 'fixed';
-  modal.style.zIndex = '1000';
-  modal.style.left = '0';
-  modal.style.top = '0';
-  modal.style.width = '100%';
-  modal.style.height = '100%';
-  modal.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+//   // Set up modal styles
+//   modal.style.display = 'flex';
+//   modal.style.justifyContent = 'center';
+//   modal.style.alignItems = 'center';
+//   modal.style.position = 'fixed';
+//   modal.style.zIndex = '1000';
+//   modal.style.left = '0';
+//   modal.style.top = '0';
+//   modal.style.width = '100%';
+//   modal.style.height = '100%';
+//   modal.style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
 
-  // Set up content styles
-  modalContent.style.backgroundColor = '#fefefe';
-  modalContent.style.margin = 'auto';
-  modalContent.style.padding = '20px';
-  modalContent.style.border = '1px solid #888';
-  modalContent.style.width = '30%';
-  modalContent.style.position = 'relative';
-  modalContent.style.animation = 'popUp 0.5s ease-in-out';
+//   // Set up content styles
+//   modalContent.style.backgroundColor = '#fefefe';
+//   modalContent.style.margin = 'auto';
+//   modalContent.style.padding = '20px';
+//   modalContent.style.border = '1px solid #888';
+//   modalContent.style.width = '30%';
+//   modalContent.style.position = 'relative';
+//   modalContent.style.animation = 'popUp 0.5s ease-in-out';
 
-  // Close button styles
-  closeButton.innerHTML = '&times;';
-  closeButton.style.color = '#aaa';
-  closeButton.style.float = 'right';
-  closeButton.style.fontSize = '28px';
-  closeButton.style.fontWeight = 'bold';
+//   // Close button styles
+//   closeButton.innerHTML = '&times;';
+//   closeButton.style.color = '#aaa';
+//   closeButton.style.float = 'right';
+//   closeButton.style.fontSize = '28px';
+//   closeButton.style.fontWeight = 'bold';
 
-  // Title and message
-  title.innerText = "Congratulations!";
-  message.innerHTML = `The winner has won a bonus of <strong>${bonusAmount.toFixed(2)}</strong> (15% of <strong>${wonAmount.toFixed(2)}</strong>)`;
+//   // Title and message
+//   title.innerText = "Congratulations!";
+//   message.innerHTML = `The winner has won a bonus of <strong>${bonusAmount.toFixed(2)}</strong> (15% of <strong>${wonAmount.toFixed(2)}</strong>)`;
 
-  // Append elements
-  closeButton.onclick = function() {
-    document.body.removeChild(modal);
-    clearInterval(confettiInterval); // Stop confetti when closing the modal
-  };
+//   // Append elements
+//   closeButton.onclick = function() {
+//     document.body.removeChild(modal);
+//     clearInterval(confettiInterval); // Stop confetti when closing the modal
+//   };
 
-  closeButton.onmouseover = function() {
-    closeButton.style.color = "black";
-    closeButton.style.cursor = "pointer";
-  };
+//   closeButton.onmouseover = function() {
+//     closeButton.style.color = "black";
+//     closeButton.style.cursor = "pointer";
+//   };
 
-  closeButton.onmouseout = function() {
-    closeButton.style.color = "#aaa";
-  };
+//   closeButton.onmouseout = function() {
+//     closeButton.style.color = "#aaa";
+//   };
 
-  modalContent.appendChild(closeButton);
-  modalContent.appendChild(title);
-  modalContent.appendChild(message);
+//   modalContent.appendChild(closeButton);
+//   modalContent.appendChild(title);
+//   modalContent.appendChild(message);
 
-  // Append content to modal
-  modal.appendChild(modalContent);
+//   // Append content to modal
+//   modal.appendChild(modalContent);
 
-  // Append modal to body
-  document.body.appendChild(modal);
+//   // Append modal to body
+//   document.body.appendChild(modal);
 
-   // Add confetti effect (optional)
-   let confettiInterval = setInterval(() => {
-     createConfetti(modalContent);
-   }, 200);
-}
+//    // Add confetti effect (optional)
+//    let confettiInterval = setInterval(() => {
+//      createConfetti(modalContent);
+//    }, 200);
+// }
 
 // Function to create confetti effect
-function createConfetti(parent) {
-    const confettiPiece = document.createElement('div');
-    confettiPiece.classList.add('confetti');
-    confettiPiece.style.position = 'absolute';
-    confettiPiece.style.width = `${Math.random() * (15 - 5) + 5}px`;
-    confettiPiece.style.height = `${Math.random() * (15 - 5) + 5}px`;
-    confettiPiece.style.backgroundColor =
-        '#' + Math.floor(Math.random() * 16777215).toString(16); // Random color
-    confettiPiece.style.left = `${Math.random() * parent.offsetWidth}px`;
-    confettiPiece.style.top = `${Math.random() * parent.offsetHeight}px`;
-    parent.appendChild(confettiPiece);
+// function createConfetti(parent) {
+//     const confettiPiece = document.createElement('div');
+//     confettiPiece.classList.add('confetti');
+//     confettiPiece.style.position = 'absolute';
+//     confettiPiece.style.width = `${Math.random() * (15 - 5) + 5}px`;
+//     confettiPiece.style.height = `${Math.random() * (15 - 5) + 5}px`;
+//     confettiPiece.style.backgroundColor =
+//         '#' + Math.floor(Math.random() * 16777215).toString(16); // Random color
+//     confettiPiece.style.left = `${Math.random() * parent.offsetWidth}px`;
+//     confettiPiece.style.top = `${Math.random() * parent.offsetHeight}px`;
+//     parent.appendChild(confettiPiece);
     
-    setTimeout(() => {
-        parent.removeChild(confettiPiece);
-    }, Math.random() * (3000 - 1000) + 1000); // Remove after random time
-}
+//     setTimeout(() => {
+//         parent.removeChild(confettiPiece);
+//     }, Math.random() * (3000 - 1000) + 1000); // Remove after random time
+// }
 
 // Add CSS styles for the modal and animations dynamically
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText =
-`@keyframes popUp {
-    from { transform: scale(0.5); }
-    to { transform: scale(1); }
-}
-.confetti {
-    border-radius:50%;
-}`;
-document.head.appendChild(styleSheet);
+// const styleSheet = document.createElement("style");
+// styleSheet.type = "text/css";
+// styleSheet.innerText =
+// `@keyframes popUp {
+//     from { transform: scale(0.5); }
+//     to { transform: scale(1); }
+// }
+// .confetti {
+//     border-radius:50%;
+// }`;
+// document.head.appendChild(styleSheet);
 
 
 
@@ -3151,7 +3151,7 @@ const handleEndGame = async () => {
   
   setIsSaving(true);
   const total = totalAmount;
-  let cut, won, bonusAmount;
+  let cut, won;
   
   const bingoData = {
       bet: betAmount,
@@ -3177,35 +3177,35 @@ const handleEndGame = async () => {
   }
 
   // Calculate the bonus amount
-  const bonusPercentage = 0.15; // Bonus percentage of winning amount
+  // const bonusPercentage = 0.15; // Bonus percentage of winning amount
 
 
-  if (won >= 500 && cardCount>=20) {
-      bonusAmount = won * bonusPercentage;
-      showBonusModal(bonusAmount, won); 
-      bingoData.bonus=bonusAmount;
+  // if (won >= 500 && cardCount>=20) {
+  //     bonusAmount = won * bonusPercentage;
+  //     showBonusModal(bonusAmount, won); 
+  //     bingoData.bonus=bonusAmount;
 
-       // Show the bonus modal instead of alert
+  //      // Show the bonus modal instead of alert
 
-       try {
-        const resp = await axios.get(`/api/credit/${currentUser._id}/balance`);
-        const currentBalance = resp.data.balance; // Adjust based on your API response structure
+  //      try {
+  //       const resp = await axios.get(`/api/credit/${currentUser._id}/balance`);
+  //       const currentBalance = resp.data.balance; // Adjust based on your API response structure
   
-        // Calculate the new balance
-        const newBalance = currentBalance - bonusAmount ; // Assuming balance is stored in currentUser
+  //       // Calculate the new balance
+  //       const newBalance = currentBalance - bonusAmount ; // Assuming balance is stored in currentUser
   
-        // Update the balance in the database
-        await axios.put(`/api/user/${currentUser._id}/balance`, {
-          balance: newBalance,
-        });
+  //       // Update the balance in the database
+  //       await axios.put(`/api/user/${currentUser._id}/balance`, {
+  //         balance: newBalance,
+  //       });
   
         
   
-        alert(`balance updated due to bonus! New balance: ${newBalance} birr`);
-      } catch (error) {
-        alert('There was an error fetching or updating the balance. Please try again.');
-      }
-  }
+  //       alert(`balance updated due to bonus! New balance: ${newBalance} birr`);
+  //     } catch (error) {
+  //       alert('There was an error fetching or updating the balance. Please try again.');
+  //     }
+  // }
 
   try {
       const response = await axios.post('/api/sales/sales', { winners: [bingoData] });

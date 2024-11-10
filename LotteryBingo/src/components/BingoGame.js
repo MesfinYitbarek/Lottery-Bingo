@@ -2843,7 +2843,7 @@ if (this.state.doubleCall) {
         <div className='notranslate'>
   <div className='modal'>
 
-   <h4> <marquee direction="right " > win additional 15% of won amount by winning 500 birr and higher with minumum of 20 players !!</marquee></h4>
+   {/* <h4> <marquee direction="right " > win additional 15% of won amount by winning 500 birr and higher with minumum of 20 players !!</marquee></h4> */}
     <h2>Place Your Bet</h2>
 
     <div className='input-container'>

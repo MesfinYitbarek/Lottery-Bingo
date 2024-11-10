@@ -283,7 +283,7 @@ const Sales = () => {
                 <th className="tw-p-2 tw-px-4">Winners</th>
                 <th className="tw-p-2 tw-px-4">Branch</th>
                 <th className="tw-p-2 tw-px-4">Cashier</th>
-                <th className="tw-p-2 tw-px-4">Bonus</th>
+              
               </tr>
             </thead>
             <tbody>
@@ -301,7 +301,7 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">{data.winner.join(", ")}</td>
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
-                  <td className="tw-p-2 tw-px-4">{data.bonus} Birr</td>
+                
                 </tr>
               ))}
             </tbody>
