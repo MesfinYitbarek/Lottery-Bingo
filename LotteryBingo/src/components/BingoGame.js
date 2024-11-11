@@ -866,6 +866,7 @@ maleOromic:false,
    *
    */
   componentDidMount() {
+    
     this.loadVoices();
     // ensure the reset modal doesn't show at initial load
     this.setState({ showResetModal: false });
@@ -2290,6 +2291,16 @@ if (this.state.doubleCall) {
   };
   toggleModal = () => {
     if (this.state.running || this.state.showModal === true) {
+      this.setState((prevState) => ({
+        showModal: !prevState.showModal,
+      }));
+    } else {
+      // do nothing
+    }
+  };
+
+  toggleModalnew = () => {
+    if ( this.state.showModal === false) {
       this.setState((prevState) => ({
         showModal: !prevState.showModal,
       }));
@@ -3723,6 +3734,17 @@ if (this.state.doubleCall) {
     }
   };
 
+  handlebutToggle = () => {
+    if(this.state.running){
+    this.toggleGame();
+    this.toggleModal();
+    }
+    else{
+
+      this.toggleModalnew();
+    }
+};
+
   /**
    * Choose Chime Function
    * Sets the selected chime audible
@@ -3842,6 +3864,10 @@ if (this.state.doubleCall) {
                 <strong>Wild Ball: </strong> {this.state.wildBall}
               </div> */}
               </div>
+                      <button onClick={this.handlebutToggle}className=" tw-mt-10 tw-p-2 tw-m-2 tw-rounded tw-bg-blue-400 tw-hover:bg-blue-200"
+                      
+                      disabled={this.state.totalBallsCalled===0}
+                      >check</button>
 
               {/* ----------- Gameplay Controls ------------- */}
               <div className='col shrink padding-vertical-xxlg padding-horizontal-md'>

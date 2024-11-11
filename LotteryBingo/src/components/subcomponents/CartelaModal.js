@@ -18,6 +18,7 @@ const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, tota
   const [bingoNumbers, setBingoNumbers] = useState([]);
   const [winnerCards, setWinnerCards] = useState([]);
   const [lockedCards, setLockedCards] = useState([]);
+  const [isRefunded, setIsRefunded] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const audioRef = useRef(new Audio(winsound));
   const loseAudioRef = useRef(new Audio(notwinsound));
@@ -3111,48 +3112,58 @@ else{
 
 const handleRefund = async () => {
   // Calculate the refund amount
-  const cutValue = manualCut ? Number(manualEnteredCut) : Number(currentUser.cut); // Default to 0 if undefined
+  const cutValue = manualCut ? Number(manualEnteredCut) : Number(currentUser.cut);
   const amountRefunded = manualCut ? totalAmount * (cutValue / 10) : totalAmount * (cutValue / 100);
 
   // Check if the calculated amount is valid
   if (!isNaN(amountRefunded) && amountRefunded > 0) {
-    alert('This match does not count and is cancelled due to ' + cardCount + ' players salva!!! You have refunded ' + amountRefunded + ' birr');
+      alert('This match does not count and is cancelled due to ' + cardCount + ' players salva!!! You have refunded ' + amountRefunded + ' birr');
 
-    // Fetch current balance before updating
-    try {
-      const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
-      const currentBalance = response.data.balance; // Adjust based on your API response structure
+      // Fetch current balance before updating
+      try {
+          const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
+          const currentBalance = response.data.balance;
 
-      // Calculate the new balance
-      const newBalance = currentBalance + amountRefunded; // Assuming balance is stored in currentUser
+          // Calculate the new balance
+          const newBalance = currentBalance + amountRefunded;
 
-      // Update the balance in the database
-      await axios.put(`/api/user/${currentUser._id}/balance`, {
-        balance: newBalance,
-      });
+          // Update the balance in the database
+          await axios.put(`/api/user/${currentUser._id}/balance`, {
+              balance: newBalance,
+          });
 
-      // Optionally, update the currentUser state with the new balance
-      // setCurrentUser({ ...currentUser, balance: newBalance });
+          // Set refund status to true
+          setIsRefunded(true); // Step 2: Update refund status
 
-      alert(`Balance updated successfully! New balance: ${newBalance} birr`);
-    } catch (error) {
-      alert('There was an error fetching or updating the balance. Please try again.');
-    }
+          alert(`Balance updated successfully! New balance: ${newBalance} birr`);
+      } catch (error) {
+          alert('There was an error fetching or updating the balance. Please try again.');
+      }
   } else {
-    alert('Invalid refund amount.');
+      alert('Invalid refund amount.');
   }
 };
 
 const handleEndGame = async () => {
+  // Step 3: Check if a refund has been processed
+  if (isRefunded) {
+      alert('The game has been refunded. ');
+      setWinnerCards([]);
+      resetLockedCards();
+      onReset();
+      onClose();
+      return; // Prevent further execution if refunded
+  }
+
   if (winnerCards.length === 0) {
       alert('No winners to save');
       return;
   }
-  
+
   setIsSaving(true);
   const total = totalAmount;
   let cut, won;
-  
+
   const bingoData = {
       bet: betAmount,
       player: cardCount,
@@ -3166,15 +3177,34 @@ const handleEndGame = async () => {
 
   if (manualCut) {
       cut = total * (manualEnteredCut / 10);
-      won = total - total * (manualEnteredCut / 10);
+      won = total - cut;
       bingoData.cut = cut;
       bingoData.won = won;
   } else {
       cut = total * (currentUser.cut / 100);
-      won = total - total * (currentUser.cut / 100);
+      won = total - cut;
       bingoData.cut = cut;
       bingoData.won = won;
   }
+
+  try {
+      const response = await axios.post('/api/sales/sales', { winners: [bingoData] });
+
+      if (response.status === 200) {
+          setWinnerCards([]);
+          resetLockedCards();
+          onReset();
+          onClose();
+      } else {
+          alert('Failed to save bingo data');
+      }
+  } catch (error) {
+      alert('Error saving bingo data:', error);
+  } finally {
+      setIsSaving(false);
+  }
+};
+
 
   // Calculate the bonus amount
   // const bonusPercentage = 0.15; // Bonus percentage of winning amount
@@ -3207,26 +3237,6 @@ const handleEndGame = async () => {
   //     }
   // }
 
-  try {
-      const response = await axios.post('/api/sales/sales', { winners: [bingoData] });
-      
-      if (response.status === 200) {
-          // alert('Sales data saved successfully');
-          setWinnerCards([]);
-          resetLockedCards();
-          onReset();
-          onClose();
-      } else {
-          alert('Failed to save bingo data');
-      }
-      
-  } catch (error) {
-      alert('Error saving bingo data:', error);
-      
-  } finally {
-      setIsSaving(false);
-  }
-};
 
   const handleLockCard = () => {
     const cartelaIdNumber = Number(cartelaId);
