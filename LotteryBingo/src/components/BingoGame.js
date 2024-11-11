@@ -3864,7 +3864,7 @@ if (this.state.doubleCall) {
                 <strong>Wild Ball: </strong> {this.state.wildBall}
               </div> */}
               </div>
-                      <button onClick={this.handlebutToggle}className=" tw-mt-10 tw-p-2 tw-m-2 tw-rounded tw-bg-blue-400 tw-hover:bg-blue-200"
+                      <button onClick={this.handlebutToggle}className=" tw-mt-10 tw-p-2 tw-m-2 tw-rounded tw-bg-blue-400 tw-hover:bg-blue-300"
                       
                       disabled={this.state.totalBallsCalled===0}
                       >check</button>
