@@ -17,7 +17,12 @@ const Header =({ balancewon, cardCount }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [balance, setBalance] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
+  // Function to handle checkbox change
+  const handleCheckboxChange = () => {
+      setIsChecked(!isChecked);
+  };
   useEffect(() => {
     const fetchBalance = async () => {
       try {
@@ -55,7 +60,7 @@ const Header =({ balancewon, cardCount }) => {
              <span className=" tw-text-blue-800">Bingo</span> Lottery
             </h1> */}
            
-            <img src={currentUser.imageUrl} className="logo"></img>
+            <img src={currentUser.imageUrl} className="logo" alt="logoImage"></img>
           </div>
             
           </Link>
@@ -63,20 +68,30 @@ const Header =({ balancewon, cardCount }) => {
 
         
         <div className="pose">
-    <fieldset className="win-amount-fieldset">
-        <legend>Win Amount</legend>
-      
-            <span className="money-icon">
-                <span className="tooltip">
-                    players: {cardCount}  
-                </span>
-                <p className="balance-text">{balancewon} ETB</p>
-            </span>
-       
-    </fieldset>
-</div>
+            <fieldset className="win-amount-fieldset">
+                <legend>Win Amount</legend>
                 
-          
+                <span className="money-icon">
+                    <label>
+                        <input 
+                            type="checkbox" 
+                            checked={isChecked} 
+                            onChange={handleCheckboxChange} 
+                            // className="invisible-checkbox" // Hide default checkbox appearance
+                        />
+                        Show 
+                    </label>
+                    {isChecked && ( // Display player count if checked
+                       <div className="newclass">
+                        Players: {cardCount}
+                       </div>
+                            
+                     
+                    )}
+                    <p className="balance-text">{balancewon} ETB</p>
+                </span>
+            </fieldset>
+        </div>
    
 
         <div className="right-section">

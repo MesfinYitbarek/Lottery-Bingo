@@ -1563,7 +1563,7 @@ maleOromic:false,
     
 try {
   // Fetch current balance before updating
-  const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
+  const response = await  axios.get(`/api/credit/${currentUser._id}/balance`);
   const currentBalance = response.data.balance; // Adjust based on your API response structure
   
   // Calculate the new balance based on the fetched current balance
@@ -1585,13 +1585,14 @@ try {
   alert("Error updating balance");
   this.setState({ isLoading: false });
 }
-      for (let i = 1; i <= 100; i++) {
+      for (let i = 1; i <= 1000; i++) {
         const isRedState = this.state.isRed[`isRed${i}`];
 
         if (isRedState) {
           this.selectedCards.push(i);
         }
       }
+      
 
       if (this.state.doubleCall) {
         // First sound
@@ -1944,7 +1945,7 @@ try {
   alert("Error updating balance");
   this.setState({ isLoading: false });
 }
-      for (let i = 1; i <= 100; i++) {
+      for (let i = 1; i <= 1000; i++) {
         const isRedState = this.state.isRed[`isRed${i}`];
 
         if (isRedState) {
