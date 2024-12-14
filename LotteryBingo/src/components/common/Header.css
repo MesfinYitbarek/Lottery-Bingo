@@ -219,11 +219,48 @@ legend {
     font-size: 48px; /* Change this value to adjust the size */
     font-weight:bold; /* Make text bold (optional) */
     text-align: center; /* Center align the text */
+    color: #139657;
 }
 .newclass{
-  font-size: medium;
+  font-size:x-large;
   color: #1396d3;
-  font-weight: bolder ;
+  font-weight:bolder;
   padding: 5px;
   margin-left: 10px;
+}
+
+
+.marquee {
+  overflow: hidden; /* Hide overflow content */
+  white-space: nowrap; /* Prevent line breaks */
+  width: 100%; /* Full width of the container */
+  margin-top: 10px; /* Add margin to create space above marquee */
+}
+
+.marquee-content {
+  display: inline-block; /* Ensure content is displayed inline */
+  animation: marquee-animation 8s linear infinite; /* Adjust duration as needed */
+}
+
+.marquee-item {
+  display: inline-flex; /* Use inline-flex to allow centering */
+  width: 25px; /* Width of the car (ball) */
+  height: 25px; /* Height of the car (ball) */
+  border-radius: 50%; /* Make it circular */
+  background-color: #1396d3; /* Set color to red */
+  justify-content: center; /* Center text inside */
+  align-items: center; /* Center vertically */
+  margin-right: 10px; /* Space between cars */
+  color: white; /* Text color */
+  font-weight: bold; /* Bold text */
+}
+
+/* Animation for marquee effect */
+@keyframes marquee-animation {
+  from {
+      transform: translateX(100%); /* Start from right outside the box */
+  }
+  to {
+      transform: translateX(-100%); /* Move to left outside the box */
+  }
 }

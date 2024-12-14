@@ -3787,7 +3787,7 @@ if (this.state.doubleCall) {
     return (
       <div>
         <div>
-        <Header balancewon={this.state.balance} cardCount={this.state.cardCount} />{" "}
+        <Header balancewon={this.state.balance} cardCount={this.state.cardCount} selectedCards={this.selectedCards} />{" "}
         </div>
         <div className={colorClasses}>
           {/* ----------- Bingo Board ------------- */}

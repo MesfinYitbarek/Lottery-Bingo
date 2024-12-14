@@ -12,17 +12,22 @@ import SignOut from "../admin/SignOut";
 import ChangePassword from "../Authentication/ChangePassword";
 import "./Header.css";
 
-const Header =({ balancewon, cardCount }) => {
+const Header =({ balancewon, cardCount,selectedCards }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [balance, setBalance] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isCheckedMarquee, setIsCheckedMarquee] = useState(false);
 
   // Function to handle checkbox change
   const handleCheckboxChange = () => {
       setIsChecked(!isChecked);
   };
+
+  const handleCheckboxChangeMarquee = () => {
+    setIsCheckedMarquee(!isCheckedMarquee); // Toggle the checked state
+};
   useEffect(() => {
     const fetchBalance = async () => {
       try {
@@ -79,7 +84,15 @@ const Header =({ balancewon, cardCount }) => {
                             onChange={handleCheckboxChange} 
                             // className="invisible-checkbox" // Hide default checkbox appearance
                         />
-                        Show 
+                        total
+                    </label>
+                    <label>
+                        <input 
+                            type="checkbox" 
+                            checked={isCheckedMarquee} 
+                            onChange={handleCheckboxChangeMarquee} 
+                        />
+                        cards
                     </label>
                     {isChecked && ( // Display player count if checked
                        <div className="newclass">
@@ -90,7 +103,17 @@ const Header =({ balancewon, cardCount }) => {
                     )}
                     <p className="balance-text">{balancewon} ETB</p>
                 </span>
+              
             </fieldset>
+            {isCheckedMarquee && (
+                    <div className="marquee">
+                        <div className="marquee-content">
+                            {selectedCards.map((number) => (
+                                <span key={number} className="marquee-item">{number}</span>
+                            ))}
+                        </div>
+                    </div>
+                )}
         </div>
    
 
