@@ -3173,6 +3173,7 @@ const handleEndGame = async () => {
       branch: currentUser.branch,
       cashier: currentUser.username,
       date: new Date().toISOString(),
+      balance: currentUser.balance,
   };
 
   if (manualCut) {

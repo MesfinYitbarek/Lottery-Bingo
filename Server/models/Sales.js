@@ -14,7 +14,9 @@ const WinnerSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
- 
+  balance: { // Add balance field here
+    type: Number
+  },
 });
 
 const SalesSchema = new mongoose.Schema({

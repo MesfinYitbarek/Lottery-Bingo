@@ -21,7 +21,8 @@ export const sales = async (req, res) => {
       winner: winner.winner,
       // This should be an array of winner card IDs
       cashier: winner.cashier,
-      createdAt: new Date()
+      createdAt: new Date(),
+      balance: winner.balance
     }))
   });
   try {

@@ -273,16 +273,18 @@ const Sales = () => {
           <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-10 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px]">
             <thead>
               <tr className="tw-bg-blue-800 tw-font-semibold tw-text-white">
-                <th className="tw-p-2 tw-px-4">Date</th>
-                <th className="tw-p-2 tw-px-4">Bet</th>
-                <th className="tw-p-2 tw-px-4">Player#</th>
-                <th className="tw-p-2 tw-px-4">Total Won</th>
-                <th className="tw-p-2 tw-px-4">Cut</th>
-                <th className="tw-p-2 tw-px-4">Won</th>
-                <th className="tw-p-2 tw-px-4">#Call</th>
-                <th className="tw-p-2 tw-px-4">Winners</th>
-                <th className="tw-p-2 tw-px-4">Branch</th>
-                <th className="tw-p-2 tw-px-4">Cashier</th>
+              <th className="tw-p-2 tw-px-4">Date</th>
+       <th className="tw-p-2 tw-px-4">Time</th> {/* New Time Column */}
+       <th className="tw-p-2 tw-px-4">Bet</th>
+       <th className="tw-p-2 tw-px-4">Player#</th>
+       <th className="tw-p-2 tw-px-4">Total Won</th>
+       <th className="tw-p-2 tw-px-4">Cut</th>
+       <th className="tw-p-2 tw-px-4">Won</th>
+       <th className="tw-p-2 tw-px-4">#Call</th>
+       <th className="tw-p-2 tw-px-4">Winners</th>
+       <th className="tw-p-2 tw-px-4">Branch</th>
+       <th className="tw-p-2 tw-px-4">Cashier</th>
+       <th className="tw-p-2 tw-px-4">Balance</th>
               
               </tr>
             </thead>
@@ -292,6 +294,14 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">
                     {new Date(data.createdAt).toLocaleDateString()}
                   </td>
+                  <td className="tw-p-2 tw-px-4">
+           {new Date(data.createdAt).toLocaleTimeString([], { 
+             hour: '2-digit', 
+             minute: '2-digit', 
+             second: '2-digit', 
+             hour12: true 
+           })}
+         </td>
                   <td className="tw-p-2 tw-px-4">&#36;{data.bet}</td>
                   <td className="tw-p-2 tw-px-4">{data.player}</td>
                   <td className="tw-p-2 tw-px-4">&#36;{data.total}</td>
@@ -301,6 +311,9 @@ const Sales = () => {
                   <td className="tw-p-2 tw-px-4">{data.winner.join(", ")}</td>
                   <td className="tw-p-2 tw-px-4">{data.branch}</td>
                   <td className="tw-p-2 tw-px-4">{data.cashier}</td>
+                  <td className="tw-p-2 tw-px-4">&#36;{data.balance}</td>
+                
+
                 
                 </tr>
               ))}
