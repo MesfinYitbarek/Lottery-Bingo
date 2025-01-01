@@ -301,7 +301,7 @@ const Sales = () => {
              second: '2-digit', 
              hour12: true 
            })}
-         </td>
+         </td>  
                   <td className="tw-p-2 tw-px-4">&#36;{data.bet}</td>
                   <td className="tw-p-2 tw-px-4">{data.player}</td>
                   <td className="tw-p-2 tw-px-4">&#36;{data.total}</td>

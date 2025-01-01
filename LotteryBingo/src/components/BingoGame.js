@@ -866,7 +866,7 @@ maleOromic:false,
    *
    */
   componentDidMount() {
-    
+    window.addEventListener('keydown', this.handleKeyDown);
     this.loadVoices();
     // ensure the reset modal doesn't show at initial load
     this.setState({ showResetModal: false });
@@ -881,6 +881,18 @@ maleOromic:false,
     // this.setState({sales:this.state.sales});
   }
 
+  componentWillUnmount() {
+    // Clean up the event listener
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown = (event) => {
+    // Check if the spacebar (key code 32) is pressed
+    if (event.key === ' ') {
+      event.preventDefault(); // Prevent default action (scrolling down)
+      this.handlebutToggle(); // Call the function to toggle
+    }
+  };
   /**
    * [componentDidUpdate description]
    *
@@ -1559,7 +1571,8 @@ maleOromic:false,
 
     if (this.state.balanceNew < this.state.amount) {
       alert("Insufficent balance", currentUser, this.state.balanceNew);
-    } else if (this.state.manualCut) {updateUserStart();
+    } else if (this.state.manualCut) {
+      updateUserStart();
     
 try {
   // Fetch current balance before updating

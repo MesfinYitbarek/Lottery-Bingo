@@ -203,3 +203,13 @@
 		}
 	}
 }
+.santa-hat {
+	position: absolute;
+	top: -40px; /* Adjust this value based on your hat image size */
+	left: 70%;
+	transform: translateX(-50%);
+	width: 100px; /* Adjust width as needed */
+	height: 70px; /* Maintain aspect ratio */
+	z-index: 10; /* Ensure it appears above the ball */
+  }
+  

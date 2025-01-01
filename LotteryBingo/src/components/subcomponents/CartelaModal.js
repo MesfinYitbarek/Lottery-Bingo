@@ -6,6 +6,14 @@ import { ImExit } from "react-icons/im";
 import { FaLock } from "react-icons/fa6";
 import { winsound } from '../../chimes';
 import { notwinsound } from '../../chimes';
+import { newtonsCradle } from 'ldrs'
+
+
+newtonsCradle.register()
+
+// Default values shown
+
+
 
 const CartelaModal = ({ calledBalls, onClose,onReset, betAmount, cardCount, totalAmount, selectedCards, manualEnteredCut, manualCut, selectedPattern ,selectedPattern2 }) => {
   const [cartelaId, setCartelaId] = useState('');
@@ -3329,7 +3337,11 @@ const handleEndGame = async () => {
         )}
         <p>
           <button onClick={onClose} > continue <ImExit/></button>
-          <button onClick={handleEndGame} disabled={winnerCards.length === 0 || isSaving}>{isSaving? 'saving data...' : 'EndGame'} </button>
+          <button onClick={handleEndGame} disabled={winnerCards.length === 0 || isSaving}>{isSaving? (<l-newtons-cradle
+  size="78"
+  speed="1.4" 
+  color="black" 
+></l-newtons-cradle>): ('EndGame')} </button>
           <button onClick={handleRefund} disabled={winnerCards.length <3}>Refund </button>
         </p>
       </div>

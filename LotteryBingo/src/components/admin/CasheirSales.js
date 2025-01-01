@@ -6,6 +6,8 @@ const Users = () => {
   const [error, setError] = useState(null);
   const [filteredSales, setFilteredSales] = useState([]);
   const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+  
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -24,15 +26,36 @@ const Users = () => {
     fetchUsers();
   }, [currentUser.username]);
 
+  const clearSelections = () => {
+   
+    setStartDate("");
+    setEndDate("");
+    // setFilteredSales(sales); // Reset to show all sales
+  };
+
   const handleFilter = () => {
     let filtered = users;
 
+
+    // Initialize the filter to check if at least the date is specified
+    const isDateSpecified = startDate || endDate;
     if (startDate) {
       filtered = filtered.filter(
         (sale) => new Date(sale.createdAt) >= new Date(startDate)
       );
     }
-    setFilteredSales(filtered);
+    if (endDate) {
+      const filterEndDate = new Date(endDate);
+      filterEndDate.setHours(23, 59, 59, 999);
+      filtered = filtered.filter(
+        (sale) => new Date(sale.createdAt) <= filterEndDate
+      );
+    }
+    if (!isDateSpecified ) {
+      setFilteredSales(users); // Show all sales if no filters are applied
+    } else {
+      setFilteredSales(filtered);
+    }
   };
 
   // Calculate totals
@@ -66,12 +89,21 @@ const Users = () => {
           className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
           placeholder="Start Date"
         />
+
+<input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          className="tw-mr-2 tw-px-2 tw-py-1 tw-border"
+          placeholder="End Date"
+        />
         <button
           onClick={handleFilter}
           className="tw-px-4 tw-py-2 tw-bg-blue-600 tw-text-white tw-rounded"
         >
           Find
         </button>
+        <button onClick={clearSelections}>Clear</button>
       </div>
 
       <table className="tw-text-[16px] tw-text-sky-900 tw-bg-white tw-px-4 tw-py-4 tw-border-separate tw-border-spacing-y-2 tw-min-w-[800px] ">
