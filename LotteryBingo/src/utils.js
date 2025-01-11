@@ -1,6 +1,6 @@
 import React from 'react';
 import picture from "./logoImagelast.jpg"
-import SantaHAt from "./images/sant2.png"
+// import SantaHAt from "./images/sant2.png"
 /**
  * Generates the needed bingo balls
  *
@@ -87,7 +87,7 @@ export const getLogoBallDisplay = () => {
 export const getBallDisplay = (ball) => {
   return (
     <div className={"ball-display " + ball.color + " relative notranslate"}>
-      <img src={SantaHAt} alt="santa" className="santa-hat" />
+      {/* <img src={SantaHAt} alt="santa" className="santa-hat" /> */}
       <div className="content">
         <div className="ball-content">
           <div className="ball-letter">{ball.letter}</div>

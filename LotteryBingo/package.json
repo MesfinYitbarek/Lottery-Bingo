@@ -29,6 +29,7 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.26.3",
     "server": "file:..",
+    "styled-components": "^6.1.14",
     "zero-styled": "^0.2.2"
   },
   "scripts": {

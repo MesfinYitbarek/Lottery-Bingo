@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.c57bded2.css",
-    "main.js": "/static/js/main.937bd7de.js",
+    "main.js": "/static/js/main.dc39f353.js",
     "static/media/shuffle.wav": "/static/media/shuffle.61b100e7a51014b7a8dc.wav",
     "static/media/O69MO.mp3": "/static/media/O69MO.6dd6f20aeff29862464d.mp3",
     "static/media/N44MO.mp3": "/static/media/N44MO.2446a4021165d7439e3d.mp3",
@@ -166,7 +166,6 @@
     "static/media/2.mp3": "/static/media/2.8d591ac7a44a41ddab4d.mp3",
     "static/media/3.mp3": "/static/media/3.76c0d6c0a62314f2ef87.mp3",
     "static/media/1.mp3": "/static/media/1.c7a379bab83466a579f3.mp3",
-    "static/media/sant2.png": "/static/media/sant2.60ed6518d759f651b5ea.png",
     "static/media/Roboto-Medium.woff": "/static/media/Roboto-Medium.61c265591865cecb1c3d.woff",
     "static/media/Roboto-Black.woff": "/static/media/Roboto-Black.c0379944e86304e2d36e.woff",
     "static/media/Roboto-Bold.woff": "/static/media/Roboto-Bold.75a1a5b5582b236e0fe3.woff",
@@ -500,10 +499,10 @@
     "static/media/digital-7.woff": "/static/media/digital-7.4eed57244bb0a0bd583d.woff",
     "index.html": "/index.html",
     "main.c57bded2.css.map": "/static/css/main.c57bded2.css.map",
-    "main.937bd7de.js.map": "/static/js/main.937bd7de.js.map"
+    "main.dc39f353.js.map": "/static/js/main.dc39f353.js.map"
   },
   "entrypoints": [
     "static/css/main.c57bded2.css",
-    "static/js/main.937bd7de.js"
+    "static/js/main.dc39f353.js"
   ]
 }
