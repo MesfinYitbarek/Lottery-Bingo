@@ -303,3 +303,55 @@ border-radius: 50%;
 body.night-mode .cartela-buttons button {
   color: #ffffff; /* Change text color to white in night mode */
 }
+
+
+.input-disabled {
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+  border: 1px solid #f5c6cb; /* Red border */
+}
+
+.warning-message {
+  color: #721c24; /* Dark red text */
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+
+/* BingoGame.css */
+.blurred {
+  filter: blur(4px);
+  /* pointer-events: none; Prevent clicks */
+}
+
+/* BingoGame.css */
+.timer {
+  font-size: 100px; /* Make the text larger */
+  color: #ff5722; /* Use a vibrant color */
+  font-weight: bold; /* Make the text bold */
+  margin-top: 10px;
+  text-align: center; /* Center the text */
+  animation: pulse 1.5s infinite; /* Add a pulsing effect */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Slightly enlarge at halfway point */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.start-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

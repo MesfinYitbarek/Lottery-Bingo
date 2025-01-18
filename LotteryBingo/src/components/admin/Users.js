@@ -20,6 +20,8 @@ const Users = () => {
       try {
         const response = await fetch(`/api/user/users/${currentUser._id}`);
         const data = await response.json();
+        // alert(JSON.stringify(data, null, 2)); // This will format the JSON nicely
+
         setUsers(data);
       } catch (err) {
         setError("Error fetching Users");
@@ -58,6 +60,8 @@ const Users = () => {
               <th className="tw-p-2 tw-px-4">Role</th>
               <th className="tw-p-2 tw-px-4">Branch</th>
               <th className="tw-p-2 tw-px-4">Actions</th>
+              <th className="tw-p-2 tw-px-4">Min Bet Amount</th>
+
             </tr>
           </thead>
           <tbody>
@@ -87,6 +91,8 @@ const Users = () => {
                     Edit
                   </Link>
                 </td>
+                <td className="tw-p-2 tw-px-4">{data.minBetAmount}</td>
+
               </tr>
             ))}
           </tbody>

@@ -1,6 +1,6 @@
 import React from 'react';
 import picture from "./logoImagelast.jpg"
-// import SantaHAt from "./images/sant2.png"
+// import SantaHAt from "./images/sant2.png" m,
 /**
  * Generates the needed bingo balls
  *

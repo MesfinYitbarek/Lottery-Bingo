@@ -536,6 +536,10 @@ class BingoGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isTimerActive: false,
+      timeLeft: 60,
+      timer: null,
+      isButtonDisabled: true,
       error: null,
       showFullCallHistory: false,
       availableCartellas: [],
@@ -550,6 +554,8 @@ class BingoGame extends Component {
     this.amount = 0;
     this.doubleTalk= false;
     this.betAmount = 0;
+    this.betAmountmin = 0;
+
     this.showModal = false;
     this.disableReset =false;
     this.cutBalance = 0;
@@ -865,7 +871,15 @@ maleOromic:false,
    * local storage.
    *
    */
+
+
+  
+
+
+    // Fetch user data when the component mounts
+  
   componentDidMount() {
+   
     window.addEventListener('keydown', this.handleKeyDown);
     this.loadVoices();
     // ensure the reset modal doesn't show at initial load
@@ -937,6 +951,45 @@ maleOromic:false,
    *  Load Voices Function
    *  Will load voices as they change within the browser
    */
+  handleCheckboxChange = () => {
+    this.setState((prevState) => ({
+      isTimerActive: !prevState.isTimerActive,
+      timeLeft: 60,
+      isButtonDisabled: !prevState.isTimerActive, // Disable button if timer starts
+    }), () => {
+      if (this.state.isTimerActive) {
+        this.startTimer();
+      } else {
+        this.stopTimer();
+      }
+    });
+  };
+
+  startTimer = () => {
+    this.setState({
+      timer: setInterval(() => {
+        this.setState((prevState) => {
+          if (prevState.timeLeft <= 1) {
+            clearInterval(prevState.timer);
+            return { 
+              timeLeft: 0, 
+              isButtonDisabled: false, // Enable button when timer finishes
+              isTimerActive: false // Uncheck the checkbox
+            }; 
+          }
+          return { timeLeft: prevState.timeLeft - 1 };
+        });
+      }, 1000),
+    });
+  };
+  
+
+  stopTimer = () => {
+    clearInterval(this.state.timer);
+    this.setState({ timer: null, timeLeft: 60 });
+  };
+
+
   loadVoices = () => {
     this.voices = this.synth.getVoices();
     if (this.voices.length > 0) {
@@ -2364,25 +2417,39 @@ if (this.state.doubleCall) {
 
 
   togglestartModal2 = async () => {
-    const { currentUser } = this.props;
+    const { currentUser } = this.props; // Assuming currentUser is passed as a prop
 
-
-    // Set all isRed states to false
-    
-
-    // Update state with the new isRed values
-   
+    // Toggle modal visibility
     const currentState1 = this.state.showstartModal;
-    this.setState({showstartModal: !currentState1,
-      
-  
-  });
-   
-      const res = await axios.get( `/api/credit/${currentUser._id}/balance`);
-      const balanceNeww=res.data.balance;
-    
-    this.setState({balanceNew:balanceNeww});
+    this.setState({ showstartModal: !currentState1 });
+
+    try {
+      // Fetch balance (if needed)
+      const balanceResponse = await fetch(`/api/credit/${currentUser._id}/balance`);
+      const balanceData = await balanceResponse.json();
+      this.setState({ balanceNew: balanceData.balance });
+
+      // Fetch updated minBetAmount from your new API endpoint
+      const response = await fetch(`/api/user/minBet/${currentUser._id}`);
+      const data = await response.json();
+
+      if (data) {
+        // alert(JSON.stringify(data));
+        // Update state with new user data and minBetAmount
+        this.setState({
+          currentUser,
+          betAmountmin: data.minBetAmount || 10, // Set betAmount to fetched minBetAmount or default to 10
+        });
+      } else {
+       //do nothn
+      }
+    } catch (err) {
+      alert("Error fetching user or balance. Please try again.");
+    }
   };
+
+
+  
 
   confirmResetGame = () => {
     // Clear out local storage
@@ -2425,13 +2492,15 @@ if (this.state.doubleCall) {
   confirmstartGame = async () => {
     const { currentUser } = this.props;
     const { balance } = this.props;
-
-    if (balance < this.state.amount || this.state.betAmount < 10) {
-      alert(
-        "Insufficent balance or minimum bet amount entered(minimum amount is 10 birr)",
-        currentUser,
-        balance
-      );
+    const minBetAmount = this.state.betAmountmin;
+    if (balance < this.state.amount || 
+      (minBetAmount > 10 && this.state.betAmount < minBetAmount) || 
+      this.state.betAmount < 10) {
+    alert(
+      `Insufficient balance or minimum bet amount entered (minimum amount is ${minBetAmount} birr)`,
+      currentUser,
+      balance
+    );
     } else {
       if (this.state.manualCut) {
         this.state.balance =
@@ -2836,34 +2905,43 @@ if (this.state.doubleCall) {
     }
 };
 
-  incrementCard = (number) => {
-    // const currentState2 = this.state.isRed;
-    // const stateKey = `isRed${number}`;
-    // this.setState({ [stateKey]: true });
-    // this.setState({isRed1:true}),
-    this.setState((prevState) => ({
-      isRed: { ...prevState.isRed, [`isRed${number}`]: true },
-      cardCount: prevState.cardCount + 1,
-      amount: prevState.betAmount * (prevState.cardCount + 1),
-    }));
-  };
+incrementCard = (number) => {
+  const { currentUser } = this.props; // Ensure currentUser is passed as a prop
+  const minBetAmount = currentUser.minBetAmount || 10; // Default to 10 if not set
 
-  decrementCard = (number) => {
-    if (this.state.cardCount > 0) {
-      // const stateKey = `isRed${number}`;
-      // this.setState({ [stateKey]: false });
-      this.setState((prevState) => ({
-        isRed: { ...prevState.isRed, [`isRed${number}`]: false },
-        cardCount: prevState.cardCount - 1,
-        amount: prevState.betAmount * (prevState.cardCount - 1),
-      }));
-    }
-  };
+  // Use minBetAmount if it's greater than 10, otherwise use betAmount
+  const effectiveBetAmount = minBetAmount > 10 ? minBetAmount : this.state.betAmount;
+
+  this.setState((prevState) => ({
+    isRed: { ...prevState.isRed, [`isRed${number}`]: true },
+    cardCount: prevState.cardCount + 1,
+    amount: effectiveBetAmount * (prevState.cardCount + 1), // Use effectiveBetAmount
+  }));
+};
+
+decrementCard = (number) => {
+  if (this.state.cardCount > 0) {
+    const { currentUser } = this.props; // Ensure currentUser is passed as a prop
+    const minBetAmount = currentUser.minBetAmount || 10; // Default to 10 if not set
+
+    // Use minBetAmount if it's greater than 10, otherwise use betAmount
+    const effectiveBetAmount = minBetAmount > 10 ? minBetAmount : this.state.betAmount;
+
+    this.setState((prevState) => ({
+      isRed: { ...prevState.isRed, [`isRed${number}`]: false },
+      cardCount: prevState.cardCount - 1,
+      amount: effectiveBetAmount * (prevState.cardCount - 1), // Use effectiveBetAmount
+    }));
+  }
+};
+
 
   get startConfirmationModalDisplay() {
     if (this.state.showstartModal === true) {
       let balance = this.totalBalance;
       const { availableCartellas } = this.state;
+      // const { currentUser } = this.props;
+      // const minBetAmount = currentUser.minBetAmount || 10;
       return (
         <div className='notranslate'>
   <div className='modal'>
@@ -2873,20 +2951,25 @@ if (this.state.doubleCall) {
 
     <div className='input-container'>
       <div className='input-group'>
-        <fieldset className='input-group-fieldset'>
-          <legend className='input-group-legend'>Bet Amount</legend>
-          <div className='form-group'>
-            <input
-              type='number'
-              id='betAmount'
-              placeholder='Bet Amount'
-              required
-              onChange={this.handleBetAmountChange}
-              value={this.state.betAmount}
-              className='input-box'
-            />
-          </div>
-        </fieldset>
+      <fieldset className='input-group-fieldset'>
+  <legend className='input-group-legend'>Bet Amount</legend>
+  <div className='form-group'>
+    <input
+      type='number'
+      id='betAmount'
+      placeholder={ 'Bet Amount'}
+      required
+      onChange={this.handleBetAmountChange}
+      // value={0 } 
+      className={`input-box ${this.state.betAmountmin > 10 ? 'input-disabled' : ''}`} // Add a class for styling
+      // disabled={this.props.currentUser.minBetAmount > 10} // Disable if minBetAmount > 10
+    />
+    {this.state.betAmountmin > 10 && (
+      <span className="warning-message">Minimum bet amount is {this.state.betAmountmin} birr</span>
+    )}
+  </div>
+</fieldset>
+
       </div>
       <div className='input-group'>
       <fieldset className='input-group-fieldset'>
@@ -3084,6 +3167,7 @@ if (this.state.doubleCall) {
   };
   handleBetAmountChange = (e) => {
     const betAmount = e.target.value;
+    
     this.setState({
       betAmount,
       amount: betAmount * this.state.cardCount,
@@ -3779,8 +3863,9 @@ if (this.state.doubleCall) {
 
   /* ------------------- Render */
   render() {
-    const { balance } = this.props;
 
+    const { balance } = this.props;
+  
     let colorClasses;
     if (this.state.blue) {
       colorClasses = "dark-blue-bg light-links";
@@ -3800,7 +3885,15 @@ if (this.state.doubleCall) {
     return (
       <div>
         <div>
-        <Header balancewon={this.state.balance} cardCount={this.state.cardCount} selectedCards={this.selectedCards} />{" "}
+        {this.state.isTimerActive && this.state.timeLeft > 0 && (
+  <div className="timer">
+    <span>{this.state.timeLeft} seconds remaining</span>
+
+  </div>
+)}
+          
+        <Header balancewon={this.state.balance} cardCount={this.state.cardCount} selectedCards={this.selectedCards}   />{" "}
+        
         </div>
         <div className={colorClasses}>
           {/* ----------- Bingo Board ------------- */}
@@ -3896,7 +3989,7 @@ if (this.state.doubleCall) {
                           : this.callBingoNumber
                       }
                       className='notranslate'
-                      disabled={this.state.running || balance <= 0}
+                      disabled={this.state.running || balance <= 0 || this.state.isButtonDisabled}
                     >
                       {this.totalBallsCalled === 0 ? (
                         <>
@@ -4268,7 +4361,17 @@ if (this.state.doubleCall) {
 
                     </div>
                  
+                    <div>
+            <input
+              type="checkbox"
+              onChange={this.handleCheckboxChange}
+              checked={this.state.isTimerActive}
+            />
+            <label>Start Countdown</label>
+          </div>
+       
 
+     
 
                     {/* ----------- Chime ----------- */}
                     

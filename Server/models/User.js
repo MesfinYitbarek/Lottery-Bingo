@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     // String type - will store multiple branches as comma-separated for admin
+    minBetAmount: { // New field for minimum bet amount
+      type: Number,
+      default: 10, // Set a default value if desired
+    },
     branch: {
       type: String,
       required: true,

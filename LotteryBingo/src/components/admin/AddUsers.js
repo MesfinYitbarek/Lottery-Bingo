@@ -14,6 +14,8 @@ const AddUsers = () => {
   const [imageFile, setImageFile] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = React.useState([]);
+  const [minBetAmount, setMinBetAmount] = useState(10); // Default value set to 10
+
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -81,8 +83,10 @@ const AddUsers = () => {
       // Convert branch array to string if role is admin
       const dataToSend = {
         ...formData,
-        branch: formData.role === 'admin' ? formData.branch.join(',') : formData.branch
+        branch: formData.role === 'admin' ? formData.branch.join(',') : formData.branch,
+        minBetAmount // Include minBetAmount in the data sent
       };
+      
   
       const res = await fetch(
         `/api/user/signup/${currentUser._id}`,
@@ -109,6 +113,7 @@ const AddUsers = () => {
       setError(error.message);
     }
   };
+  
 
   return (
     <div className="tw-flex tw-justify-center tw-bg-slate-100 tw-items-center">
@@ -235,7 +240,24 @@ const AddUsers = () => {
                 </select>
               )}
             </div>
+
+            
           </div>
+          <div className="tw-flex tw-flex-col tw-items-center tw-w-full sm:tw-w-[450px]">
+  <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="minBetAmount">
+    Minimum Bet Amount: {minBetAmount}
+  </label>
+  <input
+    type="range"
+    id="minBetAmount"
+    min="10"
+    max="100"
+    step="10" // Set step to 10
+    value={minBetAmount}
+    onChange={(e) => setMinBetAmount(e.target.value)}
+    className="tw-w-full"
+  />
+</div>
 
           <button
             disabled={loading}

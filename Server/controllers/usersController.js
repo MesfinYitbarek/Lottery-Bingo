@@ -22,6 +22,7 @@ export const signup = async (req, res, next) => {
     cut,
     branch,
     role,
+    minBetAmount, 
   } = req.body;
 
   try {
@@ -35,6 +36,7 @@ export const signup = async (req, res, next) => {
       cut,
       branch, // The schema setter will handle the conversion
       role,
+      minBetAmount: minBetAmount || 10,
       userRef: req.params.id,
     });
 
@@ -133,7 +135,8 @@ export const updateAdmin = async (req, res, next) => {
       balance: req.body.balance,
       cut: req.body.cut,
       branch: req.body.branch,
-      imageUrl: req.body.imageUrl, // Added imageUrl field
+      imageUrl: req.body.imageUrl,
+      minBetAmount: req.body.minBetAmount // Added imageUrl field
     };
 
     if (req.body.password) {

@@ -13,6 +13,8 @@ const EditUser = () => {
   const [imageFile, setImageFile] = useState(null);
 
   const { currentUser } = useSelector((state) => state.user);
+  const [minBetAmount, setMinBetAmount] = useState(10); // Default value set to 10
+
   const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
@@ -44,6 +46,8 @@ const EditUser = () => {
     fetchUser();
   }, [id]);
 
+
+  
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
   };
@@ -55,25 +59,29 @@ const EditUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const updatedFields = { 
+        ...user,
+        minBetAmount,
+     // Include minBetAmount in updatedFields
+      };
       // Check if the password field has been updated
-      const updatedFields = { ...user };
       if (!updatedFields.password) {
-        // If password is empty, remove it from the updatedFields object
-        delete updatedFields.password;
+        delete updatedFields.password; // If password is empty, remove it from the updatedFields object
       }
-
+  
       if (imageFile) {
         const userImageRef = ref(storage, `Images/${imageFile.name}`);
         await uploadBytes(userImageRef, imageFile);
         updatedFields.imageUrl = await getDownloadURL(userImageRef);
       }
-
+  
       const response = await axios.post(
         `/api/user/update/${id}`,
         updatedFields
       );
       if (response.data) {
         setError(response.data.message || "Update successfully.");
+        await axios.post(`/api/user/updateMinBet/${id}`, { minBetAmount });
       } else {
         setError(response.data.message || "Update failed. Please try again.");
       }
@@ -81,6 +89,7 @@ const EditUser = () => {
       setError("Error updating user. Please try again.");
     }
   };
+  
 
   const renderBranchOptions = (branchString) => {
     return branchString.split(",").map((branch, index) => (
@@ -228,7 +237,24 @@ const EditUser = () => {
               className="tw-w-full tw-px-3 tw-py-2 tw-rounded-md tw-border tw-border-gray-300 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
             />
           </div>
+          <div className="tw-mb-4">
+  <label className="tw-block tw-text-gray-700 tw-mb-2" htmlFor="minBetAmount">
+    Minimum Bet Amount: {minBetAmount}
+  </label>
+  <input
+    type="range"
+    id="minBetAmount"
+    min="10"
+    max="100"
+    step="5" // Set step to 10
+    value={minBetAmount}
+    onChange={(e) => setMinBetAmount(e.target.value)}
+    className="tw-w-full"
+  />
+</div>
+
           <div className="tw-flex tw-justify-end tw-mt-4">
+            
             <button
               type="submit"
               className="tw-px-4 tw-py-2 tw-bg-blue-600 tw-text-white tw-rounded-md tw-hover:bg-blue-700 tw-focus:outline-none tw-focus:ring tw-focus:ring-purple-500 tw-focus:ring-opacity-50"
