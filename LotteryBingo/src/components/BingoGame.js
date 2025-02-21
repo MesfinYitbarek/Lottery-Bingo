@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import withBalance from "./WithBalance.js";
 import Slider from "rc-slider";
 import Select from "react-select";
+import { io } from "socket.io-client";
 import {
   updateUserStart,
   updateUserSuccess,
@@ -549,6 +550,34 @@ class BingoGame extends Component {
     //  this. winAmountBox = document.querySelector('.win-amount-box');
 
     // this.totalBalance =1000;
+    
+    
+    this.socket=io("/api");
+    
+    this.socket.on("updateCartella", (data) => {
+      alert("Received update for cartella:", data); // Log the received update
+      this.setState((prevState) => ({
+        isRed: {
+          ...prevState.isRed,
+          [`isRed${data.number}`]: !prevState.isRed[`isRed${data.number}`], // Use 'number' instead of 'currentNumber'
+        },
+      }));
+    });
+    
+    this.socket.on("cartellaSelected", (data) => {
+      alert("Received manual cartella entry:", data);
+      const { number } = data;
+
+      this.setState((prevState) => ({
+        isRed: {
+          ...prevState.isRed,
+          [`isRed${number}`]: true, // Mark this cartella as selected
+        },
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.amount + prevState.betAmount, // Adjust amount based on your logic
+      }));
+    });
+  
     this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
@@ -678,6 +707,7 @@ class BingoGame extends Component {
     }
   }
 
+  
   getInitialStateData() {
     return {
       board: generateBingoBoard(),
@@ -2917,6 +2947,9 @@ incrementCard = (number) => {
     cardCount: prevState.cardCount + 1,
     amount: effectiveBetAmount * (prevState.cardCount + 1), // Use effectiveBetAmount
   }));
+
+ alert(`Emitting cartellaSelected for number: ${number}`); // Log the emitted event
+  this.socket.emit("cartellaSelected", { number });
 };
 
 decrementCard = (number) => {
@@ -2933,6 +2966,7 @@ decrementCard = (number) => {
       amount: effectiveBetAmount * (prevState.cardCount - 1), // Use effectiveBetAmount
     }));
   }
+  this.socket.emit("cartellaSelected", {number });
 };
 
 
@@ -3134,6 +3168,7 @@ decrementCard = (number) => {
   
       // Add the entered cartella to the selectedCards array
       this.selectedCards.push(enteredCartella);
+      this.socket.emit("cartellaSelected", { number: enteredCartella });
   
       // Increment the cardCount
       this.setState((prevState) => ({

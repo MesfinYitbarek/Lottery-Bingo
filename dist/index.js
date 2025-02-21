@@ -1,4 +1,6 @@
 import express from "express";
+import http from "http";
+import { Server } from "socket.io";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
@@ -18,7 +20,21 @@ mongoose.connect(process.env.MONGO).then(() => {
 });
 const __dirname = path.resolve();
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+io.on("connection", socket => {
+  console.log("A user connected:", socket.id);
 
+  // Handle cartella selection
+  socket.on("cartellaSelected", data => {
+    console.log("Cartella selected:", data);
+    // Broadcast the selection to all connected clients
+    socket.broadcast.emit("updateCartella", data);
+  });
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
 //mongodb+srv://mesfinyitbarek55:12348109@lotterybingo.knjysl9.mongodb.net/?retryWrites=true&w=majority&appName=LotteryBingo
 
 // Middleware
