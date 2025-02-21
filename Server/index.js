@@ -48,29 +48,25 @@ io.on("connection", (socket) => {
   });
 
   // Handle bet amount updates
- // Handle bet amount updates
-socket.on("betAmountUpdate", (data) => {
-  const { gameId, betAmount } = data;
-  console.log("Bet amount update:", data);
-  socket.to(gameId).emit("betAmountUpdate", { betAmount });
-});
+  socket.on("betAmountUpdate", (data) => {
+    const { gameId, betAmount } = data;
+    console.log("Bet amount update:", data);
+    socket.to(gameId).emit("betAmountUpdate", { betAmount });
+  });
 
-// Handle game type updates
-socket.on("gameTypeUpdate", (data) => {
-  const { gameId, gameType } = data;
-  console.log("Game type update:", data);
-  socket.to(gameId).emit("gameTypeUpdate", { gameType });
-});
+  // Handle game type updates
+  socket.on("gameTypeUpdate", (data) => {
+    const { gameId, gameType } = data;
+    console.log("Game type update:", data);
+    socket.to(gameId).emit("gameTypeUpdate", { gameType });
+  });
 
-// Handle modal actions (clear, cancel, done)
-socket.on("modalAction", (data) => {
-  const { gameId, action } = data;
-  console.log("Modal action:", data);
-  socket.to(gameId).emit("modalAction", { action });
-});
-
-  // Handle bet amount changes
-
+  // Handle modal actions (clear, cancel, done)
+  socket.on("modalAction", (data) => {
+    const { gameId, action } = data;
+    console.log("Modal action:", data);
+    socket.to(gameId).emit("modalAction", { action });
+  });
 
   // Handle cartella sync requests
   socket.on("syncCartellas", (data) => {
@@ -80,6 +76,10 @@ socket.on("modalAction", (data) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
+  });
+
+  socket.on("error", (error) => {
+    console.error("Socket error:", error);
   });
 });
 
@@ -95,7 +95,7 @@ mongoose
 
 // Middleware
 app.use(cors({
-  origin: true,  // Allow all origins during development
+  origin: ['http://localhost:3000', 'https://lotterybingoet.com'],
   methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']

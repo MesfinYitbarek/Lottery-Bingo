@@ -555,8 +555,14 @@ class BingoGame extends Component {
     
     // this.socket=io("/api");
     
-    this.socket = io(window.location.hostname.includes('localhost') ? 'http://localhost:4000' : 'https://lotterybingoet.com', {
+    const socketUrl = window.location.hostname.includes('localhost') 
+      ? 'http://localhost:4000'
+      : 'wss://lotterybingoet.com'; // Use WSS for secure WebSocket in production
+
+    this.socket = io(socketUrl, {
       transports: ['websocket', 'polling'],
+      secure: true, // Enable secure connection
+      rejectUnauthorized: false, // Handle SSL/TLS certificates
       cors: {
         origin: true,
         credentials: true
@@ -567,6 +573,15 @@ class BingoGame extends Component {
       reconnectionDelayMax: 5000,
       timeout: 20000,
       forceNew: true
+    });
+
+    // Add connection event handlers
+    this.socket.on('connect', () => {
+      // console.log('Connected to socket server');
+    });
+
+    this.socket.on('connect_error', (error) => {
+      alert('Socket connection error:', error);
     });
   
     // Generate a game ID (could be based on room/session)

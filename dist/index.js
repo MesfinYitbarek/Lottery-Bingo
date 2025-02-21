@@ -54,7 +54,6 @@ io.on("connection", socket => {
   });
 
   // Handle bet amount updates
-  // Handle bet amount updates
   socket.on("betAmountUpdate", data => {
     const {
       gameId,
@@ -90,8 +89,6 @@ io.on("connection", socket => {
     });
   });
 
-  // Handle bet amount changes
-
   // Handle cartella sync requests
   socket.on("syncCartellas", data => {
     const {
@@ -107,6 +104,9 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
   });
+  socket.on("error", error => {
+    console.error("Socket error:", error);
+  });
 });
 
 // Connect to MongoDB database
@@ -118,8 +118,7 @@ mongoose.connect(process.env.MONGO).then(() => {
 
 // Middleware
 app.use(cors({
-  origin: true,
-  // Allow all origins during development
+  origin: ['http://localhost:3000', 'https://lotterybingoet.com'],
   methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
