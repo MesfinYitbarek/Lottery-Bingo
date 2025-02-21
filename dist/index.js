@@ -117,7 +117,12 @@ mongoose.connect(process.env.MONGO).then(() => {
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  // Allow all origins
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
