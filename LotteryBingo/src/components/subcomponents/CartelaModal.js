@@ -3336,11 +3336,11 @@ const handleEndGame = async () => {
           </div>
         )}
         <p>
-          <button onClick={onClose} > continue <ImExit/></button>
+          <button onClick={onClose} disabled={winnerCards.length > 0} > continue <ImExit/></button>
           <button onClick={handleEndGame} disabled={winnerCards.length === 0 || isSaving}>{isSaving? (<l-newtons-cradle
   size="78"
   speed="1.4" 
-  color="black" 
+  color="black"   
 ></l-newtons-cradle>): ('EndGame')} </button>
           <button onClick={handleRefund} disabled={winnerCards.length <3}>Refund </button>
         </p>

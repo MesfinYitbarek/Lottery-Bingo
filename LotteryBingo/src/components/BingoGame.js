@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import withBalance from "./WithBalance.js";
 import Slider from "rc-slider";
 import Select from "react-select";
-import { io } from "socket.io-client";
+import  io  from "socket.io-client";
 import {
   updateUserStart,
   updateUserSuccess,
@@ -26,6 +26,7 @@ import { PiShuffleDuotone } from "react-icons/pi";
 import { VscDebugStart } from "react-icons/vsc";
 import { FcSpeaker } from "react-icons/fc";
 import { RiPaintBrushFill, RiSpeakFill } from "react-icons/ri";
+import { MdOutlineAssistWalker } from "react-icons/md";
 import { MdOutlinePattern } from "react-icons/md";
 
 // Custom Components
@@ -33,7 +34,7 @@ import BingoBoard from "./subcomponents/BingoBoard.js";
 import Pattern from "./subcomponents/Pattern.js";
 import CallHistory from "./subcomponents/CallHistory.js";
 
-import { MdOutlineAssistWalker } from "react-icons/md";
+// import { MdOutlineAssistWalker } from "react-icons/md";
 
 // Utilities
 import {
@@ -552,33 +553,88 @@ class BingoGame extends Component {
     // this.totalBalance =1000;
     
     
-    this.socket=io("/api");
+    // this.socket=io("/api");
     
-    this.socket.on("updateCartella", (data) => {
-    // Log the received update
-      this.setState((prevState) => ({
-        isRed: {
-          ...prevState.isRed,
-          [`isRed${data.number}`]: !prevState.isRed[`isRed${data.number}`], // Use 'number' instead of 'currentNumber'
-        },
-      }));
-    });
-    
-    this.socket.on("cartellaSelected", (data) => {
-      // alert("Received manual cartella entry:", data);
-      const { number } = data;
-
-      this.setState((prevState) => ({
-        isRed: {
-          ...prevState.isRed,
-          [`isRed${number}`]: true, // Mark this cartella as selected
-        },
-        cardCount: prevState.cardCount + 1,
-        amount: prevState.amount + prevState.betAmount, // Adjust amount based on your logic
-      }));
+    this.socket = io('http://localhost:4000', {
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000,
     });
   
-    this.enteredCartella = "";
+    // Generate a game ID (could be based on room/session)
+    this.gameId = props.gameId || 'default-game';
+  
+    // Add connection event handlers
+    this.socket.on('connect', () => {
+      // alert('Connected to server');
+      this.socket.emit('joinGame', this.gameId);
+    });
+  
+    this.socket.on('connect_error', (error) => {
+    //  alert('Connection error:', error);
+    });
+  
+    this.socket.on('disconnect', (reason) => {
+      // alert('Disconnected:', reason);
+    });
+  
+    // Socket event listeners
+    this.socket.on("cartellaSelected", (data) => {
+      const { number, selected } = data;
+      this.setState((prevState) => ({
+        isRed: {
+          ...prevState.isRed,
+          [`isRed${number}`]: selected,
+        },
+        cardCount: selected ? prevState.cardCount + 1 : prevState.cardCount - 1,
+        amount: selected ? prevState.amount + prevState.betAmount : prevState.amount - prevState.betAmount,
+      }));
+    }); 
+    this.socket.on("betAmountUpdate", (data) => {
+      const { betAmount } = data;
+      this.setState({
+        betAmount,
+        amount: betAmount * this.state.cardCount
+      });
+    });
+    
+    this.socket.on("gameTypeUpdate", (data) => {
+      const { gameType } = data;
+      this.setState({
+        manualEnteredCut: gameType,
+        manualCut: gameType !== ''
+      });
+    });
+    
+    this.socket.on("modalAction", (data) => {
+      const { action } = data;
+      let resetIsRed = {};  // Moved outside case block
+      
+      switch(action) {
+        case 'cancel':
+          this.setState({ showstartModal: false });
+          break;
+        case 'clear':
+          this.state.availableCartellas.forEach(cartella => {
+            resetIsRed[`isRed${cartella.id}`] = false;
+          });
+          this.setState({
+            isRed: resetIsRed,
+            cardCount: 0,
+            selectedCards: [],
+            amount: 0,
+            enteredCartella: "",
+          });
+          break;
+        case 'done':
+          this.setState({ showstartModal: false });
+          break;
+      }
+    });  
+     this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
     this.doubleTalk= false;
@@ -707,7 +763,6 @@ class BingoGame extends Component {
     }
   }
 
-  
   getInitialStateData() {
     return {
       board: generateBingoBoard(),
@@ -900,7 +955,7 @@ maleOromic:false,
    * and the component has mounted reinitialize the game from
    * local storage.
    *
-   */
+ */
 
 
   
@@ -923,11 +978,45 @@ maleOromic:false,
     }
     this.amount = this.state.cutBalance;
     // this.setState({sales:this.state.sales});
+    this.socket.emit("requestCartellaSync");
+
+    this.socket.on("betAmountChanged", (data) => {
+      const { betAmount } = data;
+      this.setState({ betAmount });
+    });
+
+    this.socket.on("gameTypeChanged", (data) => {
+      const { manualCut, manualEnteredCut } = data;
+      this.setState({ 
+        manualCut,
+        manualEnteredCut
+      });
+    });
+
+    this.socket.on("gameAction", (data) => {
+      const { action, state } = data;
+      switch(action) {
+        case 'clear':
+          this.resetButtonStates();
+          break;
+        case 'cancel':
+          this.togglestartModal();
+          break;
+        case 'done':
+          if (state) {
+            this.setState(state);
+          }
+          break;
+      }
+    });
   }
 
   componentWillUnmount() {
     // Clean up the event listener
     window.removeEventListener('keydown', this.handleKeyDown);
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   }
 
   handleKeyDown = (event) => {
@@ -1963,8 +2052,6 @@ try {
 
         // Play the first sound
         firstSound.play();
-
-        // Add an event listener for when the first sound ends
         firstSound.addEventListener("ended", () => {
           let secondSound;
 
@@ -2443,6 +2530,10 @@ if (this.state.doubleCall) {
       const balanceNeww=res.data.balance;
     
     this.setState({balanceNew:balanceNeww});
+    this.socket.emit("modalAction", {
+      gameId: this.gameId,
+      action: 'cancel'
+    });
   };
 
 
@@ -2520,6 +2611,10 @@ if (this.state.doubleCall) {
   };
 
   confirmstartGame = async () => {
+    this.socket.emit("modalAction", {
+      gameId: this.gameId,
+      action: 'done'
+    });
     const { currentUser } = this.props;
     const { balance } = this.props;
     const minBetAmount = this.state.betAmountmin;
@@ -2922,34 +3017,89 @@ if (this.state.doubleCall) {
 
     // Check if Enter key is pressed
     if (e.key === "Enter") {
+        // Validate the cartella number
+        if (isNaN(cartellaNumber)) {
+          alert('Please enter a valid number.');
+          return;
+        }
+
+        // Check if cartella is already selected
+        if (this.state.isRed[`isRed${cartellaNumber}`]) {
+          alert('This cartella is already selected.');
+          return;
+        }
+
         // Update isRed state for the entered number
         this.setState((prevState) => ({
-            isRed: {
-                ...prevState.isRed,
-                [`isRed${cartellaNumber}`]: true, // Set isRed state for the entered number
-            },
+          isRed: {
+            ...prevState.isRed,
+            [`isRed${cartellaNumber}`]: true,
+          },
+          cardCount: prevState.cardCount + 1,
+          amount: (prevState.cardCount + 1) * prevState.betAmount,
+          enteredCartella: "" // Clear the input
         }));
 
-        // Call the function to add the cartella
-        this.addEnteredCartella();
+        // Emit socket event for cartella selection
+        this.socket.emit("cartellaSelected", {
+          gameId: this.gameId,
+          number: cartellaNumber,
+          selected: true
+        });
     }
-};
+  };
 
-incrementCard = (number) => {
-  const { currentUser } = this.props; // Ensure currentUser is passed as a prop
-  const minBetAmount = currentUser.minBetAmount || 10; // Default to 10 if not set
+  addEnteredCartella = () => {
+    const enteredCartella = Number(this.state.enteredCartella);
+    
+    if (!isNaN(enteredCartella)) {
+      // Check if the cartella is already selected
+      if (this.state.isRed[`isRed${enteredCartella}`]) {
+        alert('This cartella is already selected.');
+        return;
+      }
 
-  // Use minBetAmount if it's greater than 10, otherwise use betAmount
-  const effectiveBetAmount = minBetAmount > 10 ? minBetAmount : this.state.betAmount;
+      // Update local state
+      this.setState((prevState) => ({
+        isRed: {
+          ...prevState.isRed,
+          [`isRed${enteredCartella}`]: true,
+        },
+        cardCount: prevState.cardCount + 1,
+        amount: prevState.betAmount * (prevState.cardCount + 1),
+        enteredCartella: "" // Clear the input
+      }));
 
-  this.setState((prevState) => ({
-    isRed: { ...prevState.isRed, [`isRed${number}`]: true },
-    cardCount: prevState.cardCount + 1,
-    amount: effectiveBetAmount * (prevState.cardCount + 1), // Use effectiveBetAmount
-  }));
+      // Emit socket event for cartella selection
+      this.socket.emit("cartellaSelected", {
+        gameId: this.gameId,
+        number: enteredCartella,
+        selected: true
+      });
+    } else {
+      alert('Please enter a valid number.');
+    }
+  };
+
+  incrementCard = (number) => {
+    const { currentUser } = this.props; // Ensure currentUser is passed as a prop
+    const minBetAmount = currentUser.minBetAmount || 10; // Default to 10 if not set
+
+    // Use minBetAmount if it's greater than 10, otherwise use betAmount
+    const effectiveBetAmount = minBetAmount > 10 ? minBetAmount : this.state.betAmount;
+
+    this.setState((prevState) => ({
+      isRed: { ...prevState.isRed, [`isRed${number}`]: true },
+      cardCount: prevState.cardCount + 1,
+      amount: effectiveBetAmount * (prevState.cardCount + 1), // Use effectiveBetAmount
+    }));
 
  // Log the emitted event
-  this.socket.emit("cartellaSelected", { number });
+ this.socket.emit("cartellaSelected", { 
+  gameId: this.gameId,
+  number,
+  selected: true 
+});
 };
 
 decrementCard = (number) => {
@@ -2966,9 +3116,12 @@ decrementCard = (number) => {
       amount: effectiveBetAmount * (prevState.cardCount - 1), // Use effectiveBetAmount
     }));
   }
-  this.socket.emit("cartellaSelected", {number });
+  this.socket.emit("cartellaSelected", { 
+    gameId: this.gameId,
+    number,
+    selected: false 
+  });
 };
-
 
   get startConfirmationModalDisplay() {
     if (this.state.showstartModal === true) {
@@ -3117,22 +3270,26 @@ decrementCard = (number) => {
   resetButtonStates = () => {
     const resetIsRed = {};
     const { availableCartellas } = this.state;
-
-    // Set all isRed states to false
+  
     availableCartellas.forEach(cartella => {
-        resetIsRed[`isRed${cartella.id}`] = false;
+      resetIsRed[`isRed${cartella.id}`] = false;
     });
-
-    // Update state with the new isRed values
+  
     this.setState({
-        isRed: resetIsRed,
-        cardCount: 0, // Reset card count
-        selectedCards: [],
-        amount:0,
-        enteredCartella :"",
-    
+      isRed: resetIsRed,
+      cardCount: 0,
+      selectedCards: [],
+      amount: 0,
+      enteredCartella: "",
     });
-};
+  
+    // Emit to other clients
+    this.socket.emit("modalAction", {
+      gameId: this.gameId,
+      action: 'clear'
+    });
+  };
+
   fetchAvailableCartellas = async () => {
     const { currentUser } = this.props;
     const branch = currentUser.branch;
@@ -3149,66 +3306,46 @@ decrementCard = (number) => {
       });
     }
   };
-  addEnteredCartella = () => {
-    
-    // const enteredCartella = parseInt(this.state.enteredCartella);
-    const enteredCartella = Number(this.state.enteredCartella);
-    
-  
-    // Check if the entered cartella is a valid number
-    if (!isNaN(enteredCartella)) {
-      
-      // Check if the entered cartella is already in the selectedCards array
-      if (this.selectedCards.includes(enteredCartella)||this.state.isRed[`isRed${enteredCartella}`]
-     ) {
-        alert('Duplicate cartella number not allowed.' );
-        return; // Exit the function if it's a duplicate
-      }
-    
-  
-      // Add the entered cartella to the selectedCards array
-      this.selectedCards.push(enteredCartella);
-      this.socket.emit("cartellaSelected", { number: enteredCartella });
-  
-      // Increment the cardCount
-      this.setState((prevState) => ({
-        cardCount: prevState.cardCount + 1,
-        amount: prevState.betAmount * (prevState.cardCount + 1),
-      }));
-    } else {
-      alert('Please enter a valid number.'); // Optional: Alert for invalid input
-    }
-  
-    // Clear the input field
-    this.setState({
-      enteredCartella: "",
-    });
-  };
   handleChechbx = (e) => {
     if (e.target.type === "checkbox") {
       this.setState({
         manualCut: e.target.checked, // Set state based on checkbox checked state
       });
+
+      // Emit game type change
+      this.socket.emit("gameTypeChanged", {
+        gameId: this.gameId,
+        manualCut: e.target.checked,
+        manualEnteredCut: this.state.manualEnteredCut
+      });
     }
   };
   handleCutChange = (e) => {
-    const cutamount = e.target.value;
-
-    // Update state with the new cut amount
-    this.setState((prevState) => ({
-      manualEnteredCut: cutamount,
-      manualCut: cutamount !== '' // Automatically check the box if input is not empty
-    }));
+    const gameType = e.target.value;
+    this.setState({
+      manualEnteredCut: gameType,
+      manualCut: gameType !== ''
+    });
+  
+    // Emit to other clients
+    this.socket.emit("gameTypeUpdate", {
+      gameId: this.gameId,
+      gameType
+    });
   };
   handleBetAmountChange = (e) => {
     const betAmount = e.target.value;
-    
     this.setState({
       betAmount,
       amount: betAmount * this.state.cardCount,
     });
+  
+    // Emit to other clients
+    this.socket.emit("betAmountUpdate", {
+      gameId: this.gameId,
+      betAmount
+    });
   };
-
   handleCardCountChange = (e) => {
     const cardCount = parseInt(e.target.value) || 0;
     this.setState({
@@ -3857,8 +3994,6 @@ decrementCard = (number) => {
             MS2: false,
           });
           break;
-
-         
 
             
 

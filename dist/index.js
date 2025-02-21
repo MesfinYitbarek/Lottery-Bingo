@@ -1,3 +1,4 @@
+// Server/index.js
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
@@ -11,36 +12,116 @@ import creditRouter from "./routes/credit.js";
 import salesRouter from "./routes/sales.js";
 import branchRouter from "./routes/Agent.js";
 import path from "path";
-// Connect to MongoDB database
 dotenv.config();
-mongoose.connect(process.env.MONGO).then(() => {
-  console.log("Connected to MongoDB!");
-}).catch(err => {
-  console.log(err);
-});
 const __dirname = path.resolve();
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+
+// Configure Socket.IO with CORS
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+  pingTimeout: 60000,
+  pingInterval: 25000
+});
+
+// Socket.IO connection handling
 io.on("connection", socket => {
   console.log("A user connected:", socket.id);
 
+  // Join a game room
+  socket.on("joinGame", gameId => {
+    socket.join(gameId);
+    console.log(`Client ${socket.id} joined game ${gameId}`);
+    socket.to(gameId).emit("requestCartellaSync");
+  });
+
   // Handle cartella selection
   socket.on("cartellaSelected", data => {
+    const {
+      gameId,
+      number,
+      selected
+    } = data;
     console.log("Cartella selected:", data);
-    // Broadcast the selection to all connected clients
-    socket.broadcast.emit("updateCartella", data);
+    socket.to(gameId).emit("cartellaSelected", {
+      number,
+      selected
+    });
+  });
+
+  // Handle bet amount updates
+  // Handle bet amount updates
+  socket.on("betAmountUpdate", data => {
+    const {
+      gameId,
+      betAmount
+    } = data;
+    console.log("Bet amount update:", data);
+    socket.to(gameId).emit("betAmountUpdate", {
+      betAmount
+    });
+  });
+
+  // Handle game type updates
+  socket.on("gameTypeUpdate", data => {
+    const {
+      gameId,
+      gameType
+    } = data;
+    console.log("Game type update:", data);
+    socket.to(gameId).emit("gameTypeUpdate", {
+      gameType
+    });
+  });
+
+  // Handle modal actions (clear, cancel, done)
+  socket.on("modalAction", data => {
+    const {
+      gameId,
+      action
+    } = data;
+    console.log("Modal action:", data);
+    socket.to(gameId).emit("modalAction", {
+      action
+    });
+  });
+
+  // Handle bet amount changes
+
+  // Handle cartella sync requests
+  socket.on("syncCartellas", data => {
+    const {
+      gameId,
+      selections,
+      betAmount
+    } = data;
+    socket.to(gameId).emit("syncCartellas", {
+      selections,
+      betAmount
+    });
   });
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
   });
 });
-//mongodb+srv://mesfinyitbarek55:12348109@lotterybingo.knjysl9.mongodb.net/?retryWrites=true&w=majority&appName=LotteryBingo
+
+// Connect to MongoDB database
+mongoose.connect(process.env.MONGO).then(() => {
+  console.log("Connected to MongoDB!");
+}).catch(err => {
+  console.log(err);
+});
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
+// Routes
 app.use("/api/user", userRouter);
 app.use("/api/card", cardRouter);
 app.use("/api/credit", creditRouter);
@@ -50,6 +131,8 @@ app.use(express.static(path.join(__dirname, '/LotteryBingo/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'LotteryBingo', 'build', 'index.html'));
 });
+
+// Error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
@@ -59,6 +142,9 @@ app.use((err, req, res, next) => {
     message
   });
 });
-app.listen(4000, () => {
-  console.log(`App is listening on port: 4000`);
+
+// Important: Use server.listen instead of app.listen for Socket.IO
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+  console.log(`Server is listening on port: ${PORT}`);
 });
