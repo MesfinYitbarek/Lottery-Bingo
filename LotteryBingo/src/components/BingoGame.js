@@ -565,7 +565,7 @@ class BingoGame extends Component {
     });
     
     this.socket.on("cartellaSelected", (data) => {
-      alert("Received manual cartella entry:", data);
+      // alert("Received manual cartella entry:", data);
       const { number } = data;
 
       this.setState((prevState) => ({
