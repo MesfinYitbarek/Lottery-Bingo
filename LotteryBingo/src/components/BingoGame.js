@@ -555,13 +555,17 @@ class BingoGame extends Component {
     
     // this.socket=io("/api");
     
-    this.socket = io('http://localhost:4000', {
+    this.socket = io('https://lotterybingoet.com', {
       transports: ['websocket', 'polling'],
+      cors: {
+        origin: "*",
+        credentials: true
+      },
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
-      timeout: 20000,
+      timeout: 20000
     });
   
     // Generate a game ID (could be based on room/session)
@@ -920,7 +924,6 @@ maleOromic:false,
      
       FMC2: false,
       anyTwoHorizontal2: false,
-     
     
       anyTwoVertical2: false,
      
