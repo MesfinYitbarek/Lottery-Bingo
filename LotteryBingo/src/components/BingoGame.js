@@ -558,7 +558,7 @@ class BingoGame extends Component {
     const { currentUser } = this.props;
     const socketUrl = window.location.hostname.includes('localhost') 
       ? 'http://localhost:4000'
-      : 'http://164.92.181.109:4000'; // Connect directly to your server IP
+      : 'https://lotterybingoet.com:4000'; // Connect directly to your server IP
 
     this.socket = io(socketUrl, {
       transports: ['polling', 'websocket'],
