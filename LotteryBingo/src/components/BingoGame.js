@@ -557,7 +557,7 @@ class BingoGame extends Component {
     
     const socketUrl = window.location.hostname.includes('localhost') 
       ? 'http://localhost:4000'
-      : 'wss://lotterybingoet.com'; // Use WSS for secure WebSocket in production
+      : 'https://lotterybingoet.com'; // Use WSS for secure WebSocket in production
 
     this.socket = io(socketUrl, {
       transports: ['websocket', 'polling'],
