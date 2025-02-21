@@ -29,57 +29,61 @@ const io = new Server(server, {
   pingInterval: 25000,
 });
 
-// Socket.IO connection handling
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
+// Socket.IO configuration
+io.on('connection', (socket) => {
+  const userId = socket.handshake.query.userId;
+  console.log('Client connected:', socket.id, 'User:', userId);
 
-  // Join a game room
-  socket.on("joinGame", (gameId) => {
-    socket.join(gameId);
-    console.log(`Client ${socket.id} joined game ${gameId}`);
-    socket.to(gameId).emit("requestCartellaSync");
+  // Handle joining rooms
+  socket.on('joinRoom', (data) => {
+    const { userId, gameId } = data;
+    const roomId = `${gameId}_${userId}`;
+    socket.join(roomId);
+    console.log(`User ${userId} joined room ${roomId}`);
   });
 
-  // Handle cartella selection
-  socket.on("cartellaSelected", (data) => {
-    const { gameId, number, selected } = data;
-    console.log("Cartella selected:", data);
-    socket.to(gameId).emit("cartellaSelected", { number, selected });
+  // Handle number calls
+  socket.on("numberCalled", (data) => {
+    const { gameId, number, userId } = data;
+    const roomId = `${gameId}_${userId}`;
+    // Only emit to the specific user's room
+    socket.to(roomId).emit("numberCalled", { number });
   });
 
   // Handle bet amount updates
   socket.on("betAmountUpdate", (data) => {
-    const { gameId, betAmount } = data;
-    console.log("Bet amount update:", data);
-    socket.to(gameId).emit("betAmountUpdate", { betAmount });
+    const { gameId, betAmount, userId } = data;
+    const roomId = `${gameId}_${userId}`;
+    socket.to(roomId).emit("betAmountUpdate", { betAmount });
   });
 
   // Handle game type updates
   socket.on("gameTypeUpdate", (data) => {
-    const { gameId, gameType } = data;
-    console.log("Game type update:", data);
-    socket.to(gameId).emit("gameTypeUpdate", { gameType });
+    const { gameId, gameType, userId } = data;
+    const roomId = `${gameId}_${userId}`;
+    socket.to(roomId).emit("gameTypeUpdate", { gameType });
   });
 
-  // Handle modal actions (clear, cancel, done)
+  // Handle modal actions
   socket.on("modalAction", (data) => {
-    const { gameId, action } = data;
-    console.log("Modal action:", data);
-    socket.to(gameId).emit("modalAction", { action });
+    const { gameId, action, userId } = data;
+    const roomId = `${gameId}_${userId}`;
+    socket.to(roomId).emit("modalAction", { action });
   });
 
-  // Handle cartella sync requests
+  // Handle cartella sync
   socket.on("syncCartellas", (data) => {
-    const { gameId, selections, betAmount } = data;
-    socket.to(gameId).emit("syncCartellas", { selections, betAmount });
+    const { gameId, cartellas, userId } = data;
+    const roomId = `${gameId}_${userId}`;
+    socket.to(roomId).emit("syncCartellas", { cartellas });
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+    console.log("User disconnected:", socket.id, 'User:', userId);
   });
 
   socket.on("error", (error) => {
-    console.error("Socket error:", error);
+    console.error("Socket error for user", userId, ":", error);
   });
 });
 
@@ -95,7 +99,7 @@ mongoose
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://lotterybingoet.com'],
+  origin: ['http://localhost:3000', 'https://lotterybingoet.com', 'https://www.lotterybingoet.com'],
   methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']

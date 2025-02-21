@@ -555,14 +555,15 @@ class BingoGame extends Component {
     
     // this.socket=io("/api");
     
+    const { currentUser } = this.props;
     const socketUrl = window.location.hostname.includes('localhost') 
       ? 'http://localhost:4000'
-      : 'https://lotterybingoet.com'; // Use WSS for secure WebSocket in production
+      : 'https://lotterybingoet.com:4000'; // Use your domain with the port number
 
     this.socket = io(socketUrl, {
       transports: ['websocket', 'polling'],
-      secure: true, // Enable secure connection
-      rejectUnauthorized: false, // Handle SSL/TLS certificates
+      secure: true,
+      rejectUnauthorized: false,
       cors: {
         origin: true,
         credentials: true
@@ -572,16 +573,24 @@ class BingoGame extends Component {
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
       timeout: 20000,
-      forceNew: true
+      forceNew: true,
+      query: {
+        userId: currentUser._id // Add user ID to connection
+      }
     });
 
     // Add connection event handlers
     this.socket.on('connect', () => {
-      // console.log('Connected to socket server');
+     alert('Connected to socket server');
+      // Join a room specific to this user
+      this.socket.emit('joinRoom', {
+        userId: currentUser._id,
+        gameId: this.gameId
+      });
     });
 
     this.socket.on('connect_error', (error) => {
-      alert('Socket connection error:', error);
+      alert('Socket connection error: ' + error.message);
     });
   
     // Generate a game ID (could be based on room/session)
@@ -2127,7 +2136,7 @@ try {
   // Fetch current balance before updating
   const response = await axios.get(`/api/credit/${currentUser._id}/balance`);
   const currentBalance = response.data.balance; // Adjust based on your API response structure
-
+  
   // Calculate the new balance based on the fetched current balance
   const newBalance =
     currentBalance - (this.state.amount * currentUser.cut) / 100;
@@ -4287,16 +4296,9 @@ decrementCard = (number) => {
                           </div>
                         </div>
                       </div>
-
-
-
-
-
                       <span>  &nbsp;</span>
                       <span>  &nbsp;</span>
                       <span>  &nbsp;</span>
-
-
                       <div className='row no-wrap align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -4321,20 +4323,6 @@ decrementCard = (number) => {
                         </label>
                       </div>
                     </div>
-
-
-
-
-
-
-
-<span>  &nbsp;</span>
-<span>  &nbsp;</span>
-<span>  &nbsp;</span>
-
-
-
-
                     <div className='row no-wrap align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -4359,33 +4347,8 @@ decrementCard = (number) => {
                         </label>
                       </div>
                     </div>
-
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                   
-
-
-
-
-
-                    {/* ----------- Caller ---------- */}
-                    
-
-                    <div className='row align-start justify-start'>
-                      <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
+                    <div className='row no-wrap align-start justify-start'>
+                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           {" "}
                           color: <RiPaintBrushFill />{" "}
@@ -4404,14 +4367,6 @@ decrementCard = (number) => {
                       <div className='row align-start justify-start'>
                        
                     </div>
-
-
-
-
-
-
-
-
                     <div className='row align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -4455,27 +4410,6 @@ decrementCard = (number) => {
                         ></div>
                       </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
                           <h6>
                             {" "}
@@ -4493,16 +4427,7 @@ decrementCard = (number) => {
                           />
                         </div>
                       </div>
-
-
-
-                  
-
-                    {/* ----------- Chime Selection ----------- */}
-                    <div
-                      className='row no-wrap align-start justify-start'
-                      data-visibility={this.state.showPat ? "show" : "hide"}
-                    >
+                      <div className='row no-wrap align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           Secondary Pattern: <MdOutlinePattern />
@@ -4519,11 +4444,7 @@ decrementCard = (number) => {
                             options={this.Pattern2}
                           />
                       </div>
-
-
-
-
-
+                      </div>
                       <div
                       className='row no-wrap align-start justify-start'
                       data-visibility={this.state.chime ? "show" : "hide"}
@@ -4545,9 +4466,6 @@ decrementCard = (number) => {
                         />
                       </div>
                     </div>
-
-
-
                     </div>
                  
                     <div>
