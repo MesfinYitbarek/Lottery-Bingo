@@ -118,10 +118,10 @@ mongoose.connect(process.env.MONGO).then(() => {
 
 // Middleware
 app.use(cors({
-  origin: '*',
-  // Allow all origins
-  methods: ['GET', 'POST'],
-  credentials: true
+  origin: 'https://lotterybingoet.com',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(cookieParser());

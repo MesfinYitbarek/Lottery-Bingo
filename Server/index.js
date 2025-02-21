@@ -94,7 +94,12 @@ mongoose
   });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://lotterybingoet.com',  
+  methods: ['GET', 'POST', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(cookieParser());
 
