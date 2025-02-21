@@ -20,7 +20,7 @@ const server = http.createServer(app);
 // Configure Socket.IO with CORS
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'http://164.92.181.109:3000', 'https://lotterybingoet.com', 'https://www.lotterybingoet.com'],
+    origin: ['http://localhost:3000', 'https://lotterybingoet.com', 'https://www.lotterybingoet.com'],
     methods: ['GET', 'POST'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
