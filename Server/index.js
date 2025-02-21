@@ -21,18 +21,21 @@ const server = http.createServer(app);
 // Configure Socket.IO with CORS
 const io = new Server(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-    credentials: true
+    origin: ['http://localhost:3000', 'http://164.92.181.109:3000', 'https://lotterybingoet.com', 'https://www.lotterybingoet.com'],
+    methods: ['GET', 'POST'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
   },
+  allowEIO3: true,
+  transports: ['polling', 'websocket'],
+  path: '/socket.io',
   pingTimeout: 60000,
-  pingInterval: 25000,
+  pingInterval: 25000
 });
 
 // Socket.IO configuration
 io.on('connection', (socket) => {
-  const userId = socket.handshake.query.userId;
-  console.log('Client connected:', socket.id, 'User:', userId);
+  console.log('Client connected:', socket.id);
 
   // Handle joining rooms
   socket.on('joinRoom', (data) => {
@@ -78,12 +81,12 @@ io.on('connection', (socket) => {
     socket.to(roomId).emit("syncCartellas", { cartellas });
   });
 
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id, 'User:', userId);
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
   });
 
-  socket.on("error", (error) => {
-    console.error("Socket error for user", userId, ":", error);
+  socket.on('error', (error) => {
+    console.error('Socket error:', error);
   });
 });
 
@@ -99,7 +102,7 @@ mongoose
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://lotterybingoet.com', 'https://www.lotterybingoet.com'],
+  origin: ['http://localhost:3000', 'http://164.92.181.109:3000', 'https://lotterybingoet.com'],
   methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']

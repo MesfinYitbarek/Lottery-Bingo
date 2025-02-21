@@ -558,25 +558,22 @@ class BingoGame extends Component {
     const { currentUser } = this.props;
     const socketUrl = window.location.hostname.includes('localhost') 
       ? 'http://localhost:4000'
-      : 'https://lotterybingoet.com:4000'; // Use your domain with the port number
+      : 'http://164.92.181.109:4000'; // Connect directly to your server IP
 
     this.socket = io(socketUrl, {
-      transports: ['websocket', 'polling'],
-      secure: true,
+      transports: ['polling', 'websocket'],
+      secure: false, // Changed to false since we're using http
       rejectUnauthorized: false,
       cors: {
         origin: true,
         credentials: true
       },
       reconnection: true,
-      reconnectionAttempts: 5,
+      reconnectionAttempts: 10,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
       timeout: 20000,
-      forceNew: true,
-      query: {
-        userId: currentUser._id // Add user ID to connection
-      }
+      forceNew: true
     });
 
     // Add connection event handlers
@@ -590,7 +587,12 @@ class BingoGame extends Component {
     });
 
     this.socket.on('connect_error', (error) => {
-      alert('Socket connection error: ' + error.message);
+      alert('Socket connection error:', error.message);
+    });
+
+    // Add transport change listener
+    this.socket.on('reconnect_attempt', () => {
+    alert('Attempting reconnection...');
     });
   
     // Generate a game ID (could be based on room/session)
@@ -4296,9 +4298,16 @@ decrementCard = (number) => {
                           </div>
                         </div>
                       </div>
+
+
+
+
+
                       <span>  &nbsp;</span>
                       <span>  &nbsp;</span>
                       <span>  &nbsp;</span>
+
+
                       <div className='row no-wrap align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -4323,6 +4332,20 @@ decrementCard = (number) => {
                         </label>
                       </div>
                     </div>
+
+
+
+
+
+
+
+<span>  &nbsp;</span>
+<span>  &nbsp;</span>
+<span>  &nbsp;</span>
+
+
+
+
                     <div className='row no-wrap align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -4347,8 +4370,33 @@ decrementCard = (number) => {
                         </label>
                       </div>
                     </div>
-                    <div className='row no-wrap align-start justify-start'>
-                      <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+
+                    {/* ----------- Caller ---------- */}
+                    
+
+                    <div className='row align-start justify-start'>
+                      <div className='col shrink min-size-100 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           {" "}
                           color: <RiPaintBrushFill />{" "}
@@ -4367,6 +4415,14 @@ decrementCard = (number) => {
                       <div className='row align-start justify-start'>
                        
                     </div>
+
+
+
+
+
+
+
+
                     <div className='row align-start justify-start'>
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
@@ -4427,7 +4483,16 @@ decrementCard = (number) => {
                           />
                         </div>
                       </div>
-                      <div className='row no-wrap align-start justify-start'>
+
+
+
+                  
+
+                    {/* ----------- Chime Selection ----------- */}
+                    <div
+                      className='row no-wrap align-start justify-start'
+                      data-visibility={this.state.showPat ? "show" : "hide"}
+                    >
                       <div className='col shrink min-size-80 padding-vertical-md padding-horizontal-lg'>
                         <h6>
                           Secondary Pattern: <MdOutlinePattern />
@@ -4444,7 +4509,11 @@ decrementCard = (number) => {
                             options={this.Pattern2}
                           />
                       </div>
-                      </div>
+
+
+
+
+
                       <div
                       className='row no-wrap align-start justify-start'
                       data-visibility={this.state.chime ? "show" : "hide"}
