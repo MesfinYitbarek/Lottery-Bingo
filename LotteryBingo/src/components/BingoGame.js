@@ -555,7 +555,7 @@ class BingoGame extends Component {
     this.socket=io("/api");
     
     this.socket.on("updateCartella", (data) => {
-      alert("Received update for cartella:", data); // Log the received update
+    // Log the received update
       this.setState((prevState) => ({
         isRed: {
           ...prevState.isRed,
@@ -2948,7 +2948,7 @@ incrementCard = (number) => {
     amount: effectiveBetAmount * (prevState.cardCount + 1), // Use effectiveBetAmount
   }));
 
- alert(`Emitting cartellaSelected for number: ${number}`); // Log the emitted event
+ // Log the emitted event
   this.socket.emit("cartellaSelected", { number });
 };
 
