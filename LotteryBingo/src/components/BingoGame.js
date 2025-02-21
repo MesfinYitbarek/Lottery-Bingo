@@ -555,10 +555,10 @@ class BingoGame extends Component {
     
     // this.socket=io("/api");
     
-    this.socket = io('https://lotterybingoet.com', {
+    this.socket = io(window.location.hostname.includes('localhost') ? 'http://localhost:4000' : 'https://lotterybingoet.com', {
       transports: ['websocket', 'polling'],
       cors: {
-        origin: 'https://lotterybingoet.com',
+        origin: true,
         credentials: true
       },
       reconnection: true,
