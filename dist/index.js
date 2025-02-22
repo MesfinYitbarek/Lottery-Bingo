@@ -20,56 +20,48 @@ const server = http.createServer(app);
 // Configure Socket.IO with CORS
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://lotterybingoet.com', 'https://www.lotterybingoet.com'],
-    methods: ['GET', 'POST'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true
   },
-  allowEIO3: true,
-  transports: ['polling', 'websocket'],
-  path: '/socket.io',
   pingTimeout: 60000,
   pingInterval: 25000
 });
 
-// Socket.IO configuration
-io.on('connection', socket => {
-  console.log('Client connected:', socket.id);
+// Socket.IO connection handling
+io.on("connection", socket => {
+  console.log("A user connected:", socket.id);
 
-  // Handle joining rooms
-  socket.on('joinRoom', data => {
-    const {
-      userId,
-      gameId
-    } = data;
-    const roomId = `${gameId}_${userId}`;
-    socket.join(roomId);
-    console.log(`User ${userId} joined room ${roomId}`);
+  // Join a game room
+  socket.on("joinGame", gameId => {
+    socket.join(gameId);
+    console.log(`Client ${socket.id} joined game ${gameId}`);
+    socket.to(gameId).emit("requestCartellaSync");
   });
 
-  // Handle number calls
-  socket.on("numberCalled", data => {
+  // Handle cartella selection
+  socket.on("cartellaSelected", data => {
     const {
       gameId,
       number,
-      userId
+      selected
     } = data;
-    const roomId = `${gameId}_${userId}`;
-    // Only emit to the specific user's room
-    socket.to(roomId).emit("numberCalled", {
-      number
+    console.log("Cartella selected:", data);
+    socket.to(gameId).emit("cartellaSelected", {
+      number,
+      selected
     });
   });
 
   // Handle bet amount updates
+  // Handle bet amount updates
   socket.on("betAmountUpdate", data => {
     const {
       gameId,
-      betAmount,
-      userId
+      betAmount
     } = data;
-    const roomId = `${gameId}_${userId}`;
-    socket.to(roomId).emit("betAmountUpdate", {
+    console.log("Bet amount update:", data);
+    socket.to(gameId).emit("betAmountUpdate", {
       betAmount
     });
   });
@@ -78,45 +70,42 @@ io.on('connection', socket => {
   socket.on("gameTypeUpdate", data => {
     const {
       gameId,
-      gameType,
-      userId
+      gameType
     } = data;
-    const roomId = `${gameId}_${userId}`;
-    socket.to(roomId).emit("gameTypeUpdate", {
+    console.log("Game type update:", data);
+    socket.to(gameId).emit("gameTypeUpdate", {
       gameType
     });
   });
 
-  // Handle modal actions
+  // Handle modal actions (clear, cancel, done)
   socket.on("modalAction", data => {
     const {
       gameId,
-      action,
-      userId
+      action
     } = data;
-    const roomId = `${gameId}_${userId}`;
-    socket.to(roomId).emit("modalAction", {
+    console.log("Modal action:", data);
+    socket.to(gameId).emit("modalAction", {
       action
     });
   });
 
-  // Handle cartella sync
+  // Handle bet amount changes
+
+  // Handle cartella sync requests
   socket.on("syncCartellas", data => {
     const {
       gameId,
-      cartellas,
-      userId
+      selections,
+      betAmount
     } = data;
-    const roomId = `${gameId}_${userId}`;
-    socket.to(roomId).emit("syncCartellas", {
-      cartellas
+    socket.to(gameId).emit("syncCartellas", {
+      selections,
+      betAmount
     });
   });
-  socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
-  });
-  socket.on('error', error => {
-    console.error('Socket error:', error);
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
   });
 });
 
@@ -129,10 +118,10 @@ mongoose.connect(process.env.MONGO).then(() => {
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://164.92.181.109:3000', 'https://lotterybingoet.com'],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*',
+  // Allow all origins
+  methods: ['GET', 'POST'],
+  credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());

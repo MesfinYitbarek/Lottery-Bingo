@@ -555,44 +555,19 @@ class BingoGame extends Component {
     
     // this.socket=io("/api");
     
-    const { currentUser } = this.props;
-    const socketUrl = window.location.hostname.includes('localhost') 
-      ? 'http://localhost:4000'
-      : 'https://lotterybingoet.com:4000'; // Connect directly to your server IP
+    // const { currentUser } = this.props;
 
-    this.socket = io(socketUrl, {
-      transports: ['polling', 'websocket'],
-      secure: false, // Changed to false since we're using http
-      rejectUnauthorized: false,
+    this.socket = io("http://192.168.1.4:4000", {
+      transports: ['websocket', 'polling'],
       cors: {
-        origin: true,
+        origin: "*",
         credentials: true
       },
       reconnection: true,
-      reconnectionAttempts: 10,
+      reconnectionAttempts: 5,
       reconnectionDelay: 1000,
       reconnectionDelayMax: 5000,
-      timeout: 20000,
-      forceNew: true
-    });
-
-    // Add connection event handlers
-    this.socket.on('connect', () => {
-     alert('Connected to socket server');
-      // Join a room specific to this user
-      this.socket.emit('joinRoom', {
-        userId: currentUser._id,
-        gameId: this.gameId
-      });
-    });
-
-    this.socket.on('connect_error', (error) => {
-      alert('Socket connection error:', error.message);
-    });
-
-    // Add transport change listener
-    this.socket.on('reconnect_attempt', () => {
-    alert('Attempting reconnection...');
+      timeout: 20000
     });
   
     // Generate a game ID (could be based on room/session)
@@ -604,67 +579,68 @@ class BingoGame extends Component {
       this.socket.emit('joinGame', this.gameId);
     });
   
+
     this.socket.on('connect_error', (error) => {
-    //  alert('Connection error:', error);
-    });
-  
-    this.socket.on('disconnect', (reason) => {
-      // alert('Disconnected:', reason);
-    });
-  
-    // Socket event listeners
-    this.socket.on("cartellaSelected", (data) => {
-      const { number, selected } = data;
-      this.setState((prevState) => ({
-        isRed: {
-          ...prevState.isRed,
-          [`isRed${number}`]: selected,
-        },
-        cardCount: selected ? prevState.cardCount + 1 : prevState.cardCount - 1,
-        amount: selected ? prevState.amount + prevState.betAmount : prevState.amount - prevState.betAmount,
-      }));
-    }); 
-    this.socket.on("betAmountUpdate", (data) => {
-      const { betAmount } = data;
-      this.setState({
-        betAmount,
-        amount: betAmount * this.state.cardCount
+      //  alert('Connection error:', error);
       });
-    });
     
-    this.socket.on("gameTypeUpdate", (data) => {
-      const { gameType } = data;
-      this.setState({
-        manualEnteredCut: gameType,
-        manualCut: gameType !== ''
+      this.socket.on('disconnect', (reason) => {
+        // alert('Disconnected:', reason);
       });
-    });
     
-    this.socket.on("modalAction", (data) => {
-      const { action } = data;
-      let resetIsRed = {};  // Moved outside case block
+      // Socket event listeners
+      this.socket.on("cartellaSelected", (data) => {
+        const { number, selected } = data;
+        this.setState((prevState) => ({
+          isRed: {
+            ...prevState.isRed,
+            [`isRed${number}`]: selected,
+          },
+          cardCount: selected ? prevState.cardCount + 1 : prevState.cardCount - 1,
+          amount: selected ? prevState.amount + prevState.betAmount : prevState.amount - prevState.betAmount,
+        }));
+      }); 
+      this.socket.on("betAmountUpdate", (data) => {
+        const { betAmount } = data;
+        this.setState({
+          betAmount,
+          amount: betAmount * this.state.cardCount
+        });
+      });
       
-      switch(action) {
-        case 'cancel':
-          this.setState({ showstartModal: false });
-          break;
-        case 'clear':
-          this.state.availableCartellas.forEach(cartella => {
-            resetIsRed[`isRed${cartella.id}`] = false;
-          });
-          this.setState({
-            isRed: resetIsRed,
-            cardCount: 0,
-            selectedCards: [],
-            amount: 0,
-            enteredCartella: "",
-          });
-          break;
-        case 'done':
-          this.setState({ showstartModal: false });
-          break;
-      }
-    });  
+      this.socket.on("gameTypeUpdate", (data) => {
+        const { gameType } = data;
+        this.setState({
+          manualEnteredCut: gameType,
+          manualCut: gameType !== ''
+        });
+      });
+      
+      this.socket.on("modalAction", (data) => {
+        const { action } = data;
+        let resetIsRed = {};  // Moved outside case block
+        
+        switch(action) {
+          case 'cancel':
+            this.setState({ showstartModal: false });
+            break;
+          case 'clear':
+            this.state.availableCartellas.forEach(cartella => {
+              resetIsRed[`isRed${cartella.id}`] = false;
+            });
+            this.setState({
+              isRed: resetIsRed,
+              cardCount: 0,
+              selectedCards: [],
+              amount: 0,
+              enteredCartella: "",
+            });
+            break;
+          case 'done':
+            this.setState({ showstartModal: false });
+            break;
+        }
+      });
      this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
