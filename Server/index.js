@@ -1,6 +1,7 @@
 // Server/index.js
 import express from "express";
 import http from "http";
+import https from "https";
 import { Server } from "socket.io";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -12,11 +13,26 @@ import creditRouter from "./routes/credit.js";
 import salesRouter from "./routes/sales.js";
 import branchRouter from "./routes/Agent.js";
 import path from "path";
+import fs from "fs";
+
 
 dotenv.config();
 const __dirname = path.resolve();
 const app = express();
-const server = http.createServer(app);
+// const server = http.createServer(app);
+let server;
+try {
+  const options = {
+    cert: fs.readFileSync('/etc/letsencrypt/live/lotterybingoet.com/fullchain.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/lotterybingoet.com/privkey.pem')
+  };
+  server = https.createServer(options, app);
+  console.log('HTTPS server created successfully');
+} catch (error) {
+  console.error('Error loading SSL certificates:', error.message);
+  console.log('Falling back to HTTP server');
+  server = http.createServer(app);
+}
 
 // Configure Socket.IO with CORS
 const io = new Server(server, {
@@ -26,7 +42,7 @@ const io = new Server(server, {
     credentials: true
   },
   pingTimeout: 60000,
-  pingInterval: 25000,
+  pingInterval: 25000
 });
 
 // Socket.IO connection handling
@@ -43,7 +59,7 @@ io.on("connection", (socket) => {
   // Handle cartella selection
   socket.on("cartellaSelected", (data) => {
     const { gameId, number, selected } = data;
-    console.log("Cartella selected:", data);
+console.log ("Cartella selected:", data);
     socket.to(gameId).emit("cartellaSelected", { number, selected });
   });
 
