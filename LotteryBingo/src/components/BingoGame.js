@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import withBalance from "./WithBalance.js";
 import Slider from "rc-slider";
 import Select from "react-select";
-import  io  from "socket.io-client";
+// import  io  from "socket.io-client";
 import {
   updateUserStart,
   updateUserSuccess,
@@ -557,91 +557,92 @@ class BingoGame extends Component {
     
     // const { currentUser } = this.props;
 
-    const socketUrl = window.location.hostname.includes('localhost') 
-    ? 'http://localhost:4000'  // Local development
-    : `${window.location.protocol}//${window.location.hostname}:4000`; // Production
+    // const socketUrl = window.location.hostname.includes('localhost') 
+    // ? 'http://localhost:4000'  // Local development
+    // : `${window.location.protocol}//${window.location.hostname}:4000`; // Production
   
-  this.socket = io(socketUrl, {
-    transports: ['websocket', 'polling'],
-    secure: true,  // Enable secure connection
-    rejectUnauthorized: false,
-    cors: {
-      origin: "*",
-      credentials: true
-    },
-    reconnection: true,
-    reconnectionAttempts: 5,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax: 5000,
-    timeout: 20000
-  });
+  // this.socket = io(socketUrl, {
+  //   transports: ['websocket', 'polling'],
+  //   secure: true,  // Enable secure connection
+  //   rejectUnauthorized: false,
+  //   cors: {
+  //     origin: "*",
+  //     credentials: true
+  //   },
+  //   reconnection: true,
+  //   reconnectionAttempts: 5,
+  //   reconnectionDelay: 1000,
+  //   reconnectionDelayMax: 5000,
+  //   timeout: 20000
+  // });
 
     // Add connection logging
-    this.socket.on('connect', () => {
-      // alert('Socket connected successfully');
-    });
+    // this.socket.on('connect', () => {
+    //   // alert('Socket connected successfully');
+    // });
 
-    this.socket.on('connect_error', (error) => {
-      // alert('Socket connection error:', error);
-    });
+    // this.socket.on('connect_error', (error) => {
+    //   // alert('Socket connection error:', error);
+    // });
     
-      this.socket.on('disconnect', (reason) => {
-        // alert('Disconnected:', reason);
-      });
+    //   this.socket.on('disconnect', (reason) => {
+    //     // alert('Disconnected:', reason);
+    //   });
     
-      // Socket event listeners
-      this.socket.on("cartellaSelected", (data) => {
-        const { number, selected } = data;
-        this.setState((prevState) => ({
-          isRed: {
-            ...prevState.isRed,
-            [`isRed${number}`]: selected,
-          },
-          cardCount: selected ? prevState.cardCount + 1 : prevState.cardCount - 1,
-          amount: selected ? prevState.amount + prevState.betAmount : prevState.amount - prevState.betAmount,
-        }));
-      }); 
-      this.socket.on("betAmountUpdate", (data) => {
-        const { betAmount } = data;
-        this.setState({
-          betAmount,
-          amount: betAmount * this.state.cardCount
-        });
-      });
+    //   // Socket event listeners
+    //   this.socket.on("cartellaSelected", (data) => {
+    //     const { number, selected } = data;
+    //     this.setState((prevState) => ({
+    //       isRed: {
+    //         ...prevState.isRed,
+    //         [`isRed${number}`]: selected,
+    //       },
+    //       cardCount: selected ? prevState.cardCount + 1 : prevState.cardCount - 1,
+    //       amount: selected ? prevState.amount + prevState.betAmount : prevState.amount - prevState.betAmount,
+    //     }));
+    //   }); 
+    //   this.socket.on("betAmountUpdate", (data) => {
+    //     const { betAmount } = data;
+    //     this.setState({
+    //       betAmount,
+    //       amount: betAmount * this.state.cardCount
+    //     });
+    //   });
       
-      this.socket.on("gameTypeUpdate", (data) => {
-        const { gameType } = data;
-        this.setState({
-          manualEnteredCut: gameType,
-          manualCut: gameType !== ''
-        });
-      });
+    //   this.socket.on("gameTypeUpdate", (data) => {
+    //     const { gameType } = data;
+    //     this.setState({
+    //       manualEnteredCut: gameType,
+    //       manualCut: gameType !== ''
+    //     });
+    //   });
       
-      this.socket.on("modalAction", (data) => {
-        const { action } = data;
-        let resetIsRed = {};  // Moved outside case block
+    //   this.socket.on("modalAction", (data) => {
+    //     const { action } = data;
+    //     let resetIsRed = {};  // Moved outside case block
         
-        switch(action) {
-          case 'cancel':
-            this.setState({ showstartModal: false });
-            break;
-          case 'clear':
-            this.state.availableCartellas.forEach(cartella => {
-              resetIsRed[`isRed${cartella.id}`] = false;
-            });
-            this.setState({
-              isRed: resetIsRed,
-              cardCount: 0,
-              selectedCards: [],
-              amount: 0,
-              enteredCartella: "",
-            });
-            break;
-          case 'done':
-            this.setState({ showstartModal: false });
-            break;
-        }
-      });
+    //     switch(action) {
+    //       case 'cancel':
+    //         this.setState({ showstartModal: false });
+    //         break;
+    //       case 'clear':
+    //         this.state.availableCartellas.forEach(cartella => {
+    //           resetIsRed[`isRed${cartella.id}`] = false;
+    //         });
+    //         this.setState({
+    //           isRed: resetIsRed,
+    //           cardCount: 0,
+    //           selectedCards: [],
+    //           amount: 0,
+    //           enteredCartella: "",
+    //         });
+    //         break;
+    //       case 'done':
+    //         this.setState({ showstartModal: false });
+    //         break;
+    // 
+      //   }
+      // });
      this.enteredCartella = "";
     this.isLoading = false;
     this.amount = 0;
@@ -985,45 +986,45 @@ maleOromic:false,
     }
     this.amount = this.state.cutBalance;
     // this.setState({sales:this.state.sales});
-    this.socket.emit("requestCartellaSync");
+    // this.socket.emit("requestCartellaSync");
 
-    this.socket.on("betAmountChanged", (data) => {
-      const { betAmount } = data;
-      this.setState({ betAmount });
-    });
+    // this.socket.on("betAmountChanged", (data) => {
+    //   const { betAmount } = data;
+    //   this.setState({ betAmount });
+    // });
 
-    this.socket.on("gameTypeChanged", (data) => {
-      const { manualCut, manualEnteredCut } = data;
-      this.setState({ 
-        manualCut,
-        manualEnteredCut
-      });
-    });
+    // this.socket.on("gameTypeChanged", (data) => {
+    //   const { manualCut, manualEnteredCut } = data;
+    //   this.setState({ 
+    //     manualCut,
+    //     manualEnteredCut
+    //   });
+    // });
 
-    this.socket.on("gameAction", (data) => {
-      const { action, state } = data;
-      switch(action) {
-        case 'clear':
-          this.resetButtonStates();
-          break;
-        case 'cancel':
-          this.togglestartModal();
-          break;
-        case 'done':
-          if (state) {
-            this.setState(state);
-          }
-          break;
-      }
-    });
+    // this.socket.on("gameAction", (data) => {
+    //   const { action, state } = data;
+    //   switch(action) {
+    //     case 'clear':
+    //       this.resetButtonStates();
+    //       break;
+    //     case 'cancel':
+    //       this.togglestartModal();
+    //       break;
+    //     case 'done':
+    //       if (state) {
+    //         this.setState(state);
+    //       }
+    //       break;
+    //   }
+    // });
   }
 
   componentWillUnmount() {
     // Clean up the event listener
     window.removeEventListener('keydown', this.handleKeyDown);
-    if (this.socket) {
-      this.socket.disconnect();
-    }
+    // if (this.socket) {
+    //   this.socket.disconnect();
+    // }
   }
 
   handleKeyDown = (event) => {
@@ -3048,11 +3049,11 @@ if (this.state.doubleCall) {
         }));
 
         // Emit socket event for cartella selection
-        this.socket.emit("cartellaSelected", {
-          gameId: this.gameId,
-          number: cartellaNumber,
-          selected: true
-        });
+        // this.socket.emit("cartellaSelected", {
+        //   gameId: this.gameId,
+        //   number: cartellaNumber,
+        //   selected: true
+        // });
     }
   };
 
@@ -3078,11 +3079,11 @@ if (this.state.doubleCall) {
       }));
 
       // Emit socket event for cartella selection
-      this.socket.emit("cartellaSelected", {
-        gameId: this.gameId,
-        number: enteredCartella,
-        selected: true
-      });
+      // this.socket.emit("cartellaSelected", {
+      //   gameId: this.gameId,
+      //   number: enteredCartella,
+      //   selected: true
+      // });
     } else {
       alert('Please enter a valid number.');
     }
@@ -3102,11 +3103,11 @@ if (this.state.doubleCall) {
     }));
 
  // Log the emitted event
- this.socket.emit("cartellaSelected", { 
-  gameId: this.gameId,
-  number,
-  selected: true 
-});
+//  this.socket.emit("cartellaSelected", { 
+//   gameId: this.gameId,
+//   number,
+//   selected: true 
+// });
 };
 
 decrementCard = (number) => {
@@ -3123,11 +3124,11 @@ decrementCard = (number) => {
       amount: effectiveBetAmount * (prevState.cardCount - 1), // Use effectiveBetAmount
     }));
   }
-  this.socket.emit("cartellaSelected", { 
-    gameId: this.gameId,
-    number,
-    selected: false 
-  });
+  // this.socket.emit("cartellaSelected", { 
+  //   gameId: this.gameId,
+  //   number,
+  //   selected: false 
+  // });
 };
 
   get startConfirmationModalDisplay() {
@@ -3291,10 +3292,10 @@ decrementCard = (number) => {
     });
   
     // Emit to other clients
-    this.socket.emit("modalAction", {
-      gameId: this.gameId,
-      action: 'clear'
-    });
+    // this.socket.emit("modalAction", {
+    //   gameId: this.gameId,
+    //   action: 'clear'
+    // });
   };
 
   fetchAvailableCartellas = async () => {
@@ -3320,11 +3321,11 @@ decrementCard = (number) => {
       });
 
       // Emit game type change
-      this.socket.emit("gameTypeChanged", {
-        gameId: this.gameId,
-        manualCut: e.target.checked,
-        manualEnteredCut: this.state.manualEnteredCut
-      });
+      // this.socket.emit("gameTypeChanged", {
+      //   gameId: this.gameId,
+      //   manualCut: e.target.checked,
+      //   manualEnteredCut: this.state.manualEnteredCut
+      // });
     }
   };
   handleCutChange = (e) => {
@@ -3335,10 +3336,10 @@ decrementCard = (number) => {
     });
   
     // Emit to other clients
-    this.socket.emit("gameTypeUpdate", {
-      gameId: this.gameId,
-      gameType
-    });
+    // this.socket.emit("gameTypeUpdate", {
+    //   gameId: this.gameId,
+    //   gameType
+    // });
   };
   handleBetAmountChange = (e) => {
     const betAmount = e.target.value;
@@ -3348,10 +3349,10 @@ decrementCard = (number) => {
     });
   
     // Emit to other clients
-    this.socket.emit("betAmountUpdate", {
-      gameId: this.gameId,
-      betAmount
-    });
+    // this.socket.emit("betAmountUpdate", {
+    //   gameId: this.gameId,
+    //   betAmount
+    // });
   };
   handleCardCountChange = (e) => {
     const cardCount = parseInt(e.target.value) || 0;
