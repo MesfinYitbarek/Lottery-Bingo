@@ -557,33 +557,32 @@ class BingoGame extends Component {
     
     // const { currentUser } = this.props;
 
-    const socketUrl = window.location.hostname.includes('localhost') 
-    ? 'http://localhost:4000'  // Local development
-    : `${window.location.protocol}//${window.location.hostname}:4000`; // Production
-  
-  this.socket = io(socketUrl, {
-    transports: ['websocket', 'polling'],
-    secure: true,  // Enable secure connection
-    rejectUnauthorized: false,
-    cors: {
-      origin: "*",
-      credentials: true
-    },
-    reconnection: true,
-    reconnectionAttempts: 5,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax: 5000,
-    timeout: 20000
-  });
-
-    // Add connection logging
-    this.socket.on('connect', () => {
-      alert('Socket connected successfully');
+    this.socket = io("http://192.168.1.4:4000", {
+      transports: ['websocket', 'polling'],
+      cors: {
+        origin: "*",
+        credentials: true
+      },
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000
     });
+  
+    // Generate a game ID (could be based on room/session)
+    this.gameId = props.gameId || 'default-game';
+  
+    // Add connection event handlers
+    this.socket.on('connect', () => {
+      // alert('Connected to server');
+      this.socket.emit('joinGame', this.gameId);
+    });
+  
 
     this.socket.on('connect_error', (error) => {
-      alert('Socket connection error:', error);
-    });
+      //  alert('Connection error:', error);
+      });
     
       this.socket.on('disconnect', (reason) => {
         // alert('Disconnected:', reason);
