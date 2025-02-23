@@ -28,7 +28,7 @@ try {
   console.log('HTTPS server created successfully');
 } catch (error) {
   console.error('Error loading SSL certificates:', error.message);
-  alert('Falling back to HTTP server');
+  console.log('Falling back to HTTP server');
   server = http.createServer(app);
 }
 
@@ -61,7 +61,7 @@ io.on("connection", socket => {
       number,
       selected
     } = data;
-    alert("Cartella selected:", data);
+    console.log("Cartella selected:", data);
     socket.to(gameId).emit("cartellaSelected", {
       number,
       selected

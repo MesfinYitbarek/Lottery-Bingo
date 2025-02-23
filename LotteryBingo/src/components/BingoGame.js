@@ -557,24 +557,14 @@ class BingoGame extends Component {
     
     // const { currentUser } = this.props;
 
-    const socketUrl = window.location.hostname.includes('localhost') 
-      ? 'http://localhost:4000'  // Local development
-      : `${window.location.protocol}//${window.location.hostname}:4000`; // Production - uses same protocol (http/https) as the page
-
-    this.socket = io(socketUrl, {
-      transports: ['websocket', 'polling'],
-      secure: true,  // Enable secure connection
-      rejectUnauthorized: false,
-      cors: {
-        origin: "*",
-        credentials: true
-      },
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
-      timeout: 20000
-    });
+    const socketURL = window.location.protocol === 'https:' 
+    ? 'wss://lotterybingoet.com'
+    : 'ws://localhost:4000';
+  
+  this.socket = io(socketURL, {
+    transports: ['websocket', 'polling'],
+    secure: true
+  });
 
     // Add connection logging
     this.socket.on('connect', () => {

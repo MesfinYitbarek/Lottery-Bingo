@@ -15,6 +15,7 @@ import branchRouter from "./routes/Agent.js";
 import path from "path";
 import fs from "fs";
 
+
 dotenv.config();
 const __dirname = path.resolve();
 const app = express();
@@ -29,7 +30,7 @@ try {
   console.log('HTTPS server created successfully');
 } catch (error) {
   console.error('Error loading SSL certificates:', error.message);
-  alert('Falling back to HTTP server');
+  console.log('Falling back to HTTP server');
   server = http.createServer(app);
 }
 
@@ -58,7 +59,7 @@ io.on("connection", (socket) => {
   // Handle cartella selection
   socket.on("cartellaSelected", (data) => {
     const { gameId, number, selected } = data;
-   alert("Cartella selected:", data);
+console.log ("Cartella selected:", data);
     socket.to(gameId).emit("cartellaSelected", { number, selected });
   });
 
