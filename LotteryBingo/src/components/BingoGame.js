@@ -2538,10 +2538,10 @@ if (this.state.doubleCall) {
       const balanceNeww=res.data.balance;
     
     this.setState({balanceNew:balanceNeww});
-    this.socket.emit("modalAction", {
-      gameId: this.gameId,
-      action: 'cancel'
-    });
+    // this.socket.emit("modalAction", {
+    //   gameId: this.gameId,
+    //   action: 'cancel'
+    // });
   };
 
 
@@ -2619,10 +2619,10 @@ if (this.state.doubleCall) {
   };
 
   confirmstartGame = async () => {
-    this.socket.emit("modalAction", {
-      gameId: this.gameId,
-      action: 'done'
-    });
+    // this.socket.emit("modalAction", {
+    //   gameId: this.gameId,
+    //   action: 'done'
+    // });
     const { currentUser } = this.props;
     const { balance } = this.props;
     const minBetAmount = this.state.betAmountmin;
