@@ -578,11 +578,11 @@ class BingoGame extends Component {
 
     // Add connection logging
     this.socket.on('connect', () => {
-      alert('Socket connected successfully');
+      // alert('Socket connected successfully');
     });
 
     this.socket.on('connect_error', (error) => {
-      alert('Socket connection error:', error);
+      // alert('Socket connection error:', error);
     });
     
       this.socket.on('disconnect', (reason) => {
