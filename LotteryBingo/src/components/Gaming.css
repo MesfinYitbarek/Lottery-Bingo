@@ -355,3 +355,24 @@ body.night-mode .cartela-buttons button {
   border: none;
   border-radius: 5px;
 }
+.clear-container {
+  position: relative; /* Make this a positioning context */
+  display: inline-block; /* Align items horizontally */
+}
+
+.cartella-count {
+  position: absolute; /* Position it relative to the container */
+  top: 50%; /* Center it vertically */
+  right: -30px; /* Adjust as needed to position it next to the button */
+  transform: translateY(-50%); /* Fine-tune vertical centering */
+  background-color: rgba(0, 0, 0, 0.7); /* Optional: Add a background for readability */
+  color: white; /* Text color */
+  padding: 5px 10px; /* Padding around the number */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 12px; /* Adjust font size */
+  visibility: hidden; /* Initially hide the count */
+}
+
+.clear-container:hover .cartella-count {
+  visibility: visible; /* Show on hover */
+}

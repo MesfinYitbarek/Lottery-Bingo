@@ -3223,12 +3223,18 @@ decrementCard = (number) => {
         Done
       </button>
    
-      <button
+      <div className="clear-container">
+  <button
     className='clearBtn'
     onClick={this.resetButtonStates}
->
+  >
     Clear
-</button>
+  </button>
+  <span className="cartella-count">
+    {this.state.cardCount}
+  </span>
+</div>
+
             </p>
             <h2>select cartela</h2>
             <span className='notranslate'>
