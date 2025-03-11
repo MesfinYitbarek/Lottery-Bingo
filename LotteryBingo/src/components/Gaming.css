@@ -376,3 +376,20 @@ body.night-mode .cartela-buttons button {
 .clear-container:hover .cartella-count {
   visibility: visible; /* Show on hover */
 }
+.warning-text {
+  animation: pulse 2s infinite;
+  font-size: 18px;
+  color: red;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
