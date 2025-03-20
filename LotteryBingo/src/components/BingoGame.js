@@ -1892,7 +1892,7 @@ class BingoGame extends Component {
           setTimeout(() => {
             let soundtmAgain = new Audio(maletigrigna[ball.number]);
             soundtmAgain.play();
-          }, 2000); // Delay before playing the sound again
+          }, 3000); // Delay before playing the sound again
         }
       }
     } else {
