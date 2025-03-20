@@ -1991,7 +1991,60 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      } else if (this.state.extraTalk) {
+      } 
+      
+      
+         
+      else if (this.state.maletigrigna) {
+        // First sound
+        let firstSound = new Audio(tigplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare);
+          } else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare); // Sound for other pattern
+          } else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          } else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          } else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          } else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          } else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          } else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          } else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          } else {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      
+      
+      
+      else if (this.state.extraTalk) {
         let firstSound = new Audio(oroplaystart);
 
         // Play the first sound
@@ -2292,7 +2345,63 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      } else if (this.state.extraTalk) {
+      }
+      
+      
+      
+      
+      
+      else if (this.state.maletigrigna) {
+        // First sound
+        let firstSound = new Audio(tigplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare);
+          } else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare); // Sound for other pattern
+          } else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          } else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          } else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          } else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          } else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          } else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          } else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          } else {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      
+      
+      
+      
+      else if (this.state.extraTalk) {
         let firstSound = new Audio(oroplaystart);
 
         // Play the first sound
