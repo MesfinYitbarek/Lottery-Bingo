@@ -496,6 +496,81 @@ import seventyfourmo from './O74MO.mp3';
 import seventyfivemo from './O75MO.mp3';
 
 
+import onetm from './B1TM.wav';
+import twotm from './B2TM.wav';
+import threetm from './B3TM.wav';
+import fourtm from './B4TM.wav';
+import fivetm from './B5TM.wav';
+import sixtm from './B6TM.wav';
+import seventm from './B7TM.wav';
+import eighttm from './B8TM.wav';
+import ninetm from './B9TM.wav';
+import tentm from './B10TM.wav';
+import eleventm from './B11TM.wav';
+import twelvetm from './B12TM.wav';
+import thirteentm from './B13TM.wav';
+import fourteentm from './B14TM.wav';
+import fifteentm from './B15TM.wav';
+import sixteentm from './I16TM.wav';
+import seventeentm from './I17TM.wav';
+import eighteentm from './I18TM.wav';
+import nineteentm from './I19TM.wav';
+import twentytm from './I20TM.wav';
+import twentyonetm from './I21TM.wav';
+import twentytwotm from './I22TM.wav';
+import twentythreetm from './I23TM.wav';
+import twentyfourtm from './I24TM.wav';
+import twentyfivetm from './I25TM.wav';
+import twentysixtm from './I26TM.wav';
+import twentyseventm from './I27TM.wav';
+import twentyeighttm from './I28TM.wav';
+import twentyninetm from './I29TM.wav';
+import thirttm from './I30TM.wav';
+import thirtyonetm from './N31TM.wav';
+import thirtytwotm from './N32TM.wav';
+import thirtythreetm from './N33TM.wav';
+import thirtyfourtm from './N34TM.wav';
+import thirtyfivetm from './N35TM.wav';
+import thirtysixtm from './N36TM.wav';
+import thirtyseventm from './N37TM.wav';
+import thirtyeighttm from './N38TM.wav';
+import thirtyninetm from './N39TM.wav';
+import fortytm from './N40TM.wav';
+import fortyonetm from './N41TM.wav';
+import fortytwotm from './N42TM.wav';
+import fortythreetm from './N43TM.wav';
+import fortyfourtm from './N44TM.wav';
+import fortyfivetm from './N45TM.wav';
+import fortysixtm from './G46TM.wav';
+import fortyseventm from './G47TM.wav';
+import fortyeighttm from './G48TM.wav';
+import fortyninetm from './G49TM.wav';
+import fiftytm from './G50TM.wav';
+import fiftyonetm from './G51TM.wav';
+import fiftytwotm from './G52TM.wav';
+import fiftythreetm from './G53TM.wav';
+import fiftyfourtm from './G54TM.wav';
+import fiftyfivetm from './G55TM.wav';
+import fiftysixtm from './G56TM.wav';
+import fiftyseventm from './G57TM.wav';
+import fiftyeighttm from './G58TM.wav';
+import fiftyninetm from './G59TM.wav';
+import sixtym from './G60TM.wav';
+import sixtyonetm from './O61TM.wav';
+import sixtytwotm from './O62TM.wav';
+import sixtythreetm from './O63TM.wav';
+import sixtyfourtm from './O64TM.wav';
+import sixtyfivetm from './O65TM.wav';
+import sixtysixtm from './O66TM.wav';
+import sixtyseventm from './O67TM.wav';
+import sixtyeighttm from './O68TM.wav';
+import sixtyninetm from './O69TM.wav';
+import seventym from './O70TM.wav';
+import seventyonetm from './O71TM.wav';
+import seventytwotm from './O72TM.wav';
+import seventythreetm from './O73TM.wav';
+import seventyfourtm from './O74TM.wav';
+import seventyfivetm from './O75TM.wav';
 
 
 
@@ -537,5 +612,13 @@ export {  verticalLine,
    twentyfourmo, twentyfivemo, twentysixmo, twentysevenmo, twentyeightmo, twentyninemo, thirtymo, thirtyonemo, thirtytwomo, thirtythreemo, thirtyfourmo, thirtyfivemo, thirtysixmo, thirtysevenmo, thirtyeightmo,
    thirtyninemo, fortymo, fortyonemo, fortytwomo, fortythreemo, fortyfourmo, fortyfivemo, fortysixmo, fortysevenmo, fortyeightmo, fortyninemo, fiftymo, fiftyonemo, fiftytwomo, fiftythreemo, fiftyfourmo, fiftyfivemo,
     fiftysixmo, fiftysevenmo, fiftyeightmo, fiftyninemo, sixtymo, sixtyonemo, sixtytwomo, sixtythreemo, sixtyfourmo, sixtyfivemo, sixtysixmo, sixtysevenmo, sixtyeightmo, sixtyninemo, seventymo, seventyonemo, seventytwomo, seventythreemo, seventyfourmo, seventyfivemo,
+
+
+    onetm, twotm, threetm, fourtm, fivetm, sixtm, seventm, eighttm, ninetm, tentm, eleventm, twelvetm, thirteentm, fourteentm, fifteentm, sixteentm, seventeentm, eighteentm, nineteentm,
+     twentytm, twentyonetm, twentytwotm, twentythreetm, twentyfourtm, twentyfivetm, twentysixtm, twentyseventm, twentyeighttm, twentyninetm, thirttm, thirtyonetm, thirtytwotm, thirtythreetm, 
+     thirtyfourtm, thirtyfivetm, thirtysixtm, thirtyseventm, thirtyeighttm, thirtyninetm, fortytm, fortyonetm, fortytwotm, fortythreetm, fortyfourtm, fortyfivetm, fortysixtm, fortyseventm,
+      fortyeighttm, fortyninetm, fiftytm, fiftyonetm, fiftytwotm, fiftythreetm, fiftyfourtm, fiftyfivetm, fiftysixtm, fiftyseventm, fiftyeighttm, fiftyninetm, sixtym, sixtyonetm, sixtytwotm,
+       sixtythreetm, sixtyfourtm, sixtyfivetm, sixtysixtm, sixtyseventm, sixtyeighttm, sixtyninetm, seventym, seventyonetm, seventytwotm, seventythreetm, seventyfourtm, seventyfivetm
+
 
 };
