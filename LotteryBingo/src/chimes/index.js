@@ -419,6 +419,93 @@ import seventyfourfo from './O74O.mp3';
 import seventyfivefo from './O75O.mp3';
 
 
+
+// B1-B15
+import onear from './B1ar.wav';
+import twoar from './B2ar.wav';
+import threear from './B3ar.wav';
+import fourar from './B4ar.wav';
+import fivear from './B5ar.wav';
+import sixar from './B6ar.wav';
+import sevenar from './B7ar.wav';
+import eightar from './B8ar.wav';
+import ninear from './B9ar.wav';
+import tenar from './B10ar.wav';
+import elevenar from './B11ar.wav';
+import twelvear from './B12ar.wav';
+import thirteenar from './B13ar.wav';
+import fourteenar from './B14ar.wav';
+import fifteenar from './B15ar.wav';
+
+// I16-I30
+import sixteenar from './I16ar.wav';
+import seventeenar from './I17ar.wav';
+import eighteenar from './I18ar.wav';
+import nineteenar from './I19ar.wav';
+import twentyar from './I20ar.wav';
+import twentyonear from './I21ar.wav';
+import twentytwoar from './I22ar.wav';
+import twentythreear from './I23ar.wav';
+import twentyfourar from './I24ar.wav';
+import twentyfivear from './I25ar.wav';
+import twentysixar from './I26ar.wav';
+import twentysevenar from './I27ar.wav';
+import twentyeightar from './I28ar.wav';
+import twentyninear from './I29ar.wav';
+import thirtyar from './I30ar.wav';
+
+// N31-N45
+import thirtyonear from './N31ar.wav';
+import thirtytwoar from './N32ar.wav';
+import thirtythreear from './N33ar.wav';
+import thirtyfourar from './N34ar.wav';
+import thirtyfivear from './N35ar.wav';
+import thirtysixar from './N36ar.wav';
+import thirtysevenar from './N37ar.wav';
+import thirtyeightar from './N38ar.wav';
+import thirtyninear from './N39ar.wav';
+import fortyar from './N40ar.wav';
+import fortyonear from './N41ar.wav';
+import fortytwoar from './N42ar.wav';
+import fortythreear from './N43ar.wav';
+import fortyfourar from './N44ar.wav';
+import fortyfivear from './N45ar.wav';
+
+// G46-G60
+import fortysixar from './G46ar.wav';
+import fortysevenar from './G47ar.wav';
+import fortyeightar from './G48ar.wav';
+import fortyninear from './G49ar.wav';
+import fiftyar from './G50ar.wav';
+import fiftyonear from './G51ar.wav';
+import fiftytwoar from './G52ar.wav';
+import fiftythreear from './G53ar.wav';
+import fiftyfourar from './G54ar.wav';
+import fiftyfivear from './G55ar.wav';
+import fiftysixar from './G56ar.wav';
+import fiftysevenar from './G57ar.wav';
+import fiftyeightar from './G58ar.wav';
+import fiftyninear from './G59ar.wav';
+import sixtyar from './G60ar.wav';
+
+// O61-O75
+import sixtyonear from './O61ar.wav';
+import sixtytwoar from './O62ar.wav';
+import sixtythreear from './O63ar.wav';
+import sixtyfourar from './O64ar.wav';
+import sixtyfivear from './O65ar.wav';
+import sixtysixar from './O66ar.wav';
+import sixtysevenar from './O67ar.wav';
+import sixtyeightar from './O68ar.wav';
+import sixtyninear from './O69ar.wav';
+import seventyar from './O70ar.wav';
+import seventyonear from './O71ar.wav';
+import seventytwoar from './O72ar.wav';
+import seventythreear from './O73ar.wav';
+import seventyfourar from './O74ar.wav';
+import seventyfivear from './O75ar.wav';
+
+
 import onemo from './B1MO.mp3'; 
 import twomo from './B2MO.mp3';
 import threemo from './B3MO.mp3';
@@ -618,7 +705,16 @@ export {  verticalLine,
      twentytm, twentyonetm, twentytwotm, twentythreetm, twentyfourtm, twentyfivetm, twentysixtm, twentyseventm, twentyeighttm, twentyninetm, thirttm, thirtyonetm, thirtytwotm, thirtythreetm, 
      thirtyfourtm, thirtyfivetm, thirtysixtm, thirtyseventm, thirtyeighttm, thirtyninetm, fortytm, fortyonetm, fortytwotm, fortythreetm, fortyfourtm, fortyfivetm, fortysixtm, fortyseventm,
       fortyeighttm, fortyninetm, fiftytm, fiftyonetm, fiftytwotm, fiftythreetm, fiftyfourtm, fiftyfivetm, fiftysixtm, fiftyseventm, fiftyeighttm, fiftyninetm, sixtym, sixtyonetm, sixtytwotm,
-       sixtythreetm, sixtyfourtm, sixtyfivetm, sixtysixtm, sixtyseventm, sixtyeighttm, sixtyninetm, seventym, seventyonetm, seventytwotm, seventythreetm, seventyfourtm, seventyfivetm
+       sixtythreetm, sixtyfourtm, sixtyfivetm, sixtysixtm, sixtyseventm, sixtyeighttm, sixtyninetm, seventym, seventyonetm, seventytwotm, seventythreetm, seventyfourtm, seventyfivetm,
+
+
+
+
+       onear, twoar, threear, fourar, fivear, sixar, sevenar, eightar, ninear, tenar, elevenar, twelvear, thirteenar, fourteenar, fifteenar, sixteenar, seventeenar, eighteenar, nineteenar, 
+       twentyar, twentyonear, twentytwoar, twentythreear, twentyfourar, twentyfivear, twentysixar, twentysevenar, twentyeightar, twentyninear, thirtyar, thirtyonear, thirtytwoar, thirtythreear, 
+       thirtyfourar, thirtyfivear, thirtysixar, thirtysevenar, thirtyeightar, thirtyninear, fortyar, fortyonear, fortytwoar, fortythreear, fortyfourar, fortyfivear, fortysixar, fortysevenar,
+        fortyeightar, fortyninear, fiftyar, fiftyonear, fiftytwoar, fiftythreear, fiftyfourar, fiftyfivear, fiftysixar, fiftysevenar, fiftyeightar, fiftyninear, sixtyar, sixtyonear, sixtytwoar,
+         sixtythreear, sixtyfourar, sixtyfivear, sixtysixar, sixtysevenar, sixtyeightar, sixtyninear, seventyar, seventyonear, seventytwoar, seventythreear, seventyfourar, seventyfivear,
 
 
 };

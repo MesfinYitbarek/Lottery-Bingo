@@ -603,6 +603,81 @@ import {
   seventythreetm,
   seventyfourtm,
   seventyfivetm,
+  onear,
+  twoar,
+  threear,
+  fourar,
+  fivear,
+  sixar,
+  sevenar,
+  eightar,
+  ninear,
+  tenar,
+  elevenar,
+  twelvear,
+  thirteenar,
+  fourteenar,
+  fifteenar,
+  sixteenar,
+  seventeenar,
+  eighteenar,
+  nineteenar,
+  twentyar,
+  twentyonear,
+  twentytwoar,
+  twentythreear,
+  twentyfourar,
+  twentyfivear,
+  twentysixar,
+  twentysevenar,
+  twentyeightar,
+  twentyninear,
+  thirtyar,
+  thirtyonear,
+  thirtytwoar,
+  thirtythreear,
+  thirtyfourar,
+  thirtyfivear,
+  thirtysixar,
+  thirtysevenar,
+  thirtyeightar,
+  thirtyninear,
+  fortyar,
+  fortyonear,
+  fortytwoar,
+  fortythreear,
+  fortyfourar,
+  fortyfivear,
+  fortysixar,
+  fortysevenar,
+  fortyeightar,
+  fortyninear,
+  fiftyar,
+  fiftyonear,
+  fiftytwoar,
+  fiftythreear,
+  fiftyfourar,
+  fiftyfivear,
+  fiftysixar,
+  fiftysevenar,
+  fiftyeightar,
+  fiftyninear,
+  sixtyar,
+  sixtyonear,
+  sixtytwoar,
+  sixtythreear,
+  sixtyfourar,
+  sixtyfivear,
+  sixtysixar,
+  sixtysevenar,
+  sixtyeightar,
+  sixtyninear,
+  seventyar,
+  seventyonear,
+  seventytwoar,
+  seventythreear,
+  seventyfourar,
+  seventyfivear,
 } from "../chimes";
 
 import Header from "./common/Header.js";
@@ -762,6 +837,7 @@ class BingoGame extends Component {
       { label: "tigrigna-female", value: "tig-fem" },
       { label: "oromigna-male", value: "maleOromic" },
       { label: "tigrigna-male", value: "maletigrigna" },
+      { label: "arada", value: "arada" },
     ];
 
     this.colors = [
@@ -963,7 +1039,8 @@ class BingoGame extends Component {
       skipUnused: false,
       wildBingo: false,
       maleOromic: false,
-      maletigrigna:false,
+      maletigrigna: false,
+      arada : false,
       tigrigna: false,
       wolayta: false,
       doubleCall: false,
@@ -1804,8 +1881,6 @@ class BingoGame extends Component {
         }
       }
     } else if (this.state.maletigrigna) {
-      //   let sound2 = new Audio(two);
-      //   sound2.play();
       const maletigrigna = [
         chime1,
         onetm,
@@ -1891,6 +1966,96 @@ class BingoGame extends Component {
           // Play the sound again
           setTimeout(() => {
             let soundtmAgain = new Audio(maletigrigna[ball.number]);
+            soundtmAgain.play();
+          }, 3000); // Delay before playing the sound again
+        }
+      }
+    } else if (this.state.arada) {
+      const arada = [
+        chime1,
+        onear,
+        twoar,
+        threear,
+        fourar,
+        fivear,
+        sixar,
+        sevenar,
+        eightar,
+        ninear,
+        tenar,
+        elevenar,
+        twelvear,
+        thirteenar,
+        fourteenar,
+        fifteenar,
+        sixteenar,
+        seventeenar,
+        eighteenar,
+        nineteenar,
+        twentyar,
+        twentyonear,
+        twentytwoar,
+        twentythreear,
+        twentyfourar,
+        twentyfivear,
+        twentysixar,
+        twentysevenar,
+        twentyeightar,
+        twentyninear,
+        thirtyar,
+        thirtyonear,
+        thirtytwoar,
+        thirtythreear,
+        thirtyfourar,
+        thirtyfivear,
+        thirtysixar,
+        thirtysevenar,
+        thirtyeightar,
+        thirtyninear,
+        fortyar,
+        fortyonear,
+        fortytwoar,
+        fortythreear,
+        fortyfourar,
+        fortyfivear,
+        fortysixar,
+        fortysevenar,
+        fortyeightar,
+        fortyninear,
+        fiftyar,
+        fiftyonear,
+        fiftytwoar,
+        fiftythreear,
+        fiftyfourar,
+        fiftyfivear,
+        fiftysixar,
+        fiftysevenar,
+        fiftyeightar,
+        fiftyninear,
+        sixtyar,
+        sixtyonear,
+        sixtytwoar,
+        sixtythreear,
+        sixtyfourar,
+        sixtyfivear,
+        sixtysixar,
+        sixtysevenar,
+        sixtyeightar,
+        sixtyninear,
+        seventyar,
+        seventyonear,
+        seventytwoar,
+        seventythreear,
+        seventyfourar,
+        seventyfivear,
+      ];
+      if (ball.number >= 0 && ball.number <= 75) {
+        let soundtm = new Audio(arada[ball.number]);
+        soundtm.play();
+        if (this.state.doubleTalk) {
+          // Play the sound again
+          setTimeout(() => {
+            let soundtmAgain = new Audio(arada[ball.number]);
             soundtmAgain.play();
           }, 3000); // Delay before playing the sound again
         }
@@ -1991,11 +2156,7 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      } 
-      
-      
-         
-      else if (this.state.maletigrigna) {
+      } else if (this.state.maletigrigna) {
         // First sound
         let firstSound = new Audio(tigplaystart);
 
@@ -2040,11 +2201,7 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      }
-      
-      
-      
-      else if (this.state.extraTalk) {
+      } else if (this.state.extraTalk) {
         let firstSound = new Audio(oroplaystart);
 
         // Play the first sound
@@ -2132,7 +2289,57 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      } else if (this.state.wolayta) {
+      } 
+      
+      else if (this.state.arada) {
+        let firstSound = new Audio(amharicmaleplaystart);
+
+        // Play the first sound
+        firstSound.play();
+
+        // Add an event listener for when the first sound ends
+        firstSound.addEventListener("ended", () => {
+          let secondSound;
+
+          // Check the state to determine which sound to play
+          if (this.state.CS) {
+            secondSound = new Audio(a4cornerSquare);
+          } else if (this.state.MS) {
+            secondSound = new Audio(a4middleSquare); // Sound for other pattern
+          } else if (this.state.FCS) {
+            secondSound = new Audio(a4middleCornerSquare); // Sound for other pattern
+          } else if (this.state.FullHouse) {
+            secondSound = new Audio(fullHouse); // Sound for other pattern
+          } else if (this.state.anyvertical) {
+            secondSound = new Audio(verticalLine); // Sound for other pattern
+          } else if (this.state.anyTwoVertical) {
+            secondSound = new Audio(any2verticalLine); // Sound for other pattern
+          } else if (this.state.anyTwoLines) {
+            secondSound = new Audio(anytwoLine); // Sound for other pattern
+          } else if (this.state.anyTwoHorizontal) {
+            secondSound = new Audio(any2horizontalLine); // Sound for other pattern
+          } else if (this.state.anydiagonal) {
+            secondSound = new Audio(diagonalLine); // Sound for other pattern
+          } else {
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          }
+
+          // Play the second sound
+          secondSound.play();
+
+          // Add an event listener for when the second sound ends
+          secondSound.addEventListener("ended", () => {
+            // Start the game after the second sound ends
+            this.toggleGame();
+            this.setState({ isLoading: false });
+          });
+        });
+      }
+      
+      
+      
+      else if (this.state.wolayta) {
         let firstSound = new Audio(wolplaystart);
 
         // Play the first sound
@@ -2345,13 +2552,7 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      }
-      
-      
-      
-      
-      
-      else if (this.state.maletigrigna) {
+      } else if (this.state.maletigrigna) {
         // First sound
         let firstSound = new Audio(tigplaystart);
 
@@ -2396,12 +2597,7 @@ class BingoGame extends Component {
             this.setState({ isLoading: false });
           });
         });
-      }
-      
-      
-      
-      
-      else if (this.state.extraTalk) {
+      } else if (this.state.extraTalk) {
         let firstSound = new Audio(oroplaystart);
 
         // Play the first sound
@@ -3538,20 +3734,22 @@ class BingoGame extends Component {
           wolayta: false,
           extraTalk: false,
           maletigrigna: false,
+           arada: false,
         });
         break;
 
-        case "maletigrigna":
-          this.setState({
-            enableCaller: false,
-            maleOromic: false,
-            doubleCall: false,
-            tigrigna: false,
-            wolayta: false,
-            extraTalk: false,
-            maletigrigna: true,
-          });
-          break;
+      case "maletigrigna":
+        this.setState({
+          enableCaller: false,
+          maleOromic: false,
+          doubleCall: false,
+          tigrigna: false,
+          wolayta: false,
+          extraTalk: false,
+          maletigrigna: true,
+           arada: false,
+        });
+        break;
 
       case "amh-fem":
         this.setState({
@@ -3562,7 +3760,7 @@ class BingoGame extends Component {
           extraTalk: false,
           maleOromic: false,
           maletigrigna: false,
-
+           arada: false,
         });
         break;
       case "oro-fem":
@@ -3574,7 +3772,7 @@ class BingoGame extends Component {
           wolayta: false,
           maleOromic: false,
           maletigrigna: false,
-
+           arada: false,
         });
         break;
       case "wol-fem":
@@ -3586,7 +3784,7 @@ class BingoGame extends Component {
           tigrigna: false,
           maleOromic: false,
           maletigrigna: false,
-
+           arada: false,
         });
         break;
       case "tig-fem":
@@ -3598,7 +3796,7 @@ class BingoGame extends Component {
           extraTalk: false,
           maleOromic: false,
           maletigrigna: false,
-
+           arada: false,
         });
         break;
 
@@ -3611,7 +3809,21 @@ class BingoGame extends Component {
           extraTalk: false,
           maleOromic: true,
           maletigrigna: false,
+          arada: false,
+        });
+        break;
 
+
+          case "arada":
+        this.setState({
+          tigrigna: false,
+          wolayta: false,
+          enableCaller: false,
+          doubleCall: false,
+          extraTalk: false,
+          maleOromic: false,
+          maletigrigna: false,
+          arada: true,
         });
         break;
 
